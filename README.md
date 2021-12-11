@@ -4,5 +4,8 @@ Renovation reporter
 ----
 
 ## Local installation ##
-postgres port "5432' should be, or change env. var POSTGRES_PORT in .env file 
-1. docker-compose up
+1. Install githooks in from folder `githooks`
+   (set git comment sign):
+`$> git config --local core.commentChar ';'`
+2. Postgres port "5432' should be, or change env. var POSTGRES_PORT in .env file  
+`$> docker-compose up`
