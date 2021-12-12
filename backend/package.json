@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Play with express framework",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index.js"
+    "start": "node app",
+    "dev": "nodemon app"
   },
   "keywords": [
     "express",
