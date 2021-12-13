@@ -6,9 +6,18 @@
 
 import express from 'express'
 import chalk from 'chalk'
+import {dirname} from 'path';
+import routes from './routes/index.js'
+
+const publicPath = dirname('.') + '/public'
 
 const app = express()
-app.use(express.static('public'))
+
+app.use(express.static(publicPath))
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use('/api', routes)
+
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {
