@@ -7,9 +7,9 @@
 import express from 'express'
 import chalk from 'chalk'
 import {dirname} from 'path';
-import routes from './routes/index.js'
+import routes from './app/routes/index.js'
 
-const publicPath = dirname('.') + '/public'
+const publicPath = 'app/public'
 
 const app = express()
 
