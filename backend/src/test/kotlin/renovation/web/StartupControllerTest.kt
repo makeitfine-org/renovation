@@ -1,3 +1,9 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2021
+ */
+
 package renovation.web
 
 import io.restassured.module.kotlin.extensions.Then

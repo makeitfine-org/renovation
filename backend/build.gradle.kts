@@ -26,6 +26,9 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-devtools")
+    implementation("org.postgresql:postgresql:42.3.1")
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

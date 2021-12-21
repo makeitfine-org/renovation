@@ -7,7 +7,7 @@ Renovation reporter
 Technical configs
 -----
 1. First after cloning repo config githook for project:  
-   Run gradle task from base module `maestro`:  
+   Run gradle task from base module `renovation`:  
    `$> gradle installGitHooks`
 
 2. To init project execute:  

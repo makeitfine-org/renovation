@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MaestroApplication
+class RenovationApplication
 
 fun main(args: Array<String>) {
-    runApplication<MaestroApplication>(*args) {
+    runApplication<RenovationApplication>(*args) {
         setBannerMode(Banner.Mode.OFF)
     }
 }

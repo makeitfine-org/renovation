@@ -41,7 +41,7 @@ tasks.register<Copy>("installGitHooks") {
     description = "copy git hooks to .git/hook folder"
     println(description)
     from(
-        fileTree("${rootProject.rootDir}/gradle/githooks/")
+        fileTree("${rootProject.rootDir}/aux/githooks/")
             .matching {
                 include(*githookFiles)
             })

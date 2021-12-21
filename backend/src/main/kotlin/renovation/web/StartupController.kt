@@ -1,3 +1,9 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2021
+ */
+
 package renovation.web
 
 import lombok.extern.slf4j.Slf4j
@@ -12,7 +18,6 @@ class StartupController(
     @Value("\${spring.application.name}")
     private val applicationName: String
 ) {
-
     @GetMapping("/")
     fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" project"
 }

@@ -1,8 +1,9 @@
 /*
- * "Maestro": Reminder and notepad project.
+ * Created under not commercial project "Renovation"
  *
- * Copyright 2021
+ * Copyright 2021-2021
  */
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
