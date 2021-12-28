@@ -30,7 +30,7 @@ class WorkController(@Autowired val workService: WorkService) {
 
     companion object {
         @JvmStatic
-        private val LOG = LoggerFactory.getLogger(javaClass.enclosingClass)
+        private val LOG = LoggerFactory.getLogger(WorkController::class.java)
     }
 
     @GetMapping
@@ -40,26 +40,26 @@ class WorkController(@Autowired val workService: WorkService) {
     }
 
     @GetMapping("{id}")
-    fun find(@PathVariable id: Long): WorkEntity? {
+    fun find(@PathVariable id: Long): Work {
         LOG.info("find work by id: ${id}")
-        return workService.findById(id).let { it } ?: throw WorkNotFoundException(id)
+        return workService.findById(id)?.let { convert(it) } ?: throw WorkNotFoundException(id)
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody work: Work): WorkEntity {
+    fun create(@RequestBody work: Work) {
         val workEntity = convert(work)
         LOG.info("create work: ${workEntity}")
-        return workService.save(workEntity)
+        workService.save(workEntity)
     }
 
     @PatchMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
-    fun udpate(@PathVariable id: Long, @RequestBody work: Work): WorkEntity {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun update(@PathVariable id: Long, @RequestBody work: Work) {
         val workEntityForUpdate = workService.findById(id)?.let { it } ?: throw WorkNotFoundException(id)
         updateEntity(work, workEntityForUpdate)
         LOG.info("udpate work with id = ${id} work: ${workEntityForUpdate}")
-        return workService.save(workEntityForUpdate)
+        workService.save(workEntityForUpdate)
     }
 
     @DeleteMapping("{id}")

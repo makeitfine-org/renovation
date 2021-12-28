@@ -16,8 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.web.server.LocalServerPort
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
 @Tag("integration")
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class StartupControllerTest(
     @LocalServerPort val port: Int
 ) {

@@ -17,12 +17,19 @@ plugins {
 }
 
 val restAssuredVersion = "4.4.0"
+val testcontainersVersion = "1.16.2"
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+    }
 }
 
 dependencies {
@@ -32,6 +39,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("commons-io:commons-io:2.11.0")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit", module = "junit")
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -49,6 +58,8 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 
     testImplementation("io.rest-assured:kotlin-extensions:${restAssuredVersion}")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:postgresql")
 }
 
 tasks.withType<KotlinCompile> {

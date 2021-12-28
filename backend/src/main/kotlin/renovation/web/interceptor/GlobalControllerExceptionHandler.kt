@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -18,15 +19,22 @@ import renovation.data.exception.WorkNotFoundException
 @Slf4j
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
-    private companion object {
-        val LOG: Logger = LoggerFactory.getLogger(this.javaClass)
+    companion object {
+        private val LOG: Logger = LoggerFactory.getLogger(GlobalControllerExceptionHandler::class.java)
 
-        val WORK_NOT_FOUND = "work not found"
+        const val WORK_NOT_FOUND = "work not found"
+        const val INTERNAL_SERVER_ERROR = "Internal server error (500)"
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(WorkNotFoundException::class)
     fun handleTwinNotFoundException(e: WorkNotFoundException?) {
         LOG.error(WORK_NOT_FOUND, e)
+    }
+
+    @ExceptionHandler(Exception::class)
+    fun handleInternalServerError(e: Exception?): ResponseEntity<*> {
+        LOG.error("internal server error", e)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(INTERNAL_SERVER_ERROR)
     }
 }
