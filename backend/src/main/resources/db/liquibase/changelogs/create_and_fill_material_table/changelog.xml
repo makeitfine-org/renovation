@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Created under not commercial project "Renovation"
+  ~
+  ~ Copyright 2021-2021
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet author="Kores" id="create_material_table" context="dll">
+        <createTable tableName="work">
+            <column autoIncrement="true" name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(120)"/>
+            <column name="desc" type="VARCHAR(480)"/>
+            <column name="delivery_date" type="date"/>
+            <column name="price" type="float"/>
+            <column name="pay_date" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Kores" id="fill_work_table" context="dll">
+        <sqlFile path="sql/fill_material_table.sql" splitStatements="false" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>

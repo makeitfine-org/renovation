@@ -12,7 +12,6 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.commons.io.FileUtils
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -31,7 +30,6 @@ import org.springframework.util.ResourceUtils
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
-import renovation.web.interceptor.GlobalControllerExceptionHandler
 import renovation.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL
@@ -48,7 +46,9 @@ class WorkControllerTest(
     @Autowired val jdbcTemplate: JdbcTemplate
 ) {
     private val FILL_WORK_TABLE_SCRIPT = FileUtils.readFileToString(
-        ResourceUtils.getFile("classpath:db-init-scripts/2_fill_work_table.sql"),
+        ResourceUtils.getFile(
+            "classpath:db/liquibase/changelogs/create_and_fill_work_table/sql/fill_work_table.sql"
+        ),
         StandardCharsets.UTF_8
     )
 
@@ -58,9 +58,6 @@ class WorkControllerTest(
 
         @Container
         private val container: PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>("postgres:13.3-alpine")
-            .apply {
-                withInitScript("db-init-scripts/1_create_tables.sql")
-            }
 
         @JvmStatic
         @DynamicPropertySource
@@ -73,12 +70,8 @@ class WorkControllerTest(
 
     @BeforeEach
     fun fillWorkTable() {
-        jdbcTemplate.execute(FILL_WORK_TABLE_SCRIPT)
-    }
-
-    @AfterEach
-    fun cleanWorkTable() {
         jdbcTemplate.execute("truncate work restart identity")
+        jdbcTemplate.execute(FILL_WORK_TABLE_SCRIPT)
     }
 
     @Test
