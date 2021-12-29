@@ -71,8 +71,8 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform() {
-        excludeTags("smoke", "healthCheck", "integration")
+    useJUnitPlatform {
+        excludeTags("smoke", "healthCheck", "integration", "functional")
     }
     jvmArgs = mutableListOf("--enable-preview")
     maxParallelForks = Runtime.getRuntime().availableProcessors()
@@ -91,7 +91,7 @@ tasks.withType<Test> {
 val healthCheckTest = tasks.register<Test>("healthCheck") {
     description = "Run healthCheck tests"
 
-    useJUnitPlatform() {
+    useJUnitPlatform {
         includeTags("healthCheck")
     }
 
@@ -101,7 +101,7 @@ val healthCheckTest = tasks.register<Test>("healthCheck") {
 val smokeTest = tasks.register<Test>("smokeTest") {
     description = "Run smoke tests"
 
-    useJUnitPlatform() {
+    useJUnitPlatform {
         includeTags("smoke")
     }
 
@@ -111,15 +111,26 @@ val smokeTest = tasks.register<Test>("smokeTest") {
 val intTest = tasks.register<Test>("intTest") {
     description = "Run integration tests"
 
-    useJUnitPlatform() {
+    useJUnitPlatform {
         includeTags("integration")
     }
 
     mustRunAfter(smokeTest)
 }
 
+val functionalTest = tasks.register<Test>("functionalTest") {
+    description = "Run functional tests"
+
+    useJUnitPlatform {
+        includeTags("functional")
+    }
+
+    mustRunAfter(intTest)
+}
+
 tasks.check {
     dependsOn(healthCheckTest)
     dependsOn(smokeTest)
     dependsOn(intTest)
+    dependsOn(functionalTest)
 }

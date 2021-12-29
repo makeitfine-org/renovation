@@ -9,13 +9,12 @@ package renovation.web.controller
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
-import org.apache.commons.io.FileUtils
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
@@ -26,32 +25,23 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.springframework.util.ResourceUtils
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import renovation.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL
-import java.nio.charset.StandardCharsets
 import java.sql.Date
 import java.time.LocalDate
 
+@Tag("functional")
 @Testcontainers
-@Tag("integration")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class WorkControllerTest(
     @LocalServerPort val port: Int,
     @Autowired val jdbcTemplate: JdbcTemplate
 ) {
-    private val FILL_WORK_TABLE_SCRIPT = FileUtils.readFileToString(
-        ResourceUtils.getFile(
-            "classpath:db/liquibase/changelogs/create_and_fill_work_table/sql/fill_work_table.sql"
-        ),
-        StandardCharsets.UTF_8
-    )
-
     companion object {
         private const val WORK_COUNT: Long = 5
         private const val COUNT_WORD = "count"
@@ -68,12 +58,7 @@ class WorkControllerTest(
         }
     }
 
-    @BeforeEach
-    fun fillWorkTable() {
-        jdbcTemplate.execute("truncate work restart identity")
-        jdbcTemplate.execute(FILL_WORK_TABLE_SCRIPT)
-    }
-
+    @Order(0)
     @Test
     fun `container should be run`() {
         jdbcTemplate.isIgnoreWarnings
@@ -84,6 +69,7 @@ class WorkControllerTest(
         url.openConnection() as HttpURLConnection
     }
 
+    @Order(1)
     @Test
     fun findAllWorks_Success() {
         given()
@@ -91,26 +77,13 @@ class WorkControllerTest(
                 get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("[{\"title\":\"air condition installation\",\"desc\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"title\":\"pipe installation\",\"desc\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"title\":\"plaster\",\"desc\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"title\":\"tile sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"title\":\"electrical wiring\",\"desc\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
+                body(CoreMatchers.equalTo("[{\"title\":\"air condition installation\",\"desc\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"title\":\"pipe installation\",\"desc\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"title\":\"plaster\",\"desc\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"title\":\"title sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"title\":\"electrical wiring\",\"desc\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
     }
 
-    @Test
-    fun findOneWork_Success() {
-        val workId = 4
-        given()
-            .When {
-                get("/api/work/${workId}")
-            }.Then {
-                statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("{\"title\":\"tile sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}"))
-
-                checkWorkTableRecordsCount(WORK_COUNT)
-            }
-    }
-
+    @Order(Int.MAX_VALUE)
     @Test
     fun findOneWork_EmptyList_Success() {
         given()
@@ -126,6 +99,22 @@ class WorkControllerTest(
             }
     }
 
+    @Order(1)
+    @Test
+    fun findOneWork_Success() {
+        val workId = 4
+        given()
+            .When {
+                get("/api/work/${workId}")
+            }.Then {
+                statusCode(HttpStatus.SC_OK)
+                body(CoreMatchers.equalTo("{\"title\":\"title sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}"))
+
+                checkWorkTableRecordsCount(WORK_COUNT)
+            }
+    }
+
+    @Order(1)
     @Test
     fun findOneWork_Return404IfWorkNotFound_Fail() {
         val workId = Int.MAX_VALUE
@@ -137,6 +126,7 @@ class WorkControllerTest(
             }
     }
 
+    @Order(1)
     @Test
     fun findOneWork_Return500IfWorkIdFormatIsInvalid_Fail() {
         val workId = "invalidFormatId"
@@ -149,34 +139,7 @@ class WorkControllerTest(
             }
     }
 
-    @Test
-    fun createWork_Success() {
-        given()
-            .When {
-                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": -773.3, \"payDate\": \"2020-11-28\" }")
-                post("/api/work")
-            }.Then {
-                statusCode(HttpStatus.SC_CREATED)
-
-                checkWorkTableRecordsCount(WORK_COUNT + 1)
-            }
-    }
-
-    @Test
-    fun createWork_Return500IfDataFormatIsInvalid_Fail() {
-        val invalidFormatPrice = "773.3a";
-        given()
-            .When {
-                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": $invalidFormatPrice, \"payDate\": \"2020-11-28\" }")
-                post("/api/work")
-            }.Then {
-                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
-
-                checkWorkTableRecordsCount(WORK_COUNT)
-            }
-    }
-
+    @Order(2)
     @Test
     fun updateWork_Success() {
         val workId = 1
@@ -197,6 +160,7 @@ class WorkControllerTest(
             }
     }
 
+    @Order(2)
     @Test
     fun updateWork_Return404IfWorkNotFound_Fail() {
         val workId = Int.MAX_VALUE
@@ -211,6 +175,7 @@ class WorkControllerTest(
             }
     }
 
+    @Order(2)
     @Test
     fun updateWork_Return500IfWorkDataFormatIsInvalid_Fail() {
         val workId = 3
@@ -227,8 +192,41 @@ class WorkControllerTest(
             }
     }
 
+    @Order(30)
+    @Test
+    fun createWork_Success() {
+        given()
+            .When {
+                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": -773.3, \"payDate\": \"2020-11-28\" }")
+                post("/api/work")
+            }.Then {
+                statusCode(HttpStatus.SC_CREATED)
+
+                checkWorkTableRecordsCount(WORK_COUNT + 1)
+            }
+    }
+
+    @Order(31)
+    @Test
+    fun createWork_Return500IfDataFormatIsInvalid_Fail() {
+        val invalidFormatPrice = "773.3a";
+        given()
+            .When {
+                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": $invalidFormatPrice, \"payDate\": \"2020-11-28\" }")
+                post("/api/work")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCount(WORK_COUNT + 1)
+            }
+    }
+
+    @Order(40)
     @Test
     fun deleteWork_Success() {
+        checkWorkTableRecordsCount(WORK_COUNT + 1)
+
         val workId = 2
         given()
             .When {
@@ -236,10 +234,11 @@ class WorkControllerTest(
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
-                checkWorkTableRecordsCount(WORK_COUNT - 1)
+                checkWorkTableRecordsCount(WORK_COUNT)
             }
     }
 
+    @Order(41)
     @Test
     fun deleteWork_Return404IfWorkNotFound_Fail() {
         val workId = Int.MAX_VALUE
@@ -253,6 +252,7 @@ class WorkControllerTest(
             }
     }
 
+    @Order(41)
     @Test
     fun delete_Return500IfWorkIdFormatIsInvalid_Fail() {
         val workId = "3a"
