@@ -7,9 +7,11 @@
 package renovation
 
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 
 @IntegrationTest
-class RenovationApplicationTests {
+@SpringBootTest
+internal class RenovationApplicationTests {
 
     @Test
     fun contextLoads() {

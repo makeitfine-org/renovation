@@ -14,7 +14,7 @@ class Helper {
         fun convert(workEntity: WorkEntity) =
             Work(
                 title = workEntity.title,
-                desc = workEntity.desc,
+                description = workEntity.description,
                 endDate = workEntity.endDate,
                 price = workEntity.price,
                 payDate = workEntity.payDate
@@ -23,7 +23,7 @@ class Helper {
         fun convert(work: Work) =
             WorkEntity(
                 title = work.title?.let { it } ?: throw RuntimeException("title must be defined"),
-                desc = work.desc,
+                description = work.description,
                 endDate = work.endDate,
                 price = work.price,
                 payDate = work.payDate

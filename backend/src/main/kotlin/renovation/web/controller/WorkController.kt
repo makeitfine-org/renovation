@@ -74,7 +74,7 @@ class WorkController(@Autowired val workService: WorkService) {
 
     private fun updateEntity(work: Work, workEntityForUpdate: WorkEntity) {
         work.title?.let { workEntityForUpdate.title = it }
-        work.desc?.let { workEntityForUpdate.desc = it }
+        work.description?.let { workEntityForUpdate.description = it }
         work.endDate?.let { workEntityForUpdate.endDate = it }
         work.price?.let { workEntityForUpdate.price = it }
         work.payDate?.let { workEntityForUpdate.payDate = it }

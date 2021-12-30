@@ -38,7 +38,7 @@ import java.time.LocalDate
 @Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-class WorkControllerTest(
+internal class WorkControllerFunctionalTest(
     @LocalServerPort val port: Int,
     @Autowired val jdbcTemplate: JdbcTemplate
 ) {
@@ -77,7 +77,7 @@ class WorkControllerTest(
                 get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("[{\"title\":\"air condition installation\",\"desc\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"title\":\"pipe installation\",\"desc\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"title\":\"plaster\",\"desc\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"title\":\"title sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"title\":\"electrical wiring\",\"desc\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
+                body(CoreMatchers.equalTo("[{\"title\":\"air condition installation\",\"description\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"title\":\"pipe installation\",\"description\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"title\":\"plaster\",\"description\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"title\":\"electrical wiring\",\"description\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -108,7 +108,7 @@ class WorkControllerTest(
                 get("/api/work/${workId}")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("{\"title\":\"title sticker\",\"desc\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}"))
+                body(CoreMatchers.equalTo("{\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}"))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -145,7 +145,7 @@ class WorkControllerTest(
         val workId = 1
         given()
             .When {
-                body("{\"title\":\"title update\",\"desc\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
+                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
                 patch("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
@@ -155,7 +155,7 @@ class WorkControllerTest(
                 val res = jdbcTemplate.queryForList("select * from work where id=$workId")[0]
                 assertEquals(1L, res["id"])
                 assertEquals("title update", res["title"])
-                assertEquals("desc update", res["desc"])
+                assertEquals("desc update", res["description"])
                 assertEquals(LocalDate.parse("2020-11-18"), (res["pay_date"] as Date).toLocalDate())
             }
     }
@@ -166,7 +166,7 @@ class WorkControllerTest(
         val workId = Int.MAX_VALUE
         given()
             .When {
-                body("{\"title\":\"title update\",\"desc\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
+                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
                 patch("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
@@ -182,7 +182,7 @@ class WorkControllerTest(
         val invalidPayDate = "2020-111-1"
         given()
             .When {
-                body("{\"title\":\"title update\",\"desc\": \"desc update\", \"price\": 773.31, \"payDate\": \"$invalidPayDate\" }")
+                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"$invalidPayDate\" }")
                 patch("/api/work/${workId}")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -197,7 +197,7 @@ class WorkControllerTest(
     fun createWork_Success() {
         given()
             .When {
-                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": -773.3, \"payDate\": \"2020-11-28\" }")
+                body("{\"title\":\"title it\",\"description\": \"desc it\", \"price\": -773.3, \"payDate\": \"2020-11-28\" }")
                 post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_CREATED)
@@ -212,7 +212,7 @@ class WorkControllerTest(
         val invalidFormatPrice = "773.3a";
         given()
             .When {
-                body("{\"title\":\"title it\",\"desc\": \"desc it\", \"price\": $invalidFormatPrice, \"payDate\": \"2020-11-28\" }")
+                body("{\"title\":\"title it\",\"description\": \"desc it\", \"price\": $invalidFormatPrice, \"payDate\": \"2020-11-28\" }")
                 post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)

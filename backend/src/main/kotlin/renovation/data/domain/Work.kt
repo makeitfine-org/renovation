@@ -15,7 +15,7 @@ import java.time.LocalDate
 @Builder
 data class Work(
     val title: String? = null,
-    val desc: String? = null,
+    val description: String? = null,
     val endDate: LocalDate? = null,
     val price: Double? = null,
     val payDate: LocalDate? = null,

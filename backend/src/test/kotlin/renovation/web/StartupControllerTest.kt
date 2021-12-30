@@ -11,12 +11,14 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus.SC_OK
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import renovation.IntegrationTest
 
 
 @IntegrationTest
-class StartupControllerTest(
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+internal class StartupControllerTest(
     @LocalServerPort val port: Int
 ) {
     val portHost = "http://localhost:${port}"

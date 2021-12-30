@@ -16,7 +16,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="VARCHAR(120)"/>
-            <column name="desc" type="VARCHAR(480)"/>
+            <column name="description" type="VARCHAR(480)"/>
             <column name="delivery_date" type="date"/>
             <column name="price" type="float"/>
             <column name="pay_date" type="date"/>

@@ -16,7 +16,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="title" type="VARCHAR(120)"/>
-            <column name="desc" type="VARCHAR(480)"/>
+            <column name="description" type="VARCHAR(480)"/>
             <column name="end_date" type="date"/>
             <column name="price" type="float"/>
             <column name="pay_date" type="date"/>
@@ -29,33 +29,33 @@
     <changeSet author="Kores" id="fill_work_table" context="dll" dbms="postgresql, h2">
         <insert tableName="work">
             <column name="title" value="air condition installation" />
-            <column name="desc" value="" />
+            <column name="description" value="" />
             <column name="end_date" value="2021-10-15"/>
             <column name="price" value="2500"/>
             <column name="pay_date" value="2021-10-15"/>
         </insert>
         <insert tableName="work">
             <column name="title" value="pipe installation" />
-            <column name="desc" value="Andery from Bila Cerkva did it" />
+            <column name="description" value="Andery from Bila Cerkva did it" />
             <column name="end_date" value="2021-10-25"/>
             <column name="price" value="8000"/>
             <column name="pay_date" value="2021-10-30"/>
         </insert>
         <insert tableName="work">
             <column name="title" value="plaster" />
-            <column name="desc" value="Vasyl did it" />
+            <column name="description" value="Vasyl did it" />
             <column name="end_date" value="2021-11-10"/>
         </insert>
         <insert tableName="work">
             <column name="title" value="title sticker" />
-            <column name="desc" value="" />
+            <column name="description" value="" />
             <column name="end_date" value="2021-12-01"/>
             <column name="price" value="33000"/>
             <column name="pay_date" value="2021-12-05"/>
         </insert>
         <insert tableName="work">
             <column name="title" value="electrical wiring" />
-            <column name="desc" value="" />
+            <column name="description" value="" />
             <column name="end_date" value="2021-12-10"/>
             <column name="price" value="8000"/>
         </insert>
