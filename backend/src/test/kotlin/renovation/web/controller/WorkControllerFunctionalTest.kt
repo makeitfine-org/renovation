@@ -267,12 +267,10 @@ internal class WorkControllerFunctionalTest(
             }
     }
 
-    private fun checkWorkTableRecordsCount(count: Long) {
-        assertEquals(
-            count,
-            jdbcTemplate.queryForList("select count(*) from work")[0][COUNT_WORD]
-        )
-    }
+    private fun checkWorkTableRecordsCount(count: Long) = assertEquals(
+        count,
+        jdbcTemplate.queryForList("select count(*) from work")[0][COUNT_WORD]
+    )
 
     private fun given() = Given {
         port(port)
