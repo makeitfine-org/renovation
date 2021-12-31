@@ -3,6 +3,8 @@
 #
 # Copyright 2021-2021
 ##
+server:
+  port: ${PORT:8080}
 
 spring:
   application:
@@ -17,7 +19,7 @@ spring:
     url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/testdb}"
     username: "${POSTGRES_USERNAME:postgres}"
     password: "${POSTGRES_PASSWORD:postgres1}"
-    driverClassName: org.postgresql.Driver
+    driverClassName: "org.postgresql.Driver"
 
   liquibase:
     change-log: db/liquibase/changelog.xml

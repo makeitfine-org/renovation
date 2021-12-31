@@ -6,7 +6,7 @@
 
 plugins {
     base
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.10"
     id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
 }
 

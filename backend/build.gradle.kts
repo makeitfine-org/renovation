@@ -10,16 +10,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("io.spring.dependency-management")
-    kotlin("plugin.spring") version "1.5.31"
+    kotlin("plugin.spring") version "1.6.10"
     id("org.springframework.boot") version "2.5.6"
     //    todo: to be deleted
-    kotlin("plugin.jpa") version "1.5.31"
+    kotlin("plugin.jpa") version "1.6.10"
 }
 
 val restAssuredVersion = "4.4.0"
 val testcontainersVersion = "1.16.2"
 
 java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -66,7 +67,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "15"
+        jvmTarget = "17"
     }
 }
 
