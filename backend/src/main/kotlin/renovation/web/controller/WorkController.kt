@@ -9,6 +9,7 @@ package renovation.web.controller
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -24,6 +25,7 @@ import renovation.data.exception.WorkNotFoundException
 import renovation.data.service.WorkService
 import renovation.data.util.Helper.Companion.convert
 
+@CrossOrigin(origins = ["http://localhost:8081", "http://localhost:8082"])
 @RestController
 @RequestMapping("/api/work")
 class WorkController(@Autowired val workService: WorkService) {

@@ -7,5 +7,7 @@
 <template>
   <div id="app">
     <h1>Hi, it's renovation frontend module</h1>
+    <hr>
+    <router-view/>
   </div>
 </template>
