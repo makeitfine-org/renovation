@@ -10,12 +10,15 @@ const routing = {
     history: createWebHistory(),
     routes: [
         {
-            path: '/',
+            name: 'home',
+            path: '/home',
             component: Home
         },
         {
-            path: '/works',
-            component: () => import('@/component/Works.vue')
+            name: 'work',
+            path: '/work',
+            alias: '/',
+            component: () => import('@/component/Work.vue')
         },
     ]
 }

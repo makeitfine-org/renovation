@@ -34,6 +34,17 @@ Technical configs
 6. app url:  
    https://aqueous-woodland-63249.herokuapp.com/  
 
+###Start frontend locally
+1. run backend for api to work
+2. set env. var `VUE_APP_BACKEND_API_URL` in frontend to backend api
+   (e.g. if backend port is 8090: `export VUE_APP_BACKEND_API_URL=http://localhost:8090/api`)
+
+###Integrate frontend prod build to backend:
+1. On frontend run:  
+`$>npm run build`
+2. copy `dist/*` files to `backend/main/resources/public/*`
+3. Run backend: `http://localhost:<port>/index.html`
+
 See also:  
 https://devcenter.heroku.com/articles/deploying-executable-jar-files  
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
