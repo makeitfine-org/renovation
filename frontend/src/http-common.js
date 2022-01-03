@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const backend_port = 8090
+
+const backendApiUrl = process.env.VUE_APP_BACKEND_API_URL || '/api'
 
 export default axios.create({
-    baseURL: `http://localhost:${backend_port}/api`,
+    baseURL: backendApiUrl,
     headers: {
         "Content-type": "application/json"
     }

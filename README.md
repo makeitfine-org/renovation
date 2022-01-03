@@ -49,3 +49,7 @@ See also:
 https://devcenter.heroku.com/articles/deploying-executable-jar-files  
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
 https://github.com/heroku/heroku-cli-deploy
+
+###Usefull
+1. build backend (skip any kind of test) + run jar (from backend module):
+`$>grcb -x test -x healthCheck -x smokeTest -x intTest -x functionalTest && java -jar build/libs/backend-0.0.1-SNAPSHOT.jar`
