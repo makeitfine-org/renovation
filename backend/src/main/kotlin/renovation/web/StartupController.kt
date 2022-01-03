@@ -18,6 +18,6 @@ class StartupController(
     @Value("\${spring.application.name}")
     private val applicationName: String
 ) {
-    @GetMapping
+    @GetMapping("/project")
     fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" project"
 }

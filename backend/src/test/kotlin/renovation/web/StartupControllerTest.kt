@@ -26,7 +26,7 @@ internal class StartupControllerTest(
     @Test
     fun `Assert startup controller`() {
         When {
-            get(portHost + "/")
+            get(portHost + "/project")
         }.Then {
             statusCode(SC_OK)
             body(CoreMatchers.equalTo("Hi, it's \"Renovation\" project"))

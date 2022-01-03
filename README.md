@@ -53,3 +53,9 @@ https://github.com/heroku/heroku-cli-deploy
 ###Usefull
 1. build backend (skip any kind of test) + run jar (from backend module):
 `$>grcb -x test -x healthCheck -x smokeTest -x intTest -x functionalTest && java -jar build/libs/backend-0.0.1-SNAPSHOT.jar`
+2. build project and copy dist to backend static resources
+`$>gradle clean && gradle :frontend:npmInstall --build-cache && gradle :frontend:npmBuild --build-cache 
+ && gradle :backend:clean --build-cache && gradle :backend:compileJava --build-cache && gradle copyDistToPublic 
+ && gradle :backend:build --build-cache`
+or just  
+`$> gradle all`

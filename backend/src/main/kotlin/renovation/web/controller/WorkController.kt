@@ -25,7 +25,7 @@ import renovation.data.exception.WorkNotFoundException
 import renovation.data.service.WorkService
 import renovation.data.util.Helper.Companion.convert
 
-@CrossOrigin(origins = ["http://localhost:8081", "http://localhost:8082"])
+@CrossOrigin(originPatterns = ["http://localhost:80*"])
 @RestController
 @RequestMapping("/api/work")
 class WorkController(@Autowired val workService: WorkService) {

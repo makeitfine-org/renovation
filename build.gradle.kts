@@ -20,18 +20,49 @@ allprojects {
     }
 }
 
-tasks.register<Exec>("all") {
+tasks.register<GradleBuild>("all") {
     description = "Execute build on modules"
     println(description)
 
-    workingDir(".")
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "clean", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":frontend:npmInstall", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":frontend:npmBuild", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":backend:compileJava", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "copyDistToPublic")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":backend:build", "--build-cache")
+        }
+    }
+}
 
-    commandLine(
-        "gradle",
-        ":backend:clean", "--build-cache",
-        ":backend:build", "--build-cache",
-        ":frontend:npmInstall", "--build-cache"
-    )
+tasks.register<Delete>("removeOldPublic") {
+    delete(
+        fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
+            .matching {
+                include("index.html", "favicon.ico", "css/*.*", "js/*.*")
+            })
+}
+
+tasks.register<Copy>("copyDistToPublic") {
+    from("${rootProject.rootDir}/frontend/dist/")
+    into("${rootProject.rootDir}/backend/src/main/resources/public")
 }
 
 val githookFiles: Array<String> = arrayOf("commit-msg", "pre-push")
