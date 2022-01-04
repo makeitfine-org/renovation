@@ -6,12 +6,17 @@
 
 <template>
   <div id="app">
-    <h1>Hi, it's renovation frontend module</h1>
-    <hr>
-
-    <router-link :to="{ name: 'home' }">Home</router-link>
-    &nbsp;
-    <router-link :to="{ name: 'work' }">Work</router-link>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <router-link to="/" class="navbar-brand">&nbsp; Renovation</router-link>
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name: 'work'}" class="nav-link">Work</router-link>
+        </li>
+      </div>
+    </nav>
 
     <div class="container">
       <router-view/>
