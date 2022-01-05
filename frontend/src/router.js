@@ -15,10 +15,15 @@ const routing = {
             component: Home
         },
         {
-            name: 'work',
+            name: 'workFacade',
             path: '/work',
             alias: '/',
-            component: () => import('@/component/Work.vue')
+            component: () => import('@/component/WorkFacade.vue')
+        },
+        {
+            name: 'addWork',
+            path: '/add/work',
+            component: () => import('@/component/AddWork.vue')
         },
     ]
 }

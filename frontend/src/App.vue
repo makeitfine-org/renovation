@@ -13,7 +13,10 @@
           <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name: 'work'}" class="nav-link">Work</router-link>
+          <router-link :to="{name: 'workFacade'}" class="nav-link">Work</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name: 'addWork'}" class="nav-link">Add Work</router-link>
         </li>
       </div>
     </nav>
@@ -23,3 +26,9 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "app"
+};
+</script>
