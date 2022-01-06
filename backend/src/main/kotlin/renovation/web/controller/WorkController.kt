@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import renovation.data.domain.Work
@@ -36,9 +37,14 @@ class WorkController(@Autowired val workService: WorkService) {
     }
 
     @GetMapping
-    fun list(): List<Work> {
+    fun list(@RequestParam title: String?): List<Work> {
         LOG.info("find all works")
-        return workService.findAll().stream().map { e -> convert(e) }.toList()
+        return if (title.isNullOrBlank())
+            workService.findAll().stream().map { e -> convert(e) }.toList()
+        else {
+            val titleLikePattern = "%" + title.replace(" ", "%") + "%"
+            workService.findByTitleLike(titleLikePattern).stream().map { e -> convert(e) }.toList()
+        }
     }
 
     @GetMapping("{id}")

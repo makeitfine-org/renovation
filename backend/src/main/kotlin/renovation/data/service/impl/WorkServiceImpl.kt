@@ -16,9 +16,11 @@ import renovation.data.service.WorkService
 class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkService {
     override fun findAll() = workRepository.findAll()
 
+    override fun findByTitleLike(titleLikePattern: String) = workRepository.findByTitleLike(titleLikePattern)
+
     override fun findById(id: Long): WorkEntity? = workRepository.findById(id).orElse(null)
 
-    override fun save(entity: WorkEntity) = workRepository.save(entity)
+    override fun save(entity: WorkEntity): WorkEntity = workRepository.save(entity)
 
     override fun delete(id: Long) = workRepository.deleteById(id)
 

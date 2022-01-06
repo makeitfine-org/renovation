@@ -13,4 +13,6 @@ import renovation.data.entity.WorkEntity
 @Repository
 interface WorkRepository : CrudRepository<WorkEntity, Long> {
     override fun findAll(): List<WorkEntity>
+
+    fun findByTitleLike(titleLikePattern: String): List<WorkEntity>
 }

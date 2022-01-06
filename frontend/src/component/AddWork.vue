@@ -83,7 +83,7 @@ export default {
     work: {
       id: null,
       title: '',
-      price: 0,
+      price: null,
       endDate: null,
       payDate: null
     },

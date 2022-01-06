@@ -11,6 +11,8 @@ import renovation.data.entity.WorkEntity
 interface WorkService {
     fun findAll(): List<WorkEntity>
 
+    fun findByTitleLike(titleLikePattern: String): List<WorkEntity>
+
     fun findById(id: Long): WorkEntity?
 
     fun save(entity: WorkEntity): WorkEntity

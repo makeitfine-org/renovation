@@ -9,6 +9,10 @@ class WorkDataService {
     return http.get(`/work/${id}`);
   }
 
+  findByTitle(title) {
+    return http.get(`/work?title=${title}`);
+  }
+
   create(data) {
     return http.post("/work", data);
   }

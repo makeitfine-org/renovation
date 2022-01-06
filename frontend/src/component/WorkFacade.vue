@@ -1,15 +1,32 @@
 <template>
-  <div>
-    <h1>😉 Work page 😉</h1>
-    <div>
-      <h4>Works List</h4>
+  <div class="list row">
+    <div class="col-md-8">
+      <br>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by work"
+               @keyup.enter="searchTitle"
+               v-model="title"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button"
+                  @click="searchTitle"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <h1>😉 Work page 😉</h1>
+      <div>
+        <h4>Works List</h4>
 
-      <Loading v-if="loading"/>
+        <Loading v-if="loading"/>
 
-      <WorkList v-else-if="works.length"
-                :works="works"/>
-      <div v-else>No works</div>
+        <WorkList v-else-if="works.length"
+                  :works="works"/>
+        <div v-else>No works</div>
 
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +57,16 @@ export default {
           .catch(e => {
             console.log(e)
           })
+    },
+    searchTitle() {
+      workDataService.findByTitle(this.title)
+          .then(response => {
+            this.works = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
     }
   },
   mounted() {

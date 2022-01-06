@@ -139,6 +139,12 @@ internal class WorkControllerFunctionalTest(
             }
     }
 
+    @Order(1)
+    @Test
+    fun findByTitleLike_Success() {
+        TODO()
+    }
+
     @Order(2)
     @Test
     fun updateWork_Success() {
