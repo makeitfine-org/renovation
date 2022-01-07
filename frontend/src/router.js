@@ -21,6 +21,11 @@ const routing = {
             component: () => import('@/component/WorkFacade.vue')
         },
         {
+            name: "work-details",
+            path: "/work/:id",
+            component: () => import("@/component/Work")
+        },
+        {
             name: 'addWork',
             path: '/add/work',
             component: () => import('@/component/AddWork.vue')

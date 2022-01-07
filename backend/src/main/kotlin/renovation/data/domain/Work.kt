@@ -14,6 +14,7 @@ import java.time.LocalDate
 @NoArgsConstructor
 @Builder
 data class Work(
+    val id: Long? = null,
     val title: String? = null,
     val description: String? = null,
     val endDate: LocalDate? = null,

@@ -13,6 +13,7 @@ class Helper {
     companion object {
         fun convert(workEntity: WorkEntity) =
             Work(
+                id = workEntity.id,
                 title = workEntity.title,
                 description = workEntity.description,
                 endDate = workEntity.endDate,
@@ -22,6 +23,7 @@ class Helper {
 
         fun convert(work: Work) =
             WorkEntity(
+                id = work.id,
                 title = work.title?.let { it } ?: throw RuntimeException("title must be defined"),
                 description = work.description,
                 endDate = work.endDate,
