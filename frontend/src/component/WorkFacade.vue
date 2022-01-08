@@ -40,6 +40,7 @@ export default {
   name: 'works',
   data: () => ({
     works: [],
+    title: "",
     loading: true,
   }),
   components: {
