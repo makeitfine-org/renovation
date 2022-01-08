@@ -34,18 +34,25 @@
       </div>
 
     </form>
-
-    <button class="badge badge-danger mr-2"
-            @click="deleteWork"
-    >
-      Delete
-    </button>
-    &nbsp;
-    <button type="submit" class="badge badge-success"
-            @click="updateWork"
-    >
-      Update
-    </button>
+    <div style="margin-top: 7px">
+      <button class="badge badge-danger mr-2"
+              @click="deleteWork"
+      >
+        Delete
+      </button>
+      &nbsp;
+      <button type="submit" class="badge badge-success"
+              @click="updateWork"
+      >
+        Update
+      </button>
+      &nbsp;
+      <button type="button" class="badge badge-success"
+              @click="this.$router.push({ name: 'workFacade' })"
+      >
+        Cancel
+      </button>
+    </div>
     <p>{{ message }}</p>
   </div>
 
