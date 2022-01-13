@@ -4,11 +4,11 @@
       <br>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search by work"
-               @keyup.enter="searchTitle"
+               @keyup.enter="searchByTitle"
                v-model="title"/>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button"
-                  @click="searchTitle"
+                  @click="searchByTitle"
           >
             Search
           </button>
@@ -22,10 +22,9 @@
 
         <Loading v-if="loading"/>
 
-        <WorkList v-else-if="works.length"
-                  :works="works"/>
+        <WorkList v-else-if="allWorksCount"
+                  :works="allWorks"/>
         <div v-else>No works</div>
-
       </div>
     </div>
   </div>
@@ -34,40 +33,23 @@
 <script>
 import Loading from "@/component/Loading"
 import WorkList from "@/component/WorkList"
-import workDataService from "@/service/WorkDataService"
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
-  name: 'works',
+  name: 'workFacade',
   data: () => ({
-    works: [],
-    title: "",
-    loading: true,
+    title: ''
   }),
   components: {
     Loading,
     WorkList
   },
+  computed: mapGetters(['allWorks', 'allWorksCount', 'loading']),
   methods: {
-    retrieveWorks() {
-      workDataService.getAll()
-          .then(response => {
-            this.works = response.data
-            console.log(response.data)
-            this.loading = false
-          })
-          .catch(e => {
-            console.log(e)
-          })
-    },
-    searchTitle() {
-      workDataService.findByTitle(this.title)
-          .then(response => {
-            this.works = response.data;
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
+    ...mapActions(['retrieveWorks', 'searchWorksByTitle']),
+    searchByTitle() {
+      this.searchWorksByTitle(this.title)
+      this.title = ''
     }
   },
   mounted() {

@@ -19,6 +19,11 @@ Technical configs
    `$>npm install && npm start`
 5. start mid with live reload pages (instant refresh in browser):  
    `$>DEBUG=mid:* node app.js`
+6. Debug frontend:  
+   start server in debug mode:  
+   `$>node --inspect ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve`
+   connect from Intellij idea: create debug/run config:   
+   "debug javascript" > insert in url: "ws://127.0.0.1:9229/b727369a-1135-480a-9111-ad90f3c40a52" > run it in debug mode
 
 ###Heroku config:
 1. login heroku:  
