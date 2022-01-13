@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import workDataService from "@/service/WorkDataService"
+import {mapActions} from "vuex"
 
 export default {
   name: 'add-work',
@@ -92,29 +92,24 @@ export default {
     submitted: false
   }),
   methods: {
+    ...mapActions(['createWork']),
     saveWork() {
-      const data = {
+      const newWork = {
         title: this.work.title,
         description: this.work.description,
         price: this.work.price,
         endDate: this.work.endDate,
         payDate: this.work.payDate,
-      };
+      }
 
-      workDataService.create(data)
-          .then(response => {
-            this.work.id = response.data.id;
-            console.log(response.data);
-            this.submitted = true;
-          })
-          .catch(e => {
-            console.log(e);
-          });
+      if (this.createWork(newWork)) {
+        this.submitted = true
+      }
     },
 
     newWork() {
-      this.submitted = false;
-      this.work = {};
+      this.submitted = false
+      this.work = {}
     }
   }
 }

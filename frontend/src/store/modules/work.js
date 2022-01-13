@@ -32,14 +32,31 @@ export default {
               .catch(e => {
                 console.log(e);
               });
+        },
+        createWork({commit}, work) {
+            workDataService.create(work)
+                .then(response => {
+                    console.log(response.data);
+                    const newWork = response.data
+
+                    commit('addWork', newWork)
+                    return true
+                })
+                .catch(e => {
+                    console.log(e);
+                    return false
+                })
         }
     },
     mutations: {
+        updateLoading(state, loading) {
+            state.loading = loading
+        },
         updateWorks(state, works) {
             state.works = works
         },
-        updateLoading(state, loading) {
-            state.loading = loading
+        addWork(state, newWork) {
+            state.works.unshift(newWork)
         }
     },
     state: {
