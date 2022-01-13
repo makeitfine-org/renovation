@@ -34,20 +34,20 @@
       </div>
 
     </form>
-    <div style="margin-top: 7px">
-      <button class="badge badge-danger mr-2"
+    <div style="margin-top: 7px;">
+      <button class="badge-light badge-danger mr-2"
               @click="deleteWork"
       >
         Delete
       </button>
       &nbsp;
-      <button type="submit" class="badge badge-success"
+      <button type="submit" class="badge-light badge-success"
               @click="updateWork"
       >
         Update
       </button>
       &nbsp;
-      <button type="button" class="badge badge-success"
+      <button type="button" class="badge-light badge-success"
               @click="this.$router.push({ name: 'workFacade' })"
       >
         Cancel

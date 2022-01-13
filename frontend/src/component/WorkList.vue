@@ -56,6 +56,13 @@
         <div>
           <label><strong>Pay date:</strong></label> {{ currentWork.payDate }}
         </div>
+        <div style="margin-top: 7px;">
+          <button class="badge-light badge-success"
+                  @click="editWork"
+          >
+            Edit
+          </button>
+        </div>
       </div>
       <div v-else>
         <br/>
@@ -82,6 +89,9 @@ export default {
       this.currentWork = work;
       this.currentIndex = index;
     },
+    editWork() {
+      this.$router.push({name: 'work-details', params: {id: this.currentWork.id}})
+    }
   }
 }
 </script>

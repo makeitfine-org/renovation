@@ -63,7 +63,9 @@
         />
       </div>
 
-      <button @click="saveWork" class="btn btn-success">Submit</button>
+      <div style="margin-top: 7px;">
+        <button @click="saveWork" class="btn btn-success">Submit</button>
+      </div>
     </div>
 
     <div v-else>
