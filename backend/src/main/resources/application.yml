@@ -3,6 +3,11 @@
 #
 # Copyright 2021-2021
 ##
+info:
+  app:
+    name: Renovation
+    description: Renovation reporter for workers  and cutomers
+
 server:
   port: ${PORT:8080}
 
@@ -23,3 +28,17 @@ spring:
 
   liquibase:
     change-log: db/liquibase/changelog.xml
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: info,health,env,metrics
+  endpoint:
+    info:
+      enabled: true
+      show-details: always
+    health:
+      enabled: true
+      show-details: always
