@@ -6,7 +6,6 @@
 
 package renovation.data.entity
 
-import lombok.NoArgsConstructor
 import java.time.LocalDate
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -17,7 +16,6 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "work")
-@NoArgsConstructor
 data class WorkEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

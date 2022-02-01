@@ -11,9 +11,10 @@ plugins {
     kotlin("jvm")
     id("io.spring.dependency-management")
     kotlin("plugin.spring") version "1.6.10"
-    id("org.springframework.boot") version "2.5.6"
+    id("org.springframework.boot") version "2.6.3"
     //    todo: to be deleted
     kotlin("plugin.jpa") version "1.6.10"
+    id("org.owasp.dependencycheck") version "6.5.3"
 }
 
 val restAssuredVersion = "4.4.0"
@@ -41,7 +42,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("commons-io:commons-io:2.11.0")
-    implementation("org.liquibase:liquibase-core")
+    implementation("org.liquibase:liquibase-core:4.7.1")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -56,9 +57,12 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
 
     //    todo: to be deleted
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa") {
+        exclude("org.hibernate:hibernate-core")
+    }
+    implementation("org.hibernate:hibernate-core:5.6.5.Final")
     //    todo: to be deleted
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("com.h2database:h2:2.1.210")
 
     testImplementation("io.rest-assured:kotlin-extensions:${restAssuredVersion}")
     testImplementation("org.testcontainers:junit-jupiter")

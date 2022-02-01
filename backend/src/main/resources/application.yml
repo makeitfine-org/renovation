@@ -36,9 +36,9 @@ management:
       exposure:
         include: info,health,env,metrics
   endpoint:
-    info:
-      enabled: true
-      show-details: always
     health:
       enabled: true
       show-details: always
+  info:
+    env:
+      enabled: true

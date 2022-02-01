@@ -9,7 +9,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
 
   datasource:
-    url: "jdbc:h2:mem:testdb;MODE=PostgreSQL"
+    url: "jdbc:h2:mem:testdb;MODE=LEGACY"
     username: "sq"
     password: "password"
     driverClassName: "org.h2.Driver"

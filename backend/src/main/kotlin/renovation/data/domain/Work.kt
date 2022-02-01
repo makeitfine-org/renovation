@@ -6,13 +6,9 @@
 
 package renovation.data.domain
 
-import lombok.Builder
-import lombok.NoArgsConstructor
 import java.time.LocalDate
 
 
-@NoArgsConstructor
-@Builder
 data class Work(
     val id: Long? = null,
     val title: String? = null,
