@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import renovation.data.domain.Work
-import renovation.data.entity.WorkEntity
-import renovation.data.exception.WorkNotFoundException
 import renovation.data.service.WorkService
-import renovation.data.util.Helper.Companion.convert
 
 @CrossOrigin(originPatterns = ["http://localhost:80*"])
 @RestController
@@ -40,51 +37,37 @@ class WorkController(@Autowired val workService: WorkService) {
     fun list(@RequestParam title: String?): List<Work> {
         LOG.info("find all works")
         return if (title.isNullOrBlank())
-            workService.findAll().stream().map { e -> convert(e) }.toList()
+            workService.findAll()
         else {
             val titleLikePattern = "%" + title.replace(" ", "%") + "%"
-            workService.findByTitleLike(titleLikePattern).stream().map { e -> convert(e) }.toList()
+            workService.findByTitleLike(titleLikePattern)
         }
     }
 
     @GetMapping("{id}")
     fun find(@PathVariable id: Long): Work {
         LOG.info("find work by id: ${id}")
-        return workService.findById(id)?.let { convert(it) } ?: throw WorkNotFoundException(id)
+        return workService.findById(id)
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody work: Work) {
-        val workEntity = convert(work)
-        LOG.info("create work: ${workEntity}")
-        workService.save(workEntity)
+        LOG.info("create work: ${work}")
+        workService.save(work)
     }
 
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Long, @RequestBody work: Work) {
-        val workEntityForUpdate = workService.findById(id)?.let { it } ?: throw WorkNotFoundException(id)
-        updateEntity(work, workEntityForUpdate)
-        LOG.info("udpate work with id = ${id} work: ${workEntityForUpdate}")
-        workService.save(workEntityForUpdate)
+        LOG.info("udpate work with id = ${id} work: ${work}")
+        workService.update(id, work)
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long) {
-        if (!workService.existsById(id))
-            throw WorkNotFoundException(id)
-
-        workService.delete(id)
         LOG.info("delete work with id = ${id}")
-    }
-
-    private fun updateEntity(work: Work, workEntityForUpdate: WorkEntity) {
-        work.title?.let { workEntityForUpdate.title = it }
-        work.description?.let { workEntityForUpdate.description = it }
-        work.endDate?.let { workEntityForUpdate.endDate = it }
-        work.price?.let { workEntityForUpdate.price = it }
-        work.payDate?.let { workEntityForUpdate.payDate = it }
+        workService.delete(id)
     }
 }

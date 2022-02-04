@@ -6,18 +6,18 @@
 
 package renovation.data.service
 
-import renovation.data.entity.WorkEntity
+import renovation.data.domain.Work
 
 interface WorkService {
-    fun findAll(): List<WorkEntity>
+    fun findAll(): List<Work>
 
-    fun findByTitleLike(titleLikePattern: String): List<WorkEntity>
+    fun findByTitleLike(titleLikePattern: String): List<Work>
 
-    fun findById(id: Long): WorkEntity?
+    fun findById(id: Long): Work
 
-    fun save(entity: WorkEntity): WorkEntity
+    fun save(work: Work)
+
+    fun update(id: Long, work: Work)
 
     fun delete(id: Long)
-
-    fun existsById(id: Long): Boolean
 }
