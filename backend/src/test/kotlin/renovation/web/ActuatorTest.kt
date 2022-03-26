@@ -13,10 +13,12 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import renovation.IntegrationTest
 
 
 @Tag("smoke")
 @Tag("healthCheck")
+@IntegrationTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ActuatorTest(
     @LocalServerPort val port: Int

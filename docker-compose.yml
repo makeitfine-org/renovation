@@ -6,14 +6,30 @@
 version: '3.7'
 
 services:
-  pg_db:
+  renovation_postgres:
     image: postgres
     restart: always
+    container_name: "renovation_postgres"
+    ports:
+      - "${POSTGRES_LOCALHOST_REDIRECT_PORT}:5432"
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#    volumes:
-#      - "./backend/src/main/resources/db-init-scripts:/docker-entrypoint-initdb.d"
+    volumes:
+      - "./backend/src/main/resources/docker/db-init-scripts:/docker-entrypoint-initdb.d"
+
+  renovation_backend:
+    image: koresmosto/renovation_backend
+    build:
+      context: ./backend
+    restart: always
+    container_name: renovation_backend
+    depends_on:
+      - renovation_postgres
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - 8085:8080
+    environment:
+      POSTGRES_DB_URL: "jdbc:postgresql://renovation_postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

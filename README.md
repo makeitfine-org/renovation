@@ -6,6 +6,34 @@ Renovation reporter
 
 Technical configs
 -----
+###Pre-config env (for start on local db):
+1. Install prostgres db (if not installed) and start it on port: 5432
+2. create db:  
+   name: postgres  
+   schema: renovation  
+   username: postgres
+   password: postgres  
+   (or config env. variables on application.yml datasource:)
+3. start RenovationApplication.kt on backend module
+
+###Pre-config env (for start on docker db):
+1. Install docker and docker-compose (if not installed)  
+2. assemble project (e.g. `$> gradle all`)
+3. make:  
+`$>docker-compose up`
+4. start RenovationApplication.kt on backend module  
+  before set env. vars:  
+  POSTGRES_PASSWORD=postgres1;  
+  POSTGRES_DB_URL=jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation  
+  (or config it in .env file)
+
+###Start application in docker env:
+1. assemble project (or run `$>gradle all`)
+2. make: `$>docker-compose up`
+   or to start in debug mode:
+   `$>docker-compose -f docker-compose.yml -f docker-compose-debug.yml up` 
+3. open application in browser on port 8085
+
 ###Starting work:
 1. First after cloning repo config githook for project:  
    Run gradle task from base module `renovation`:  
@@ -56,11 +84,11 @@ https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
 https://github.com/heroku/heroku-cli-deploy
 
 ###Usefull
-1. build backend (skip any kind of test) + run jar (from backend module):
+1. build backend (skip any kind of test) + run jar (from backend module):  
 `$>grcb -x test -x healthCheck -x smokeTest -x intTest -x functionalTest && java -jar build/libs/backend-0.0.1-SNAPSHOT.jar`
-2. build project and copy dist to backend static resources
+2. build project and copy dist to backend static resources:  
 `$>gradle clean && gradle :frontend:npmInstall --build-cache && gradle :frontend:npmBuild --build-cache 
  && gradle :backend:clean --build-cache && gradle :backend:compileJava --build-cache && gradle copyDistToPublic 
- && gradle :backend:build --build-cache`
+ && gradle :backend:build --build-cache`  
 or just  
 `$> gradle all`

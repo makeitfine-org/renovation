@@ -1,0 +1,12 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2021
+#
+version: '3.7'
+
+services:
+  renovation_backend:
+    ports:
+      - 5005:5005
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar /app.jar
