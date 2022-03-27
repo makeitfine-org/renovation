@@ -8,8 +8,13 @@ import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     id("com.github.node-gradle.node") version "3.0.1"
+    kotlin("jvm") apply false
 }
 
 tasks.register<NpmTask>("npmBuild") {
     args.set(listOf("run", "build"))
+}
+
+dependencyCheck {
+    skip = true
 }

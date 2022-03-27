@@ -13,3 +13,4 @@ pluginManagement {
 rootProject.name = "renovation"
 include("backend")
 include("frontend")
+include("backend-api-test")

@@ -8,15 +8,111 @@ plugins {
     base
     kotlin("jvm") version "1.6.10"
     id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
+    id("org.owasp.dependencycheck") version "7.0.1" apply true
 }
 
-allprojects {
-    group = "renovation"
-    version = "0.0.1-SNAPSHOT"
+group = "renovation"
+version = "0.0.1-SNAPSHOT"
 
+//dependency versions
+//todo: create versions.gradle.kts with dep versions
+
+allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+    }
+}
+
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    apply {
+        plugin("org.owasp.dependencycheck")
+        plugin("kotlin")
+    }
+
+    java.sourceCompatibility = JavaVersion.VERSION_17
+    java.targetCompatibility = JavaVersion.VERSION_17
+
+    dependencyCheck {
+        failBuildOnCVSS = 0f
+    }
+
+    dependencies {
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "17"
+        }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform {
+            excludeTags("smoke", "healthCheck", "integration", "functional")
+        }
+        jvmArgs = mutableListOf("--enable-preview")
+        maxParallelForks = Runtime.getRuntime().availableProcessors()
+
+        testLogging {
+            showStandardStreams = false
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+            afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+                if (desc.parent == null) { // will match the outermost suite
+                    println("Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+                }
+            }))
+        }
+    }
+
+    val healthCheckTest = tasks.register<Test>("healthCheck") {
+        description = "Run healthCheck tests"
+
+        useJUnitPlatform {
+            includeTags("healthCheck")
+        }
+
+        mustRunAfter(tasks.test)
+    }
+
+    val smokeTest = tasks.register<Test>("smokeTest") {
+        description = "Run smoke tests"
+
+        useJUnitPlatform {
+            includeTags("smoke")
+        }
+
+        mustRunAfter(healthCheckTest)
+    }
+
+    val intTest = tasks.register<Test>("intTest") {
+        description = "Run integration tests"
+
+        useJUnitPlatform {
+            includeTags("integration")
+        }
+
+        mustRunAfter(smokeTest)
+    }
+
+    val functionalTest = tasks.register<Test>("functionalTest") {
+        description = "Run functional tests"
+
+        useJUnitPlatform {
+            includeTags("functional")
+        }
+
+        mustRunAfter(intTest)
+    }
+
+    tasks.check {
+        dependsOn(healthCheckTest)
+        dependsOn(smokeTest)
+        dependsOn(intTest)
+        dependsOn(functionalTest)
     }
 }
 
@@ -48,6 +144,10 @@ tasks.register<GradleBuild>("all") {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:build", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "dependencyCheckAnalyze")
         }
     }
 }
