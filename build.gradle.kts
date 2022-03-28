@@ -31,6 +31,7 @@ subprojects {
     apply {
         plugin("org.owasp.dependencycheck")
         plugin("kotlin")
+        from("${rootProject.rootDir}/versions.gradle.kts")
     }
 
     java.sourceCompatibility = JavaVersion.VERSION_17

@@ -14,7 +14,7 @@ plugins {
     kotlin("plugin.jpa") version "1.6.10"
 }
 //todo: to be deleted after api-tests module complete (and test moving)
-val restAssuredVersion = "4.4.0"
+val restAssuredVersion : String by extra
 val testcontainersVersion = "1.16.2"
 
 repositories {
