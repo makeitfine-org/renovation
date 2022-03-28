@@ -4,23 +4,15 @@
  * Copyright 2021-2021
  */
 
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id("io.spring.dependency-management")
-    kotlin("plugin.spring") version "1.6.10"
-    id("org.springframework.boot") version "2.6.5"
-    kotlin("plugin.jpa") version "1.6.10"
+    kotlin("plugin.spring")
+    id("org.springframework.boot")
+    kotlin("plugin.jpa")
 }
 //todo: to be deleted after api-tests module complete (and test moving)
-val restAssuredVersion : String by extra
-val testcontainersVersion = "1.16.2"
-
-repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
-}
+val restAssuredVersion : String by properties
+val testcontainersVersion: String by properties
 
 dependencyManagement {
     imports {

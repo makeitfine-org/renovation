@@ -7,7 +7,7 @@
 import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
-    id("com.github.node-gradle.node") version "3.0.1"
+    id("com.github.node-gradle.node")
     kotlin("jvm") apply false
 }
 

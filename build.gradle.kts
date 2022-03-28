@@ -5,17 +5,16 @@
  */
 
 plugins {
-    base
-    kotlin("jvm") version "1.6.10"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
-    id("org.owasp.dependencycheck") version "7.0.1" apply true
+    kotlin("jvm")
+    id("io.spring.dependency-management") apply false
+    id("org.owasp.dependencycheck") apply true
 }
 
-group = "renovation"
-version = "0.0.1-SNAPSHOT"
+val projectGroup : String by properties
+val projectVersion : String by properties
 
-//dependency versions
-//todo: create versions.gradle.kts with dep versions
+group = "${projectGroup}"
+version = "${projectVersion}"
 
 allprojects {
     repositories {
@@ -31,7 +30,7 @@ subprojects {
     apply {
         plugin("org.owasp.dependencycheck")
         plugin("kotlin")
-        from("${rootProject.rootDir}/versions.gradle.kts")
+        from("${rootProject.rootDir}/extra.gradle.kts")
     }
 
     java.sourceCompatibility = JavaVersion.VERSION_17
@@ -47,13 +46,18 @@ subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "17"
+            jvmTarget = java.targetCompatibility.toString()
         }
     }
 
+    val smokeTag = "smoke"
+    val healthCheckTag = "healthCheck"
+    val integrationTag = "integration"
+    val functionalTag = "functional"
+
     tasks.withType<Test> {
         useJUnitPlatform {
-            excludeTags("smoke", "healthCheck", "integration", "functional")
+            excludeTags("$smokeTag", "$healthCheckTag", "$integrationTag", "$functionalTag")
         }
         jvmArgs = mutableListOf("--enable-preview")
         maxParallelForks = Runtime.getRuntime().availableProcessors()
@@ -73,7 +77,7 @@ subprojects {
         description = "Run healthCheck tests"
 
         useJUnitPlatform {
-            includeTags("healthCheck")
+            includeTags("$healthCheckTag")
         }
 
         mustRunAfter(tasks.test)
@@ -83,7 +87,7 @@ subprojects {
         description = "Run smoke tests"
 
         useJUnitPlatform {
-            includeTags("smoke")
+            includeTags("$smokeTag")
         }
 
         mustRunAfter(healthCheckTest)
@@ -93,7 +97,7 @@ subprojects {
         description = "Run integration tests"
 
         useJUnitPlatform {
-            includeTags("integration")
+            includeTags("$integrationTag")
         }
 
         mustRunAfter(smokeTest)
@@ -103,7 +107,7 @@ subprojects {
         description = "Run functional tests"
 
         useJUnitPlatform {
-            includeTags("functional")
+            includeTags("$functionalTag")
         }
 
         mustRunAfter(intTest)
