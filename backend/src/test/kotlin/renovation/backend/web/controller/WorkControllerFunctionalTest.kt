@@ -78,6 +78,7 @@ internal class WorkControllerFunctionalTest(
                 get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
+                //todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
                 body(CoreMatchers.equalTo("[{\"id\":1,\"title\":\"air condition installation\",\"description\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"id\":2,\"title\":\"pipe installation\",\"description\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"id\":3,\"title\":\"plaster\",\"description\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"id\":4,\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"id\":5,\"title\":\"electrical wiring\",\"description\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
