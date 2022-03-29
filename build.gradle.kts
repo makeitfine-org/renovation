@@ -6,21 +6,13 @@
 
 plugins {
     kotlin("jvm")
-    id("io.spring.dependency-management") apply false
-    id("org.owasp.dependencycheck") apply true
+    id("org.owasp.dependencycheck")
 }
 
-val projectGroup : String by properties
-val projectVersion : String by properties
-
-group = "${projectGroup}"
-version = "${projectVersion}"
+group = properties["projectGroup"]!!
+version = properties["projectVersion"]!!
 
 allprojects {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
 }
 
 subprojects {
@@ -28,96 +20,81 @@ subprojects {
     version = rootProject.version
 
     apply {
-        plugin("org.owasp.dependencycheck")
-        plugin("kotlin")
         from("${rootProject.rootDir}/extra.gradle.kts")
     }
 
-    java.sourceCompatibility = JavaVersion.VERSION_17
-    java.targetCompatibility = JavaVersion.VERSION_17
+    val kotlinBasedSubprojects = arrayOf(
+        properties["moduleBackendName"],
+        properties["moduleBackendapitestName"]
+    )
 
-    dependencyCheck {
-        failBuildOnCVSS = 0f
-    }
-
-    dependencies {
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = java.targetCompatibility.toString()
-        }
-    }
-
-    val smokeTag = "smoke"
-    val healthCheckTag = "healthCheck"
-    val integrationTag = "integration"
-    val functionalTag = "functional"
-
-    tasks.withType<Test> {
-        useJUnitPlatform {
-            excludeTags("$smokeTag", "$healthCheckTag", "$integrationTag", "$functionalTag")
-        }
-        jvmArgs = mutableListOf("--enable-preview")
-        maxParallelForks = Runtime.getRuntime().availableProcessors()
-
-        testLogging {
-            showStandardStreams = false
-            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-            afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-                if (desc.parent == null) { // will match the outermost suite
-                    println("Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
-                }
-            }))
-        }
-    }
-
-    val healthCheckTest = tasks.register<Test>("healthCheck") {
-        description = "Run healthCheck tests"
-
-        useJUnitPlatform {
-            includeTags("$healthCheckTag")
+    if (kotlinBasedSubprojects.contains(project.name)) {
+        apply {
+            plugin("kotlin")
+            plugin("org.owasp.dependencycheck")
         }
 
-        mustRunAfter(tasks.test)
-    }
+        java.sourceCompatibility = JavaVersion.VERSION_17
+        java.targetCompatibility = JavaVersion.VERSION_17
 
-    val smokeTest = tasks.register<Test>("smokeTest") {
-        description = "Run smoke tests"
-
-        useJUnitPlatform {
-            includeTags("$smokeTag")
+        dependencyCheck {
+            failBuildOnCVSS = 0f
         }
 
-        mustRunAfter(healthCheckTest)
-    }
-
-    val intTest = tasks.register<Test>("intTest") {
-        description = "Run integration tests"
-
-        useJUnitPlatform {
-            includeTags("$integrationTag")
+        dependencies {
         }
 
-        mustRunAfter(smokeTest)
-    }
-
-    val functionalTest = tasks.register<Test>("functionalTest") {
-        description = "Run functional tests"
-
-        useJUnitPlatform {
-            includeTags("$functionalTag")
+        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+                jvmTarget = java.targetCompatibility.toString()
+            }
         }
 
-        mustRunAfter(intTest)
-    }
+        val smokeTag = "smoke"
+        val healthCheckTag = "healthCheck"
+        val integrationTag = "integration"
+        val functionalTag = "functional"
 
-    tasks.check {
-        dependsOn(healthCheckTest)
-        dependsOn(smokeTest)
-        dependsOn(intTest)
-        dependsOn(functionalTest)
+        tasks.withType<Test> {
+            useJUnitPlatform {
+                excludeTags("$smokeTag", "$healthCheckTag", "$integrationTag", "$functionalTag")
+            }
+            jvmArgs = mutableListOf("--enable-preview")
+            maxParallelForks = Runtime.getRuntime().availableProcessors()
+
+            testLogging {
+                showStandardStreams = false
+                exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+                afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+                    if (desc.parent == null) { // will match the outermost suite
+                        println("Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+                    }
+                }))
+            }
+        }
+
+        fun testTask(tag: String, mustRunAfter: Any) = tasks.register<Test>(tag) {
+            description = "Run $tag tests"
+
+            useJUnitPlatform {
+                includeTags("$tag")
+            }
+
+            mustRunAfter(mustRunAfter)
+        }
+
+        val healthCheckTest = testTask("healthCheck", tasks.test)
+        val smokeTest = testTask("smoke", healthCheckTest)
+        val intTest = testTask("integration", smokeTest)
+        val functionalTest = testTask("functional", intTest)
+
+        tasks.check {
+            dependsOn(healthCheckTest)
+            dependsOn(smokeTest)
+            dependsOn(intTest)
+            dependsOn(functionalTest)
+        }
     }
 }
 

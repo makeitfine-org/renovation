@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2021
+ * Copyright 2021-2022
  */
 
 plugins {
@@ -11,18 +11,16 @@ plugins {
     kotlin("plugin.jpa")
 }
 //todo: to be deleted after api-tests module complete (and test moving)
-val restAssuredVersion : String by properties
-val testcontainersVersion: String by properties
 
 dependencyManagement {
     imports {
-        mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
     }
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.postgresql:postgresql:42.3.1")
+    implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
 
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
@@ -31,13 +29,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator") {
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
-    implementation("com.fasterxml.jackson:jackson-bom:2.13.2.20220324")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.1")
+    implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("commons-io:commons-io:2.11.0")
-    implementation("org.liquibase:liquibase-core:4.9.0")
+    implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
+    implementation("org.liquibase:liquibase-core:${properties["liquibaseVersion"]}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit", module = "junit")
@@ -47,11 +45,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") {
         exclude("org.hibernate:hibernate-core")
     }
-    implementation("org.hibernate:hibernate-core:5.6.5.Final")
+    implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
     //    todo: to be deleted (if possible)
-    runtimeOnly("com.h2database:h2:2.1.210")
+    runtimeOnly("com.h2database:${properties["h2Version"]}")
 
-    testImplementation("io.rest-assured:kotlin-extensions:${restAssuredVersion}")
+    testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
 }

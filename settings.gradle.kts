@@ -1,8 +1,14 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2021
+ * Copyright 2021-2022
  */
+dependencyResolutionManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
 
 pluginManagement {
     repositories {
@@ -30,6 +36,10 @@ pluginManagement {
 
 rootProject.name = "renovation"
 
-include("backend")
-include("frontend")
-include("backend-api-test")
+val moduleBackendName: String by settings
+val moduleFrontendName: String by settings
+val moduleBackendapitestName: String by settings
+
+include(moduleBackendName)
+include(moduleFrontendName)
+include(moduleBackendapitestName)
