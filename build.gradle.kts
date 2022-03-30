@@ -42,6 +42,12 @@ subprojects {
         }
 
         dependencies {
+            implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
+            implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
+            implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
+
+            testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersion"]}")
+            testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
         }
 
         tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
