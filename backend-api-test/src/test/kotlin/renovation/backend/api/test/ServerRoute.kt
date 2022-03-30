@@ -9,6 +9,9 @@ package renovation.backend.api.test
 import java.util.*
 
 enum class ServerRoute(path: String) {
+    ACTUATOR_HEALTH("actuator/health"),
+    ACTUATOR_INFO("actuator/info"),
+
     API_WORK("api/work"),
     API_WORK_ID("api/work/{id}");
 

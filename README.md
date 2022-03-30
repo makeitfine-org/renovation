@@ -18,7 +18,7 @@ Technical configs
 
 ###Pre-config env (for start on docker db):
 1. Install docker and docker-compose (if not installed)  
-2. assemble project (e.g. `$> gradle all`)
+2. assemble project (e.g. `$> gradle buildall`)
 3. make:  
 `$>docker-compose up`
 4. start RenovationApplication.kt on backend module  
@@ -26,6 +26,8 @@ Technical configs
   POSTGRES_PASSWORD=postgres1;  
   POSTGRES_DB_URL=jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation  
   (or config it in .env file)
+* To make 2-4 steps automatically with test run:  
+`$>gradle all`
 
 ###Start application in docker env:
 1. assemble project (or run `$>gradle all`)

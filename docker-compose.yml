@@ -18,6 +18,8 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - "./backend/src/main/resources/docker/db-init-scripts:/docker-entrypoint-initdb.d"
+    networks:
+      - renovation-nework
 
   renovation_backend:
     image: koresmosto/renovation_backend
@@ -28,8 +30,13 @@ services:
     depends_on:
       - renovation_postgres
     ports:
-      - 8085:8080
+      - ${BACKEND_SERVER_REDIRECT_PORT}:8080
     environment:
       POSTGRES_DB_URL: "jdbc:postgresql://renovation_postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
       POSTGRES_USERNAME: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - renovation-nework
+
+networks:
+  renovation-nework:

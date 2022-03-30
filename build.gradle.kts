@@ -168,6 +168,10 @@ tasks.register<GradleBuild>("all") {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("sleep", "7")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend-api-test:clean", "--build-cache")
         }
         exec {
