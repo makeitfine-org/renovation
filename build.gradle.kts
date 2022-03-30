@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /*
  * "Renovation": Renovation reporter
  *
@@ -48,9 +50,10 @@ subprojects {
 
             testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersion"]}")
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
+            testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
         }
 
-        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        tasks.withType<KotlinCompile> {
             kotlinOptions {
                 freeCompilerArgs = listOf("-Xjsr305=strict")
                 jvmTarget = java.targetCompatibility.toString()
@@ -104,7 +107,9 @@ subprojects {
     }
 }
 
-tasks.register<GradleBuild>("all") {
+val buildall = "buildall"
+
+tasks.register<GradleBuild>(buildall) {
     description = "Execute build on modules"
     println(description)
 
@@ -139,6 +144,41 @@ tasks.register<GradleBuild>("all") {
         }
     }
 }
+
+tasks.register<GradleBuild>("all") {
+    description = "Execute build on modules, run end and execute api tests"
+    println(description)
+
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", buildall)
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker-compose", "down")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker-compose", "build")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker-compose", "up", "-d")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":backend-api-test:clean", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":backend-api-test:build", "--build-cache")
+        }
+    }
+}
+
+//todo: change "all" to "buildall" (add backend-api-test testClasses),
+// but to "all" add docker-compose up and backend-api-test test run
 
 tasks.register<Delete>("removeOldPublic") {
     delete(
