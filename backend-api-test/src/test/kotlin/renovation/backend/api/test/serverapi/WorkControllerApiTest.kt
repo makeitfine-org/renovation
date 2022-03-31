@@ -11,6 +11,8 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
+import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
@@ -23,7 +25,7 @@ import java.util.*
 internal class WorkControllerApiTest {
     companion object {
         @JvmStatic
-        private val objectMapper = ObjectMapper()
+        private val OBJECT_MAPPER = ObjectMapper()
     }
 
     @Test
@@ -112,7 +114,246 @@ internal class WorkControllerApiTest {
             }
     }
 
-    private fun rowJson(prettyJson: String) = objectMapper.readTree(prettyJson).toString()
+    @Test
+    fun `update`() {
+        val id = 4
+        val titleUpdated = "title update 23713311"
+        given()
+            .When {
+                body(
+                    """
+                {
+                   "title":"$titleUpdated",
+                   "description":"desc update",
+                   "price":773.31,
+                   "payDate":"2020-11-18"
+                }
+            """.trimIndent()
+                )
+                    .pathParam("id", "$id")
+                    .patch(ServerRoute.API_WORK_ID.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_NO_CONTENT)
+
+                given()
+                    .When {
+                        queryParam("title", "$titleUpdated")
+                            .get(ServerRoute.API_WORK.route)
+                    }
+                    .Then {
+                        statusCode(HttpStatus.SC_OK)
+
+                        body(
+                            equalTo(
+                                rowJson(
+                                    """
+                            [
+                                {
+                                    "id": $id,
+                                    "title": "$titleUpdated",
+                                    "description": "desc update",
+                                    "endDate": "2021-12-01",
+                                    "price": 773.31,
+                                    "payDate": "2020-11-18"                                    
+                                }
+                            ]
+                        """.trimIndent()
+                                )
+                            )
+                        )
+                    }
+            }
+
+        // Undo update
+        given().body(
+            """
+                {
+                    "title": "title sticker",
+                    "description": "",
+                    "price": 33000.0,
+                    "payDate": "2021-12-05"
+                }
+            """.trimIndent()
+        )
+            .pathParam("id", "$id")
+            .patch(ServerRoute.API_WORK_ID.route)
+    }
+
+    @Test
+    fun `update with not existence id (failed)`() {
+        val id = Int.MIN_VALUE
+        given()
+            .When {
+                body(
+                    """
+                {
+                   "title":"title update"                 
+                }
+            """.trimIndent()
+                )
+                    .pathParam("id", "$id")
+                    .patch(ServerRoute.API_WORK_ID.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_NOT_FOUND)
+            }
+    }
+
+    @Test
+    fun `update with invalid data (failed)`() {
+        val id = 5
+        given()
+            .When {
+                body(
+                    """
+                {
+                   "title":"title update",
+                   "price":773.31a
+                }
+            """.trimIndent()
+                )
+                    .pathParam("id", "$id")
+                    .patch(ServerRoute.API_WORK_ID.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            }
+    }
+
+    @Test
+    fun `create`() {
+        val titleSaved = "title saved 2352321152"
+        given()
+            .When {
+                body(
+                    """
+                {
+                   "title":"$titleSaved",
+                   "description":"desc save",
+                   "price":773.31,
+                   "payDate":"2020-11-28"
+                }
+            """.trimIndent()
+                ).post(ServerRoute.API_WORK.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_CREATED)
+
+                given()
+                    .When {
+                        queryParam("title", "$titleSaved")
+                            .get(ServerRoute.API_WORK.route)
+                    }
+                    .Then {
+                        statusCode(HttpStatus.SC_OK)
+
+                        body(containsString(rowJson("\"title\": \"$titleSaved\"")))
+                        body(containsString(rowJson("\"description\": \"desc save\"")))
+                        body(containsString(rowJson("\"price\": 773.31")))
+                        body(containsString(rowJson("\"payDate\": \"2020-11-28\"")))
+                    }
+            }
+
+        // Undo create
+        val getSavedBody = given()
+            .queryParam("title", "$titleSaved")
+            .get(ServerRoute.API_WORK.route)
+            .body.asString()
+
+        val savedId = OBJECT_MAPPER.readTree(getSavedBody)[0]["id"].asInt()
+        given()
+            .pathParam("id", "$savedId")
+            .delete(ServerRoute.API_WORK_ID.route)
+    }
+
+    @Test
+    fun `crate with invalid data (failed)`() {
+        given()
+            .When {
+                body(
+                    """
+               {
+                   "title":"any title",
+                   "description":"desc save",
+                   "price":773.31,
+                   "payDate":"2020-11-28aaa"
+                }
+            """.trimIndent()
+                )
+                    .post(ServerRoute.API_WORK.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            }
+    }
+
+    @Test
+    fun `delete`() {
+        val titleDeleted = "title deleted 234112343215"
+
+        //prepare work for to be deleted
+        given()
+            .body(
+                """
+                {
+                   "title":"$titleDeleted",
+                   "description":"desc save",
+                   "price":773.31,
+                   "payDate":"2020-11-28"
+                }
+            """.trimIndent()
+            ).post(ServerRoute.API_WORK.route)
+
+        val getDeletedBody = given()
+            .queryParam("title", "$titleDeleted")
+            .get(ServerRoute.API_WORK.route)
+            .body.asString()
+
+        val deletedId = OBJECT_MAPPER.readTree(getDeletedBody)[0]["id"].asInt()
+
+        given()
+            .pathParam("id", "$deletedId")
+            .When {
+                delete(ServerRoute.API_WORK_ID.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_NO_CONTENT)
+
+                assertThat(
+                    given()
+                        .pathParam("id", "$deletedId")
+                        .get(ServerRoute.API_WORK_ID.route)
+                        .statusCode
+                ).isEqualTo(HttpStatus.SC_NOT_FOUND)
+            }
+    }
+
+    @Test
+    fun `delete with not existence id (failed)`() {
+        val workId = Int.MAX_VALUE
+        given()
+            .When {
+                pathParam("id", "$workId")
+                delete(ServerRoute.API_WORK_ID.route)
+            }.Then {
+                statusCode(HttpStatus.SC_NOT_FOUND)
+            }
+    }
+
+    @Test
+    fun `delete with invalid id (failed)`() {
+        val workId = "b3542c"
+        given()
+            .When {
+                pathParam("id", "$workId")
+                delete(ServerRoute.API_WORK_ID.route)
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            }
+    }
+
+    private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 
     private fun given() = Given {
         header("Content-type", "application/json")

@@ -6,6 +6,7 @@
 
 package renovation.backend.web.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
@@ -57,6 +58,9 @@ internal class WorkControllerFunctionalTest(
             registry.add("spring.datasource.password", container::getPassword);
             registry.add("spring.datasource.username", container::getUsername);
         }
+
+        @JvmStatic
+        private val OBJECT_MAPPER = ObjectMapper()
     }
 
     @Order(0)
@@ -79,7 +83,50 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_OK)
                 //todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
-                body(CoreMatchers.equalTo("[{\"id\":1,\"title\":\"air condition installation\",\"description\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"id\":2,\"title\":\"pipe installation\",\"description\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"id\":3,\"title\":\"plaster\",\"description\":\"Vasyl did it\",\"endDate\":\"2021-11-10\",\"price\":null,\"payDate\":null},{\"id\":4,\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"},{\"id\":5,\"title\":\"electrical wiring\",\"description\":\"\",\"endDate\":\"2021-12-10\",\"price\":8000.0,\"payDate\":null}]"))
+                body(CoreMatchers.equalTo(rowJson("""
+                    [
+                       {
+                          "id":1,
+                          "title":"air condition installation",
+                          "description":"",
+                          "endDate":"2021-10-15",
+                          "price":2500.0,
+                          "payDate":"2021-10-15"
+                       },
+                       {
+                          "id":2,
+                          "title":"pipe installation",
+                          "description":"Andery from Bila Cerkva did it",
+                          "endDate":"2021-10-25",
+                          "price":8000.0,
+                          "payDate":"2021-10-30"
+                       },
+                       {
+                          "id":3,
+                          "title":"plaster",
+                          "description":"Vasyl did it",
+                          "endDate":"2021-11-10",
+                          "price":null,
+                          "payDate":null
+                       },
+                       {
+                          "id":4,
+                          "title":"title sticker",
+                          "description":"",
+                          "endDate":"2021-12-01",
+                          "price":33000.0,
+                          "payDate":"2021-12-05"
+                       },
+                       {
+                          "id":5,
+                          "title":"electrical wiring",
+                          "description":"",
+                          "endDate":"2021-12-10",
+                          "price":8000.0,
+                          "payDate":null
+                       }
+                    ]
+                """.trimIndent())))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -110,7 +157,16 @@ internal class WorkControllerFunctionalTest(
                 get("/api/work/${workId}")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("{\"id\":4,\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}"))
+                body(CoreMatchers.equalTo(rowJson("""
+                    {
+                       "id":4,
+                       "title":"title sticker",
+                       "description":"",
+                       "endDate":"2021-12-01",
+                       "price":33000.0,
+                       "payDate":"2021-12-05"
+                    }
+                """.trimIndent())))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -150,7 +206,34 @@ internal class WorkControllerFunctionalTest(
                 get("/api/work?title=${title}")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo("[{\"id\":1,\"title\":\"air condition installation\",\"description\":\"\",\"endDate\":\"2021-10-15\",\"price\":2500.0,\"payDate\":\"2021-10-15\"},{\"id\":2,\"title\":\"pipe installation\",\"description\":\"Andery from Bila Cerkva did it\",\"endDate\":\"2021-10-25\",\"price\":8000.0,\"payDate\":\"2021-10-30\"},{\"id\":4,\"title\":\"title sticker\",\"description\":\"\",\"endDate\":\"2021-12-01\",\"price\":33000.0,\"payDate\":\"2021-12-05\"}]"))
+                body(CoreMatchers.equalTo(rowJson("""
+                    [
+                       {
+                          "id":1,
+                          "title":"air condition installation",
+                          "description":"",
+                          "endDate":"2021-10-15",
+                          "price":2500.0,
+                          "payDate":"2021-10-15"
+                       },
+                       {
+                          "id":2,
+                          "title":"pipe installation",
+                          "description":"Andery from Bila Cerkva did it",
+                          "endDate":"2021-10-25",
+                          "price":8000.0,
+                          "payDate":"2021-10-30"
+                       },
+                       {
+                          "id":4,
+                          "title":"title sticker",
+                          "description":"",
+                          "endDate":"2021-12-01",
+                          "price":33000.0,
+                          "payDate":"2021-12-05"
+                       }
+                    ]    
+                """.trimIndent())))
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -177,7 +260,14 @@ internal class WorkControllerFunctionalTest(
         val workId = 1
         given()
             .When {
-                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
+                body("""
+                    {
+                       "title":"title update",
+                       "description":"desc update",
+                       "price":773.31,
+                       "payDate":"2020-11-18"
+                    }    
+                """.trimIndent())
                 patch("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
@@ -198,7 +288,14 @@ internal class WorkControllerFunctionalTest(
         val workId = Int.MAX_VALUE
         given()
             .When {
-                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"2020-11-18\" }")
+                body("""
+                    {
+                       "title":"title update",
+                       "description":"desc update",
+                       "price":773.31,
+                       "payDate":"2020-11-18"
+                    }
+                """.trimIndent())
                 patch("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
@@ -214,7 +311,14 @@ internal class WorkControllerFunctionalTest(
         val invalidPayDate = "2020-111-1"
         given()
             .When {
-                body("{\"title\":\"title update\",\"description\": \"desc update\", \"price\": 773.31, \"payDate\": \"$invalidPayDate\" }")
+                body("""
+                    {
+                       "title":"title update",
+                       "description":"desc update",
+                       "price":773.31,
+                       "payDate":"$invalidPayDate"
+                    }
+                """.trimIndent())
                 patch("/api/work/${workId}")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -229,7 +333,14 @@ internal class WorkControllerFunctionalTest(
     fun createWork_Success() {
         given()
             .When {
-                body("{\"title\":\"title it\",\"description\": \"desc it\", \"price\": -773.3, \"payDate\": \"2020-11-28\" }")
+                body("""
+                    {
+                       "title":"title it",
+                       "description":"desc it",
+                       "price":-773.3,
+                       "payDate":"2020-11-28"
+                    }
+                """.trimIndent())
                 post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_CREATED)
@@ -244,7 +355,14 @@ internal class WorkControllerFunctionalTest(
         val invalidFormatPrice = "773.3a";
         given()
             .When {
-                body("{\"title\":\"title it\",\"description\": \"desc it\", \"price\": $invalidFormatPrice, \"payDate\": \"2020-11-28\" }")
+                body("""
+                    {
+                       "title":"title it",
+                       "description":"desc it",
+                       "price":"$invalidFormatPrice",
+                       "payDate":"2020-11-28"
+                    }
+                """.trimIndent())
                 post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -308,4 +426,7 @@ internal class WorkControllerFunctionalTest(
         port(port)
             .and().header("Content-type", "application/json")
     }
+
+    //todo: move to util module (shred between modules to use)
+    private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 }

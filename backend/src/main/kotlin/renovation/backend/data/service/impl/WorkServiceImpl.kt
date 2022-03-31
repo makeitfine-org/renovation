@@ -7,6 +7,7 @@
 package renovation.backend.data.service.impl
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import renovation.backend.data.domain.Work
 import renovation.backend.data.entity.WorkEntity
@@ -17,12 +18,21 @@ import renovation.backend.data.util.Helper
 
 @Service
 class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkService {
-    override fun findAll() = workRepository.findAll().stream().map { e -> Helper.convert(e) }.toList()
+    companion object{
+        @JvmStatic
+        private val SORT = Sort.by(Sort.Direction.ASC, "id")
+    }
 
-    override fun findByTitleLike(titleLikePattern: String) = workRepository.findByTitleLike(titleLikePattern)
-        .stream().map { e -> Helper.convert(e) }.toList()
+    override fun findAll() = workRepository
+        .findAll(SORT).stream()
+        .map(Helper::convert).toList()
 
-    override fun findById(id: Long) = workRepository.findById(id).orElse(null)
+    override fun findByTitleLike(titleLikePattern: String) = workRepository
+        .findByTitleLike(titleLikePattern).stream()
+        .map(Helper::convert).toList()
+
+    override fun findById(id: Long) = workRepository
+        .findById(id).orElse(null)
         ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
 
     override fun save(work: Work) {

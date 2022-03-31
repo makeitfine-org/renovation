@@ -190,9 +190,6 @@ tasks.register<GradleBuild>("all") {
     }
 }
 
-//todo: change "all" to "buildall" (add backend-api-test testClasses),
-// but to "all" add docker-compose up and backend-api-test test run
-
 tasks.register<Delete>("removeOldPublic") {
     delete(
         fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
