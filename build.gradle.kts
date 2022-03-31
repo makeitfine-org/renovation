@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     id("org.owasp.dependencycheck")
+    id("idea")
 }
 
 group = properties["projectGroup"]!!
@@ -34,6 +35,7 @@ subprojects {
         apply {
             plugin("kotlin")
             plugin("org.owasp.dependencycheck")
+            plugin("idea")
         }
 
         java.sourceCompatibility = JavaVersion.VERSION_17
@@ -41,6 +43,13 @@ subprojects {
 
         dependencyCheck {
             failBuildOnCVSS = 0f
+        }
+
+        idea {
+            module {
+                isDownloadJavadoc = true
+                isDownloadSources = true
+            }
         }
 
         dependencies {
