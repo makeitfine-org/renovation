@@ -26,7 +26,7 @@ import renovation.backend.data.service.WorkService
 @CrossOrigin(originPatterns = ["http://localhost:80*"])
 @RestController
 @RequestMapping("/api/work")
-class WorkController(@Autowired val workService: WorkService) {
+class WorkController(private val workService: WorkService) {
 
     companion object {
         @JvmStatic

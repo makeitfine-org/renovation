@@ -24,8 +24,8 @@ import java.time.LocalDate
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
 internal class WorkRepositoryTest(
-    @Autowired val entityManager: TestEntityManager,
-    @Autowired val workRepository: WorkRepository
+    @Autowired private val entityManager: TestEntityManager,
+    @Autowired private val workRepository: WorkRepository
 ) {
 
     companion object {

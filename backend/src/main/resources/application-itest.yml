@@ -8,10 +8,11 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
 
+  #todo: h2 can work without this h2 configs. @DataJpaTest up and config h2 automatically
   datasource:
     url: "jdbc:h2:mem:testdb;MODE=LEGACY"
-    username: "sq"
-    password: "password"
+    username: "sa"
+    password: "sa"
     driverClassName: "org.h2.Driver"
 
   h2:
