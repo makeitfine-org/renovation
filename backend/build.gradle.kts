@@ -47,4 +47,5 @@ dependencies {
 
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+    testImplementation("io.mockk:mockk:${properties["mockkVersion"]}")
 }
