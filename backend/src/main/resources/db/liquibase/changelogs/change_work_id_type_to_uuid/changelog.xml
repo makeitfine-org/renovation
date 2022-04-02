@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Created under not commercial project "Renovation"
+  ~
+  ~ Copyright 2021-2022
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet author="Kores" id="addColumn_uuid_type_column" context="dll" dbms="postgresql, h2">
+        <addColumn tableName="work">
+            <column name="new_id" type="uuid"/>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="new_id"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Kores" id="update_add_value_to_uuid_type_column" context="dll" dbms="postgresql, h2">
+        <update tableName="work">
+            <column name="new_id" value="11111111a84545d7aea9ab624172d1c1"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="work">
+            <column name="new_id" value="22222222a84545d7aea9ab624172d1c1"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="work">
+            <column name="new_id" value="33333333a84545d7aea9ab624172d1c1"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="work">
+            <column name="new_id" value="44444444a84545d7aea9ab624172d1c1"/>
+            <where>id = 4</where>
+        </update>
+        <update tableName="work">
+            <column name="new_id" value="55555555a84545d7aea9ab624172d1c1"/>
+            <where>id = 5</where>
+        </update>
+        <rollback/>
+    </changeSet>
+
+    <changeSet author="Kores" id="drop_old_id_primary_key_with_column" context="dll" dbms="postgresql, h2">
+        <dropPrimaryKey constraintName="work_pkey"
+                        dropIndex="true"
+                        tableName="work"/>
+        <dropColumn tableName="work">
+            <column name="id"/>
+        </dropColumn>
+    </changeSet>
+
+    <changeSet author="Kores" id="add_new_primary_key_with_column_rename" context="dll" dbms="postgresql, h2">
+        <addNotNullConstraint columnName="new_id"
+                              tableName="work"
+                              validate="true"/>
+        <addPrimaryKey columnNames="new_id"
+                       constraintName="pk_work_id"
+                       tableName="work"
+                       validate="true"/>
+        <rollback/>
+        <renameColumn newColumnName="id"
+                      oldColumnName="new_id"
+                      tableName="work"/>
+        <rollback/>
+    </changeSet>
+</databaseChangeLog>

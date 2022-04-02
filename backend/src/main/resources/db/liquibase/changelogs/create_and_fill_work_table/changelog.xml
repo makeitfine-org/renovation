@@ -10,7 +10,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet author="Kores" id="create_work_table" context="dll">
+    <changeSet author="Kores" id="create_work_table" context="dll" dbms="postgresql, h2">
         <createTable tableName="work">
             <column autoIncrement="true" name="id" type="bigserial">
                 <constraints primaryKey="true"/>

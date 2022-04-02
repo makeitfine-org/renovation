@@ -83,10 +83,13 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_OK)
                 //todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
-                body(CoreMatchers.equalTo(rowJson("""
+                body(
+                    CoreMatchers.equalTo(
+                        rowJson(
+                            """
                     [
                        {
-                          "id":1,
+                          "id":"11111111-a845-45d7-aea9-ab624172d1c1",
                           "title":"air condition installation",
                           "description":"",
                           "endDate":"2021-10-15",
@@ -94,7 +97,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-10-15"
                        },
                        {
-                          "id":2,
+                          "id":"22222222-a845-45d7-aea9-ab624172d1c1",
                           "title":"pipe installation",
                           "description":"Andery from Bila Cerkva did it",
                           "endDate":"2021-10-25",
@@ -102,7 +105,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-10-30"
                        },
                        {
-                          "id":3,
+                          "id":"33333333-a845-45d7-aea9-ab624172d1c1",
                           "title":"plaster",
                           "description":"Vasyl did it",
                           "endDate":"2021-11-10",
@@ -110,7 +113,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":null
                        },
                        {
-                          "id":4,
+                          "id":"44444444-a845-45d7-aea9-ab624172d1c1",
                           "title":"title sticker",
                           "description":"",
                           "endDate":"2021-12-01",
@@ -118,7 +121,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-12-05"
                        },
                        {
-                          "id":5,
+                          "id":"55555555-a845-45d7-aea9-ab624172d1c1",
                           "title":"electrical wiring",
                           "description":"",
                           "endDate":"2021-12-10",
@@ -126,7 +129,10 @@ internal class WorkControllerFunctionalTest(
                           "payDate":null
                        }
                     ]
-                """.trimIndent())))
+                """.trimIndent()
+                        )
+                    )
+                )
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -134,7 +140,7 @@ internal class WorkControllerFunctionalTest(
 
     @Order(Int.MAX_VALUE)
     @Test
-    fun findOneWork_EmptyList_Success() {
+    fun findAllWork_EmptyList_Success() {
         given()
             .When {
                 jdbcTemplate.execute("delete from work")
@@ -151,22 +157,29 @@ internal class WorkControllerFunctionalTest(
     @Order(1)
     @Test
     fun findOneWork_Success() {
-        val workId = 4
+        val workId = "44444444-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                get("/api/work/${workId}")
+                pathParam("id", workId)
+                get("/api/work/{id}")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo(rowJson("""
+                body(
+                    CoreMatchers.equalTo(
+                        rowJson(
+                            """
                     {
-                       "id":4,
+                       "id":"44444444-a845-45d7-aea9-ab624172d1c1",
                        "title":"title sticker",
                        "description":"",
                        "endDate":"2021-12-01",
                        "price":33000.0,
                        "payDate":"2021-12-05"
                     }
-                """.trimIndent())))
+                """.trimIndent()
+                        )
+                    )
+                )
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -175,10 +188,11 @@ internal class WorkControllerFunctionalTest(
     @Order(1)
     @Test
     fun findOneWork_Return404IfWorkNotFound_Fail() {
-        val workId = Int.MAX_VALUE
+        val workId = "bca11111-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                get("/api/work/${workId}")
+                pathParam("id", workId)
+                get("/api/work/{id}")
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
             }
@@ -203,13 +217,17 @@ internal class WorkControllerFunctionalTest(
         val title = "ti"
         given()
             .When {
-                get("/api/work?title=${title}")
+                queryParam("title", title)
+                    .get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                body(CoreMatchers.equalTo(rowJson("""
+                body(
+                    CoreMatchers.equalTo(
+                        rowJson(
+                            """
                     [
                        {
-                          "id":1,
+                          "id":"11111111-a845-45d7-aea9-ab624172d1c1",
                           "title":"air condition installation",
                           "description":"",
                           "endDate":"2021-10-15",
@@ -217,7 +235,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-10-15"
                        },
                        {
-                          "id":2,
+                          "id":"22222222-a845-45d7-aea9-ab624172d1c1",
                           "title":"pipe installation",
                           "description":"Andery from Bila Cerkva did it",
                           "endDate":"2021-10-25",
@@ -225,7 +243,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-10-30"
                        },
                        {
-                          "id":4,
+                          "id":"44444444-a845-45d7-aea9-ab624172d1c1",
                           "title":"title sticker",
                           "description":"",
                           "endDate":"2021-12-01",
@@ -233,7 +251,10 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-12-05"
                        }
                     ]    
-                """.trimIndent())))
+                """.trimIndent()
+                        )
+                    )
+                )
 
                 checkWorkTableRecordsCount(WORK_COUNT)
             }
@@ -245,7 +266,8 @@ internal class WorkControllerFunctionalTest(
         val title = UUID.randomUUID().toString()
         given()
             .When {
-                get("/api/work?title=${title}")
+                queryParam("title", title)
+                    .get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
                 body(CoreMatchers.equalTo("[]"))
@@ -257,25 +279,29 @@ internal class WorkControllerFunctionalTest(
     @Order(2)
     @Test
     fun updateWork_Success() {
-        val workId = 1
+        val workId = "11111111-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                body("""
+                body(
+                    """
                     {
                        "title":"title update",
                        "description":"desc update",
                        "price":773.31,
                        "payDate":"2020-11-18"
                     }    
-                """.trimIndent())
-                patch("/api/work/$workId")
+                """.trimIndent()
+                )
+                    .pathParam("id", workId)
+                    .patch("/api/work/{id}")
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
                 checkWorkTableRecordsCount(WORK_COUNT)
 
-                val res = jdbcTemplate.queryForList("select * from work where id=$workId")[0]
-                assertEquals(1L, res["id"])
+                val res = jdbcTemplate
+                    .queryForList("select * from work where id='11111111-a845-45d7-aea9-ab624172d1c1'")[0]
+                assertEquals(UUID.fromString(workId), res["id"])
                 assertEquals("title update", res["title"])
                 assertEquals("desc update", res["description"])
                 assertEquals(LocalDate.parse("2020-11-18"), (res["pay_date"] as Date).toLocalDate())
@@ -285,18 +311,21 @@ internal class WorkControllerFunctionalTest(
     @Order(2)
     @Test
     fun updateWork_Return404IfWorkNotFound_Fail() {
-        val workId = Int.MAX_VALUE
+        val workId = "dab33333-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                body("""
+                body(
+                    """
                     {
                        "title":"title update",
                        "description":"desc update",
                        "price":773.31,
                        "payDate":"2020-11-18"
                     }
-                """.trimIndent())
-                patch("/api/work/$workId")
+                """.trimIndent()
+                )
+                    .pathParam("id", workId)
+                    .patch("/api/work/{id}")
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
 
@@ -311,14 +340,16 @@ internal class WorkControllerFunctionalTest(
         val invalidPayDate = "2020-111-1"
         given()
             .When {
-                body("""
+                body(
+                    """
                     {
                        "title":"title update",
                        "description":"desc update",
                        "price":773.31,
                        "payDate":"$invalidPayDate"
                     }
-                """.trimIndent())
+                """.trimIndent()
+                )
                 patch("/api/work/${workId}")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -333,15 +364,17 @@ internal class WorkControllerFunctionalTest(
     fun createWork_Success() {
         given()
             .When {
-                body("""
+                body(
+                    """
                     {
                        "title":"title it",
                        "description":"desc it",
                        "price":-773.3,
                        "payDate":"2020-11-28"
                     }
-                """.trimIndent())
-                post("/api/work")
+                """.trimIndent()
+                )
+                    .post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_CREATED)
 
@@ -355,14 +388,16 @@ internal class WorkControllerFunctionalTest(
         val invalidFormatPrice = "773.3a";
         given()
             .When {
-                body("""
+                body(
+                    """
                     {
                        "title":"title it",
                        "description":"desc it",
                        "price":"$invalidFormatPrice",
                        "payDate":"2020-11-28"
                     }
-                """.trimIndent())
+                """.trimIndent()
+                )
                 post("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -377,10 +412,11 @@ internal class WorkControllerFunctionalTest(
     fun deleteWork_Success() {
         checkWorkTableRecordsCount(WORK_COUNT + 1)
 
-        val workId = 2
+        val workId = "22222222-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                delete("/api/work/${workId}")
+                pathParam("id", workId)
+                delete("/api/work/{id}")
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
@@ -391,7 +427,7 @@ internal class WorkControllerFunctionalTest(
     @Order(41)
     @Test
     fun deleteWork_Return404IfWorkNotFound_Fail() {
-        val workId = Int.MAX_VALUE
+        val workId = "bcc33333-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
                 delete("/api/work/$workId")

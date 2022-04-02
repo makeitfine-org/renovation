@@ -7,17 +7,18 @@
 package renovation.backend.data.service
 
 import renovation.backend.data.domain.Work
+import java.util.*
 
 interface WorkService {
     fun findAll(): List<Work>
 
     fun findByTitleLike(titleLikePattern: String): List<Work>
 
-    fun findById(id: Long): Work
+    fun findById(id: UUID): Work
 
     fun save(work: Work)
 
-    fun update(id: Long, work: Work)
+    fun update(id: UUID, work: Work)
 
-    fun delete(id: Long)
+    fun delete(id: UUID)
 }

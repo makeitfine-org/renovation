@@ -58,7 +58,7 @@ internal class WorkControllerApiTest {
     }
 
     @Test
-    fun `find list by title like which not existence (failed)`() {
+    fun `find list by title like which not existence (not equals)`() {
         given()
             .queryParam("title", "ti${UUID.randomUUID()}")
             .When {
@@ -76,7 +76,7 @@ internal class WorkControllerApiTest {
     @Test
     fun `find by id`() {
         given()
-            .pathParam("id", "5")
+            .pathParam("id", "55555555-a845-45d7-aea9-ab624172d1c1")
             .When {
                 get(ServerRoute.API_WORK_ID.route)
             }
@@ -105,7 +105,7 @@ internal class WorkControllerApiTest {
     @Test
     fun `find by not existence id (failed)`() {
         given()
-            .pathParam("id", Int.MIN_VALUE)
+            .pathParam("id", "111cc111-a845-45d7-aea9-ab624172d1c1")
             .When {
                 get(ServerRoute.API_WORK_ID.route)
             }
@@ -116,7 +116,7 @@ internal class WorkControllerApiTest {
 
     @Test
     fun `update`() {
-        val id = 4
+        val id = "44444444-a845-45d7-aea9-ab624172d1c1"
         val titleUpdated = "title update 23713311"
         given()
             .When {
@@ -150,7 +150,7 @@ internal class WorkControllerApiTest {
                                     """
                             [
                                 {
-                                    "id": $id,
+                                    "id": "$id",
                                     "title": "$titleUpdated",
                                     "description": "desc update",
                                     "endDate": "2021-12-01",
@@ -182,7 +182,7 @@ internal class WorkControllerApiTest {
 
     @Test
     fun `update with not existence id (failed)`() {
-        val id = Int.MIN_VALUE
+        val id = "1111dcba-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
                 body(
@@ -202,7 +202,7 @@ internal class WorkControllerApiTest {
 
     @Test
     fun `update with invalid data (failed)`() {
-        val id = 5
+        val id = "55555555-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
                 body(
@@ -261,7 +261,8 @@ internal class WorkControllerApiTest {
             .get(ServerRoute.API_WORK.route)
             .body.asString()
 
-        val savedId = OBJECT_MAPPER.readTree(getSavedBody)[0]["id"].asInt()
+        val savedId = OBJECT_MAPPER.readTree(getSavedBody)[0]["id"].asText()
+
         given()
             .pathParam("id", "$savedId")
             .delete(ServerRoute.API_WORK_ID.route)
@@ -310,7 +311,7 @@ internal class WorkControllerApiTest {
             .get(ServerRoute.API_WORK.route)
             .body.asString()
 
-        val deletedId = OBJECT_MAPPER.readTree(getDeletedBody)[0]["id"].asInt()
+        val deletedId = OBJECT_MAPPER.readTree(getDeletedBody)[0]["id"].asText()
 
         given()
             .pathParam("id", "$deletedId")
@@ -331,7 +332,7 @@ internal class WorkControllerApiTest {
 
     @Test
     fun `delete with not existence id (failed)`() {
-        val workId = Int.MAX_VALUE
+        val workId = "2222cc21-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
                 pathParam("id", "$workId")

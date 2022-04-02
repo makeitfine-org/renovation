@@ -49,7 +49,7 @@ internal class WorkControllerTest(
 
         private val WORKS = listOf(
             Work(
-                id = 1,
+                id = "11111111-05da-40d7-9781-aad518619682",
                 title = "title 1",
                 description = "desc 1",
                 price = 222.5,
@@ -57,7 +57,7 @@ internal class WorkControllerTest(
                 payDate = LocalDate.parse("2022-10-25")
             ),
             Work(
-                id = 2,
+                id = "22222222-05da-40d7-9781-aad518619682",
                 title = "title 2",
                 description = "desc 2",
                 price = 5222.0,
@@ -65,7 +65,7 @@ internal class WorkControllerTest(
                 payDate = LocalDate.parse("2022-10-15")
             ),
             Work(
-                id = 3,
+                id = "33333333-05da-40d7-9781-aad518619682",
                 title = "title 3",
                 description = "desc 3",
                 price = 222.5,
@@ -87,23 +87,27 @@ internal class WorkControllerTest(
     fun beforeEach() {
         every { workService.findAll() } returns WORKS
 
-        every { workService.findById(1) } returns WORKS[0]
-        every { workService.findById(2) } returns WORKS[1]
-        every { workService.findById(3) } returns WORKS[2]
+        every { workService.findById(UUID.fromString("11111111-05da-40d7-9781-aad518619682")) } returns WORKS[0]
+        every { workService.findById(UUID.fromString("22222222-05da-40d7-9781-aad518619682")) } returns WORKS[1]
+        every { workService.findById(UUID.fromString("33333333-05da-40d7-9781-aad518619682")) } returns WORKS[2]
 
-        every { workService.findById(match { it < 1 || it > 3 }) } answers { call ->
-            throw WorkNotFoundException(call.invocation.args[0] as Long)
+        every {
+            workService.findById(match {
+                !WORKS.stream().map { e -> UUID.fromString(e.id) }.anyMatch { e -> it == e }
+            })
+        } answers { call ->
+            throw WorkNotFoundException(call.invocation.args[0] as UUID)
         }
 
         every { workService.findByTitleLike(any()) } returns emptyList()
         every { workService.findByTitleLike("%e%2%") } returns listOf(WORKS[1])
 
         every { workService.update(any(), any()) } answers { call ->
-            throw WorkNotFoundException(call.invocation.args[0] as Long)
+            throw WorkNotFoundException(call.invocation.args[0] as UUID)
         }
         every {
             workService.update(
-                3,
+                UUID.fromString("33333333-05da-40d7-9781-aad518619682"),
                 Work(title = "title updated", price = 500.5, endDate = LocalDate.parse("2021-05-05"))
             )
         } returns Unit
@@ -111,10 +115,10 @@ internal class WorkControllerTest(
         every { workService.save(any()) } returns Unit
 
         every { workService.delete(any()) } answers { call ->
-            throw WorkNotFoundException(call.invocation.args[0] as Long)
+            throw WorkNotFoundException(call.invocation.args[0] as UUID)
         }
         every {
-            workService.delete(match { listOf<Long>(1, 2, 3).contains(it) })
+            workService.delete(match { WORKS.stream().map { e -> UUID.fromString(e.id) }.anyMatch { e -> it == e } })
         } returns Unit
     }
 
@@ -166,20 +170,20 @@ internal class WorkControllerTest(
 
     @Test
     fun `find one`() {
-        val id = 3
+        val id = WORKS[2].id
 
         mvc.perform(get(API_WORK_ID, "$id"))
             .andExpect(status().isOk)
             .andExpect(
                 content().string(
-                    OBJECT_MAPPER.writeValueAsString(WORKS[id - 1])
+                    OBJECT_MAPPER.writeValueAsString(WORKS[2])
                 )
             )
     }
 
     @Test
     fun `find one (not found)`() {
-        val id = Int.MIN_VALUE / 2
+        val id = "abc33333-05da-40aa-9a81-aad518619682"
 
         mvc.perform(get(API_WORK_ID, "$id"))
             .andExpect(status().is4xxClientError)
@@ -200,7 +204,7 @@ internal class WorkControllerTest(
     @Test
     fun `update`() {
         mvc.perform(
-            patch(API_WORK_ID, "3")
+            patch(API_WORK_ID, WORKS[2].id)
                 .accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON)
                 .content(
@@ -220,7 +224,7 @@ internal class WorkControllerTest(
     @Test
     fun `update with not existence id`() {
         mvc.perform(
-            patch(API_WORK_ID, "${Int.MAX_VALUE}")
+            patch(API_WORK_ID, "dbc33333-05da-40a7-9781-aad518619682")
                 .accept(APPLICATION_JSON)
                 .contentType(APPLICATION_JSON)
                 .content(
@@ -300,7 +304,7 @@ internal class WorkControllerTest(
 
     @Test
     fun `delete`() {
-        val id = 1
+        val id = WORKS[0].id
 
         mvc.perform(delete(API_WORK_ID, "$id"))
             .andExpect(status().isNoContent)
@@ -309,7 +313,7 @@ internal class WorkControllerTest(
 
     @Test
     fun `delete with id not existence`() {
-        val id = Int.MIN_VALUE - 1
+        val id = "ccc3333a-17db-40d7-9781-aad518619699"
 
         mvc.perform(delete(API_WORK_ID, "$id"))
             .andExpect(status().is4xxClientError)

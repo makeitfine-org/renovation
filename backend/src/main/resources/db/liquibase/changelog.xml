@@ -11,5 +11,5 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <include file="changelogs/create_and_fill_work_table/changelog.xml" relativeToChangelogFile="true"/>
-
+    <include file="changelogs/change_work_id_type_to_uuid/changelog.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

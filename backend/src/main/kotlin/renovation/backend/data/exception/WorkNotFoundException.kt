@@ -6,6 +6,8 @@
 
 package renovation.backend.data.exception
 
+import java.util.UUID
+
 class WorkNotFoundException : Exception {
-    constructor(id: Long?) : super("Work with id: ${id} not found")
+    constructor(id: UUID?) : super("Work with id: ${id} not found")
 }

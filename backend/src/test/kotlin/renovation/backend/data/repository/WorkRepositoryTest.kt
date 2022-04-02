@@ -20,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import renovation.backend.IntegrationTest
 import renovation.backend.data.entity.WorkEntity
 import java.time.LocalDate
+import java.util.*
 
 @IntegrationTest
 @ExtendWith(SpringExtension::class)
@@ -54,7 +55,7 @@ internal class WorkRepositoryTest(
 
     @Test
     fun findOne_Success() {
-        assertNotNull(workRepository.findById(1))
+        assertNotNull(workRepository.findById(UUID.fromString("11111111-05da-40d7-9781-aad518619682")))
 
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT)
     }
@@ -85,7 +86,7 @@ internal class WorkRepositoryTest(
 
     @Test
     fun update_Success() {
-        val updateWorkId = 1L
+        val updateWorkId = UUID.fromString("11111111-a845-45d7-aea9-ab624172d1c1")
         val forUpdateWork = entityManager.find(WorkEntity::class.java, updateWorkId)
 
         forUpdateWork.title = "new 1"
@@ -108,7 +109,7 @@ internal class WorkRepositoryTest(
 
     @Test
     fun delete_Success() {
-        val deleteWorkId = 3L
+        val deleteWorkId = UUID.fromString("33333333-a845-45d7-aea9-ab624172d1c1")
         workRepository.deleteById(deleteWorkId)
 
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT - 1)

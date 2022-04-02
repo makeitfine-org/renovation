@@ -15,10 +15,11 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.repository.WorkRepository
 import renovation.backend.data.service.WorkService
 import renovation.backend.data.util.Helper
+import java.util.*
 
 @Service
 class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkService {
-    companion object{
+    companion object {
         @JvmStatic
         private val SORT = Sort.by(Sort.Direction.ASC, "id")
     }
@@ -31,7 +32,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         .findByTitleLike(titleLikePattern).stream()
         .map(Helper::convert).toList()
 
-    override fun findById(id: Long) = workRepository
+    override fun findById(id: UUID) = workRepository
         .findById(id).orElse(null)
         ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
 
@@ -39,14 +40,14 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         workRepository.save(Helper.convert(work))
     }
 
-    override fun update(id: Long, work: Work) {
+    override fun update(id: UUID, work: Work) {
         val workEntityForUpdate = workRepository.findById(id).orElse(null)
             ?.let { it } ?: throw WorkNotFoundException(id)
         updateEntity(work, workEntityForUpdate)
         workRepository.save(workEntityForUpdate)
     }
 
-    override fun delete(id: Long) {
+    override fun delete(id: UUID) {
         if (!workRepository.existsById(id)) {
             throw WorkNotFoundException(id)
         }
