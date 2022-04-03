@@ -6,17 +6,21 @@
 
 package renovation.backend.data.entity
 
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDate
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
+import javax.persistence.EntityListeners
 import javax.persistence.Id
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "work")
+@EntityListeners(AuditingEntityListener::class)
 data class WorkEntity(
     @Id
     var id: UUID? = UUID.randomUUID(),
@@ -25,4 +29,9 @@ data class WorkEntity(
     var endDate: LocalDate? = null,
     var price: Double? = null,
     var payDate: LocalDate? = null,
+
+    @CreatedDate
+    var createdDate: LocalDateTime? = null,
+    @LastModifiedDate
+    var lastModifiedDate: LocalDateTime? = null,
 )

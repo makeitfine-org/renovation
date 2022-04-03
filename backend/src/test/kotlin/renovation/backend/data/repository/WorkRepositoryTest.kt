@@ -9,6 +9,7 @@ package renovation.backend.data.repository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,15 +17,25 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import org.springframework.context.annotation.ComponentScan.Filter
+import org.springframework.context.annotation.FilterType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import renovation.backend.IntegrationTest
+import renovation.backend.config.PersistenceConfig
 import renovation.backend.data.entity.WorkEntity
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @IntegrationTest
 @ExtendWith(SpringExtension::class)
-@DataJpaTest
+@DataJpaTest(
+    includeFilters = [Filter(
+        type = FilterType.ASSIGNABLE_TYPE,
+        classes = [PersistenceConfig::class]
+    )]
+)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 internal class WorkRepositoryTest(
     @Autowired private val entityManager: TestEntityManager,
@@ -32,6 +43,8 @@ internal class WorkRepositoryTest(
 ) {
 
     companion object {
+        @JvmStatic
+        val DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")
 
         @JvmStatic
         val WORK_RECORDS_INIT_COUNT = 5L
@@ -81,6 +94,9 @@ internal class WorkRepositoryTest(
         assertEquals(LocalDate.parse("2022-01-11"), newWork.payDate)
         assertEquals(LocalDate.parse("2022-01-10"), newWork.endDate)
 
+        assertEquals(LocalDateTime.now().format(DATE_TIME_FORMAT), newWork.createdDate?.format(DATE_TIME_FORMAT))
+        assertEquals(LocalDateTime.now().format(DATE_TIME_FORMAT), newWork.lastModifiedDate?.format(DATE_TIME_FORMAT))
+
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT + 1)
     }
 
@@ -103,6 +119,9 @@ internal class WorkRepositoryTest(
         assertEquals("new 1", updatedWork.title)
         assertEquals("new desc 1", updatedWork.description)
         assertEquals(LocalDate.parse("2022-01-11"), updatedWork.payDate)
+
+        assertNull(updatedWork.createdDate)
+        assertNull(updatedWork.lastModifiedDate)
 
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT)
     }
