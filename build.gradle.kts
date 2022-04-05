@@ -43,6 +43,7 @@ subprojects {
 
         dependencyCheck {
             failBuildOnCVSS = 0f
+            suppressionFile = "${rootProject.rootDir}/${properties["owasp_suppressions_file"]}"
         }
 
         idea {
