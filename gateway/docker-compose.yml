@@ -1,0 +1,24 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2022-2022
+#
+version: '3.7'
+
+services:
+  renovation_gateway:
+    image: mockserver/mockserver:5.13.1
+    container_name: "renovation_gateway"
+    ports:
+      - 1080:1080
+    environment:
+      MOCKSERVER_WATCH_INITIALIZATION_JSON: "true"
+      MOCKSERVER_PROPERTY_FILE: /config/mockserver.properties
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
+    volumes:
+      - type: bind
+        source: ./config
+        target: /config
+
+networks:
+  renovation-gateway-nework:

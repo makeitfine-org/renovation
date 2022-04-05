@@ -1,0 +1,19 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/name",
+      "queryStringParameters": {
+        "surname": [
+          "Mosto"
+        ]
+      }
+    },
+    "httpResponse": {
+      "body": {
+        "name": "Kores"
+      },
+      "statusCode": 200
+    }
+  }
+]

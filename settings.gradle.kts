@@ -36,10 +36,12 @@ pluginManagement {
 
 rootProject.name = "renovation"
 
-val moduleBackendName: String by settings
-val moduleFrontendName: String by settings
-val moduleBackendapitestName: String by settings
+val backendModuleName: String by settings
+val frontendModuleName: String by settings
+val backendapitestModuleName: String by settings
+val gatewayModuleName: String by settings
 
-include(moduleBackendName)
-include(moduleFrontendName)
-include(moduleBackendapitestName)
+include(backendModuleName)
+include(frontendModuleName)
+include(backendapitestModuleName)
+include(gatewayModuleName)

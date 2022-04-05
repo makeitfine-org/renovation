@@ -94,3 +94,8 @@ https://github.com/heroku/heroku-cli-deploy
  && gradle :backend:build --build-cache`  
 or just  
 `$> gradle all`
+
+#Use mockserver
+From module gateway run `docker-compose up`  
+To add/update/delete requests modify config/initializer.json file  
+See: https://github.com/makeitfine-org/renovation/issues/36

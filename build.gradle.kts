@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 /*
  * "Renovation": Renovation reporter
  *
- * Copyright 2021
+ * Copyright 2021 - 2022
  */
 
 plugins {
@@ -27,8 +27,8 @@ subprojects {
     }
 
     val kotlinBasedSubprojects = arrayOf(
-        properties["moduleBackendName"],
-        properties["moduleBackendapitestName"]
+        properties["backendModuleName"],
+        properties["backendapitestModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
