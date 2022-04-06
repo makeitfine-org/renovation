@@ -6,6 +6,8 @@
 
 package renovation.backend.data.entity
 
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -21,6 +23,8 @@ import javax.persistence.Table
 @Entity
 @Table(name = "work")
 @EntityListeners(AuditingEntityListener::class)
+@SQLDelete(sql = "UPDATE work SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 data class WorkEntity(
     @Id
     var id: UUID? = UUID.randomUUID(),
@@ -34,4 +38,6 @@ data class WorkEntity(
     var createdDate: LocalDateTime? = null,
     @LastModifiedDate
     var lastModifiedDate: LocalDateTime? = null,
+
+    var deleted:Boolean = false
 )

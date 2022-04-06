@@ -9,9 +9,12 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
-
-    <include file="changelogs/create_and_fill_work_table/changelog.xml" relativeToChangelogFile="true"/>
-    <include file="changelogs/change_work_id_type_to_uuid/changelog.xml" relativeToChangelogFile="true"/>
-    <include file="changelogs/add_created_and_last_modified_time_columns/changelog.xml" relativeToChangelogFile="true"/>
-    <include file="changelogs/add_work_deleted_column/changelog.xml" relativeToChangelogFile="true"/>
+    <changeSet author="Kores" id="add_work_deleted_column" context="dll" dbms="postgresql, h2">
+        <addColumn tableName="work">
+            <column name="deleted" type="boolean" defaultValue="false">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+        <rollback/>
+    </changeSet>
 </databaseChangeLog>

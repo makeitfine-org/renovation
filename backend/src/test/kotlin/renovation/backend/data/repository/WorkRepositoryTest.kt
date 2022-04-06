@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.context.annotation.ComponentScan.Filter
 import org.springframework.context.annotation.FilterType
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import renovation.backend.IntegrationTest
 import renovation.backend.config.PersistenceConfig
@@ -24,6 +25,7 @@ import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -39,9 +41,9 @@ import kotlin.test.assertTrue
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 internal class WorkRepositoryTest(
     @Autowired private val entityManager: TestEntityManager,
-    @Autowired private val workRepository: WorkRepository
+    @Autowired private val workRepository: WorkRepository,
+    @Autowired private val jdbcTemplate: JdbcTemplate
 ) {
-
     companion object {
         @JvmStatic
         val DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")
@@ -137,8 +139,25 @@ internal class WorkRepositoryTest(
     @Test
     fun delete_Success() {
         val deleteWorkId = UUID.fromString("33333333-a845-45d7-aea9-ab624172d1c1")
-        workRepository.deleteById(deleteWorkId)
+        val deletedSql = "select deleted from work where id = '$deleteWorkId'"
 
+        assertFalse {
+            "deleted column value before should be FALSE"
+            jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
+        }
+
+        workRepository.deleteById(deleteWorkId)
+        workRepository.flush()
+
+        assertTrue {
+            "deleted column value after should be TRUE"
+            jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
+        }
+        assertEquals(5L, 5)
+        assertEquals(
+            WORK_RECORDS_INIT_COUNT,
+            jdbcTemplate.queryForList("select count(*) from work")[0]["count(*)"] as Long
+        )
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT - 1)
     }
 

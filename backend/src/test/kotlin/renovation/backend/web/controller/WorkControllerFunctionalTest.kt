@@ -34,6 +34,7 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @Tag("functional")
@@ -134,7 +135,7 @@ internal class WorkControllerFunctionalTest(
                     )
                 )
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -150,7 +151,7 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_OK)
                 body(CoreMatchers.equalTo("[]"))
 
-                checkWorkTableRecordsCount(0)
+                checkWorkTableRecordsCountWithoutDeleted(0)
             }
     }
 
@@ -181,7 +182,7 @@ internal class WorkControllerFunctionalTest(
                     )
                 )
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -256,7 +257,7 @@ internal class WorkControllerFunctionalTest(
                     )
                 )
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -272,7 +273,7 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_OK)
                 body(CoreMatchers.equalTo("[]"))
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -297,7 +298,7 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
 
                 val res = jdbcTemplate
                     .queryForList("select * from work where id='11111111-a845-45d7-aea9-ab624172d1c1'")[0]
@@ -329,7 +330,7 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -355,7 +356,7 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -378,7 +379,7 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_CREATED)
 
-                checkWorkTableRecordsCount(WORK_COUNT + 1)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
             }
     }
 
@@ -403,16 +404,24 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
 
-                checkWorkTableRecordsCount(WORK_COUNT + 1)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
             }
     }
 
     @Order(40)
     @Test
     fun deleteWork_Success() {
-        checkWorkTableRecordsCount(WORK_COUNT + 1)
+        checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
 
         val workId = "22222222-a845-45d7-aea9-ab624172d1c1"
+
+        val deletedSql = "select deleted from work where id = '$workId'"
+
+        assertFalse {
+            "deleted column value before should be FALSE"
+            jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
+        }
+
         given()
             .When {
                 pathParam("id", workId)
@@ -420,7 +429,12 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                assertTrue {
+                    "deleted column value after should be TRUE"
+                    jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
+                }
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -434,7 +448,7 @@ internal class WorkControllerFunctionalTest(
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
@@ -449,13 +463,13 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
 
-                checkWorkTableRecordsCount(WORK_COUNT)
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
 
-    private fun checkWorkTableRecordsCount(count: Long) = assertEquals(
+    private fun checkWorkTableRecordsCountWithoutDeleted(count: Long) = assertEquals(
         count,
-        jdbcTemplate.queryForList("select count(*) from work")[0][COUNT_WORD]
+        jdbcTemplate.queryForList("select count(*) from work where deleted = false")[0][COUNT_WORD]
     )
 
     private fun given() = Given {
