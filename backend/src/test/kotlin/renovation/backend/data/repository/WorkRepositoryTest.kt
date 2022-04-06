@@ -6,12 +6,6 @@
 
 package renovation.backend.data.repository
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -27,6 +21,12 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 @IntegrationTest
 @ExtendWith(SpringExtension::class)
@@ -53,15 +53,15 @@ internal class WorkRepositoryTest(
     @Test
     fun findAll_Success() {
         val findAll = workRepository.findAll()
-        assertThat(findAll.size).isEqualTo(5)
-        assertTrue(
+        assertEquals(5, findAll.size)
+        assertTrue {
             findAll.stream().filter { w ->
                 w.title.equals("title sticker")
                         && w.price?.let { it == 33000.0 }
                         ?: false
             }
                 .findAny().isPresent
-        )
+        }
 
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT)
     }
@@ -71,6 +71,14 @@ internal class WorkRepositoryTest(
         assertNotNull(workRepository.findById(UUID.fromString("11111111-05da-40d7-9781-aad518619682")))
 
         workRecordsExceptedCount(WORK_RECORDS_INIT_COUNT)
+    }
+
+    @Test
+    fun findOne_WrongIdFormat_Fail() {
+        val e = assertFailsWith<NumberFormatException> {
+            workRepository.findById(UUID.fromString("m1111111-05da-40d7-9781-aad518619682"))
+        }
+        assertEquals("Error at index 0 in: \"m1111111\"", e.message)
     }
 
     @Test

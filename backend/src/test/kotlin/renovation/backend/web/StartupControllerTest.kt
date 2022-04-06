@@ -10,10 +10,10 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus.SC_OK
 import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import renovation.backend.IntegrationTest
+import kotlin.test.Test
 
 
 @IntegrationTest

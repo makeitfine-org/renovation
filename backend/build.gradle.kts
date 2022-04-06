@@ -11,6 +11,10 @@ plugins {
     kotlin("plugin.jpa")
 }
 
+//configurations.all {
+//    exclude(group = "junit", module = "junit")
+//}
+
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
@@ -43,7 +47,9 @@ dependencies {
         exclude(group = "org.junit.vintage")
         exclude(group = "org.mockito")
     }
-    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:junit-jupiter") {
+        exclude("org.junit.jupiter")
+    }
     testImplementation("org.testcontainers:postgresql")
     testImplementation("io.mockk:mockk:${properties["mockkVersion"]}")
 }

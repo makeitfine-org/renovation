@@ -58,9 +58,9 @@ subprojects {
             implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
             implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
 
-            testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersion"]}")
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
+            testImplementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinTestVersion"]}")
         }
 
         tasks.withType<KotlinCompile> {

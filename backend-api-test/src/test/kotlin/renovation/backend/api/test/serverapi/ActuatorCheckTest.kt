@@ -11,8 +11,8 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
 import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
 import renovation.backend.api.test.ServerRoute
+import kotlin.test.Test
 
 @Tag("healthCheck")
 internal class ActuatorCheckTest {

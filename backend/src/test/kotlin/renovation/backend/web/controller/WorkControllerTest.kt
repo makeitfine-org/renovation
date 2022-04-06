@@ -11,8 +11,6 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -33,6 +31,8 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import java.time.LocalDate
 import java.util.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(WorkController::class)
@@ -83,7 +83,7 @@ internal class WorkControllerTest(
     @Autowired
     private lateinit var workService: WorkService
 
-    @BeforeEach
+    @BeforeTest
     fun beforeEach() {
         every { workService.findAll() } returns WORKS
 

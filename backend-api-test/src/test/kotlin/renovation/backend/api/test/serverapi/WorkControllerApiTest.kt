@@ -11,15 +11,15 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
-import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
 import renovation.backend.api.test.FileHelper
 import renovation.backend.api.test.ServerRoute
 import java.util.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @Tag("smoke")
 internal class WorkControllerApiTest {
@@ -321,12 +321,13 @@ internal class WorkControllerApiTest {
             .Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
-                assertThat(
+                assertEquals(
+                    HttpStatus.SC_NOT_FOUND,
                     given()
                         .pathParam("id", "$deletedId")
                         .get(ServerRoute.API_WORK_ID.route)
                         .statusCode
-                ).isEqualTo(HttpStatus.SC_NOT_FOUND)
+                )
             }
     }
 
