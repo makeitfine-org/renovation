@@ -115,7 +115,7 @@ internal class WorkControllerApiTest {
     }
 
     @Test
-    fun `update`() {
+    fun update() {
         val id = "44444444-a845-45d7-aea9-ab624172d1c1"
         val titleUpdated = "title update 23713311"
         given()
@@ -128,9 +128,9 @@ internal class WorkControllerApiTest {
                    "price":773.31,
                    "payDate":"2020-11-18"
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
-                    .pathParam("id", "$id")
+                    .pathParam("id", id)
                     .patch(ServerRoute.API_WORK_ID.route)
             }
             .Then {
@@ -138,7 +138,7 @@ internal class WorkControllerApiTest {
 
                 given()
                     .When {
-                        queryParam("title", "$titleUpdated")
+                        queryParam("title", titleUpdated)
                             .get(ServerRoute.API_WORK.route)
                     }
                     .Then {
@@ -158,7 +158,7 @@ internal class WorkControllerApiTest {
                                     "payDate": "2020-11-18"                                    
                                 }
                             ]
-                        """.trimIndent()
+                                    """.trimIndent()
                                 )
                             )
                         )
@@ -176,7 +176,7 @@ internal class WorkControllerApiTest {
                 }
             """.trimIndent()
         )
-            .pathParam("id", "$id")
+            .pathParam("id", id)
             .patch(ServerRoute.API_WORK_ID.route)
     }
 
@@ -190,9 +190,9 @@ internal class WorkControllerApiTest {
                 {
                    "title":"title update"                 
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
-                    .pathParam("id", "$id")
+                    .pathParam("id", id)
                     .patch(ServerRoute.API_WORK_ID.route)
             }
             .Then {
@@ -211,9 +211,9 @@ internal class WorkControllerApiTest {
                    "title":"title update",
                    "price":773.31a
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
-                    .pathParam("id", "$id")
+                    .pathParam("id", id)
                     .patch(ServerRoute.API_WORK_ID.route)
             }
             .Then {
@@ -222,7 +222,7 @@ internal class WorkControllerApiTest {
     }
 
     @Test
-    fun `create`() {
+    fun create() {
         val titleSaved = "title saved 2352321152"
         given()
             .When {
@@ -234,7 +234,7 @@ internal class WorkControllerApiTest {
                    "price":773.31,
                    "payDate":"2020-11-28"
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 ).post(ServerRoute.API_WORK.route)
             }
             .Then {
@@ -242,7 +242,7 @@ internal class WorkControllerApiTest {
 
                 given()
                     .When {
-                        queryParam("title", "$titleSaved")
+                        queryParam("title", titleSaved)
                             .get(ServerRoute.API_WORK.route)
                     }
                     .Then {
@@ -257,14 +257,14 @@ internal class WorkControllerApiTest {
 
         // Undo create
         val getSavedBody = given()
-            .queryParam("title", "$titleSaved")
+            .queryParam("title", titleSaved)
             .get(ServerRoute.API_WORK.route)
             .body.asString()
 
         val savedId = OBJECT_MAPPER.readTree(getSavedBody)[0]["id"].asText()
 
         given()
-            .pathParam("id", "$savedId")
+            .pathParam("id", savedId)
             .delete(ServerRoute.API_WORK_ID.route)
     }
 
@@ -280,7 +280,8 @@ internal class WorkControllerApiTest {
                    "price":773.31,
                    "payDate":"2020-11-28aaa"
                 }
-            """.trimIndent()
+            """
+                        .trimIndent()
                 )
                     .post(ServerRoute.API_WORK.route)
             }
@@ -290,10 +291,10 @@ internal class WorkControllerApiTest {
     }
 
     @Test
-    fun `delete`() {
+    fun delete() {
         val titleDeleted = "title deleted 234112343215"
 
-        //prepare work for to be deleted
+        // prepare work for to be deleted
         given()
             .body(
                 """
@@ -303,18 +304,19 @@ internal class WorkControllerApiTest {
                    "price":773.31,
                    "payDate":"2020-11-28"
                 }
-            """.trimIndent()
+            """
+                    .trimIndent()
             ).post(ServerRoute.API_WORK.route)
 
         val getDeletedBody = given()
-            .queryParam("title", "$titleDeleted")
+            .queryParam("title", titleDeleted)
             .get(ServerRoute.API_WORK.route)
             .body.asString()
 
         val deletedId = OBJECT_MAPPER.readTree(getDeletedBody)[0]["id"].asText()
 
         given()
-            .pathParam("id", "$deletedId")
+            .pathParam("id", deletedId)
             .When {
                 delete(ServerRoute.API_WORK_ID.route)
             }
@@ -324,7 +326,7 @@ internal class WorkControllerApiTest {
                 assertEquals(
                     HttpStatus.SC_NOT_FOUND,
                     given()
-                        .pathParam("id", "$deletedId")
+                        .pathParam("id", deletedId)
                         .get(ServerRoute.API_WORK_ID.route)
                         .statusCode
                 )
@@ -336,7 +338,7 @@ internal class WorkControllerApiTest {
         val workId = "2222cc21-a845-45d7-aea9-ab624172d1c1"
         given()
             .When {
-                pathParam("id", "$workId")
+                pathParam("id", workId)
                 delete(ServerRoute.API_WORK_ID.route)
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
@@ -348,7 +350,7 @@ internal class WorkControllerApiTest {
         val workId = "b3542c"
         given()
             .When {
-                pathParam("id", "$workId")
+                pathParam("id", workId)
                 delete(ServerRoute.API_WORK_ID.route)
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)

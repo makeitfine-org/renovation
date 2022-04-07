@@ -99,3 +99,9 @@ or just
 From module gateway run `docker-compose up`  
 To add/update/delete requests modify config/initializer.json file  
 See: https://github.com/makeitfine-org/renovation/issues/36
+
+#Checkstyle (code check and auto-fix):
+For to check:  
+$> gradle ktlintCheck  
+For to autofix:  
+$> gradle ktlintFormat

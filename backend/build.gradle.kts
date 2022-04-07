@@ -11,9 +11,9 @@ plugins {
     kotlin("plugin.jpa")
 }
 
-//configurations.all {
+// configurations.all {
 //    exclude(group = "junit", module = "junit")
-//}
+// }
 
 dependencyManagement {
     imports {

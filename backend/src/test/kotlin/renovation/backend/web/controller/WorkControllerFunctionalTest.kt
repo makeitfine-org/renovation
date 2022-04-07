@@ -55,9 +55,9 @@ internal class WorkControllerFunctionalTest(
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url", container::getJdbcUrl);
-            registry.add("spring.datasource.password", container::getPassword);
-            registry.add("spring.datasource.username", container::getUsername);
+            registry.add("spring.datasource.url", container::getJdbcUrl)
+            registry.add("spring.datasource.password", container::getPassword)
+            registry.add("spring.datasource.username", container::getUsername)
         }
 
         @JvmStatic
@@ -83,7 +83,7 @@ internal class WorkControllerFunctionalTest(
                 get("/api/work")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
-                //todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
+                // todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
                 body(
                     CoreMatchers.equalTo(
                         rowJson(
@@ -130,7 +130,8 @@ internal class WorkControllerFunctionalTest(
                           "payDate":null
                        }
                     ]
-                """.trimIndent()
+                """
+                                .trimIndent()
                         )
                     )
                 )
@@ -177,7 +178,8 @@ internal class WorkControllerFunctionalTest(
                        "price":33000.0,
                        "payDate":"2021-12-05"
                     }
-                """.trimIndent()
+                """
+                                .trimIndent()
                         )
                     )
                 )
@@ -205,7 +207,7 @@ internal class WorkControllerFunctionalTest(
         val workId = "invalidFormatId"
         given()
             .When {
-                get("/api/work/${workId}")
+                get("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
@@ -252,7 +254,7 @@ internal class WorkControllerFunctionalTest(
                           "payDate":"2021-12-05"
                        }
                     ]    
-                """.trimIndent()
+                            """.trimIndent()
                         )
                     )
                 )
@@ -291,7 +293,7 @@ internal class WorkControllerFunctionalTest(
                        "price":773.31,
                        "payDate":"2020-11-18"
                     }    
-                """.trimIndent()
+                    """.trimIndent()
                 )
                     .pathParam("id", workId)
                     .patch("/api/work/{id}")
@@ -323,7 +325,7 @@ internal class WorkControllerFunctionalTest(
                        "price":773.31,
                        "payDate":"2020-11-18"
                     }
-                """.trimIndent()
+                    """.trimIndent()
                 )
                     .pathParam("id", workId)
                     .patch("/api/work/{id}")
@@ -349,9 +351,9 @@ internal class WorkControllerFunctionalTest(
                        "price":773.31,
                        "payDate":"$invalidPayDate"
                     }
-                """.trimIndent()
+                    """.trimIndent()
                 )
-                patch("/api/work/${workId}")
+                patch("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
@@ -373,7 +375,7 @@ internal class WorkControllerFunctionalTest(
                        "price":-773.3,
                        "payDate":"2020-11-28"
                     }
-                """.trimIndent()
+                    """.trimIndent()
                 )
                     .post("/api/work")
             }.Then {
@@ -386,7 +388,7 @@ internal class WorkControllerFunctionalTest(
     @Order(31)
     @Test
     fun createWork_Return500IfDataFormatIsInvalid_Fail() {
-        val invalidFormatPrice = "773.3a";
+        val invalidFormatPrice = "773.3a"
         given()
             .When {
                 body(
@@ -397,7 +399,7 @@ internal class WorkControllerFunctionalTest(
                        "price":"$invalidFormatPrice",
                        "payDate":"2020-11-28"
                     }
-                """.trimIndent()
+                    """.trimIndent()
                 )
                 post("/api/work")
             }.Then {
@@ -458,7 +460,7 @@ internal class WorkControllerFunctionalTest(
         val workId = "3a"
         given()
             .When {
-                delete("/api/work/${workId}")
+                delete("/api/work/$workId")
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
                 body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
@@ -477,6 +479,6 @@ internal class WorkControllerFunctionalTest(
             .and().header("Content-type", "application/json")
     }
 
-    //todo: move to util module (shred between modules to use)
+    // todo: move to util module (shred between modules to use)
     private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 }

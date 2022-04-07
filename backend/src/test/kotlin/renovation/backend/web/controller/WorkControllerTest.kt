@@ -92,9 +92,11 @@ internal class WorkControllerTest(
         every { workService.findById(UUID.fromString("33333333-05da-40d7-9781-aad518619682")) } returns WORKS[2]
 
         every {
-            workService.findById(match {
-                !WORKS.stream().map { e -> UUID.fromString(e.id) }.anyMatch { e -> it == e }
-            })
+            workService.findById(
+                match {
+                    !WORKS.stream().map { e -> UUID.fromString(e.id) }.anyMatch { e -> it == e }
+                }
+            )
         } answers { call ->
             throw WorkNotFoundException(call.invocation.args[0] as UUID)
         }
@@ -214,7 +216,8 @@ internal class WorkControllerTest(
                     "price": 500.5, 
                     "endDate": "2021-05-05"
                 }
-            """.trimIndent()
+            """
+                        .trimIndent()
                 )
         )
             .andExpect(status().isNoContent)
@@ -232,7 +235,8 @@ internal class WorkControllerTest(
                 {
                     "title": "title updated not existence id"
                 }
-            """.trimIndent()
+                    """
+                        .trimIndent()
                 )
         )
             .andExpect(status().is4xxClientError)
@@ -251,7 +255,7 @@ internal class WorkControllerTest(
                     "price": "155abc",
                     "title": "title updated other"
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
         )
             .andExpect(status().is5xxServerError)
@@ -273,7 +277,7 @@ internal class WorkControllerTest(
                     "price": 5005.55, 
                     "endDate": "2021-10-25"
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
         )
             .andExpect(status().isCreated)
@@ -293,7 +297,7 @@ internal class WorkControllerTest(
                     "price": 5005.55, 
                     "endDate": "abc"
                 }
-            """.trimIndent()
+                    """.trimIndent()
                 )
         )
             .andExpect(status().is5xxServerError)

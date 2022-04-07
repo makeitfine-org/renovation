@@ -33,10 +33,12 @@ import kotlin.test.assertTrue
 @IntegrationTest
 @ExtendWith(SpringExtension::class)
 @DataJpaTest(
-    includeFilters = [Filter(
-        type = FilterType.ASSIGNABLE_TYPE,
-        classes = [PersistenceConfig::class]
-    )]
+    includeFilters = [
+        Filter(
+            type = FilterType.ASSIGNABLE_TYPE,
+            classes = [PersistenceConfig::class]
+        )
+    ]
 )
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 internal class WorkRepositoryTest(
@@ -58,8 +60,8 @@ internal class WorkRepositoryTest(
         assertEquals(5, findAll.size)
         assertTrue {
             findAll.stream().filter { w ->
-                w.title.equals("title sticker")
-                        && w.price?.let { it == 33000.0 }
+                w.title.equals("title sticker") &&
+                    w.price?.let { it == 33000.0 }
                         ?: false
             }
                 .findAny().isPresent

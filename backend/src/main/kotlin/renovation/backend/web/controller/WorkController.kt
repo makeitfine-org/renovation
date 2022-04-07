@@ -23,7 +23,7 @@ import renovation.backend.data.domain.Work
 import renovation.backend.data.service.WorkService
 import java.util.*
 
-@CrossOrigin(originPatterns = ["http://localhost:80*"])
+@CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])
 @RestController
 @RequestMapping("/api/work")
 class WorkController(private val workService: WorkService) {
@@ -46,28 +46,28 @@ class WorkController(private val workService: WorkService) {
 
     @GetMapping("{id}")
     fun find(@PathVariable id: UUID): Work {
-        LOG.info("find work by id: ${id}")
+        LOG.info("find work by id: $id")
         return workService.findById(id)
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody work: Work) {
-        LOG.info("create work: ${work}")
+        LOG.info("create work: $work")
         workService.save(work)
     }
 
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: UUID, @RequestBody work: Work) {
-        LOG.info("udpate work with id = ${id} work: ${work}")
+        LOG.info("udpate work with id = $id work: $work")
         workService.update(id, work)
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: UUID) {
-        LOG.info("delete work with id = ${id}")
+        LOG.info("delete work with id = $id")
         workService.delete(id)
     }
 }

@@ -8,7 +8,6 @@ package renovation.backend.data.domain
 
 import java.time.LocalDate
 
-
 data class Work(
     val id: String? = null,
     val title: String? = null,

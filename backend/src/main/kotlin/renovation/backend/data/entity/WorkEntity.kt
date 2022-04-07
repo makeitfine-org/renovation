@@ -19,7 +19,6 @@ import javax.persistence.EntityListeners
 import javax.persistence.Id
 import javax.persistence.Table
 
-
 @Entity
 @Table(name = "work")
 @EntityListeners(AuditingEntityListener::class)
@@ -39,5 +38,5 @@ data class WorkEntity(
     @LastModifiedDate
     var lastModifiedDate: LocalDateTime? = null,
 
-    var deleted:Boolean = false
+    var deleted: Boolean = false
 )

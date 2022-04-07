@@ -15,13 +15,12 @@ import org.springframework.boot.web.server.LocalServerPort
 import renovation.backend.IntegrationTest
 import kotlin.test.Test
 
-
 @IntegrationTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class StartupControllerTest(
     @LocalServerPort val port: Int
 ) {
-    val portHost = "http://localhost:${port}"
+    val portHost = "http://localhost:$port"
 
     @Test
     fun `Assert startup controller`() {

@@ -16,7 +16,7 @@ enum class ServerRoute(path: String) {
     API_WORK_ID("api/work/{id}");
 
     private val BASE_URL = Optional.ofNullable(System.getenv("SERVER_URL"))
-        //todo: extract it from configs
+        // todo: extract it from configs
         .orElse("http://localhost:8085")
 
     val route = "$BASE_URL/$path"

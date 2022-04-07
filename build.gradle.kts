@@ -32,6 +32,8 @@ subprojects {
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
+        val ktlint by configurations.creating
+
         apply {
             plugin("kotlin")
             plugin("org.owasp.dependencycheck")
@@ -61,6 +63,35 @@ subprojects {
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
             testImplementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinTestVersion"]}")
+
+            ktlint("com.pinterest:ktlint:${properties["ktlintVersion"]}") {
+                attributes {
+                    attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
+                }
+            }
+        }
+
+        val outputDir = "${project.buildDir}/reports/ktlint/"
+        val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
+
+        val ktlintCheck by tasks.creating(JavaExec::class) {
+            inputs.files(inputFiles)
+            outputs.dir(outputDir)
+
+            description = "Check Kotlin code style."
+            classpath = ktlint
+            mainClass.set("com.pinterest.ktlint.Main")
+            args = listOf("src/**/*.kt")
+        }
+
+        val ktlintFormat by tasks.creating(JavaExec::class) {
+            inputs.files(inputFiles)
+            outputs.dir(outputDir)
+
+            description = "Fix Kotlin code style deviations."
+            classpath = ktlint
+            mainClass.set("com.pinterest.ktlint.Main")
+            args = listOf("-F", "src/**/*.kt")
         }
 
         tasks.withType<KotlinCompile> {
@@ -68,6 +99,7 @@ subprojects {
                 freeCompilerArgs = listOf("-Xjsr305=strict")
                 jvmTarget = java.targetCompatibility.toString()
             }
+            // dependsOn(ktlintCheck)
         }
 
         val smokeTag = "smoke"
@@ -85,11 +117,13 @@ subprojects {
             testLogging {
                 showStandardStreams = false
                 exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-                afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-                    if (desc.parent == null) { // will match the outermost suite
-                        println("Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
-                    }
-                }))
+                afterSuite(
+                    KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+                        if (desc.parent == null) { // will match the outermost suite
+                            println("Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+                        }
+                    })
+                )
             }
         }
 
@@ -148,6 +182,20 @@ tasks.register<GradleBuild>(buildall) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:build", "--build-cache")
         }
+    }
+}
+
+val checkall = "checkall"
+
+tasks.register<GradleBuild>(checkall) {
+    description = "Execute checks on modules"
+    println(description)
+
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "ktlintCheck")
+        }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", "dependencyCheckAnalyze")
@@ -163,6 +211,10 @@ tasks.register<GradleBuild>("all") {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", buildall)
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", checkall)
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -196,7 +248,8 @@ tasks.register<Delete>("removeOldPublic") {
         fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
             .matching {
                 include("index.html", "favicon.ico", "css/*.*", "js/*.*")
-            })
+            }
+    )
 }
 
 tasks.register<Copy>("copyDistToPublic") {
@@ -214,7 +267,8 @@ tasks.register<Copy>("installGitHooks") {
         fileTree("${rootProject.rootDir}/aux/githooks/")
             .matching {
                 include(*githookFiles)
-            })
+            }
+    )
     into("$githooks")
 
 //    dependsOn("removeOldGitHooks")
@@ -224,9 +278,11 @@ tasks.register<Copy>("installGitHooks") {
 tasks.register<Delete>("removeOldGitHooks") {
     description = "delete old hooks from .git/hook folder"
     println(description)
-    delete(fileTree("$githooks").matching {
-        include(*githookFiles)
-    })
+    delete(
+        fileTree("$githooks").matching {
+            include(*githookFiles)
+        }
+    )
 }
 
 tasks.register<Exec>("makeGitHookFilesExecutable") {

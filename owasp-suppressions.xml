@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- todo: recheck sometimes suppression, and get rid of them if it's possible -->
+<!-- help: https://jeremylong.github.io/DependencyCheck/general/suppression.html -->
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
     <suppress>
+        <notes><![CDATA[file name: spring-beans-5.3.17.jar. Dev dependency.]]> </notes>
+        <filePath regex="true">.*spring[-]beans[-]5\.3\.17\.jar</filePath>
         <cve>CVE-2022-22965</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[file name: ktlint-reporter-checkstyle-0.45.2.jar. Dev dependency.]]> </notes>
+        <filePath regex="true">.*ktlint[-]reporter[-]checkstyle[-]0\.45\.2\.jar</filePath>
+        <cve>CVE-2019-9658</cve>
+        <cve>CVE-2019-10782</cve>
     </suppress>
 </suppressions>

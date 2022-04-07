@@ -14,13 +14,12 @@ import org.springframework.boot.web.server.LocalServerPort
 import renovation.backend.IntegrationTest
 import kotlin.test.Test
 
-
 @IntegrationTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ActuatorTest(
     @LocalServerPort val port: Int
 ) {
-    val portHost = "http://localhost:${port}"
+    val portHost = "http://localhost:$port"
 
     @Test
     fun `actuator health`() {

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 class RouteController {
 
-    //todo: simplify it or move to separate config
+    // todo: simplify it or move to separate config
     @RequestMapping("/work", "/home")
-    //@RequestMapping("/{path:[^\\.]*}")
+    // @RequestMapping("/{path:[^\\.]*}")
     fun redirect() = "forward:/"
 }
