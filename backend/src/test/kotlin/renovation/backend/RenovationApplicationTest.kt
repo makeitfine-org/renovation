@@ -11,7 +11,7 @@ import kotlin.test.Test
 
 @IntegrationTest
 @SpringBootTest
-internal class RenovationApplicationTests {
+internal class RenovationApplicationTest {
 
     @Test
     fun contextLoads() {

@@ -198,6 +198,10 @@ tasks.register<GradleBuild>(checkall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":backend:koverVerify")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", "dependencyCheckAnalyze")
         }
     }

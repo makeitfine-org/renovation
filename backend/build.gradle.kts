@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.spring")
     id("org.springframework.boot")
     kotlin("plugin.jpa")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 // configurations.all {
@@ -52,4 +53,25 @@ dependencies {
     }
     testImplementation("org.testcontainers:postgresql")
     testImplementation("io.mockk:mockk:${properties["mockkVersion"]}")
+}
+
+tasks.koverVerify {
+    excludes = listOf(
+        "renovation.backend.RenovationApplicationKt",
+        "renovation.backend.web.controller.RouteController",
+    )
+
+    rule {
+        name = "Minimal line coverage rate in percents"
+        bound {
+            minValue = 100
+        }
+    }
+}
+
+tasks.koverHtmlReport {
+    excludes = listOf(
+        "renovation.backend.RenovationApplicationKt",
+        "renovation.backend.web.controller.RouteController",
+    )
 }

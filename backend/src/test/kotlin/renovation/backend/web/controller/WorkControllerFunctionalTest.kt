@@ -420,7 +420,6 @@ internal class WorkControllerFunctionalTest(
         val deletedSql = "select deleted from work where id = '$workId'"
 
         assertFalse {
-            "deleted column value before should be FALSE"
             jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
         }
 
@@ -432,7 +431,6 @@ internal class WorkControllerFunctionalTest(
                 statusCode(HttpStatus.SC_NO_CONTENT)
 
                 assertTrue {
-                    "deleted column value after should be TRUE"
                     jdbcTemplate.queryForList(deletedSql)[0]["DELETED"] as Boolean
                 }
 
