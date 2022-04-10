@@ -1,0 +1,12 @@
+server:
+  port: 9090
+
+spring:
+  data:
+    mongodb:
+      authentication-database: infodb
+      username: infouser
+      password: infopassword
+      database: infodb
+      port: 27117
+      host: localhost
