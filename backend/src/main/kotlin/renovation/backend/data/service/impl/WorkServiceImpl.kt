@@ -32,6 +32,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         .findByTitleLike(titleLikePattern).stream()
         .map(Helper::convert).toList()
 
+    @Throws(WorkNotFoundException::class)
     override fun findById(id: UUID) = workRepository
         .findById(id).orElse(null)
         ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
@@ -40,6 +41,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         workRepository.save(Helper.convert(work))
     }
 
+    @Throws(WorkNotFoundException::class)
     override fun update(id: UUID, work: Work) {
         val workEntityForUpdate = workRepository.findById(id).orElse(null)
             ?.let { it } ?: throw WorkNotFoundException(id)
@@ -47,6 +49,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         workRepository.save(workEntityForUpdate)
     }
 
+    @Throws(WorkNotFoundException::class)
     override fun delete(id: UUID) {
         if (!workRepository.existsById(id)) {
             throw WorkNotFoundException(id)
