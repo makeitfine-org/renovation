@@ -7,7 +7,11 @@
 package renovation.info.data.service
 
 import renovation.info.data.model.DetailsEntity
+import renovation.info.generated.dgs.types.Details
+import renovation.info.generated.dgs.types.DetailsInput
 
 interface DetailsService {
     fun getAll(): List<DetailsEntity>
+
+    fun save(detailsInput: DetailsInput): Details
 }

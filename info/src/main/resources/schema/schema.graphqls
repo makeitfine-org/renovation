@@ -1,0 +1,29 @@
+type Query {
+    details(filter: DetailsFilter): [Details]
+}
+
+type Mutation {
+    details(detailsInput: DetailsInput): Details
+}
+
+type Details {
+    id: String
+    name: String
+    surname: String
+    age: Int
+    gender: String
+}
+
+input DetailsInput {
+    name: String
+    surname: String
+    age: Int
+    gender: String
+}
+
+input DetailsFilter {
+    name: String
+    surname: String
+    age: Int
+    gender: String
+}

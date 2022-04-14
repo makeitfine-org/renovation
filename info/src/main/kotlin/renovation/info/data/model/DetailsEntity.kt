@@ -12,9 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "details")
 data class DetailsEntity(
     @Id
-    val id: String? = null,
-    val name: String? = null,
-    val surname: String? = null,
-    val age: Int? = null,
-    val gender: String? = null,
+    var id: String? = null,
+    var name: String? = null,
+    var surname: String? = null,
+    var age: Int? = null,
+    var gender: String? = null,
 )

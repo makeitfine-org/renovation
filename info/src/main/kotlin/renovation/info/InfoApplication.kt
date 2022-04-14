@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ConsoleApplication
+class InfoApplication
 
 fun main(args: Array<String>) {
-    runApplication<ConsoleApplication>(*args) {
+    runApplication<InfoApplication>(*args) {
         setBannerMode(Banner.Mode.OFF)
     }
 }
