@@ -23,6 +23,8 @@ pluginManagement {
     val springframeworkPluginVersion: String by settings
     val jpaPluginVersion: String by settings
     val koverPluginVersion: String by settings
+    val dgsCodegenVersion: String by settings
+
 
     plugins {
         kotlin("jvm") version "$kotlinPluginVersion"
@@ -33,6 +35,7 @@ pluginManagement {
         id("org.springframework.boot") version "$springframeworkPluginVersion"
         kotlin("plugin.jpa") version "$jpaPluginVersion"
         id("org.jetbrains.kotlinx.kover") version "$koverPluginVersion"
+        id("com.netflix.dgs.codegen") version "$dgsCodegenVersion"
     }
 }
 

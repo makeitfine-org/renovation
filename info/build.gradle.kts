@@ -13,12 +13,13 @@ plugins {
     id("io.spring.dependency-management")
     kotlin("plugin.spring")
     id("org.springframework.boot")
-    id("com.netflix.dgs.codegen") version "5.1.17"
+    id("com.netflix.dgs.codegen")
 }
 
 dependencies {
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web") {
@@ -37,18 +38,10 @@ dependencies {
     }
 }
 
-tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
+tasks.generateJava {
     generateClient = true
     packageName = "renovation.info.generated.dgs"
+    typeMapping = mutableMapOf(
+        "Age" to "kotlin.Int"
+    )
 }
-
-// withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
-//    generateClient = true
- //    language = "KOTLIN"
-//    packageName = "renovation.info.generated.dgs"
- //    typeMapping = mutableMapOf(
- //        "PhoneNumber" to "kotlin.String",
- //        "Email" to "kotlin.String",
- //        "PostCode" to "kotlin.String"
- //    )
-// }

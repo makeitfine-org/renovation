@@ -10,20 +10,22 @@ type Details {
     id: String
     name: String
     surname: String
-    age: Int
+    age: Age
     gender: String
 }
 
 input DetailsInput {
     name: String
     surname: String
-    age: Int
+    age: Age
     gender: String
 }
 
 input DetailsFilter {
     name: String
     surname: String
-    age: Int
+    age: Age
     gender: String
 }
+
+scalar Age
