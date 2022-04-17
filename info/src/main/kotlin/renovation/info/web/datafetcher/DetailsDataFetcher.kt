@@ -13,6 +13,7 @@ import com.netflix.graphql.dgs.InputArgument
 import org.springframework.beans.factory.annotation.Autowired
 import renovation.info.data.service.DetailsService
 import renovation.info.generated.dgs.types.Details
+import renovation.info.generated.dgs.types.DetailsEmail
 import renovation.info.generated.dgs.types.DetailsFilter
 import renovation.info.generated.dgs.types.DetailsInput
 
@@ -41,6 +42,9 @@ class DetailsDataFetcher(
                 surname = it.surname,
                 age = it.age,
                 gender = it.gender,
+                detailsEmails = it.detailsEmails?.asSequence()?.map {
+                    DetailsEmail(it.email, it.emailStatus)
+                }?.toList()
             )
         }.toList()
 

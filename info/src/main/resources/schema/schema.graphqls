@@ -12,6 +12,12 @@ type Details {
     surname: String
     age: Age
     gender: Gender
+    detailsEmails: [DetailsEmail]
+}
+
+type DetailsEmail {
+    email: String
+    emailStatus: EmailStatus
 }
 
 input DetailsInput {
@@ -19,6 +25,12 @@ input DetailsInput {
     surname: String
     age: Age
     gender: Gender
+    detailsEmails: [DetailsEmailInput]
+}
+
+input DetailsEmailInput {
+    email: String
+    emailStatus: EmailStatus
 }
 
 input DetailsFilter {
@@ -32,4 +44,8 @@ scalar Age
 
 enum Gender {
     Male, Female
+}
+
+enum EmailStatus {
+    Active, Inactive, Closed
 }

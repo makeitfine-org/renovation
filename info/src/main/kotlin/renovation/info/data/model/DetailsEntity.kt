@@ -18,4 +18,5 @@ data class DetailsEntity(
     var surname: String? = null,
     var age: Int? = null,
     var gender: Gender? = null,
+    val detailsEmails: List<DetailsEmailEntity>? = null
 )

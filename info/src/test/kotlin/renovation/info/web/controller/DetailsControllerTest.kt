@@ -38,69 +38,97 @@ internal class DetailsControllerTest(
             statusCode(HttpStatus.SC_OK)
 
             val expected = """
-              {
-                "id": "62571572b85c114c70d2c101",
-                "name": "Tom",
-                "surname": "Travolta",
-                "age": 27,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c102",
-                "name": "Sam",
-                "surname": "Berbik",
-                "age": 45,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c103",
-                "name": "Alfred",
-                "surname": "Berbik",
-                "age": 33,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c104",
-                "name": "Alfred",
-                "surname": "Hatton",
-                "age": 33,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c105",
-                "name": "Kate",
-                "surname": "Hatton",
-                "age": 33,
-                "gender": "Female"
-              },
-              {
-                "id": "62571572b85c114c70d2c106",
-                "name": "Maestro",
-                "surname": "Rave",
-                "age": 27,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c107",
-                "name": "Kventin",
-                "surname": "Toddo",
-                "age": 54,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c108",
-                "name": "El",
-                "surname": "Jey",
-                "age": 18,
-                "gender": "Male"
-              },
-              {
-                "id": "62571572b85c114c70d2c109",
-                "name": "Anny",
-                "surname": "Bally",
-                "age": 18,
-                "gender": "Female"
-              }
+               {
+                 "id": "62571572b85c114c70d2c101",
+                 "name": "Tom",
+                 "surname": "Travolta",
+                 "age": 27,
+                 "gender": "Male",
+                 "detailsEmails": [
+                   {
+                     "email": "tt27@email.one",
+                     "emailStatus": "Active"
+                   }
+                 ]
+               },
+               {
+                 "id": "62571572b85c114c70d2c102",
+                 "name": "Sam",
+                 "surname": "Berbik",
+                 "age": 45,
+                 "gender": "Male",
+                 "detailsEmails": null
+               },
+               {
+                 "id": "62571572b85c114c70d2c103",
+                 "name": "Alfred",
+                 "surname": "Berbik",
+                 "age": 33,
+                 "gender": "Male",
+                 "detailsEmails": null
+               },
+               {
+                 "id": "62571572b85c114c70d2c104",
+                 "name": "Alfred",
+                 "surname": "Hatton",
+                 "age": 33,
+                 "gender": "Male",
+                 "detailsEmails": null
+               },
+               {
+                 "id": "62571572b85c114c70d2c105",
+                 "name": "Kate",
+                 "surname": "Hatton",
+                 "age": 33,
+                 "gender": "Female",
+                 "detailsEmails": [
+                   {
+                     "email": "kh33@email.com",
+                     "emailStatus": "Active"
+                   },
+                   {
+                     "email": "kh33_other@email.two",
+                     "emailStatus": "Inactive"
+                   }
+                 ]
+               },
+               {
+                 "id": "62571572b85c114c70d2c106",
+                 "name": "Maestro",
+                 "surname": "Rave",
+                 "age": 27,
+                 "gender": "Male",
+                 "detailsEmails": null
+               },
+               {
+                 "id": "62571572b85c114c70d2c107",
+                 "name": "Kventin",
+                 "surname": "Toddo",
+                 "age": 54,
+                 "gender": "Male",
+                 "detailsEmails": [
+                   {
+                     "email": "kt54_other@email.two",
+                     "emailStatus": "Closed"
+                   }
+                 ]
+               },
+               {
+                 "id": "62571572b85c114c70d2c108",
+                 "name": "El",
+                 "surname": "Jey",
+                 "age": 18,
+                 "gender": "Male",
+                 "detailsEmails": null
+               },
+               {
+                 "id": "62571572b85c114c70d2c109",
+                 "name": "Anny",
+                 "surname": "Bally",
+                 "age": 18,
+                 "gender": "Female",
+                 "detailsEmails": null
+               }
             """
                 .trimIndent()
             body("$.size()", Matchers.greaterThan(0))

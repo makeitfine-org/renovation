@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.xmlunit.diff.Comparison.Detail
 import renovation.info.data.repository.DetailsRepository
 import renovation.info.generated.dgs.types.Details
+import renovation.info.generated.dgs.types.DetailsEmail
+import renovation.info.generated.dgs.types.EmailStatus
 
 @SpringBootTest
 internal class DetailsDataFetcherTest(
@@ -92,7 +94,11 @@ internal class DetailsDataFetcherTest(
                   ){
                     name
                     surname
-                    age
+                    age,
+                    detailsEmails {
+                      email
+                      emailStatus
+                    }
                   }
                 }
             """
@@ -107,6 +113,15 @@ internal class DetailsDataFetcherTest(
         val result: List<Details> = OBJECT_MAPPER.readerForListOf(Details::class.java).readValue(jsonInput)
         assertEquals(2, result.size)
         assertEquals(Details(name = "Alfred", surname = "Hatton", age = 33), result[0])
-        assertEquals(Details(name = "Kate", surname = "Hatton", age = 33), result[1])
+        assertEquals(
+            Details(
+                name = "Kate", surname = "Hatton", age = 33,
+                detailsEmails = listOf(
+                    DetailsEmail("kh33@email.com", EmailStatus.Active),
+                    DetailsEmail("kh33_other@email.two", EmailStatus.Inactive)
+                )
+            ),
+            result[1]
+        )
     }
 }
