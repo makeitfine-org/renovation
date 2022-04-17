@@ -8,18 +8,21 @@ package renovation.info.web.datafetcher
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.graphql.dgs.DgsQueryExecutor
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.xmlunit.diff.Comparison.Detail
+import renovation.info.data.repository.DetailsRepository
 import renovation.info.generated.dgs.types.Details
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 @SpringBootTest
 internal class DetailsDataFetcherTest(
     @Autowired
-    private val dgsQueryExecutor: DgsQueryExecutor
+    private val dgsQueryExecutor: DgsQueryExecutor,
+    @Autowired
+    private val detailsRepository: DetailsRepository
 ) {
     companion object {
         @JvmStatic
@@ -53,10 +56,11 @@ internal class DetailsDataFetcherTest(
             mutation {
               details(detailsInput:{
                 name:"Hello",
-                gender:"M",
+                gender:Male,
                 surname:"There",
                 age:32,
               }){
+                id
                 name
                 surname
               }
@@ -69,7 +73,10 @@ internal class DetailsDataFetcherTest(
 
         val roughData = res.getData<LinkedHashMap<*, *>>()["details"]
         val data = OBJECT_MAPPER.convertValue(roughData, Details::class.java)
-        assertEquals(Details(name = "Hello", surname = "There"), data)
+        assertEquals(Details(id = data.id, name = "Hello", surname = "There"), data)
+
+        // Clean db after test
+        detailsRepository.deleteById(data.id.toString())
     }
 
     @Test

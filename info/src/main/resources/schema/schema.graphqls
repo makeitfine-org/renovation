@@ -11,21 +11,25 @@ type Details {
     name: String
     surname: String
     age: Age
-    gender: String
+    gender: Gender
 }
 
 input DetailsInput {
     name: String
     surname: String
     age: Age
-    gender: String
+    gender: Gender
 }
 
 input DetailsFilter {
     name: String
     surname: String
     age: Age
-    gender: String
+    gender: Gender
 }
 
 scalar Age
+
+enum Gender {
+    Male, Female
+}
