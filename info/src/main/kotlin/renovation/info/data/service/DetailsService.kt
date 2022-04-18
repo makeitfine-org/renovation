@@ -13,5 +13,7 @@ import renovation.info.generated.dgs.types.DetailsInput
 interface DetailsService {
     fun getAll(): List<DetailsEntity>
 
+    fun getById(id: String): DetailsEntity
+
     fun save(detailsInput: DetailsInput): Details
 }

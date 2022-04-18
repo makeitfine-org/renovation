@@ -6,7 +6,8 @@
 
 package renovation.info.data.repository
 
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.MongoRepository
 import renovation.info.data.model.DetailsEntity
 
-interface DetailsRepository : MongoRepository<DetailsEntity, String>
+interface DetailsRepository : MongoRepository<DetailsEntity, ObjectId>

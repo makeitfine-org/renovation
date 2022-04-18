@@ -7,11 +7,14 @@
 package renovation.info.web.datafetcher
 
 import com.netflix.graphql.dgs.DgsComponent
+import com.netflix.graphql.dgs.DgsData
+import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
 import org.springframework.beans.factory.annotation.Autowired
 import renovation.info.data.service.DetailsService
+import renovation.info.generated.dgs.types.AdditionInfo
 import renovation.info.generated.dgs.types.Details
 import renovation.info.generated.dgs.types.DetailsEmail
 import renovation.info.generated.dgs.types.DetailsFilter
@@ -32,12 +35,11 @@ class DetailsDataFetcher(
                 filter.age?.let { if (it != element.age) return@filter false }
                 filter.gender?.let { if (it != element.gender) return@filter false }
             }
-
             true
         }
         .map {
             Details(
-                id = it.id,
+                id = it.id?.toHexString(),
                 name = it.name,
                 surname = it.surname,
                 age = it.age,
@@ -47,6 +49,14 @@ class DetailsDataFetcher(
                 }?.toList()
             )
         }.toList()
+
+    @DgsData(parentType = "Details")
+    fun additionInfos(dgsDataFetchingEnvironment: DgsDataFetchingEnvironment) =
+        detailsService
+            .getById(dgsDataFetchingEnvironment.getSource<Details>().id!!)
+            .additionInfos?.asSequence()
+            ?.map { AdditionInfo(nickName = it.nickName, phoneNumber = it.phoneNumber) }
+            ?.toList()
 
     @DgsMutation
     fun details(detailsInput: DetailsInput) = detailsService.save(detailsInput)

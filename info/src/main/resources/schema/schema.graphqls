@@ -13,6 +13,12 @@ type Details {
     age: Age
     gender: Gender
     detailsEmails: [DetailsEmail]
+    additionInfos: [AdditionInfo]
+}
+
+type AdditionInfo {
+    nickName: String
+    phoneNumber: String
 }
 
 type DetailsEmail {
@@ -26,11 +32,23 @@ input DetailsInput {
     age: Age
     gender: Gender
     detailsEmails: [DetailsEmailInput]
+    additionInfos: [AdditionInfoInput]
 }
 
 input DetailsEmailInput {
     email: String
     emailStatus: EmailStatus
+}
+
+directive @Size(min: Int = 0, max: Int = 50, message : String = "graphql.validation.Size.message")
+on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @Pattern(regexp: String! = "[+]3[0-9]{11}", message : String = "graphql.validation.Pattern.message")
+on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+input AdditionInfoInput {
+    nickName: String @Size(min: 1, max: 25)
+    phoneNumber: String @Pattern
 }
 
 input DetailsFilter {
