@@ -40,7 +40,7 @@ dependencies {
     }
     implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
 
-    runtimeOnly("com.h2database:${properties["h2Version"]}")
+    testImplementation("com.h2database:${properties["h2Version"]}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")

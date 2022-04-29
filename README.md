@@ -56,10 +56,13 @@ Technical configs
    "debug javascript" > insert in url: "ws://127.0.0.1:9229/b727369a-1135-480a-9111-ad90f3c40a52" > run it in debug mode
 
 ###Heroku config:
+Install heroku:  
+https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli  
+and java plugin: `heroku plugins:install java`  
 1. login heroku:  
    `heroku login`
 2. Deploy backend module (with jdk 17 specified) to heroku:  
-   `heroku deploy:jar backend/build/libs/backend-0.0.1-SNAPSHOT.jar --jdk 17 --app aqueous-woodland-63249`
+   `heroku deploy:jar backend/build/libs/backend-0.0.1-SNAPSHOT.jar --jdk 17 --app newk7`
 3. See heroku logs:  
    `heroku logs --tail --app aqueous-woodland-63249`
 4. See heroku configs:  
