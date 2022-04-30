@@ -12,6 +12,7 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
+import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import kotlin.test.Test
@@ -19,6 +20,7 @@ import kotlin.test.Test
 /**
  * Run docker-compose up on renovation/info module before
  */
+@Tag("smoke")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class DetailsControllerTest(
     @LocalServerPort private val port: Int

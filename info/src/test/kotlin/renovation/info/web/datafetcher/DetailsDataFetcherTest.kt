@@ -9,6 +9,8 @@ package renovation.info.web.datafetcher
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import graphql.ErrorType
+import org.bson.types.ObjectId
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,8 +23,8 @@ import renovation.info.generated.dgs.types.Gender
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import org.bson.types.ObjectId
 
+@Tag("smoke")
 @SpringBootTest
 internal class DetailsDataFetcherTest(
     @Autowired
