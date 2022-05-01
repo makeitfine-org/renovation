@@ -6,7 +6,12 @@
 version: '3.7'
 
 services:
-  renovation_backend:
+  renovation-backend:
     ports:
       - 5005:5005
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar /app.jar
+
+  renovation-info:
+    ports:
+      - 5006:5006
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar /app.jar

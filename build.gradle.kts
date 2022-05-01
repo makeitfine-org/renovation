@@ -177,11 +177,15 @@ tasks.register<GradleBuild>(buildall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":info:assemble", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", "copyDistToPublic")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:build", "--build-cache")
+            commandLine("gradle", ":backend:build", "--build-cache", "-x", "koverVerify")
         }
     }
 }
@@ -208,19 +212,13 @@ tasks.register<GradleBuild>(checkall) {
     }
 }
 
-tasks.register<GradleBuild>("all") {
-    description = "Execute build on modules, run end and execute api tests"
+val dockerAndApiTest = "dockerAndApiTest"
+
+tasks.register<GradleBuild>(dockerAndApiTest) {
+    description = "Run dockerand execute api tests"
     println(description)
 
     doLast {
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildall)
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", checkall)
-        }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("docker-compose", "down")
@@ -244,6 +242,30 @@ tasks.register<GradleBuild>("all") {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend-api-test:build", "--build-cache")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":info:build", "--build-cache")
+        }
+    }
+}
+
+tasks.register<GradleBuild>("all") {
+    description = "Execute build on modules, run docker and execute api tests"
+    println(description)
+
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", buildall)
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", checkall)
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", dockerAndApiTest)
         }
     }
 }

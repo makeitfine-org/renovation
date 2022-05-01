@@ -13,6 +13,7 @@ enum class ServerRoute(path: String) {
     ACTUATOR_INFO("actuator/info"),
 
     API_WORK("api/work"),
+    API_WORKER("api/worker"),
     API_WORK_ID("api/work/{id}");
 
     private val BASE_URL = Optional.ofNullable(System.getenv("SERVER_URL"))

@@ -6,10 +6,10 @@
 version: '3.7'
 
 services:
-  renovation_postgres:
+  renovation-postgres:
     image: postgres:14.2
     restart: always
-    container_name: "renovation_postgres"
+    container_name: "renovation-postgres"
     ports:
       - "${POSTGRES_LOCALHOST_REDIRECT_PORT}:5432"
     environment:
@@ -21,20 +21,56 @@ services:
     networks:
       - renovation-network
 
-  renovation_backend:
-    image: koresmosto/renovation_backend
+  renovation-backend:
+    image: koresmosto/renovation-backend
     build:
       context: ./backend
     restart: always
-    container_name: renovation_backend
+    container_name: renovation-backend
     depends_on:
-      - renovation_postgres
+      - renovation-postgres
     ports:
       - ${BACKEND_SERVER_REDIRECT_PORT}:8080
     environment:
-      POSTGRES_DB_URL: "jdbc:postgresql://renovation_postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
+      POSTGRES_DB_URL:   "jdbc:postgresql://renovation-postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
       POSTGRES_USERNAME: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      INFO_SERVICE_URL:  ${INFO_SERVICE_URL}
+    networks:
+      - renovation-network
+
+  renovation-mongo:
+    image: mongo:5.0.6
+    container_name: renovation-mongo
+    restart: always
+    ports:
+      - ${MONGO_LOCALHOST_REDIRECT_PORT}:27017
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./info/src/main/resources/db/migration/mongo/init/:/docker-entrypoint-initdb.d:ro
+    networks:
+      - renovation-network
+
+  renovation-info:
+    image: koresmosto/renovation-info
+    build:
+      context: ./info
+    restart: always
+    container_name: renovation-info
+    depends_on:
+      - renovation-mongo
+    ports:
+      - ${INFO_SERVER_REDIRECT_PORT}:9090
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DB: ${MONGO_DB}
+      MONGO_PORT: ${MONGO_PORT}
+      MONGO_HOST: ${MONGO_HOST}
     networks:
       - renovation-network
 

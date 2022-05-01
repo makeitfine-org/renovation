@@ -6,9 +6,9 @@
 version: '3.7'
 
 services:
-  renovation_gateway:
+  renovation-gateway:
     image: mockserver/mockserver:5.13.1
-    container_name: "renovation_gateway"
+    container_name: "renovation-gateway"
     ports:
       - 1080:1080
     environment:
