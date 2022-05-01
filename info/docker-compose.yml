@@ -11,13 +11,33 @@ services:
     container_name: renovation_info_mongo
     restart: always
     ports:
-      - 27117:27017
+      - ${MONGO_LOCALHOST_REDIRECT_PORT}:27017
     environment:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ./src/main/resources/db/migration/mongo/init/:/docker-entrypoint-initdb.d:ro
+    networks:
+      - renovation_info-network
+
+  renovation_info:
+    image: koresmosto/renovation_info
+    build:
+      context: .
+    restart: always
+    container_name: renovation_info
+    depends_on:
+      - renovation_info_mongo
+    ports:
+      - ${INFO_SERVER_REDIRECT_PORT}:9090
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DB: ${MONGO_DB}
+      MONGO_PORT: ${MONGO_PORT}
+      MONGO_HOST: ${MONGO_HOST}
     networks:
       - renovation_info-network
 

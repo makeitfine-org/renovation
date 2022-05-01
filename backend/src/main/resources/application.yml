@@ -42,3 +42,6 @@ management:
   info:
     env:
       enabled: true
+
+info-service:
+  base-url: "${INFO_SERVICE_URL:http://localhost:9090}"
