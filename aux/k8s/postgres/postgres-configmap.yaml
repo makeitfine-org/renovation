@@ -12,4 +12,5 @@ metadata:
 data:
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres1
+  POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/postgres?currentSchema=renovation"
+  INFO_SERVICE_URL: "http://info:9090/graphql"

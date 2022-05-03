@@ -115,8 +115,10 @@ For to autofix:
 2. Switch between "minikube" cluster (eval $(minikube docker-env)) and local env (eval $(docker-machine env -u))
 3. Upload docker image from local machine to minikube cluster:  
    `$> minikube image load <IMAGE_NAME>`  
-
 4. Deploy kubernetes postgres:  
    `$> sh aux/k8s/scripts/postgres-deploy.sh`  
 5. Delete kubernetes postgres:  
-   `$> sh aux/k8s/scripts/postgres-delete.sh`  
+   `$> sh aux/k8s/scripts/postgres-delete.sh`
+6. Deploy kubernetes backend:  
+   `$> kubectl apply -f aux/k8s/backend/backend-deployment.yaml`  
+   `$> kubectl apply -f aux/k8s/backend/backend-service.yaml`  

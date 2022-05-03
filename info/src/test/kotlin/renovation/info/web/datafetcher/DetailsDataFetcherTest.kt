@@ -9,9 +9,9 @@ package renovation.info.web.datafetcher
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import graphql.ErrorType
+import kotlin.test.Test
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.xmlunit.diff.Comparison.Detail
