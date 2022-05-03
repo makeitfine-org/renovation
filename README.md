@@ -105,6 +105,18 @@ See: https://github.com/makeitfine-org/renovation/issues/36
 
 #Checkstyle (code check and auto-fix):
 For to check:  
-$> gradle ktlintCheck  
+`$> gradle ktlintCheck`  
 For to autofix:  
-$> gradle ktlintFormat
+`$> gradle ktlintFormat`
+
+#Work with Kubernetes  
+1. Install docker-machine:  
+   https://github.com/docker/machine/releases
+2. Switch between "minikube" cluster (eval $(minikube docker-env)) and local env (eval $(docker-machine env -u))
+3. Upload docker image from local machine to minikube cluster:  
+   `$> minikube image load <IMAGE_NAME>`  
+
+4. Deploy kubernetes postgres:  
+   `$> sh aux/k8s/scripts/postgres-deploy.sh`  
+5. Delete kubernetes postgres:  
+   `$> sh aux/k8s/scripts/postgres-delete.sh`  
