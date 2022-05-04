@@ -122,3 +122,6 @@ For to autofix:
 6. Deploy kubernetes backend:  
    `$> kubectl apply -f aux/k8s/backend/backend-deployment.yaml`  
    `$> kubectl apply -f aux/k8s/backend/backend-service.yaml`  
+7. Run api tests on k8s cluster:  
+   `$> gradle k8sApiTest`  
+   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)

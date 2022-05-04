@@ -215,7 +215,7 @@ tasks.register<GradleBuild>(checkall) {
 val dockerAndApiTest = "dockerAndApiTest"
 
 tasks.register<GradleBuild>(dockerAndApiTest) {
-    description = "Run dockerand execute api tests"
+    description = "Run docker and execute backend api tests"
     println(description)
 
     doLast {
@@ -270,6 +270,15 @@ tasks.register<GradleBuild>("all") {
     }
 }
 
+tasks.register<Exec>("k8sApiTest") {
+    description = "Run backend api tests on kubernetes"
+    println(description)
+
+    workingDir("$gradleScripts")
+
+    commandLine("sh", "k8sApiTest.sh")
+}
+
 tasks.register<Delete>("removeOldPublic") {
     delete(
         fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
@@ -286,6 +295,7 @@ tasks.register<Copy>("copyDistToPublic") {
 
 val githookFiles: Array<String> = arrayOf("commit-msg", "pre-push")
 val githooks = "${rootProject.rootDir}/.git/hooks"
+val gradleScripts = "${rootProject.rootDir}/gradle/scripts"
 
 tasks.register<Copy>("installGitHooks") {
     description = "copy git hooks to .git/hook folder"
