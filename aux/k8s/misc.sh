@@ -30,11 +30,11 @@ kubectl delete service postgres
 kubectl delete deployments.apps postgres
 kubectl delete pvc postgres-pv-claim
 kubectl delete pv postgres-pv-volume
-kubectl delete configmaps postgres-configmap
-kubectl delete secrets postgres-secret-config
+kubectl delete configmaps renovation-configmap
+kubectl delete secrets renovation-secret
 
-kubectl apply -f aux/k8s/postgres/postgres-secret.yaml
-kubectl apply -f aux/k8s/postgres/postgres-configmap.yaml
+kubectl apply -f aux/k8s/postgres/renovation-secret.yaml
+kubectl apply -f aux/k8s/renovation-configmap.yaml
 kubectl apply -f aux/k8s/postgres/postgres-storage.yaml
 kubectl apply -f aux/k8s/postgres/postgres-deployment.yaml
 kubectl apply -f aux/k8s/postgres/postgres-service.yaml

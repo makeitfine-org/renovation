@@ -27,17 +27,17 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-configmap
+                  name: renovation-configmap
                   key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-configmap
+                  name: renovation-configmap
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret-config
+                  name: renovation-secret
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data

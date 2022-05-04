@@ -27,20 +27,20 @@ spec:
             - name: POSTGRES_DB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-configmap
+                  name: renovation-configmap
                   key: POSTGRES_DB_URL
             - name: POSTGRES_USERNAME
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-configmap
+                  name: renovation-configmap
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret-config
+                  name: renovation-secret
                   key: POSTGRES_PASSWORD
             - name: INFO_SERVICE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-configmap
+                  name: renovation-configmap
                   key: INFO_SERVICE_URL
