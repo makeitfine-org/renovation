@@ -6,5 +6,5 @@
 #
 K8S_PATH="`dirname \"$0\"`"/../..
 
-kubectl apply -f "${K8S_PATH}/backend/backend-deployment.yaml"
-kubectl apply -f "${K8S_PATH}/backend/backend-service.yaml"
+kubectl apply -f "${K8S_PATH}/yaml/backend/backend-deployment.yaml"
+kubectl apply -f "${K8S_PATH}/yaml/backend/backend-service.yaml"

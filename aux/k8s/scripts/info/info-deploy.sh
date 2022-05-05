@@ -6,5 +6,5 @@
 #
 K8S_PATH="`dirname \"$0\"`"/../..
 
-kubectl apply -f "${K8S_PATH}/info/info-deployment.yaml"
-kubectl apply -f "${K8S_PATH}/info/info-service.yaml"
+kubectl apply -f "${K8S_PATH}/yaml/info/info-deployment.yaml"
+kubectl apply -f "${K8S_PATH}/yaml/info/info-service.yaml"

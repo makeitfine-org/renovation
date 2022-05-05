@@ -122,7 +122,10 @@ For to autofix:
    `$> gradle k8sApiTest`  
    (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)4. Upload backend image and redeploy backend service:  
    `$> gradle k8sUploadBackendImage`  
-5. Deploy/Undeploy all k8s entities scripts:  
+5. Create on minikube cluster such dirs:  
+   `/mnt/pg/data`, `/mnt/pg/init` (also place `backend/../db-init-scripts/*` folder content here)  
+   `/mnt/mongo/data`, `/mnt/mongo/init` (also place `info/../init/*` folder content here)
+6. Deploy/Undeploy all k8s entities scripts:  
    5.1 deploy:  
    `$> sh aux/k8s/scripts/deploy-all.sh`  
    5.2 un-deploy:  
