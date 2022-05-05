@@ -114,17 +114,17 @@ For to autofix:
    https://github.com/docker/machine/releases
 2. Switch between "minikube" cluster (eval $(minikube docker-env)) and local env (eval $(docker-machine env -u))
 3. Upload docker image from local machine to minikube cluster:  
+   add minikube addon to upload docker images from local env to cluster:
+   `$> minikube addons enable registry`  
+    Upload image to `minikube` cluster:  
    `$> minikube image load <IMAGE_NAME>`  
-4. Deploy kubernetes postgres:  
-   `$> sh aux/k8s/scripts/postgres-deploy.sh`  
-   4.1 copy `db-init-scripts/*` folder content to cluster (minikube) path: `/mnt/pg/init`
-5. Delete kubernetes postgres:  
-   `$> sh aux/k8s/scripts/postgres-delete.sh`
-6. Deploy kubernetes backend:  
-   `$> kubectl apply -f aux/k8s/backend/backend-deployment.yaml`  
-   `$> kubectl apply -f aux/k8s/backend/backend-service.yaml`  
-7. Run api tests on k8s cluster:  
+4. Run api tests on k8s cluster:  
    `$> gradle k8sApiTest`  
-   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)
-8. Upload backend image and redeploy backend service:  
+   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)4. Upload backend image and redeploy backend service:  
    `$> gradle k8sUploadBackendImage`  
+5. Deploy/Undeploy all k8s entities scripts:  
+   5.1 deploy:  
+   `$> sh aux/k8s/scripts/deploy-all.sh`  
+   5.2 un-deploy:  
+   `$> sh aux/k8s/scripts/delete-all.sh`  
+   (all necessary scripts and `kubectl` command can be read from above `sh` scripts)
