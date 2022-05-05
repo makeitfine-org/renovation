@@ -117,6 +117,7 @@ For to autofix:
    `$> minikube image load <IMAGE_NAME>`  
 4. Deploy kubernetes postgres:  
    `$> sh aux/k8s/scripts/postgres-deploy.sh`  
+   4.1 copy `db-init-scripts/*` folder content to cluster (minikube) path: `/mnt/pg/init`
 5. Delete kubernetes postgres:  
    `$> sh aux/k8s/scripts/postgres-delete.sh`
 6. Deploy kubernetes backend:  

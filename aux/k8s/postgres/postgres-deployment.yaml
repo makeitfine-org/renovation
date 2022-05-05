@@ -50,4 +50,4 @@ spec:
             claimName: postgres-pv-claim
         - name: initdb
           hostPath:
-            path: /mnt/init
+            path: /mnt/pg/init
