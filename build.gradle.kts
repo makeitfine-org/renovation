@@ -274,9 +274,24 @@ tasks.register<Exec>("k8sApiTest") {
     description = "Run backend api tests on kubernetes"
     println(description)
 
-    workingDir("$gradleScripts")
+    commandLine("sh", properties["k8sApiTestScript"])
+}
 
-    commandLine("sh", "k8sApiTest.sh")
+tasks.register<Task>("k8sUploadBackendImage") {
+    description = "Upload backend image to kubernetes cluster"
+    println(description)
+
+    doLast {
+        exec {
+            commandLine("sh", properties["backendDeleteScript"])
+        }
+        exec {
+            commandLine("minikube", "image", "load", properties["backendImageName"])
+        }
+        exec {
+            commandLine("sh", properties["backendDeployScript"])
+        }
+    }
 }
 
 tasks.register<Delete>("removeOldPublic") {
@@ -295,7 +310,6 @@ tasks.register<Copy>("copyDistToPublic") {
 
 val githookFiles: Array<String> = arrayOf("commit-msg", "pre-push")
 val githooks = "${rootProject.rootDir}/.git/hooks"
-val gradleScripts = "${rootProject.rootDir}/gradle/scripts"
 
 tasks.register<Copy>("installGitHooks") {
     description = "copy git hooks to .git/hook folder"

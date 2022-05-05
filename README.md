@@ -125,3 +125,5 @@ For to autofix:
 7. Run api tests on k8s cluster:  
    `$> gradle k8sApiTest`  
    (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)
+8. Upload backend image and redeploy backend service:  
+   `$> gradle k8sUploadBackendImage`  
