@@ -7,6 +7,7 @@
 
 K8S_SCRIPTS_PATH="`dirname \"$0\"`"
 
+sh "${K8S_SCRIPTS_PATH}/info/info-delete.sh"
 sh "${K8S_SCRIPTS_PATH}/backend/backend-delete.sh"
 sh "${K8S_SCRIPTS_PATH}/postgres/postgres-delete.sh"
 sh "${K8S_SCRIPTS_PATH}/mongo/mongo-delete.sh"

@@ -1,0 +1,56 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2022
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: info
+spec:
+  selector:
+    matchLabels:
+      app: info
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: info
+    spec:
+      containers:
+        - name: info
+          image: koresmosto/renovation-info:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 9090
+          env:
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: MONGO_INITDB_DATABASE
+            - name: MONGO_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: MONGO_USERNAME
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: renovation-secret
+                  key: MONGO_PASSWORD
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: MONGO_DB
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: MONGO_PORT
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: MONGO_HOST

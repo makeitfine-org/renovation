@@ -15,3 +15,7 @@ data:
 
   MONGO_INITDB_DATABASE: infodb
   MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_USERNAME: infouser
+  MONGO_DB: infodb
+  MONGO_HOST: mongo
+  MONGO_PORT: "27017"
