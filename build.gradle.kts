@@ -294,6 +294,24 @@ tasks.register<Task>("k8sUploadBackendImage") {
     }
 }
 
+tasks.register<Task>("k8sUploadInfoImage") {
+    description = "Upload info image to kubernetes cluster"
+    println(description)
+
+    doLast {
+        exec {
+            commandLine("sh", properties["infoDeleteScript"])
+        }
+        exec {
+            commandLine("minikube", "image", "load", properties["infoImageName"])
+        }
+        exec {
+            commandLine("sh", properties["infoDeployScript"])
+        }
+    }
+}
+
+
 tasks.register<Delete>("removeOldPublic") {
     delete(
         fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
