@@ -161,23 +161,23 @@ tasks.register<GradleBuild>(buildall) {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "clean", "--build-cache")
+            commandLine("gradle", "clean")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend:npmInstall", "--build-cache")
+            commandLine("gradle", ":frontend:npmInstall")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend:npmBuild", "--build-cache")
+            commandLine("gradle", ":frontend:npmBuild")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:compileJava", "--build-cache")
+            commandLine("gradle", ":backend:compileJava")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":info:assemble", "--build-cache")
+            commandLine("gradle", ":info:assemble")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -185,7 +185,7 @@ tasks.register<GradleBuild>(buildall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:build", "--build-cache", "-x", "koverVerify")
+            commandLine("gradle", ":backend:build", "-x", "koverVerify")
         }
     }
 }
@@ -237,15 +237,15 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend-api-test:clean", "--build-cache")
+            commandLine("gradle", ":backend-api-test:clean")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend-api-test:build", "--build-cache")
+            commandLine("gradle", ":backend-api-test:build")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":info:build", "--build-cache")
+            commandLine("gradle", ":info:build")
         }
     }
 }
