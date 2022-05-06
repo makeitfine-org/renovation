@@ -39,9 +39,9 @@ dependencies {
         exclude("org.hibernate:hibernate-core")
     }
     implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
     testImplementation("com.h2database:${properties["h2Version"]}")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")
         exclude(group = "org.junit.jupiter")

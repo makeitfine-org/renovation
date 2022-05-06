@@ -269,13 +269,34 @@ internal class WorkControllerApiTest {
     }
 
     @Test
-    fun `crate with invalid data (failed)`() {
+    fun `create with invalid data (failed)`() {
         given()
             .When {
                 body(
                     """
                {
                    "title":"any title",
+                   "description":"desc save",
+                   "price":773.31,
+                   "payDate":"2020-11-28aaa"
+                }
+            """
+                        .trimIndent()
+                )
+                    .post(ServerRoute.API_WORK.route)
+            }
+            .Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            }
+    }
+
+    @Test
+    fun `create without title (failed)`() {
+        given()
+            .When {
+                body(
+                    """
+               {
                    "description":"desc save",
                    "price":773.31,
                    "payDate":"2020-11-28aaa"

@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.RestController
 import renovation.backend.data.domain.Work
 import renovation.backend.data.service.WorkService
 import java.util.*
+import javax.validation.Valid
+import org.springframework.validation.annotation.Validated
+import renovation.backend.data.validation.OnCreate
 
 @CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])
 @RestController
 @RequestMapping("/api/work")
+@Validated
 class WorkController(private val workService: WorkService) {
 
     companion object {
@@ -51,8 +55,9 @@ class WorkController(private val workService: WorkService) {
     }
 
     @PostMapping
+    @Validated(OnCreate::class)
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody work: Work) {
+    fun create(@RequestBody @Valid work: Work) {
         LOG.info("create work: $work")
         workService.save(work)
     }

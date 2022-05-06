@@ -410,6 +410,29 @@ internal class WorkControllerFunctionalTest(
             }
     }
 
+    @Order(31)
+    @Test
+    fun createWork_Return500IfDataHasNoTitle_Fail() {
+        given()
+            .When {
+                body(
+                    """
+                    {
+                       "description":"desc it",
+                       "price":10000.0,
+                       "payDate":"2020-11-28"
+                    }
+                    """.trimIndent()
+                )
+                post("/api/work")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
+            }
+    }
+
     @Order(40)
     @Test
     fun deleteWork_Success() {
