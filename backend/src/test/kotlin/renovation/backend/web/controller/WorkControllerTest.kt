@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import renovation.backend.TestHelper.WORKS
 import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
@@ -46,32 +47,6 @@ internal class WorkControllerTest(
         private val OBJECT_MAPPER = ObjectMapper()
             .registerModule(JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-
-        private val WORKS = listOf(
-            Work(
-                id = "11111111-05da-40d7-9781-aad518619682",
-                title = "title 1",
-                description = "desc 1",
-                price = 222.5,
-                endDate = LocalDate.parse("2022-11-11"),
-                payDate = LocalDate.parse("2022-10-25")
-            ),
-            Work(
-                id = "22222222-05da-40d7-9781-aad518619682",
-                title = "title 2",
-                description = "desc 2",
-                price = 5222.0,
-                endDate = LocalDate.parse("2021-05-07"),
-                payDate = LocalDate.parse("2022-10-15")
-            ),
-            Work(
-                id = "33333333-05da-40d7-9781-aad518619682",
-                title = "title 3",
-                description = "desc 3",
-                price = 222.5,
-                endDate = LocalDate.parse("2022-11-11"),
-            ),
-        )
     }
 
     @TestConfiguration
