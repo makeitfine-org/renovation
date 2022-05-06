@@ -29,8 +29,9 @@ dependencies {
     }
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")
         exclude(group = "org.junit.jupiter")

@@ -14,13 +14,15 @@ import renovation.info.data.model.DetailsEmailEntity
 import renovation.info.data.model.DetailsEntity
 import renovation.info.data.repository.DetailsRepository
 import renovation.info.data.service.DetailsService
+import renovation.info.data.service.ValidatorService
 import renovation.info.generated.dgs.types.Details
 import renovation.info.generated.dgs.types.DetailsEmail
 import renovation.info.generated.dgs.types.DetailsInput
 
 @Service
 class DetailsServiceImpl(
-    @Autowired val detailsRepository: DetailsRepository
+    @Autowired val detailsRepository: DetailsRepository,
+    @Autowired val validatorService: ValidatorService,
 ) : DetailsService {
 
     override fun getAll() = detailsRepository.findAll()
@@ -29,22 +31,24 @@ class DetailsServiceImpl(
 
     override fun save(detailsInput: DetailsInput) =
         detailsRepository.save(
-            DetailsEntity(
-                id = ObjectId.get(),
-                name = detailsInput.name,
-                surname = detailsInput.surname,
-                age = detailsInput.age,
-                gender = detailsInput.gender,
-                detailsEmails = detailsInput.detailsEmails
-                    ?.map {
-                        DetailsEmailEntity(it?.email, it?.emailStatus)
-                    }
-                    ?.toList(),
-                additionInfos = detailsInput.additionInfos
-                    ?.map {
-                        AdditionInfoEntity(it?.nickName, it?.phoneNumber)
-                    }
-                    ?.toList()
+            validatorService.validate(
+                DetailsEntity(
+                    id = ObjectId.get(),
+                    name = detailsInput.name,
+                    surname = detailsInput.surname,
+                    age = detailsInput.age,
+                    gender = detailsInput.gender,
+                    detailsEmails = detailsInput.detailsEmails
+                        ?.map {
+                            DetailsEmailEntity(it?.email, it?.emailStatus)
+                        }
+                        ?.toList(),
+                    additionInfos = detailsInput.additionInfos
+                        ?.map {
+                            AdditionInfoEntity(it?.nickName, it?.phoneNumber)
+                        }
+                        ?.toList()
+                )
             )
         ).let {
             Details(

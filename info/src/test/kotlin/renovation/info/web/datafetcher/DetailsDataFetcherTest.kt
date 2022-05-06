@@ -9,7 +9,6 @@ package renovation.info.web.datafetcher
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import graphql.ErrorType
-import kotlin.test.Test
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,8 +19,10 @@ import renovation.info.generated.dgs.types.Details
 import renovation.info.generated.dgs.types.DetailsEmail
 import renovation.info.generated.dgs.types.EmailStatus
 import renovation.info.generated.dgs.types.Gender
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @Tag("smoke")
@@ -180,5 +181,47 @@ internal class DetailsDataFetcherTest(
             ),
             result[1]
         )
+    }
+
+    @Test
+    fun `save details (invalid input data)`() {
+        val res = dgsQueryExecutor.execute(
+            """
+            mutation {
+              details(detailsInput:{
+                name:"Hello"
+                gender:Male
+                surname:"There"
+                age:321
+                detailsEmails: {
+                  email:"temo@eet.ddd"
+                  emailStatus: Active
+                }
+              }){
+                id
+                name
+                surname
+                gender
+                age
+                detailsEmails {
+                    email
+                    emailStatus
+                }
+              }
+            }
+            """
+        )
+
+        assertTrue { res.errors.isNotEmpty() }
+        assertEquals(1, res.errors.size)
+
+        assertEquals(
+            "javax.validation.ConstraintViolationException: validate.validatedEntity.age: Age should be up to 90",
+            res.errors[0].message
+        )
+
+        assertTrue { res.isDataPresent }
+        assertTrue { res.getData<LinkedHashMap<*, *>>().containsKey("details") }
+        assertNull(res.getData<LinkedHashMap<*, *>>()["details"])
     }
 }
