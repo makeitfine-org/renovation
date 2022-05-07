@@ -34,6 +34,17 @@ spring:
     port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD:redispass}
 
+logging:
+  level:
+    root: INFO
+    renovation.backend: DEBUG
+    org.hibernate:
+      SQL: DEBUG
+      type:
+        descriptor:
+          sql:
+            BasicBinder: TRACE
+
 management:
   endpoints:
     enabled-by-default: true
