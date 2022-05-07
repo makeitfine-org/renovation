@@ -40,6 +40,8 @@ dependencies {
     }
     implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
 
     testImplementation("com.h2database:${properties["h2Version"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

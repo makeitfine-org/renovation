@@ -6,6 +6,7 @@
 
 package renovation.backend.data.domain
 
+import java.io.Serializable
 import renovation.backend.data.validation.OnCreate
 import java.time.LocalDate
 import javax.validation.constraints.NotEmpty
@@ -22,4 +23,4 @@ data class Work(
     val endDate: LocalDate? = null,
     val price: Double? = null,
     val payDate: LocalDate? = null,
-)
+): Serializable

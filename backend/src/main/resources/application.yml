@@ -29,6 +29,11 @@ spring:
   liquibase:
     change-log: db/liquibase/changelog.xml
 
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:redispass}
+
 management:
   endpoints:
     enabled-by-default: true

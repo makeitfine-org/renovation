@@ -23,6 +23,7 @@ import renovation.backend.data.domain.Work
 import renovation.backend.data.service.WorkService
 import java.util.*
 import javax.validation.Valid
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.validation.annotation.Validated
 import renovation.backend.data.validation.OnCreate
 
@@ -49,6 +50,7 @@ class WorkController(private val workService: WorkService) {
     }
 
     @GetMapping("{id}")
+    @Cacheable(value = ["work"], key = "#id", unless = "#work.price > 10000")
     fun find(@PathVariable id: UUID): Work {
         LOG.info("find work by id: $id")
         return workService.findById(id)

@@ -79,15 +79,6 @@ internal class WorkServiceImplTest {
             entity.id = UUID.randomUUID()
             entity
         }
-        every {
-            workRepository.save(
-                match {
-                    it.title == null
-                }
-            )
-        } answers {
-            throw RuntimeException("title must be defined")
-        }
 
         every {
             workRepository.existsById(any())
