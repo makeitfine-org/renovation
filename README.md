@@ -134,3 +134,7 @@ For to autofix:
    5.2 un-deploy:  
    `$> sh aux/k8s/scripts/delete-all.sh`  
    (all necessary scripts and `kubectl` command can be read from above `sh` scripts)
+
+#Redis
+* To evict/remove 'works' keys redis entities call on backend module server URL:  
+  `/api/service/redis/work/evict`

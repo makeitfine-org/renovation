@@ -8,6 +8,7 @@ package renovation.backend.web.controller
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,11 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import renovation.backend.data.domain.Work
 import renovation.backend.data.service.WorkService
+import renovation.backend.data.validation.OnCreate
 import java.util.*
 import javax.validation.Valid
-import org.springframework.cache.annotation.Cacheable
-import org.springframework.validation.annotation.Validated
-import renovation.backend.data.validation.OnCreate
 
 @CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])
 @RestController
@@ -50,7 +49,6 @@ class WorkController(private val workService: WorkService) {
     }
 
     @GetMapping("{id}")
-    @Cacheable(value = ["work"], key = "#id", unless = "#work.price > 10000")
     fun find(@PathVariable id: UUID): Work {
         LOG.info("find work by id: $id")
         return workService.findById(id)
