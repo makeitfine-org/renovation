@@ -25,6 +25,8 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 @ExtendWith(MockKExtension::class)
 internal class WorkServiceImplTest {
@@ -76,7 +78,7 @@ internal class WorkServiceImplTest {
             workRepository.save(any())
         } answers {
             val entity = call.invocation.args[0] as WorkEntity
-            entity.id = UUID.randomUUID()
+            entity.id = entity.id ?: UUID.randomUUID()
             entity
         }
 
@@ -133,9 +135,15 @@ internal class WorkServiceImplTest {
 
     @Test
     fun `save`() {
-        assertDoesNotThrow<Exception> {
-            workService.save(Work(title = "any other"))
-            return
+        val savedTitle = "saved title"
+        workService.save(Work(title = savedTitle)).let {
+            assertNotNull(it.id)
+            assertEquals(savedTitle, it.title)
+
+            assertNull(it.description)
+            assertNull(it.endDate)
+            assertNull(it.payDate)
+            assertNull(it.price)
         }
     }
 
@@ -150,12 +158,19 @@ internal class WorkServiceImplTest {
 
     @Test
     fun `update`() {
-        assertDoesNotThrow<Exception> {
-            workService.update(
-                UUID.fromString("22222222-05da-40d7-9781-aad518619682"),
-                Work(title = "any other")
-            )
-            return
+        val updatedUUID = UUID.fromString("22222222-05da-40d7-9781-aad518619682")
+        val updatedTitle = "updated title"
+
+        workService.update(
+            updatedUUID, Work(title = updatedTitle)
+        ).let {
+            assertEquals(updatedUUID, UUID.fromString(it.id))
+            assertEquals(updatedTitle, it.title)
+
+            assertEquals(WORK_MAP[updatedUUID]?.description, it.description)
+            assertEquals(WORK_MAP[updatedUUID]?.endDate, it.endDate)
+            assertEquals(WORK_MAP[updatedUUID]?.payDate, it.payDate)
+            assertEquals(WORK_MAP[updatedUUID]?.price, it.price)
         }
     }
 

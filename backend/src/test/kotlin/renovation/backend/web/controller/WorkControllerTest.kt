@@ -87,9 +87,18 @@ internal class WorkControllerTest(
                 UUID.fromString("33333333-05da-40d7-9781-aad518619682"),
                 Work(title = "title updated", price = 500.5, endDate = LocalDate.parse("2021-05-05"))
             )
-        } returns Unit
+        } answers {
+            val updatedId = (call.invocation.args[0] as UUID).toString()
+            (call.invocation.args[1] as Work).copy(id = updatedId)
+        }
 
-        every { workService.save(any()) } returns Unit
+        every {
+            workService.save(any())
+        } answers {
+            (call.invocation.args[0] as Work).copy(id = UUID.randomUUID().toString())
+        }
+
+        every { workService.save(any()) } returns Work()
 
         every { workService.delete(any()) } answers { call ->
             throw WorkNotFoundException(call.invocation.args[0] as UUID)

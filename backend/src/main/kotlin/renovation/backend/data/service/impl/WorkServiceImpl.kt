@@ -7,8 +7,6 @@
 package renovation.backend.data.service.impl
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import renovation.backend.data.domain.Work
@@ -35,27 +33,27 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         .map(Helper::convert).toList()
 
     @Throws(WorkNotFoundException::class)
-    @Cacheable(value = ["works"], key = "#id", unless = "#result.price > 10000")
+//    @Cacheable(value = ["works"], key = "#id", unless = "#result.price > 10000")
     override fun findById(id: UUID) = workRepository
         .findById(id).orElse(null)
         ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
 
-    override fun save(work: Work) {
-        workRepository.save(Helper.convert(work))
-    }
+    override fun save(work: Work) = workRepository.save(
+        Helper.convert(work.copy(id = null))
+    ).let { Helper.convert(it) }
 
     @Throws(WorkNotFoundException::class)
 //    @CachePut(value = ["works"], key = "#id", unless = "#result.price > 10000")
 //    @CachePut(value = ["works"], key = "#id")
-    override fun update(id: UUID, work: Work) {
+    override fun update(id: UUID, work: Work): Work {
         val workEntityForUpdate = workRepository.findById(id).orElse(null)
             ?.let { it } ?: throw WorkNotFoundException(id)
         updateEntity(work, workEntityForUpdate)
-        workRepository.save(workEntityForUpdate)
+        return workRepository.save(workEntityForUpdate).let { Helper.convert(it) }
     }
 
     @Throws(WorkNotFoundException::class)
-    @CacheEvict(value = ["works"], key = "#id")
+//    @CacheEvict(value = ["works"], key = "#id")
     override fun delete(id: UUID) {
         if (!workRepository.existsById(id)) {
             throw WorkNotFoundException(id)

@@ -16,9 +16,9 @@ interface WorkService {
 
     fun findById(id: UUID): Work
 
-    fun save(work: Work)
+    fun save(work: Work): Work
 
-    fun update(id: UUID, work: Work)
+    fun update(id: UUID, work: Work): Work
 
     fun delete(id: UUID)
 }
