@@ -33,7 +33,6 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         .map(Helper::convert).toList()
 
     @Throws(WorkNotFoundException::class)
-//    @Cacheable(value = ["works"], key = "#id", unless = "#result.price > 10000")
     override fun findById(id: UUID) = workRepository
         .findById(id).orElse(null)
         ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
@@ -43,8 +42,6 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
     ).let { Helper.convert(it) }
 
     @Throws(WorkNotFoundException::class)
-//    @CachePut(value = ["works"], key = "#id", unless = "#result.price > 10000")
-//    @CachePut(value = ["works"], key = "#id")
     override fun update(id: UUID, work: Work): Work {
         val workEntityForUpdate = workRepository.findById(id).orElse(null)
             ?.let { it } ?: throw WorkNotFoundException(id)
@@ -53,7 +50,6 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
     }
 
     @Throws(WorkNotFoundException::class)
-//    @CacheEvict(value = ["works"], key = "#id")
     override fun delete(id: UUID) {
         if (!workRepository.existsById(id)) {
             throw WorkNotFoundException(id)

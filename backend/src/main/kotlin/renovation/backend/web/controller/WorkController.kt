@@ -7,6 +7,7 @@
 package renovation.backend.web.controller
 
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -30,7 +31,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api/work")
 @Validated
-class WorkController(private val workService: WorkService) {
+class WorkController(@Qualifier("workServiceCacheableImpl") private val workService: WorkService) {
 
     companion object {
         @JvmStatic

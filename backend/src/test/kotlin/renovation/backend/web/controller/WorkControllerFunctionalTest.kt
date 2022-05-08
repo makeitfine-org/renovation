@@ -23,9 +23,11 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
+import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.DockerImageName
 import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL
@@ -46,31 +48,45 @@ internal class WorkControllerFunctionalTest(
     @Autowired val jdbcTemplate: JdbcTemplate
 ) {
     companion object {
-        private const val WORK_COUNT: Long = 5
-        private const val COUNT_WORD = "count"
+        private const val POSTGRES_DOCKER_IMAGE = "postgres:14.2-alpine"
+        private const val REDIS_DOCKER_IMAGE = "redis:7.0.0-alpine"
 
         @Container
-        private val container: PostgreSQLContainer<Nothing> = PostgreSQLContainer<Nothing>("postgres:13.3-alpine")
+        private val postgresContainer: PostgreSQLContainer<Nothing> =
+            PostgreSQLContainer<Nothing>(POSTGRES_DOCKER_IMAGE)
+
+        @Container
+        private val redisContainer: GenericContainer<Nothing> =
+            GenericContainer<Nothing>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
+                .withExposedPorts(6379)
 
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url", container::getJdbcUrl)
-            registry.add("spring.datasource.password", container::getPassword)
-            registry.add("spring.datasource.username", container::getUsername)
+            registry.add("spring.datasource.url") { postgresContainer.jdbcUrl }
+            registry.add("spring.datasource.password") { postgresContainer.password }
+            registry.add("spring.datasource.username") { postgresContainer.username }
+
+            registry.add("spring.redis.host") { redisContainer.containerIpAddress }
+            registry.add("spring.redis.port") { redisContainer.firstMappedPort }
+            registry.add("spring.redis.password") { "" }
         }
 
         @JvmStatic
         private val OBJECT_MAPPER = ObjectMapper()
+
+        private const val WORK_COUNT: Long = 5
+        private const val COUNT_WORD = "count"
     }
 
     @Order(0)
     @Test
     fun `container should be run`() {
         jdbcTemplate.isIgnoreWarnings
-        assertTrue(container.isRunning)
+        assertTrue(postgresContainer.isRunning)
+        assertTrue(redisContainer.isRunning)
 
-        val url = URL("http://${container.containerIpAddress}:${container.firstMappedPort}")
+        val url = URL("http://${postgresContainer.containerIpAddress}:${postgresContainer.firstMappedPort}")
 
         url.openConnection() as HttpURLConnection
     }

@@ -15,7 +15,10 @@ import renovation.backend.IntegrationTest
 import kotlin.test.Test
 
 @IntegrationTest
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = ["management.health.redis.enabled=false"]
+)
 internal class ActuatorTest(
     @LocalServerPort val port: Int
 ) {

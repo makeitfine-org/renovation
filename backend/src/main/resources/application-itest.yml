@@ -17,3 +17,9 @@ spring:
   h2:
     console:
       enabled: true
+
+# Disable redis healthCheck
+#management:
+#  health:
+#    redis:
+#      enabled: false

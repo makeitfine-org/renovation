@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
@@ -51,7 +52,8 @@ internal class WorkControllerTest(
 
     @TestConfiguration
     class ControllerTestConfig {
-        @Bean
+        @Primary
+        @Bean("workServiceCacheableImpl")
         fun workService() = mockk<WorkService>()
     }
 
