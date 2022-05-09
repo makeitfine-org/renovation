@@ -44,3 +44,18 @@ spec:
                 configMapKeyRef:
                   name: renovation-configmap
                   key: INFO_SERVICE_URL
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: REDIS_PORT
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: renovation-secret
+                  key: REDIS_PASSWORD

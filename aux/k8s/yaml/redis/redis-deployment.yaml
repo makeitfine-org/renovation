@@ -1,0 +1,34 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2022
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.0.0-alpine
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: renovation-secret
+                  key: REDIS_PASSWORD
+          command: ["/bin/sh","-c"]
+          args:
+            - "redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb"
