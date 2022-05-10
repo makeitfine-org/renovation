@@ -30,6 +30,11 @@ const routing = {
             path: '/add/work',
             component: () => import('@/component/AddWork.vue')
         },
+        {
+            name: 'workerFacade',
+            path: '/worker',
+            component: () => import('@/component/worker/WorkerFacade.vue')
+        },
     ]
 }
 

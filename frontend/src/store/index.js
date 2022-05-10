@@ -6,10 +6,12 @@
 
 import {createStore} from 'vuex'
 import work from './modules/work'
+import worker from './modules/worker'
 
 const storing = {
     modules: {
-        work
+        work,
+        worker
     }
 }
 

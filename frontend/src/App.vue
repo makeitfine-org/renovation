@@ -18,6 +18,9 @@
         <li class="nav-item">
           <router-link :to="{name: 'addWork'}" class="nav-link">Add Work</router-link>
         </li>
+        <li class="nav-item">
+          <router-link :to="{name: 'workerFacade'}" class="nav-link">Worker</router-link>
+        </li>
       </div>
     </nav>
 
