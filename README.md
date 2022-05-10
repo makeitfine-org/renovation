@@ -34,7 +34,7 @@ Technical configs
 2. make: `$>docker-compose up`
    or to start in debug mode:
    `$>docker-compose -f docker-compose.yml -f docker-compose-debug.yml up` 
-3. open application in browser on port 8085
+3. open application in browser on port 8180
 
 ###Starting work:
 1. First after cloning repo config githook for project:  
