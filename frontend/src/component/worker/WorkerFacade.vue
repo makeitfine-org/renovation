@@ -2,18 +2,6 @@
   <div class="list row">
     <div class="col-md-8">
       <br>
-<!--      <div class="input-group mb-3">-->
-<!--        <input type="text" class="form-control" placeholder="Search by work"-->
-<!--               @keyup.enter="searchByTitle"-->
-<!--               v-model="title"/>-->
-<!--        <div class="input-group-append">-->
-<!--          <button class="btn btn-outline-secondary" type="button"-->
-<!--                  @click="searchByTitle"-->
-<!--          >-->
-<!--            Search-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
     <div class="col-md-12">
       <h1>😉 Worker page 😉</h1>
@@ -47,11 +35,6 @@ export default {
   computed: mapGetters(['allWorkers', 'allWorkersCount', 'loading']),
   methods: {
     ...mapActions(['retrieveWorkers']),
-    // ...mapActions(['retrieveWorks', 'searchWorksByTitle']),
-    // searchByTitle() {
-    //   this.searchWorksByTitle(this.title)
-    //   this.title = ''
-    // }
   },
   mounted() {
     this.retrieveWorkers()

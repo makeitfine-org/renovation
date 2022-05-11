@@ -15,15 +15,9 @@
     <div class="list-item col-sm border-end border-1">
       {{ worker.name }}
     </div>
-<!--    <div class="list-item col-sm border-end border-1">-->
-<!--      {{ work.description }}-->
-<!--    </div>-->
     <div class="list-item col-sm border-end border-1">
       {{ worker.surname }}
     </div>
-<!--    <div class="list-item col-sm border-end border-1">-->
-<!--      {{ work.endDate }}-->
-<!--    </div>-->
     <div class="list-item col-sm">
       {{ worker.age }}
     </div>

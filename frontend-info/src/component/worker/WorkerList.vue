@@ -9,21 +9,12 @@
     <div class="col-md-7">
       <ul class="list-group">
         <li class="list-group-item row d-flex border-3">
-          <!--          <div class="list-item col-sm border-end border-3">-->
-          <!--            <strong>Id</strong>-->
-          <!--          </div>-->
           <div class="list-item col-sm border-end border-3">
             <strong>Name</strong>
           </div>
-          <!--          <div class="list-item col-sm border-end border-3">-->
-          <!--            <strong>Description</strong>-->
-          <!--          </div>-->
           <div class="list-item col-sm border-end border-3">
             <strong>Surname</strong>
           </div>
-          <!--          <div class="list-item col-sm border-end border-3">-->
-          <!--            <strong>End date</strong>-->
-          <!--          </div>-->
           <div class="list-item col-sm">
             <strong>Age</strong>
           </div>
@@ -34,14 +25,16 @@
                   :key="idx"
                   :worker="worker"
                   :idx="idx"
+                  @click="setActiveWorker(worker, idx)"
         />
-<!--                  @click="setActiveWorker(worker, idx)"-->
-<!--        />-->
       </ul>
     </div>
     <div class="col-md-5">
       <div v-if="currentWorker">
         <h4>Worker</h4>
+        <div>
+          <label><strong>Id:</strong></label> {{ currentWorker.id }}
+        </div>
         <div>
           <label><strong>Name:</strong></label> {{ currentWorker.name }}
         </div>
@@ -51,12 +44,9 @@
         <div>
           <label><strong>Age:</strong></label> {{ currentWorker.age }}
         </div>
-<!--        <div>-->
-<!--          <label><strong>End date:</strong></label> {{ currentWork.endDate }}-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <label><strong>Pay date:</strong></label> {{ currentWork.payDate }}-->
-<!--        </div>-->
+        <div>
+          <label><strong>Gender:</strong></label> {{ currentWorker.gender }}
+        </div>
 <!--        <div style="margin-top: 7px;">-->
 <!--          <button class="badge-light badge-success"-->
 <!--                  @click="editWork"-->

@@ -5,25 +5,13 @@
   -->
 
 <template>
-  <li class="list-group-item row d-flex"
-  >
-<!--      @dblclick="handleItemClick(worker.id)"-->
-<!--  >-->
-<!--    <div class="list-item col-sm border-end border-1">-->
-<!--      <strong>{{ idx }}</strong>-->
-<!--    </div>-->
+  <li class="list-group-item row d-flex">
     <div class="list-item col-sm border-end border-1">
       {{ worker.name }}
     </div>
-<!--    <div class="list-item col-sm border-end border-1">-->
-<!--      {{ work.description }}-->
-<!--    </div>-->
     <div class="list-item col-sm border-end border-1">
       {{ worker.surname }}
     </div>
-<!--    <div class="list-item col-sm border-end border-1">-->
-<!--      {{ work.endDate }}-->
-<!--    </div>-->
     <div class="list-item col-sm">
       {{ worker.age }}
     </div>
@@ -40,9 +28,6 @@ export default {
     idx: Number
   },
   methods: {
-    // handleItemClick(id) {
-    //   this.$router.push({name: 'work-details', params: {id: id}})
-    // }
   }
 }
 </script>

@@ -9,10 +9,11 @@ import workerDataService from "@/service/WorkerDataService";
 export default {
     actions: {
         retrieveWorkers({commit}) {
-            workerDataService.getAll()
+            workerDataService.getAllData()
+            // workerDataService.getWorkers()
                 .then(response => {
-                    const workers = response.data
-                    console.log(response.data)
+                    const workers = response.data.data.details
+                    console.log(workers)
 
                     commit('updateWorkers', workers)
                     commit('updateLoading', false)
@@ -21,32 +22,6 @@ export default {
                     console.log(e)
                 })
         },
-        // searchWorksByTitle({commit}, title) {
-        //   workDataService.findByTitle(title)
-        //       .then(response => {
-        //           const works = response.data
-        //           console.log(response.data)
-        //
-        //           commit('updateWorks', works)
-        //       })
-        //       .catch(e => {
-        //         console.log(e);
-        //       });
-        // },
-        // createWork({commit}, work) {
-        //     workDataService.create(work)
-        //         .then(response => {
-        //             console.log(response.data);
-        //             const newWork = response.data
-        //
-        //             commit('addWork', newWork)
-        //             return true
-        //         })
-        //         .catch(e => {
-        //             console.log(e);
-        //             return false
-        //         })
-        // }
     },
     mutations: {
         updateLoading(state, loading) {
@@ -55,9 +30,6 @@ export default {
         updateWorkers(state, workers) {
             state.workers = workers
         },
-        // addWork(state, newWork) {
-        //     state.works.unshift(newWork)
-        // }
     },
     state: {
         workers: [],

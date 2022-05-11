@@ -1,29 +1,27 @@
-import http from "@/http-common";
+import {backendApi, infoGraphql} from "@/http-common";
 
 class WorkerDataService {
-  getAll() {
-    return http.get("/worker");
-  }
+    getAllData() {
+        const data = {
+            query: `
+                {
+                  details {
+                    id
+                    name
+                    surname
+                    age
+                    gender
+                  }
+                }
+            `
+        }
+        return infoGraphql.post("", data);
+    }
 
-  // get(id) {
-  //   return http.get(`/worker/${id}`);
-  // }
-
-  // findByTitle(title) {
-  //   return http.get(`/worker?title=${title}`);
-  // }
-
-  // create(data) {
-  //   return http.post("/work", data);
-  // }
-  //
-  // update(id, data) {
-  //   return http.patch(`/work/${id}`, data);
-  // }
-  //
-  // delete(id) {
-  //   return http.delete(`/work/${id}`);
-  // }
+    getWorkers() {
+        return infoGraphql.get("/api/v1/info");
+        // return backendApi().get("/worker");
+    }
 }
 
 export default new WorkerDataService();
