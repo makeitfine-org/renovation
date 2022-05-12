@@ -98,18 +98,18 @@ https://github.com/heroku/heroku-cli-deploy
 or just  
 `$> gradle all`
 
-#Use mockserver
+###Use mockserver
 From module gateway run `docker-compose up`  
 To add/update/delete requests modify config/initializer.json file  
 See: https://github.com/makeitfine-org/renovation/issues/36
 
-#Checkstyle (code check and auto-fix):
+###Checkstyle (code check and auto-fix):
 For to check:  
 `$> gradle ktlintCheck`  
 For to autofix:  
 `$> gradle ktlintFormat`
 
-#Work with Kubernetes  
+###Work with Kubernetes  
 1. Install docker-machine:  
    https://github.com/docker/machine/releases
 2. Switch between "minikube" cluster (eval $(minikube docker-env)) and local env (eval $(docker-machine env -u))
@@ -135,6 +135,14 @@ For to autofix:
    `$> sh aux/k8s/scripts/delete-all.sh`  
    (all necessary scripts and `kubectl` command can be read from above `sh` scripts)
 
-#Redis
+###Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
   `/api/service/redis/work/evict`
+
+###Frontend-info
+* Run locally:  
+  `$> npm run build`  
+  `$> export VUE_APP_BACKEND_API_URL=http://localhost:8180/api`  
+  `$> export VUE_APP_INFO_GRAPHQL_URL=http://localhost:9190`  
+  `$> node docker.js`  
+* Refresh with clearing cache short-cut: `Cntr+Shift+R`

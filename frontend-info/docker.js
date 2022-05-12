@@ -9,10 +9,12 @@ const app = express()
 const router = express.Router()
 const axios = require('axios')
 
-// router.use(function (req, res, next) {
+// app.use(function(req, res, next) {
 //     console.log('/' + req.method)
+//     res.setHeader("Content-Type", "application/json")
+//     res.setHeader('charset', 'utf-8')
 //     next()
-// })
+// });
 
 router.get('/check', function (req, res) {
     let message = "<>Hello from frontend-info!<><br/>"
@@ -32,6 +34,7 @@ app.get('/worker', function (req, res) {
         url
     })
         .then(function (response) {
+            res.setHeader("Content-Type", "application/json")
             res.send(JSON.stringify(response.data))
         })
         .catch(function (error) {
@@ -58,6 +61,7 @@ app.get('/graphql', function (req, res) {
 
     axios.post(url, data)
         .then(function (response) {
+            res.setHeader("Content-Type", "application/json")
             res.send(JSON.stringify(response.data))
         })
         .catch(function (error) {
