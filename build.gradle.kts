@@ -173,6 +173,14 @@ tasks.register<GradleBuild>(buildall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":frontend-info:npmInstall")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":frontend-info:npmBuild")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:compileJava")
         }
         exec {

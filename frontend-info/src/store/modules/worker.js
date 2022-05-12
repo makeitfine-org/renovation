@@ -4,15 +4,16 @@
  * Copyright 2021-2022
  */
 
-import workerDataService from "@/service/WorkerDataService";
+import workerDataService from "@/service/WorkerDataService"
 
 export default {
     actions: {
         retrieveWorkers({commit}) {
             workerDataService.getAllData()
-            // workerDataService.getWorkers()
+                // workerDataService.getWorkers()
                 .then(response => {
                     const workers = response.data.data.details
+                    // const workers = response.data
                     console.log(workers)
 
                     commit('updateWorkers', workers)

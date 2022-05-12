@@ -1,4 +1,4 @@
-import {backendApi, infoGraphql} from "@/http-common";
+import {backendApi, infoGraphql, localhost} from "@/http-common"
 
 class WorkerDataService {
     getAllData() {
@@ -15,13 +15,14 @@ class WorkerDataService {
                 }
             `
         }
-        return infoGraphql.post("", data);
+        // return infoGraphql.post("/graphql", data)
+        return localhost.get("/graphql")
     }
 
     getWorkers() {
-        return infoGraphql.get("/api/v1/info");
-        // return backendApi().get("/worker");
+        // return backendApi.get("/worker")
+        return localhost.get("/worker")
     }
 }
 
-export default new WorkerDataService();
+export default new WorkerDataService()
