@@ -241,7 +241,7 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("sleep", "7")
+            commandLine("sleep", "10")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -285,6 +285,13 @@ tasks.register<Exec>("k8sApiTest") {
     commandLine("sh", properties["k8sApiTestScript"])
 }
 
+tasks.register<Exec>("k8sIngressApiTest") {
+    description = "Run backend api tests on kubernetes Ingress"
+    println(description)
+
+    commandLine("sh", properties["k8sIngressApiTestScript"])
+}
+
 tasks.register<Task>("k8sUploadBackendImage") {
     description = "Upload backend image to kubernetes cluster"
     println(description)
@@ -292,6 +299,9 @@ tasks.register<Task>("k8sUploadBackendImage") {
     doLast {
         exec {
             commandLine("sh", properties["backendDeleteScript"])
+        }
+        exec {
+            commandLine("sleep", "30")
         }
         exec {
             commandLine("minikube", "image", "load", properties["backendImageName"])
@@ -311,6 +321,9 @@ tasks.register<Task>("k8sUploadInfoImage") {
             commandLine("sh", properties["infoDeleteScript"])
         }
         exec {
+            commandLine("sleep", "30")
+        }
+        exec {
             commandLine("minikube", "image", "load", properties["infoImageName"])
         }
         exec {
@@ -326,6 +339,9 @@ tasks.register<Task>("k8sUploadFrontendInfoImage") {
     doLast {
         exec {
             commandLine("sh", properties["frontendInfoDeleteScript"])
+        }
+        exec {
+            commandLine("sleep", "30")
         }
         exec {
             commandLine("minikube", "image", "load", properties["frontendInfoImageName"])

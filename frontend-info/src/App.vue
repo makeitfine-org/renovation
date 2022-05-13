@@ -6,7 +6,7 @@
 
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
       <router-link to="/" class="navbar-brand">&nbsp; Renovation info</router-link>
       <div class="navbar-nav mr-auto">
 <!--        <li class="nav-item">-->

@@ -120,7 +120,9 @@ For to autofix:
    `$> minikube image load <IMAGE_NAME>`  
 4. Run api tests on k8s cluster:  
    `$> gradle k8sApiTest`  
-   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)
+   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)  
+   With ingress:  
+   `$> gradle k8sIngressApiTest`  
 5. Upload backend image and redeploy backend service:  
    `$> gradle k8sUploadBackendImage`  
 6. Upload info image and redeploy backend service:  
@@ -134,6 +136,9 @@ For to autofix:
    5.2 un-deploy:  
    `$> sh aux/k8s/scripts/delete-all.sh`  
    (all necessary scripts and `kubectl` command can be read from above `sh` scripts)
+9. Config k8s (https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/):  
+   9.1 Add minikube ip to /etc/hosts (example: `192.168.49.2    mi k8s minikube mii mib`)  
+   9.2 Apply ingress yaml 
 
 ###Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  

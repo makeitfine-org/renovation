@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: renovation-ingress
+  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+#    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: mib
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
+    - host: mii
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend-info
+                port:
+                  number: 8080
+
+#    - host: mi
+#      http:
+#        paths:
+#          - path: /b/(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: backend
+#                port:
+#                  number: 8080
+#          - path: /i/(.*)
+#            pathType: ImplementationSpecific
+#            backend:
+#              service:
+#                name: frontend-info
+#                port:
+#                  number: 8080
