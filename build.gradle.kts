@@ -319,6 +319,22 @@ tasks.register<Task>("k8sUploadInfoImage") {
     }
 }
 
+tasks.register<Task>("k8sUploadFrontendInfoImage") {
+    description = "Upload frontend-info image to kubernetes cluster"
+    println(description)
+
+    doLast {
+        exec {
+            commandLine("sh", properties["frontendInfoDeleteScript"])
+        }
+        exec {
+            commandLine("minikube", "image", "load", properties["frontendInfoImageName"])
+        }
+        exec {
+            commandLine("sh", properties["frontendInfoDeployScript"])
+        }
+    }
+}
 
 tasks.register<Delete>("removeOldPublic") {
     delete(

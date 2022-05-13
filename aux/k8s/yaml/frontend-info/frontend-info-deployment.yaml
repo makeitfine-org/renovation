@@ -1,0 +1,36 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2022
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-info
+spec:
+  selector:
+    matchLabels:
+      app: frontend-info
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend-info
+    spec:
+      containers:
+        - name: frontend-info
+          image: koresmosto/renovation-frontend-info:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VUE_APP_INFO_GRAPHQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: VUE_APP_INFO_GRAPHQL_URL
+            - name: VUE_APP_BACKEND_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: renovation-configmap
+                  key: VUE_APP_BACKEND_API_URL

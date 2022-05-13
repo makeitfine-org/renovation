@@ -41,10 +41,6 @@
           <label><strong>Age:</strong></label> {{ currentWorker.age }}
         </div>
       </div>
-      <div v-else>
-        <br/>
-        <p>Please click on a Worker...</p>
-      </div>
     </div>
   </div>
 </template>

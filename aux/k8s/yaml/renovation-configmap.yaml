@@ -22,3 +22,6 @@ data:
 
   REDIS_HOST: redis
   REDIS_PORT: "6379"
+
+  VUE_APP_BACKEND_API_URL: "http://backend:8080/api"
+  VUE_APP_INFO_GRAPHQL_URL: "http://info:9090"
