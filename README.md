@@ -130,6 +130,8 @@ For to autofix:
 7. Create on minikube cluster such dirs:  
    `/mnt/pg/data`, `/mnt/pg/init` (also place `backend/../db-init-scripts/*` folder content here)  
    `/mnt/mongo/data`, `/mnt/mongo/init` (also place `info/../init/*` folder content here)
+   7.1 Copy files to minikube: 
+       `https://stackoverflow.com/questions/46086303/how-to-transfer-files-between-local-machine-and-minikube`  
 8. Deploy/Undeploy all k8s entities scripts:  
    5.1 deploy:  
    `$> sh aux/k8s/scripts/deploy-all.sh`  
