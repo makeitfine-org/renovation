@@ -133,7 +133,10 @@ For to autofix:
    7.1 Copy files to minikube: 
        `https://stackoverflow.com/questions/46086303/how-to-transfer-files-between-local-machine-and-minikube`  
 8. Deploy/Undeploy all k8s entities scripts:  
-   5.1 deploy:  
+   5.1.0 Create `renovation` namespace and make it current:   
+   `$> kubectl apply -f aux/k8s/yaml/renovation-namespace.yaml`  
+   `$> kubectl config set-context --current --namespace=renovation`
+   5.1.1 deploy:  
    `$> sh aux/k8s/scripts/deploy-all.sh`  
    5.2 un-deploy:  
    `$> sh aux/k8s/scripts/delete-all.sh`  
