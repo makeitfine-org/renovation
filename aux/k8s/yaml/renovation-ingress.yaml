@@ -8,7 +8,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: mib
+#    - host: mib # single node cluster
+    - host: mmib
       http:
         paths:
           - path: /
@@ -18,7 +19,8 @@ spec:
                 name: backend
                 port:
                   number: 8080
-    - host: mii
+#    - host: mii # single node cluster
+    - host: mmii
       http:
         paths:
           - path: /

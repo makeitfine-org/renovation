@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-ha-headless-svc
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: postgresql-ha
+    port: 5432
+    targetPort: postgresql-ha
+    protocol: TCP
+  selector:
+    app: postgres-ha

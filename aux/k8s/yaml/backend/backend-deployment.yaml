@@ -28,7 +28,8 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: renovation-configmap
-                  key: POSTGRES_DB_URL
+#                  key: POSTGRES_DB_URL
+                  key: POSTGRES_HA_DB_URL
             - name: POSTGRES_USERNAME
               valueFrom:
                 configMapKeyRef:

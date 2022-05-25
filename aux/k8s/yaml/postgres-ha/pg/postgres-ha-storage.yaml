@@ -1,0 +1,52 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2022
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-ha-data-0
+  labels:
+    type: local
+    app: postgres-ha
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pg-ha/data-0"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-ha-data-1
+  labels:
+    type: local
+    app: postgres-ha
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pg-ha/data-1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-ha-data-2
+  labels:
+    type: local
+    app: postgres-ha
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/pg-ha/data-2"

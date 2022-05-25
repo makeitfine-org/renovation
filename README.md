@@ -129,9 +129,20 @@ For to autofix:
    `$> gradle k8sUploadInfoImage`
 7. Create on minikube cluster such dirs:  
    `/mnt/pg/data`, `/mnt/pg/init` (also place `backend/../db-init-scripts/*` folder content here)  
-   `/mnt/mongo/data`, `/mnt/mongo/init` (also place `info/../init/*` folder content here)
+   `/mnt/mongo/data`, `/mnt/mongo/init` (also place `info/../init/*` folder content here)  
+
+   `/mnt/pg-ha/init` (place `backend/../db-init-scripts/*` folder content here)  
+   `/mnt/pg-ha/data-0` (make `sudo chown -R 1001:1001 data-0`),  
+   `/mnt/pg-ha/data-1` (make `sudo chown -R 1001:1001 data-1`),  
+   `/mnt/pg-ha/data-2` (make `sudo chown -R 1001:1001 data-2`),
+   
+   Or just copy `create-mnt-content.sh` to minikube `/mnt` and execute to create folders  
    7.1 Copy files to minikube: 
        `https://stackoverflow.com/questions/46086303/how-to-transfer-files-between-local-machine-and-minikube`  
+   7.2 if to create multinode cluster create folders on each node:  
+       `https://minikube.sigs.k8s.io/docs/tutorials/multi_node/`  
+       ssh access to nodes: `mi ssh -p mnodes -n mnodes-m02`  
+       upload images to multi-nodes: `mi image load <image> -p mnodes`  
 8. Deploy/Undeploy all k8s entities scripts:  
    5.1.0 Create `renovation` namespace and make it current:   
    `$> kubectl apply -f aux/k8s/yaml/renovation-namespace.yaml`  
@@ -140,10 +151,17 @@ For to autofix:
    `$> sh aux/k8s/scripts/deploy-all.sh`  
    5.2 un-deploy:  
    `$> sh aux/k8s/scripts/delete-all.sh`  
-   (all necessary scripts and `kubectl` command can be read from above `sh` scripts)
+   (all necessary scripts and `kubectl` command can be read from above `sh` scripts)  
+   8.1: work with postgres-ha:  
+      https://devopscube.com/deploy-postgresql-statefulset/  
+   8.2 Connect to `postgrs-ha-sts` pods:  
+   `$>kubectl exec -it pg-client -n renovation -- /bin/bash`  
+   `$>PGPASSWORD=postgres1 psql -h pgpool-svc -p 5432 -U postgres`  
+   or  
+   `$>PGPASSWORD=postgres1 psql -h postgres-ha-sts-1.postgres-ha-headless-svc.renovation.svc.cluster.local -p 5432 -U postgres`  
 9. Config k8s (https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/):  
-   9.1 Add minikube ip to /etc/hosts (example: `192.168.49.2    mi k8s minikube mii mib`)  
-   9.2 Apply ingress yaml 
+    9.1 Add minikube ip to /etc/hosts (example: `192.168.49.2    mi k8s minikube mii mib`)  
+    9.2 Apply ingress yaml 
 
 ###Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
