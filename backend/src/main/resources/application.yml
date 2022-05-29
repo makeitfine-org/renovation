@@ -57,12 +57,20 @@ management:
     web:
       exposure:
         include: info,health,env,metrics
+    jmx:
+      exposure:
+        exclude: health
   endpoint:
     health:
       enabled: true
       show-details: always
   info:
     env:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
       enabled: true
 
 info-service:
