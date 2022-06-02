@@ -161,7 +161,9 @@ For to autofix:
    `$>PGPASSWORD=postgres1 psql -h postgres-ha-sts-1.postgres-ha-headless-svc.renovation.svc.cluster.local -p 5432 -U postgres`  
 9. Config k8s (https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/):  
     9.1 Add minikube ip to /etc/hosts (example: `192.168.49.2    mi k8s minikube mii mib`)  
-    9.2 Apply ingress yaml 
+        (For multinode server add minikube ip to /etc/hosts (example: `192.168.49.2    mmi mk8s mminikube mmii mmib`)  
+    9.2 `$>minikube addon ingress enable`  
+    9.3 Apply ingress yaml  
 
 ###Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
