@@ -9,6 +9,7 @@ package renovation.backend.web.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import io.micrometer.core.instrument.Counter
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.extension.ExtendWith
@@ -55,10 +56,17 @@ internal class WorkControllerTest(
         @Primary
         @Bean("workServiceCacheableImpl")
         fun workService() = mockk<WorkService>()
+
+        @Primary
+        @Bean
+        fun getAllWorksCounter() = mockk<Counter>()
     }
 
     @Autowired
     private lateinit var workService: WorkService
+
+    @Autowired
+    private lateinit var getAllWorksCounter: Counter
 
     @BeforeTest
     fun beforeEach() {
@@ -108,6 +116,8 @@ internal class WorkControllerTest(
         every {
             workService.delete(match { WORKS.stream().map { e -> UUID.fromString(e.id) }.anyMatch { e -> it == e } })
         } returns Unit
+
+        every { getAllWorksCounter.increment() } returns Unit
     }
 
     @Test

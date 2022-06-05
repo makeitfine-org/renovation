@@ -5,7 +5,7 @@
 ##
 info:
   app:
-    name: Renovation
+    name: "Renovation backend"
     description: Renovation reporter for workers  and cutomers
 
 server:
@@ -13,7 +13,7 @@ server:
 
 spring:
   application:
-    name: renovation
+    name: "renovation backend"
 
   jpa:
     hibernate:
@@ -56,10 +56,13 @@ management:
     enabled-by-default: true
     web:
       exposure:
-        include: info,health,env,metrics
+        include: info, health, env, metrics, prometheus
     jmx:
       exposure:
         exclude: health
+  metrics:
+    tags:
+      application: ${spring.application.name}
   endpoint:
     health:
       enabled: true

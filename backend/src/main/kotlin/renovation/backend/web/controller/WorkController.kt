@@ -6,6 +6,7 @@
 
 package renovation.backend.web.controller
 
+import io.micrometer.core.instrument.Counter
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
@@ -31,8 +32,10 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api/work")
 @Validated
-class WorkController(@Qualifier("workServiceCacheableImpl") private val workService: WorkService) {
-
+class WorkController(
+    @Qualifier("workServiceCacheableImpl") private val workService: WorkService,
+    private val getAllWorksCounter: Counter,
+) {
     companion object {
         @JvmStatic
         private val LOG = LoggerFactory.getLogger(WorkController::class.java)
@@ -41,9 +44,11 @@ class WorkController(@Qualifier("workServiceCacheableImpl") private val workServ
     @GetMapping
     fun list(@RequestParam title: String?): List<Work> {
         LOG.info("find all works")
-        return if (title.isNullOrBlank())
+        return if (title.isNullOrBlank()) {
+            getAllWorksCounter.increment()
+
             workService.findAll()
-        else {
+        } else {
             val titleLikePattern = "%" + title.replace(" ", "%") + "%"
             workService.findByTitleLike(titleLikePattern)
         }
@@ -76,4 +81,7 @@ class WorkController(@Qualifier("workServiceCacheableImpl") private val workServ
         LOG.info("delete work with id = $id")
         workService.delete(id)
     }
+
+    @GetMapping("/getAllWorksCount")
+    fun getAllWorks() = getAllWorksCounter.count()
 }

@@ -28,7 +28,7 @@ internal class StartupControllerTest(
             get(portHost + "/project")
         }.Then {
             statusCode(SC_OK)
-            body(CoreMatchers.equalTo("Hi, it's \"Renovation\" project"))
+            body(CoreMatchers.equalTo("Hi, it's \"Renovation backend\" project"))
         }
     }
 }
