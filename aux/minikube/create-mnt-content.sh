@@ -5,8 +5,6 @@
 # Copyright 2021-2022
 #
 
-K8S_SCRIPTS_PATH="`dirname \"$0\"`"
-
 sudo mkdir /mnt/mongo
 sudo mkdir /mnt/mongo/data
 sudo mkdir /mnt/mongo/init
@@ -34,6 +32,10 @@ sudo mkdir /mnt/pg-ha/init
 sudo touch /mnt/pg-ha/init/init.sql
 
 ### Add content
+cat <<EOT >> /mnt/pg/init/init.sql
+create schema renovation;
+
+EOT
 
 cat <<EOT >> /mnt/pg-ha/init/init.sql
 create schema renovation;
