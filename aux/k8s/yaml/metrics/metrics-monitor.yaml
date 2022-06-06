@@ -1,0 +1,19 @@
+#
+#     Created under not commercial project "Renovation"
+#
+#     Copyright 2021-2022
+#
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backend-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  endpoints:
+    - port: http-backend-service-port
+      path: "/actuator/prometheus"
+  namespaceSelector:
+    matchNames:
+      - renovation

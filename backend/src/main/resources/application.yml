@@ -62,7 +62,8 @@ management:
         exclude: health
   metrics:
     tags:
-      application: ${spring.application.name}
+#      application: ${spring.application.name}
+      application: backend
   endpoint:
     health:
       enabled: true

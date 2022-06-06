@@ -172,12 +172,18 @@ For to autofix:
     `$>kubectl exec -it <pod name> -- /bin/sh`  
 11. Run helm grafana single-node on multi-cluster specify:  
     (https://tanzu.vmware.com/developer/guides/observability-prometheus-grafana-p1/)  
-    execute command line commands  
-    (https://artifacthub.io/packages/helm/bitnami/grafana)  
+    execute command line commands:  
+    `$>helm install prometheus bitnami/kube-prometheus`  
+    (https://artifacthub.io/packages/helm/bitnami/grafana  
+     https://tanzu.vmware.com/developer/guides/spring-prometheus/)  
     `$>helm install grafana  bitnami/grafana --set grafana.nodeSelector."<cluser>"=<label>`:  
     For example:  
-    `helm install grafana bitnami/grafana --set grafana.nodeSelector."kubernetes\.io/hostname"=minikube`  
-
+    `helm install grafana bitnami/grafana --set grafana.nodeSelector."kubernetes\.io/hostname"=mn` 
+      
+    To config grafana:  
+    > on create PROMETHEUS datasource use url from  
+    `k describe service -n monitoring prometheus-kube-prometheus-prometheus`    
+    Or access to prometheus (nodePort: 31909) and grafana (nodePort:31300)  
 ### Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
   `/api/service/redis/work/evict`
