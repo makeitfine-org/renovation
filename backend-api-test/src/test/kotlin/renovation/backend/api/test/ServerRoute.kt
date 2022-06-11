@@ -18,7 +18,7 @@ enum class ServerRoute(path: String) {
 
     private val BASE_URL = Optional.ofNullable(System.getenv("SERVER_URL"))
         // todo: extract it from configs
-        .orElse("http://localhost:8180")
+        .orElse("http://localhost:8280")
 
     val route = "$BASE_URL/$path"
 }

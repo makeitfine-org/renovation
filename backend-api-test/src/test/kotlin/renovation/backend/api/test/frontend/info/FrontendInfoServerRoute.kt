@@ -14,7 +14,7 @@ enum class FrontendInfoServerRoute(path: String) {
 
     private val FRONTEND_INFO_BASE_URL = Optional.ofNullable(System.getenv("FRONTEND_INFO_SERVER_URL"))
         // todo: extract it from configs
-        .orElse("http://localhost:8181")
+        .orElse("http://localhost:8281")
 
     val route = "$FRONTEND_INFO_BASE_URL/$path"
 }

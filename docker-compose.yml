@@ -17,7 +17,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - "./backend/src/main/resources/docker/mysql/db-init-scripts:/docker-entrypoint-initdb.d"
+      - "./backend/src/main/resources/docker/postgres/db-init-scripts:/docker-entrypoint-initdb.d"
     networks:
       - renovation-network
 
