@@ -36,28 +36,6 @@ services:
     networks:
       - renovation-network
 
-  renovation-backend:
-    image: koresmosto/renovation-backend
-    build:
-      context: ./backend
-    restart: always
-    container_name: renovation-backend
-    depends_on:
-      - renovation-postgres
-      - renovation-redis
-    ports:
-      - ${BACKEND_SERVER_REDIRECT_PORT}:8080
-    environment:
-      POSTGRES_DB_URL:   "jdbc:postgresql://renovation-postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
-      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      INFO_SERVICE_URL:  ${INFO_SERVICE_URL}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-    networks:
-      - renovation-network
-
   renovation-mongo:
     image: mongo:5.0.6
     container_name: renovation-mongo
@@ -70,6 +48,56 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ./info/src/main/resources/db/migration/mongo/init/:/docker-entrypoint-initdb.d:ro
+    networks:
+      - renovation-network
+
+  renovation-keycloak:
+    image: quay.io/keycloak/keycloak:19.0.1
+    restart: always
+    container_name: renovation-keycloak
+    command: [
+#      "-Dkeycloak.migration.action=import",
+#      "-Dkeycloak.migration.provider=singleFile",
+#      "-Dkeycloak.migration.file=/opt/keycloak/data/import/renovation-realm.json",
+#      "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING",
+      "start-dev"
+    ]
+#    volumes:
+#      - ./aux/keycloak-config:/opt/keycloak/data/import
+    depends_on:
+      - renovation-postgres
+    ports:
+      - ${KEYCLOAK_LOCALHOST_REDIRECT_PORT}:8080
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: "renovation-postgres"
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_SCHEMA: ${POSTGRES_DB_SCHEMA}
+      DB_USER: ${POSTGRES_USERNAME}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+
+  renovation-backend:
+    image: koresmosto/renovation-backend
+    build:
+      context: ./backend
+    restart: always
+    container_name: renovation-backend
+    depends_on:
+      - renovation-postgres
+      - renovation-redis
+    ports:
+      - ${BACKEND_SERVER_REDIRECT_PORT}:8080
+    environment:
+      POSTGRES_DB_URL: "jdbc:postgresql://renovation-postgres:5432/${POSTGRES_DB}?currentSchema=renovation"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      INFO_SERVICE_URL: ${INFO_SERVICE_URL}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     networks:
       - renovation-network
 

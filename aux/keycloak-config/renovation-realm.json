@@ -1,0 +1,74 @@
+{
+  "realm": "vod-test-realm",
+  "enabled": true,
+  "sslRequired": "external",
+  "clients": [
+    {
+      "clientId": "vod-test-client",
+      "enabled": true,
+      "secret": "341b3ff9-7bf0-4854-b924-63a82e8134cd",
+      "directAccessGrantsEnabled" : true,
+      "redirectUris" : [ "/*" ],
+      "serviceAccountsEnabled": true,
+      "protocolMappers": [
+        {
+          "id": "bb2a6b5c-a07a-4ff8-be15-b6867ed9e706",
+          "name": "account_number",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "account_number",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "account_number",
+            "jsonType.label": "String",
+            "multivalued": "",
+            "aggregate.attrs": "",
+            "user.attribute": "account_number"
+          }
+        }
+      ]
+    }
+  ],
+  "roles": {
+    "client": {
+      "vod-test-client": [
+        {
+          "name": "video-manager",
+          "description": "Video Manager",
+          "clientRole": true
+        },
+        {
+          "name": "faultfinder-access",
+          "description": "Fault Finder access",
+          "clientRole": true
+        }
+      ]
+    }
+  },
+  "users" : [  {
+    "id" : "d2048828-66ae-48ed-b5b4-ad8c35589f35",
+    "createdTimestamp" : 1658440800000,
+    "username" : "vod.test.user",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "credentials" : [ {
+      "id" : "a43ff74d-f17d-4dd9-be66-a782d9d5877e",
+      "type" : "password",
+      "createdDate" : 1658440800000,
+      "secretData" : "{\"value\":\"0PQV+qbYan8yOr2OHMjmYflH40Ra0elV/qjDBeskiCC32P5+nETJuLQTguAU8Br66uesJlMPfEXct0sjrcsjag==\",\"salt\":\"D0Zont8+dhLqnhKNyZUcLw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "clientRoles" : {
+      "vod-test-client" : [ "video-manager", "faultfinder-access" ]
+    },
+    "realmRoles" : [ "default-roles-vod-test-realm" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }]
+}
