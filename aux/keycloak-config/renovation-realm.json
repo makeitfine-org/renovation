@@ -1,7 +1,10 @@
 {
   "realm": "renovation-realm",
   "enabled": true,
-  "sslRequired": "external",
+  "accessTokenLifespan": 1500,
+  "accessTokenLifespanForImplicitFlow": 4500,
+  "ssoSessionIdleTimeout": 9000,
+  "ssoSessionMaxLifespan": 180000,
   "clients": [
     {
       "clientId": "renovation-client",
