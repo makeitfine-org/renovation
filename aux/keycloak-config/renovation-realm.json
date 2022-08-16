@@ -1,18 +1,20 @@
 {
-  "realm": "vod-test-realm",
+  "realm": "renovation-realm",
   "enabled": true,
   "sslRequired": "external",
   "clients": [
     {
-      "clientId": "vod-test-client",
+      "clientId": "renovation-client",
       "enabled": true,
-      "secret": "341b3ff9-7bf0-4854-b924-63a82e8134cd",
-      "directAccessGrantsEnabled" : true,
-      "redirectUris" : [ "/*" ],
+      "secret": "341b3ff9-7af0-4854-b024-63a82e7174cd",
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "/*"
+      ],
       "serviceAccountsEnabled": true,
       "protocolMappers": [
         {
-          "id": "bb2a6b5c-a07a-4ff8-be15-b6867ed9e706",
+          "id": "ba2a6b5c-a07a-4ff8-be15-b6867ed9e106",
           "name": "account_number",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usermodel-attribute-mapper",
@@ -34,41 +36,108 @@
   ],
   "roles": {
     "client": {
-      "vod-test-client": [
+      "renovation-client": [
         {
-          "name": "video-manager",
-          "description": "Video Manager",
+          "name": "user-role",
+          "description": "user role",
           "clientRole": true
         },
         {
-          "name": "faultfinder-access",
-          "description": "Fault Finder access",
+          "name": "admin-role",
+          "description": "Admin role",
           "clientRole": true
         }
       ]
     }
   },
-  "users" : [  {
-    "id" : "d2048828-66ae-48ed-b5b4-ad8c35589f35",
-    "createdTimestamp" : 1658440800000,
-    "username" : "vod.test.user",
-    "enabled" : true,
-    "totp" : false,
-    "emailVerified" : true,
-    "credentials" : [ {
-      "id" : "a43ff74d-f17d-4dd9-be66-a782d9d5877e",
-      "type" : "password",
-      "createdDate" : 1658440800000,
-      "secretData" : "{\"value\":\"0PQV+qbYan8yOr2OHMjmYflH40Ra0elV/qjDBeskiCC32P5+nETJuLQTguAU8Br66uesJlMPfEXct0sjrcsjag==\",\"salt\":\"D0Zont8+dhLqnhKNyZUcLw==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "clientRoles" : {
-      "vod-test-client" : [ "video-manager", "faultfinder-access" ]
+  "users": [
+    {
+      "id": "d2058821-66ae-48ed-b5b4-ad8c35589f35",
+      "createdTimestamp": 1658440800000,
+      "username": "all-test",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "id": "a43ff74d-f17d-4dd9-be66-a782d9d5877e",
+          "type": "password",
+          "createdDate": 1658440800000,
+          "secretData": "{\"value\":\"6rfKHaUuHX+6CYl2EoOZEyU3pvy4kAc6vGmJgXGMlzUSbxQRkWureK3kzLRSK/p9D/8alHtcOlXlFGntaAE+yQ==\",\"salt\":\"laHtsVF5BgVt/A8CBdaIKw==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client": [
+          "user-role",
+          "admin-role"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation"
+      ],
+      "notBefore": 0,
+      "groups": []
     },
-    "realmRoles" : [ "default-roles-vod-test-realm" ],
-    "notBefore" : 0,
-    "groups" : [ ]
-  }]
+    {
+      "id": "d3058822-66ae-48ed-b5b4-ad8c35589f35",
+      "createdTimestamp": 1658440800000,
+      "username": "user-test",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "id": "b43ff74d-f17a-4dd9-be66-a782d9d5877e",
+          "type": "password",
+          "createdDate": 1658440800000,
+          "secretData" : "{\"value\":\"xlcZcJFBvEcl2qbZoAtHUXHbQEbdWRwNAKbiOTKn2iBJ7yTesW62mXVXB4yzPDn0xjuD8uuuhuxv9HumR8FEkg==\",\"salt\":\"1GiFJxFr6AX33VlwkAdl8A==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client": [
+          "user-role"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d4058822-66ae-48ed-b5b4-ad8c35589f36",
+      "createdTimestamp": 1658440800000,
+      "username": "admin-test",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "id": "a43ff74d-f17a-4dd9-be66-a782d9d5877e",
+          "type": "password",
+          "createdDate": 1658440800000,
+          "secretData" : "{\"value\":\"XhZqvxZmfD4ZIEaePuYcQLMqyYHu26WrJkuPLk5Qi4Vquaz3RcRshGvnXCDZC/Sf6AL8BfswKptcDytbdtkaMg==\",\"salt\":\"Cl3RW6dPowA07VkbE0OkPA==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client": [
+          "admin-role"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation"
+      ],
+      "notBefore": 0,
+      "groups": []
+    }
+  ]
 }

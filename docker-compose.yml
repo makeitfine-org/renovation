@@ -56,14 +56,15 @@ services:
     restart: always
     container_name: renovation-keycloak
     command: [
-#      "-Dkeycloak.migration.action=import",
-#      "-Dkeycloak.migration.provider=singleFile",
-#      "-Dkeycloak.migration.file=/opt/keycloak/data/import/renovation-realm.json",
-#      "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING",
+      "-Dkeycloak.migration.action=import",
+      "-Dkeycloak.migration.provider=singleFile",
+      "-Dkeycloak.migration.file=/opt/keycloak/data/import/renovation-realm.json",
+      "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING",
       "start-dev"
     ]
-#    volumes:
-#      - ./aux/keycloak-config:/opt/keycloak/data/import
+    volumes:
+      - ./aux/keycloak-config:/opt/keycloak/data/import
+#      - ./aux/ex:/opt/keycloak/data/export
     depends_on:
       - renovation-postgres
     ports:
