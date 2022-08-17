@@ -52,7 +52,7 @@ services:
       - renovation-network
 
   renovation-keycloak:
-    image: quay.io/keycloak/keycloak:19.0.1
+    image: quay.io/keycloak/keycloak:18.0.2
     restart: always
     container_name: renovation-keycloak
     command: [
