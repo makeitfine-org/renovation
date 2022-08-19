@@ -10,12 +10,23 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import java.io.IOException
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @RestController
 class StartupController(
     @Value("\${spring.application.name}")
     private val applicationName: String
 ) {
-    @GetMapping("/project")
+    @GetMapping(value = ["/project", "/"])
     fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" project"
+
+    @GetMapping(path = ["/logout"])
+    @Throws(ServletException::class, IOException::class)
+    fun logout(request: HttpServletRequest, response: HttpServletResponse) = request.let {
+        it.logout()
+        response.sendRedirect("/")
+    }
 }

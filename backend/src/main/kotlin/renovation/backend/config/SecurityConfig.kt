@@ -37,6 +37,7 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
             .disable() //todo: csrf token should be actived
 //            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
             .authorizeRequests()
+            .antMatchers("/project", "/").permitAll()
             .anyRequest()
             .authenticated()
     }
