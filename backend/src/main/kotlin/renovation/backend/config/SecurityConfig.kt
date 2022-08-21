@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
 import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy
 
@@ -26,19 +27,21 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
 
     override fun configure(auth: AuthenticationManagerBuilder) {
         val keycloakAuthenticationProvider = keycloakAuthenticationProvider()
+        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(SimpleAuthorityMapper())
         auth.authenticationProvider(keycloakAuthenticationProvider)
     }
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         super.configure(http)
-        http
-            .csrf()
-            .disable() //todo: csrf token should be actived
-//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-            .authorizeRequests()
-            .antMatchers("/project", "/").permitAll()
+        http.authorizeRequests()
+//            .antMatchers("/test/anonymous").permitAll()
+            .antMatchers("/api/work").hasAnyRole("user-role")
+            .antMatchers("/api/worker").hasAnyRole("admin-role")
+//            .antMatchers("/test/admin").hasAnyRole("admin")
+//            .antMatchers("/test/all-user").hasAnyRole("user","admin")
             .anyRequest()
-            .authenticated()
+            .permitAll();
+        http.csrf().disable()
     }
 }

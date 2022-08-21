@@ -88,9 +88,11 @@ keycloak:
   #  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/auth
   auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
   realm: renovation-realm
+  ssl-required: external
   resource: renovation-client
   #  credentials:
   #    secret: <secret>
   public-client: true
-  #  bearer-only: true
+  use-resource-role-mappings: true
+#  bearer-only: true
   principal-attribute: preferred_username

@@ -1,6 +1,7 @@
 {
   "realm": "renovation-realm",
   "enabled": true,
+  "sslRequired": "external",
   "accessTokenLifespan": 1500,
   "accessTokenLifespanForImplicitFlow": 4500,
   "ssoSessionIdleTimeout": 9000,
@@ -16,6 +17,9 @@
         "*"
       ],
       "serviceAccountsEnabled": true,
+      "attributes" : {
+        "backchannel.logout.session.required" : "true"
+      },
       "protocolMappers": [
         {
           "id": "ba2a6b5c-a07a-4ff8-be15-b6867ed9e106",
@@ -35,7 +39,9 @@
             "user.attribute": "account_number"
           }
         }
-      ]
+      ],
+      "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
+      "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
     }
   ],
   "roles": {
@@ -43,7 +49,7 @@
       "renovation-client": [
         {
           "name": "user-role",
-          "description": "user role",
+          "description": "User role",
           "clientRole": true
         },
         {
@@ -55,36 +61,6 @@
     }
   },
   "users": [
-    {
-      "id": "d2058821-66ae-48ed-b5b4-ad8c35589f35",
-      "createdTimestamp": 1658440800000,
-      "username": "all-test",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": true,
-      "credentials": [
-        {
-          "id": "a43ff74d-f17d-4dd9-be66-a782d9d5877e",
-          "type": "password",
-          "createdDate": 1658440800000,
-          "secretData": "{\"value\":\"6rfKHaUuHX+6CYl2EoOZEyU3pvy4kAc6vGmJgXGMlzUSbxQRkWureK3kzLRSK/p9D/8alHtcOlXlFGntaAE+yQ==\",\"salt\":\"laHtsVF5BgVt/A8CBdaIKw==\",\"additionalParameters\":{}}",
-          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-        }
-      ],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "clientRoles": {
-        "renovation-client": [
-          "user-role",
-          "admin-role"
-        ]
-      },
-      "realmRoles": [
-        "default-roles-renovation"
-      ],
-      "notBefore": 0,
-      "groups": []
-    },
     {
       "id": "d3058822-66ae-48ed-b5b4-ad8c35589f35",
       "createdTimestamp": 1658440800000,
@@ -109,7 +85,9 @@
         ]
       },
       "realmRoles": [
-        "default-roles-renovation"
+        "default-roles-renovation",
+        "offline_access",
+        "uma_authorization"
       ],
       "notBefore": 0,
       "groups": []
@@ -138,7 +116,41 @@
         ]
       },
       "realmRoles": [
-        "default-roles-renovation"
+        "default-roles-renovation",
+        "offline_access",
+        "uma_authorization"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d2058821-66ae-48ed-b5b4-ad8c35589f35",
+      "createdTimestamp": 1658440800000,
+      "username": "all-test",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "id": "a43ff74d-f17d-4dd9-be66-a782d9d5877e",
+          "type": "password",
+          "createdDate": 1658440800000,
+          "secretData": "{\"value\":\"6rfKHaUuHX+6CYl2EoOZEyU3pvy4kAc6vGmJgXGMlzUSbxQRkWureK3kzLRSK/p9D/8alHtcOlXlFGntaAE+yQ==\",\"salt\":\"laHtsVF5BgVt/A8CBdaIKw==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client": [
+          "user-role",
+          "admin-role"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation",
+        "offline_access",
+        "uma_authorization"
       ],
       "notBefore": 0,
       "groups": []
