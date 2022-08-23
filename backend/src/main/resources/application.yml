@@ -43,7 +43,6 @@ spring:
       time-to-live: 1800000
       cache-null-values: false
 
-
 logging:
   level:
     root: INFO
@@ -85,7 +84,6 @@ info-service:
   graphql-url: "${INFO_SERVICE_URL:http://localhost:9090/graphql}"
 
 keycloak:
-  #  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/auth
   auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
   realm: renovation-realm
   ssl-required: external
@@ -96,3 +94,13 @@ keycloak:
   use-resource-role-mappings: true
 #  bearer-only: true
   principal-attribute: preferred_username
+
+  securityConstraints:
+    - authRoles: [user-role]
+      securityCollections:
+        - name: user role
+          patterns: ['/api/work']
+    - authRoles: [admin-role]
+      securityCollections:
+        - name: admin role
+          patterns: ['/api/worker']
