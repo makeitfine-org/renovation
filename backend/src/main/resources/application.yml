@@ -15,10 +15,6 @@ spring:
   application:
     name: "renovation backend"
 
-  //todo: consider to remove
-  main:
-    allow-circular-references: true
-
   jpa:
     hibernate:
       ddl-auto: validate
@@ -88,19 +84,8 @@ keycloak:
   realm: renovation-realm
   ssl-required: external
   resource: renovation-client
-  #  credentials:
-  #    secret: <secret>
-  public-client: true
   use-resource-role-mappings: true
-#  bearer-only: true
   principal-attribute: preferred_username
+  credentials:
+    secret: 341b3ff9-7af0-4854-b024-63a82e7174cd
 
-  securityConstraints:
-    - authRoles: [user-role]
-      securityCollections:
-        - name: user role
-          patterns: ['/api/work']
-    - authRoles: [admin-role]
-      securityCollections:
-        - name: admin role
-          patterns: ['/api/worker']
