@@ -46,13 +46,18 @@
     "client": {
       "renovation-client": [
         {
-          "name": "user-role",
-          "description": "User role",
+          "name": "work",
+          "description": "work role",
           "clientRole": true
         },
         {
-          "name": "admin-role",
-          "description": "Admin role",
+          "name": "worker",
+          "description": "worker role",
+          "clientRole": true
+        },
+        {
+          "name": "admin",
+          "description": "admin role",
           "clientRole": true
         }
       ]
@@ -62,7 +67,7 @@
     {
       "id": "d3058822-66ae-48ed-b5b4-ad8c35589f35",
       "createdTimestamp": 1658440800000,
-      "username": "user-test",
+      "username": "work-test",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
@@ -79,7 +84,7 @@
       "requiredActions": [],
       "clientRoles": {
         "renovation-client": [
-          "user-role"
+          "work"
         ]
       },
       "realmRoles": [
@@ -93,7 +98,7 @@
     {
       "id": "d4058822-66ae-48ed-b5b4-ad8c35589f36",
       "createdTimestamp": 1658440800000,
-      "username": "admin-test",
+      "username": "worker-test",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
@@ -110,7 +115,7 @@
       "requiredActions": [],
       "clientRoles": {
         "renovation-client": [
-          "admin-role"
+          "worker"
         ]
       },
       "realmRoles": [
@@ -141,8 +146,9 @@
       "requiredActions": [],
       "clientRoles": {
         "renovation-client": [
-          "user-role",
-          "admin-role"
+          "work",
+          "worker",
+          "admin"
         ]
       },
       "realmRoles": [

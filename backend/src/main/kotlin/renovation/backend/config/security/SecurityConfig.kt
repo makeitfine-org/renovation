@@ -31,9 +31,10 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "/project").permitAll()
-                .antMatchers("/api/work").hasAnyRole("user-role")
-                .antMatchers("/api/worker").hasAnyRole("admin-role")
+                .antMatchers("/", "/project", "/logout").permitAll()
+                .antMatchers("/api/work").hasAnyRole("WORK")
+                .antMatchers("/api/worker").hasAnyRole("WORKER")
+                .antMatchers("/*").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated()
     }
@@ -50,6 +51,7 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
 
     private fun getKeycloakAuthenticationProvider() = keycloakAuthenticationProvider().also {
         val mapper = SimpleAuthorityMapper()
+        mapper.setConvertToUpperCase(true)
         it.setGrantedAuthoritiesMapper(mapper)
     }
 
