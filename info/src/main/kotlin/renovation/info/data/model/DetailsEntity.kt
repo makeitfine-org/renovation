@@ -33,8 +33,8 @@ data class DetailsEntity(
     var surname: String? = null,
 
     @field:NotNull
-    @field:Min(18, message = "Age should be from 18")
-    @field:Max(90, message = "Age should be up to 90")
+    @field:Min(value = MIN_AGE, message = "Age should be from 18")
+    @field:Max(value = MAX_AGE, message = "Age should be up to 90")
     var age: Int? = null,
 
     @field:NotNull
@@ -42,4 +42,9 @@ data class DetailsEntity(
 
     val detailsEmails: List<DetailsEmailEntity>? = null,
     val additionInfos: List<AdditionInfoEntity>? = null,
-)
+) {
+    companion object {
+        const val MIN_AGE = 18L
+        const val MAX_AGE = 90L
+    }
+}

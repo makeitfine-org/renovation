@@ -31,7 +31,7 @@ import kotlin.test.assertNull
 @Testcontainers
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTestAbstract() {
+internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTestAbstract {
 
     companion object {
         private const val cacheName = "works"
@@ -108,7 +108,7 @@ internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTest
         val e = assertFailsWith<RuntimeException> {
             workService.save(Work(price = 10000.0))
         }
-        assertEquals("title must be defined", e.message)
+        assertEquals("title not defined", e.message)
     }
 
     @Test
@@ -226,6 +226,7 @@ internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTest
 
     @Test
     @Order(Int.MAX_VALUE - 1)
+    @Suppress("MaxLineLength")
     fun `update not CachePut price is greater than 10000 and note cached but try before (init price more than 10000)`() {
         val uuid = UUID.fromString("44444444-a845-45d7-aea9-ab624172d1c1")
         val workForUpdate =

@@ -71,6 +71,6 @@ internal class HelperTest {
         val e = assertFailsWith<RuntimeException> {
             Helper.convert(Work())
         }
-        assertEquals("title must be defined", e.message)
+        assertEquals("title not defined", e.message)
     }
 }

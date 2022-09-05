@@ -69,6 +69,7 @@ internal class WorkControllerTest(
     private lateinit var getAllWorksCounter: Counter
 
     @BeforeTest
+    @Suppress("ThrowsCount")
     fun beforeEach() {
         every { workService.findAll() } returns WORKS
 

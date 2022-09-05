@@ -13,6 +13,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class InfoApplication
 
+@Suppress("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<InfoApplication>(*args) {
         setBannerMode(Banner.Mode.OFF)

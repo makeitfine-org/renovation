@@ -153,7 +153,7 @@ internal class WorkServiceImplTest {
             workService.save(Work(description = "any desc"))
         }
 
-        assertEquals("title must be defined", e.message)
+        assertEquals("title not defined", e.message)
     }
 
     @Test

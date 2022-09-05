@@ -115,6 +115,7 @@ complexity:
   LongMethod:
     active: true
     threshold: 60
+    excludes: [ '**/test/**' ]
   LongParameterList:
     active: true
     functionThreshold: 6
@@ -189,6 +190,7 @@ empty-blocks:
   EmptyFunctionBlock:
     active: true
     ignoreOverridden: false
+    excludes: [ '**/test/**' ]
   EmptyIfBlock:
     active: true
   EmptyInitBlock:
@@ -631,7 +633,7 @@ style:
     values:
       - 'FIXME:'
       - 'STOPSHIP:'
-      - 'TODO:'
+#      - 'TODO:'
     allowedPatterns: ''
     customMessage: ''
   ForbiddenImport:

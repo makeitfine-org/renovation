@@ -15,7 +15,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 
 @Testcontainers
-internal open class WorkControllerFunctionalTestAbstract {
+internal interface WorkControllerFunctionalTestAbstract {
     companion object {
         private const val POSTGRES_DOCKER_IMAGE = "postgres:14.2-alpine"
         private const val REDIS_DOCKER_IMAGE = "redis:7.0.0-alpine"

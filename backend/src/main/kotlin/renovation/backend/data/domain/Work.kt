@@ -23,4 +23,8 @@ data class Work(
     val endDate: LocalDate? = null,
     val price: Double? = null,
     val payDate: LocalDate? = null,
-) : Serializable
+) : Serializable {
+    companion object {
+        const val serialVersionUID = 1L
+    }
+}

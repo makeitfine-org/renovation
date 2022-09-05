@@ -11,4 +11,4 @@ import org.springframework.test.context.ActiveProfiles
 
 @Tag("integration")
 @ActiveProfiles("itest")
-annotation class IntegrationTest()
+annotation class IntegrationTest

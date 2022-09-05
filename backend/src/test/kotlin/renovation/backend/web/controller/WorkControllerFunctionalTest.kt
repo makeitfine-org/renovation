@@ -22,6 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDO
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.jdbc.core.JdbcTemplate
 import org.testcontainers.junit.jupiter.Testcontainers
+import renovation.backend.web.controller.WorkControllerFunctionalTestAbstract.Companion.postgresContainer
+import renovation.backend.web.controller.WorkControllerFunctionalTestAbstract.Companion.redisContainer
 import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL
@@ -40,7 +42,7 @@ import kotlin.test.assertTrue
 internal class WorkControllerFunctionalTest(
     @LocalServerPort val port: Int,
     @Autowired val jdbcTemplate: JdbcTemplate
-) : WorkControllerFunctionalTestAbstract() {
+) : WorkControllerFunctionalTestAbstract {
     companion object {
         @JvmStatic
         private val OBJECT_MAPPER = ObjectMapper()
