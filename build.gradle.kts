@@ -10,6 +10,7 @@ plugins {
     kotlin("jvm")
     id("org.owasp.dependencycheck")
     id("idea")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 group = properties["projectGroup"]!!
@@ -39,6 +40,7 @@ subprojects {
             plugin("kotlin")
             plugin("org.owasp.dependencycheck")
             plugin("idea")
+            plugin("io.gitlab.arturbosch.detekt")
         }
 
         java.sourceCompatibility = JavaVersion.VERSION_17
@@ -54,6 +56,10 @@ subprojects {
                 isDownloadJavadoc = true
                 isDownloadSources = true
             }
+        }
+
+        detekt {
+            config = files("${rootProject.rootDir}/aux/detekt/config.yml")
         }
 
         dependencies {

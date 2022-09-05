@@ -24,6 +24,7 @@ pluginManagement {
     val jpaPluginVersion: String by settings
     val koverPluginVersion: String by settings
     val dgsCodegenVersion: String by settings
+    val detektVersion: String by settings
 
 
     plugins {
@@ -36,6 +37,7 @@ pluginManagement {
         kotlin("plugin.jpa") version "$jpaPluginVersion"
         id("org.jetbrains.kotlinx.kover") version "$koverPluginVersion"
         id("com.netflix.dgs.codegen") version "$dgsCodegenVersion"
+        id("io.gitlab.arturbosch.detekt") version "$detektVersion"
     }
 }
 
