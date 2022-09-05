@@ -11,6 +11,7 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus.SC_OK
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.test.context.ActiveProfiles
 import renovation.backend.IntegrationTest
 import kotlin.test.Test
 
@@ -19,6 +20,7 @@ import kotlin.test.Test
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = ["management.health.redis.enabled=false"]
 )
+@ActiveProfiles("itest", "no-security")
 internal class ActuatorTest(
     @LocalServerPort val port: Int
 ) {

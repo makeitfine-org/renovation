@@ -42,7 +42,7 @@ import kotlin.test.assertTrue
 internal class WorkControllerFunctionalTest(
     @LocalServerPort val port: Int,
     @Autowired val jdbcTemplate: JdbcTemplate
-) : WorkControllerFunctionalTestAbstract {
+) : WorkControllerFunctionalTestAbstract() {
     companion object {
         @JvmStatic
         private val OBJECT_MAPPER = ObjectMapper()

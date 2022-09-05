@@ -1,0 +1,14 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2022
+##
+
+security.config.use-keycloak: false
+
+
+spring:
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,
+      org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration

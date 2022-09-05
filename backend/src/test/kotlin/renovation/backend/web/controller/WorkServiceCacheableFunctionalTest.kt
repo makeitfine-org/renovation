@@ -31,7 +31,7 @@ import kotlin.test.assertNull
 @Testcontainers
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTestAbstract {
+internal class WorkServiceCacheableFunctionalTest : WorkControllerFunctionalTestAbstract() {
 
     companion object {
         private const val cacheName = "works"
