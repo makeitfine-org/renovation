@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 @KeycloakConfiguration
-@ConditionalOnProperty(name = ["security.config.use-keycloak"], havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
     companion object {
 

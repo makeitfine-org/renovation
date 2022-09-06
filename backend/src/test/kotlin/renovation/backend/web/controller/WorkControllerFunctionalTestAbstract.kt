@@ -41,7 +41,7 @@ internal abstract class WorkControllerFunctionalTestAbstract {
             registry.add("spring.redis.port") { redisContainer.firstMappedPort }
             registry.add("spring.redis.password") { "" }
 
-            registry.add("security.config.use-keycloak") { "false" }
+            registry.add("keycloak.enabled") { "false" }
             registry.add("spring.autoconfigure.exclude") {
                 "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration," +
                     "org.springframework.boot.actuate.autoconfigure.security.servlet" +

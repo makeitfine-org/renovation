@@ -4,8 +4,8 @@
 # Copyright 2021-2022
 ##
 
-security.config.use-keycloak: false
-
+keycloak:
+  enabled: false
 
 spring:
   autoconfigure:
