@@ -22,8 +22,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDO
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.jdbc.core.JdbcTemplate
 import org.testcontainers.junit.jupiter.Testcontainers
-import renovation.backend.web.controller.WorkControllerFunctionalTestAbstract.Companion.postgresContainer
-import renovation.backend.web.controller.WorkControllerFunctionalTestAbstract.Companion.redisContainer
 import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL

@@ -6,6 +6,7 @@
 
 package renovation.backend.web.controller
 
+import dasniko.testcontainers.keycloak.KeycloakContainer
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
@@ -30,6 +31,10 @@ internal abstract class WorkControllerFunctionalTestAbstract {
             GenericContainer<Nothing>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
                 .withExposedPorts(6379)
 
+        @Container
+        val keycloakContainer: KeycloakContainer = KeycloakContainer("quay.io/keycloak/keycloak:18.0.2")
+            .withRealmImportFile("keycloak/renovation-realm-test.json")
+
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
@@ -41,6 +46,7 @@ internal abstract class WorkControllerFunctionalTestAbstract {
             registry.add("spring.redis.port") { redisContainer.firstMappedPort }
             registry.add("spring.redis.password") { "" }
 
+//            registry.add("keycloak.auth-server-url") { keycloakContainer.authServerUrl }
             registry.add("keycloak.enabled") { "false" }
             registry.add("spring.autoconfigure.exclude") {
                 "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration," +
