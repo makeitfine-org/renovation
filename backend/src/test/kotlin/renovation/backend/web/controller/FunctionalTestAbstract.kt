@@ -17,7 +17,7 @@ import org.testcontainers.utility.DockerImageName
 
 @Testcontainers
 @Suppress("UnnecessaryAbstractClass", "UtilityClassWithPublicConstructor")
-internal abstract class WorkControllerFunctionalTestAbstract {
+internal abstract class FunctionalTestAbstract {
     companion object {
         private const val POSTGRES_DOCKER_IMAGE = "postgres:14.2-alpine"
         private const val REDIS_DOCKER_IMAGE = "redis:7.0.0-alpine"
@@ -42,17 +42,11 @@ internal abstract class WorkControllerFunctionalTestAbstract {
             registry.add("spring.datasource.password") { postgresContainer.password }
             registry.add("spring.datasource.username") { postgresContainer.username }
 
-            registry.add("spring.redis.host") { redisContainer.containerIpAddress }
+            registry.add("spring.redis.host") { redisContainer.host }
             registry.add("spring.redis.port") { redisContainer.firstMappedPort }
             registry.add("spring.redis.password") { "" }
 
 //            registry.add("keycloak.auth-server-url") { keycloakContainer.authServerUrl }
-            registry.add("keycloak.enabled") { "false" }
-            registry.add("spring.autoconfigure.exclude") {
-                "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration," +
-                    "org.springframework.boot.actuate.autoconfigure.security.servlet" +
-                    ".ManagementWebSecurityAutoConfiguration"
-            }
         }
     }
 }

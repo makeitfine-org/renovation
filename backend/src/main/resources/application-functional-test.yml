@@ -1,0 +1,16 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2022
+##
+
+functional-test:
+  work:
+    username: work-test
+    password: userpass
+  worker:
+    username: worker-test
+    password: adminpass
+  all:
+    username: all-test
+    password: test
