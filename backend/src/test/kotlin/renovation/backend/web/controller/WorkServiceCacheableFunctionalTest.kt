@@ -14,21 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cache.CacheManager
-import org.testcontainers.junit.jupiter.Testcontainers
 import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import java.util.*
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNotEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
+import kotlin.test.*
 
 @Tag("functional")
-@Testcontainers
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal class WorkServiceCacheableFunctionalTest : FunctionalTestAbstract() {
