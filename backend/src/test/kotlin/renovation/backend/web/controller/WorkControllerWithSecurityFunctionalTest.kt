@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import dasniko.testcontainers.keycloak.KeycloakContainer
 import io.restassured.module.kotlin.extensions.Given
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -19,14 +18,15 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.testcontainers.junit.jupiter.Container
 
-@Disabled
 @Tag("functional")
+@ActiveProfiles("secured-functional-test")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerWithSecurityFunctionalTest(
     @LocalServerPort val port: Int,
@@ -53,14 +53,14 @@ internal class WorkControllerWithSecurityFunctionalTest(
     @Value("\${keycloak.credentials.secret}")
     private lateinit var clientSecret: String
 
-    @Value("\${functional-test.work.username}")
-    private lateinit var workuser: String
+    @Value("\${iam.apiWork.username}")
+    private lateinit var apiWorkUser: String
 
-    @Value("\${functional-test.work.password}")
-    private lateinit var workpass: String
+    @Value("\${iam.apiWork.password}")
+    private lateinit var apiWorkPass: String
 
     val workToken: String
-        get() = getToken(workuser, workpass)
+        get() = getToken(apiWorkUser, apiWorkPass)
 
     fun getToken(username: String, password: String): String {
         val restTemplate = RestTemplate()

@@ -4,13 +4,13 @@
 # Copyright 2021-2022
 ##
 
-functional-test:
-  work:
+iam:
+  apiWork:
     username: work-test
     password: userpass
-  worker:
+  apiWorker:
     username: worker-test
     password: adminpass
-  all:
+  api:
     username: all-test
     password: test
