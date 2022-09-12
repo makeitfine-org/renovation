@@ -5,10 +5,10 @@
 ##
 
 iam:
-  apiWork:
+  api-work: #same as 'apiWork'
     username: work-test
     password: userpass
-  apiWorker:
+  api-worker:
     username: worker-test
     password: adminpass
   api:

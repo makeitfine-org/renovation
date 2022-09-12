@@ -11,10 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import dasniko.testcontainers.keycloak.KeycloakContainer
 import io.restassured.module.kotlin.extensions.Given
 import org.junit.jupiter.api.Tag
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -53,14 +56,11 @@ internal class WorkControllerWithSecurityFunctionalTest(
     @Value("\${keycloak.credentials.secret}")
     private lateinit var clientSecret: String
 
-    @Value("\${iam.apiWork.username}")
-    private lateinit var apiWorkUser: String
-
-    @Value("\${iam.apiWork.password}")
-    private lateinit var apiWorkPass: String
+    @Autowired
+    private lateinit var apiWork: ApiWork
 
     val workToken: String
-        get() = getToken(apiWorkUser, apiWorkPass)
+        get() = getToken(apiWork.username, apiWork.password)
 
     fun getToken(username: String, password: String): String {
         val restTemplate = RestTemplate()
@@ -101,4 +101,11 @@ internal class WorkControllerWithSecurityFunctionalTest(
             .and()
             .header("Authorization", "Bearer $workToken")
     }
+}
+
+@Configuration
+@ConfigurationProperties(prefix = "iam.api-work")
+class ApiWork {
+    lateinit var username: String
+    lateinit var password: String
 }
