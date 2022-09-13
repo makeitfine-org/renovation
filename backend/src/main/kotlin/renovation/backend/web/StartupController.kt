@@ -20,7 +20,7 @@ class StartupController(
     @Value("\${spring.application.name}")
     private val applicationName: String
 ) {
-    @GetMapping(value = ["/project", "/"])
+    @GetMapping(value = ["/project"])
     fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" project"
 
     @GetMapping(path = ["/logout"])

@@ -15,7 +15,7 @@ const val FORWARD = "forward:/"
 class RouteController {
 
     // todo: simplify it or move to separate config
-    @RequestMapping("/work", "/home")
+    @RequestMapping("/home", "/work", "/add/work", "/worker")
     // @RequestMapping("/{path:[^\\.]*}")
     fun redirect() = FORWARD
 }
