@@ -2,6 +2,7 @@ package renovation.info.config
 
 import com.nimbusds.jose.shaded.json.JSONArray
 import com.nimbusds.jose.shaded.json.JSONObject
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.convert.converter.Converter
@@ -17,13 +18,17 @@ import java.util.stream.Collectors
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+class SecurityConfig(
+    @Value("\${keycloak.resource}")
+    private val clientId: String
+) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
                 .antMatchers("/module").permitAll()
+                .antMatchers("/graphiql").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
@@ -54,10 +59,29 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 }
                 val roles = realmAccess["roles"] as JSONArray
                 val keycloakAuthorities = roles.stream().map { role: Any ->
-                    SimpleGrantedAuthority("ROLE_${role.toString().uppercase()}")
-                }.collect(Collectors.toList())
+                    SimpleGrantedAuthority("ROLE_$role")
+                }.toList()
                 grantedAuthorities!!.addAll(keycloakAuthorities)
+
+                addClientRoles(jwt, grantedAuthorities)
+
                 return grantedAuthorities
+            }
+
+            fun addClientRoles(jwt: Jwt, grantedAuthorities: MutableCollection<GrantedAuthority>) {
+                jwt.getClaim<Any>("resource_access")?.let {
+                    (it as? JSONObject)?.let {
+                        (it[clientId] as? JSONObject)?.let {
+                            (it["roles"] as? JSONArray)?.let {
+                                val clientRoles = it.stream().map { r: Any ->
+                                    SimpleGrantedAuthority("ROLE_${r.toString().uppercase()}")
+                                }.toList()
+
+                                grantedAuthorities.addAll(clientRoles)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -19,3 +19,6 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/renovation-realm/protocol/openid-connect/certs
+
+keycloak:
+  resource: renovation-client
