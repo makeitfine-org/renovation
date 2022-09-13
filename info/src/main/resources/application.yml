@@ -2,6 +2,9 @@ server:
   port: ${PORT:9090}
 
 spring:
+  application:
+    name: "renovation info"
+
   data:
     mongodb:
       authentication-database: ${MONGO_INITDB_DATABASE:infodb}
@@ -10,3 +13,9 @@ spring:
       password: ${MONGO_PASSWORD:infopassword}
       port: ${MONGO_PORT:27017}
       host: ${MONGO_HOST:localhost}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/renovation-realm/protocol/openid-connect/certs

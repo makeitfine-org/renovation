@@ -7,6 +7,7 @@
 package renovation.info.web.controller
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,5 +21,6 @@ class DetailsController(
     @Autowired val detailsService: DetailsService
 ) {
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     fun get() = detailsService.getAll()
 }
