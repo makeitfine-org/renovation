@@ -23,27 +23,22 @@ data class PasswordGrantAccessToken(
 ) : GrantTypeAccessToken {
     override val grantType = "password"
 
-    override val token: String = RestTemplate().let {
-        val httpHeaders = HttpHeaders().also {
-            it.contentType = MediaType.APPLICATION_FORM_URLENCODED
-        }
+    override val token: String = LinkedMultiValueMap<String, String>().let {
+        it["grant_type"] = grantType
+        it["client_id"] = clientId
+        it["client_secret"] = clientSecret
+        it["username"] = username
+        it["password"] = password
 
-        val map = LinkedMultiValueMap<String, String>()
-        map["grant_type"] = grantType
-        map["client_id"] = clientId
-        map["client_secret"] = clientSecret
-        map["username"] = username
-        map["password"] = password
-        val token: AccessToken? =
-            it.postForObject(
-                tokenEndpoint,
-                HttpEntity(
-                    map,
-                    httpHeaders
-                ),
-                AccessToken::class.java
-            )
-
-        token!!.accessToken
+        RestTemplate().postForObject(
+            tokenEndpoint,
+            HttpEntity(
+                it,
+                HttpHeaders().also {
+                    it.contentType = MediaType.APPLICATION_FORM_URLENCODED
+                }
+            ),
+            AccessToken::class.java
+        )!!.accessToken
     }
 }
