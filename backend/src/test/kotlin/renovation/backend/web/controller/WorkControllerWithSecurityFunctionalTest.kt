@@ -72,10 +72,12 @@ internal class WorkControllerWithSecurityFunctionalTest(
     private lateinit var token: GrantTypeAccessToken
 
     override fun given() = Given {
+        val header = token.bearerAuthorizationHeader()
+
         port(port)
             .and().header("Content-type", "application/json")
             .and()
-            .header("Authorization", "Bearer ${token.getToken()}")
+            .header(header.headerName, header.headerValue)
     }
 }
 

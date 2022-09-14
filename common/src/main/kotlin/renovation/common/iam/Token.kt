@@ -7,5 +7,5 @@
 package renovation.common.iam
 
 interface Token {
-    fun getToken(): Any
+    val token: Any
 }

@@ -11,14 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 interface GrantTypeAccessToken : Token {
     val grantType: String
-
-    override fun getToken(): String
-
-    fun bearerAuthorizationHeader(accessToken: String) =
-        Header("Authorization", "Bearer $accessToken")
+    override val token: String
 
     fun bearerAuthorizationHeader() =
-        Header("Authorization", "Bearer ${getToken()}")
+        Header("Authorization", "Bearer $token")
 
     data class Header(
         val headerName: String,
