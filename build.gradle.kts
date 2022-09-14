@@ -30,7 +30,8 @@ subprojects {
     val kotlinBasedSubprojects = arrayOf(
         properties["backendModuleName"],
         properties["backendapitestModuleName"],
-        properties["infoModuleName"]
+        properties["infoModuleName"],
+        properties["commonModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {

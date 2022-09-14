@@ -1,0 +1,11 @@
+##
+# Created under project "Renovation"
+#
+# Copyright 2021-2022
+##
+
+spring:
+  application:
+    name: "renovation common"
+  main:
+    web-application-type: none

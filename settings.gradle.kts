@@ -49,6 +49,7 @@ val frontendInfoModuleName: String by settings
 val backendapitestModuleName: String by settings
 val gatewayModuleName: String by settings
 val infoModuleName: String by settings
+val commonModuleName: String by settings
 
 include(backendModuleName)
 include(frontendModuleName)
@@ -56,3 +57,4 @@ include(frontendInfoModuleName)
 include(backendapitestModuleName)
 include(gatewayModuleName)
 include(infoModuleName)
+include(commonModuleName)
