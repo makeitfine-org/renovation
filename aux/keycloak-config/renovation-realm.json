@@ -12,6 +12,7 @@
       "enabled": true,
       "secret": "341b3ff9-7af0-4854-b024-63a82e7174cd",
       "publicClient": false,
+      "directAccessGrantsEnabled": true,
       "redirectUris": [
         "*"
       ],

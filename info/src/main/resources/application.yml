@@ -20,5 +20,11 @@ spring:
         jwt:
           jwk-set-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/renovation-realm/protocol/openid-connect/certs
 
+logging:
+  level:
+    root: INFO
+    renovation.info: DEBUG
+    org.springframework.security: DEBUG
+
 keycloak:
   resource: renovation-client

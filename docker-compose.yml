@@ -114,6 +114,7 @@ services:
     container_name: renovation-info
     depends_on:
       - renovation-mongo
+      - renovation-keycloak
     ports:
       - ${INFO_SERVER_REDIRECT_PORT}:9090
     environment:
