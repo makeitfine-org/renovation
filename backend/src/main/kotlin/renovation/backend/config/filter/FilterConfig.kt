@@ -7,10 +7,12 @@
 package renovation.backend.config.filter
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.boot.web.servlet.ServletComponentScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
+@ServletComponentScan
 class FilterConfig(
     val loggingFilter: LoggingFilter
 ) {
