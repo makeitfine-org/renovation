@@ -14,7 +14,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
-import java.util.stream.Collectors
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -28,7 +27,7 @@ class SecurityConfig(
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
                 .antMatchers("/module").permitAll()
-                .antMatchers("/graphiql").hasAnyRole("ADMIN")
+                .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
