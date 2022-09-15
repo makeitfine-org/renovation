@@ -45,10 +45,11 @@ class GraphQlServiceImpl(
     }
 
     private fun requestData(graphQlBody: String): Map<*, *> {
-        val httpHeaders = HttpHeaders()
+        val httpHeaders = HttpHeaders().also {
+            it.add("Content-Type", "application/json")
+        }
 
         accessToken.bearerAuthorizationHeader().also {
-            httpHeaders.add("Content-Type", "application/json")
             httpHeaders.add(it.headerName, it.headerValue)
         }
 
