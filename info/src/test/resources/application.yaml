@@ -5,3 +5,17 @@ spring:
   # for testing, set default profile to 'test'
   profiles:
     active: "test"
+
+  security:
+    oauth2:
+      client:
+        registration:
+          client:
+            client-id: ${KEYCLOAK_RESOURCE:renovation-client}
+            client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
+#            scope: openid, profile, roles
+#            authorization-grant-type: client_credentials
+
+        provider:
+          client:
+            token-uri: ${KEYCLOAK_TOKEN_ENDPOINT:http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token}

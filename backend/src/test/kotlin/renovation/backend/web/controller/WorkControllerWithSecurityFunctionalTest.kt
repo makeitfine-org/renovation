@@ -29,7 +29,7 @@ import renovation.common.iam.impl.PasswordGrantAccessToken
 @ActiveProfiles("secured-functional-test")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerWithSecurityFunctionalTest(
-    @LocalServerPort val port: Int,
+    @LocalServerPort private val port: Int,
 ) : WorkControllerFunctionalTestAbstract(port) {
 
     @TestConfiguration
@@ -74,8 +74,7 @@ internal class WorkControllerWithSecurityFunctionalTest(
     override fun given() = Given {
         val header = token.bearerAuthorizationHeader()
 
-        port(port)
-            .and().header("Content-type", "application/json")
+        super.given()
             .and()
             .header(header.headerName, header.headerValue)
     }

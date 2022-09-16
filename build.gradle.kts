@@ -64,6 +64,10 @@ subprojects {
         }
 
         dependencies {
+            if (project.name != properties["commonModuleName"]) {
+                api(project(":${properties["commonModuleName"]}"))
+            }
+
             implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
             implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
             implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")

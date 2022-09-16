@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig(
-    @Value("\${keycloak.resource}")
+    @Value("\${spring.security.oauth2.client.registration.client.client-id}")
     private val clientId: String
 ) : WebSecurityConfigurerAdapter() {
 

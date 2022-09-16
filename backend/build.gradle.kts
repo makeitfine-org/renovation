@@ -24,7 +24,6 @@ dependencyManagement {
 }
 
 dependencies {
-    api(project(":${properties["commonModuleName"]}"))
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-web") {
