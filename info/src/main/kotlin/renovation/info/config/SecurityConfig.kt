@@ -3,6 +3,7 @@ package renovation.info.config
 import com.nimbusds.jose.shaded.json.JSONArray
 import com.nimbusds.jose.shaded.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.convert.converter.Converter
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.client.client-id}")
     private val clientId: String
