@@ -17,8 +17,8 @@
       "redirectUris": [
         "*"
       ],
-      "attributes" : {
-        "backchannel.logout.session.required" : "true"
+      "attributes": {
+        "backchannel.logout.session.required": "true"
       },
       "protocolMappers": [
         {
@@ -40,8 +40,19 @@
           }
         }
       ],
-      "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
-      "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
     }
   ],
   "roles": {
@@ -61,6 +72,11 @@
           "name": "admin",
           "description": "admin role",
           "clientRole": true
+        },
+        {
+          "name": "service",
+          "description": "service role",
+          "clientRole": true
         }
       ]
     }
@@ -78,7 +94,7 @@
           "id": "b43ff74d-f17a-4dd9-be66-a782d9d5877e",
           "type": "password",
           "createdDate": 1658440800000,
-          "secretData" : "{\"value\":\"xlcZcJFBvEcl2qbZoAtHUXHbQEbdWRwNAKbiOTKn2iBJ7yTesW62mXVXB4yzPDn0xjuD8uuuhuxv9HumR8FEkg==\",\"salt\":\"1GiFJxFr6AX33VlwkAdl8A==\",\"additionalParameters\":{}}",
+          "secretData": "{\"value\":\"xlcZcJFBvEcl2qbZoAtHUXHbQEbdWRwNAKbiOTKn2iBJ7yTesW62mXVXB4yzPDn0xjuD8uuuhuxv9HumR8FEkg==\",\"salt\":\"1GiFJxFr6AX33VlwkAdl8A==\",\"additionalParameters\":{}}",
           "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
         }
       ],
@@ -109,7 +125,7 @@
           "id": "a43ff74d-f17a-4dd9-be66-a782d9d5877e",
           "type": "password",
           "createdDate": 1658440800000,
-          "secretData" : "{\"value\":\"XhZqvxZmfD4ZIEaePuYcQLMqyYHu26WrJkuPLk5Qi4Vquaz3RcRshGvnXCDZC/Sf6AL8BfswKptcDytbdtkaMg==\",\"salt\":\"Cl3RW6dPowA07VkbE0OkPA==\",\"additionalParameters\":{}}",
+          "secretData": "{\"value\":\"XhZqvxZmfD4ZIEaePuYcQLMqyYHu26WrJkuPLk5Qi4Vquaz3RcRshGvnXCDZC/Sf6AL8BfswKptcDytbdtkaMg==\",\"salt\":\"Cl3RW6dPowA07VkbE0OkPA==\",\"additionalParameters\":{}}",
           "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
         }
       ],
@@ -129,7 +145,7 @@
       "groups": []
     },
     {
-      "id": "d2058821-66ae-48ed-b5b4-ad8c35589f35",
+      "id": "d2058821-66ae-48ed-b5b4-ad8c35589f37",
       "createdTimestamp": 1658440800000,
       "username": "all-test",
       "enabled": true,
@@ -157,6 +173,28 @@
         "default-roles-renovation",
         "offline_access",
         "uma_authorization"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d3058822-66ae-48ed-b5b4-ad8c35589f38",
+      "createdTimestamp": 1658440800000,
+      "username": "service-account-renovation-client",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "renovation-client",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client": [
+          "service"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation-realm"
       ],
       "notBefore": 0,
       "groups": []

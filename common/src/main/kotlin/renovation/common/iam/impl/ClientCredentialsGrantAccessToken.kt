@@ -13,7 +13,7 @@ data class ClientCredentialsGrantAccessToken(
     val clientSecret: String,
     override val tokenEndpoint: String,
 ) : GrantTypeAccessToken {
-    override val grantType = "password"
+    override val grantType = "client_credentials"
 
     override val token: String = super.obtainToken(
         "client_id" to clientId,
