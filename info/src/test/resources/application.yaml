@@ -19,3 +19,7 @@ spring:
         provider:
           client:
             token-uri: ${KEYCLOAK_TOKEN_ENDPOINT:http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token}
+
+    credentials:
+      username: all-test
+      password: test

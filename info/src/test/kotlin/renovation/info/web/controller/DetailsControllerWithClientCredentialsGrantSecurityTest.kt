@@ -20,7 +20,7 @@ import renovation.common.iam.impl.ClientCredentialsGrantAccessToken
 
 @Tag("smoke")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-internal class DetailsControllerWithSecurityTest(
+internal class DetailsControllerWithClientCredentialsGrantSecurityTest(
     @LocalServerPort private val port: Int
 ) : DetailsControllerTestAbstract(port) {
 
