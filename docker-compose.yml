@@ -79,6 +79,8 @@ services:
 
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    networks:
+      - renovation-network
 
   renovation-backend:
     image: koresmosto/renovation-backend
