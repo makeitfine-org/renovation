@@ -14,6 +14,7 @@ import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.FileHelper
+import renovation.backend.api.test.SecurityHelper
 import renovation.backend.api.test.ServerRoute
 import kotlin.test.Test
 
@@ -43,5 +44,9 @@ internal class WorkerControllerApiTest {
 
     private fun given() = Given {
         header("Content-type", "application/json")
+
+        SecurityHelper.getPasswordGrantAccessToken().bearerAuthorizationHeader().let {
+            header(it.headerName, it.headerValue)
+        }
     }
 }
