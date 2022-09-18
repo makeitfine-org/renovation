@@ -9,11 +9,13 @@ package renovation.backend.config.security
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.beans.factory.config.BeanDefinition
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
+import org.springframework.context.annotation.Scope
 import renovation.common.iam.impl.ClientCredentialsGrantAccessToken
 import renovation.common.iam.impl.PasswordGrantAccessToken
 
@@ -24,6 +26,7 @@ private val log = KotlinLogging.logger { }
 class InfoModuleConfig {
 
     @Bean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(
         name = ["info-service.iam.clientCredentialsGrantType"],
         havingValue = "true",
@@ -47,6 +50,7 @@ class InfoModuleConfig {
     }
 
     @Bean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = ["info-service.iam.passwordGrantType"], havingValue = "true", matchIfMissing = false)
     fun passwordGrantAccessToken(
         @Value("\${keycloak.auth-server-url}")
