@@ -3,6 +3,7 @@ FROM node:lts-alpine
 WORKDIR /app
 
 COPY package-docker.json ./package.json
+COPY KeycloakService.js ./KeycloakService.js
 
 RUN npm install
 

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+//todo: fix for too use it
 // const backendApiUrl = process.env.VUE_APP_BACKEND_API_URL || '/api'
 // const infoGraphqlUrl = process.env.VUE_APP_INFO_GRAPHQL_URL
 

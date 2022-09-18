@@ -140,11 +140,13 @@ services:
     container_name: renovation-frontend-info
     depends_on:
       - renovation-info
+      - renovation-keycloak
     ports: #Think of volume for directory
       - ${FRONTEND_INFO_SERVER_REDIRECT_PORT}:8080
     environment:
       VUE_APP_INFO_GRAPHQL_URL: ${VUE_APP_INFO_GRAPHQL_URL}
       VUE_APP_BACKEND_API_URL: ${VUE_APP_BACKEND_API_URL}
+      VUE_APP_TOKEN_ENDPOINT: ${VUE_APP_TOKEN_ENDPOINT}
     networks:
       - renovation-network
 

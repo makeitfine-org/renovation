@@ -11,7 +11,8 @@
     "vue": "^3.2.26",
     "vue-router": "^4.0.12",
     "axios": "^0.24.0",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "keycloak-js": "^18.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
