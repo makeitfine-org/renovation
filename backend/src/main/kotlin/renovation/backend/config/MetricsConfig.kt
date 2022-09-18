@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class MetricsConfig {
+
     @Bean
     fun getAllWorksCounter(@Autowired meterRegistry: MeterRegistry) =
         Counter.builder("get_all_works_counter")
