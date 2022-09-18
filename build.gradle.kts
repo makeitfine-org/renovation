@@ -240,15 +240,15 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker-compose", "down")
+            commandLine("docker", "compose", "down")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker-compose", "build")
+            commandLine("docker", "compose", "build")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker-compose", "up", "-d")
+            commandLine("docker", "compose", "up", "-d")
         }
         exec {
             workingDir("${rootProject.rootDir}")
