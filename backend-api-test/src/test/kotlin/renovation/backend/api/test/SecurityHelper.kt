@@ -11,12 +11,21 @@ import renovation.common.iam.impl.PasswordGrantAccessToken
 
 object SecurityHelper {
 
-    const val CLIENT_ID = "renovation-client"
-    const val CLIENT_SECRET = "341b3ff9-7af0-4854-b024-63a82e7174cd"
-    const val USERNAME = "all-test"
-    const val PASSWORD = "test"
-    const val TOKEN_ENDPOINT = "http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token"
+    @JvmStatic
+    val CLIENT_ID = System.getenv("KEYCLOAK_CLIENT_ID") ?: "renovation-client"
 
+    @JvmStatic
+    val CLIENT_SECRET = System.getenv("KEYCLOAK_CLIENT_SECRET") ?: "341b3ff9-7af0-4854-b024-63a82e7174cd"
+
+    @JvmStatic
+    val USERNAME = System.getenv("KEYCLOAK_USERNAME") ?: "all-test"
+
+    @JvmStatic
+    val PASSWORD = System.getenv("KEYCLOAK_PASSWORD") ?: "test"
+
+    @JvmStatic
+    val TOKEN_ENDPOINT = System.getenv("KEYCLOAK_TOKEN_ENDPOINT")
+        ?: "http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token"
 
     @JvmStatic
     fun getPasswordGrantAccessToken() = PasswordGrantAccessToken(
