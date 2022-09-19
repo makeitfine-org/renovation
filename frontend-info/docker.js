@@ -20,6 +20,28 @@ router.get('/check', function (req, res) {
     return res.send(message)
 })
 
+//todo: method should be removed cause of insecure
+app.get('/insecure/token/grant/password', function (req, res) {
+
+    getPasswordGrantTypeAccessToken().then(function (accessToken) {
+        res.setHeader("Content-Type", "text/plain")
+        res.send(accessToken)
+    }).catch(function (error) {
+        console.log(error)
+    })
+})
+
+//todo: method should be removed cause of insecure
+app.get('/insecure/token/grant/client', function (req, res) {
+
+    getClientCredentialsGrantTypeAccessToken().then(function (accessToken) {
+        res.setHeader("Content-Type", "text/plain")
+        res.send(accessToken)
+    }).catch(function (error) {
+        console.log(error)
+    })
+})
+
 app.get('/worker', function (req, res) {
     let url = `${process.env.VUE_APP_BACKEND_API_URL}/worker`
 
