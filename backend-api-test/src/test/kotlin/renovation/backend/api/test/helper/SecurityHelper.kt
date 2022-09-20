@@ -11,9 +11,18 @@ import renovation.common.iam.GrantTypeAccessToken
 object SecurityHelper {
 
     @JvmStatic
-    fun getPasswordGrantAccessToken(): GrantTypeAccessToken = AccessTokensLocalhost.getPasswordGrantAccessToken()
+    private val accessTokens: AccessTokens = System.getenv("ACCESS_TOKENS_LOCALHOST").let {
+        if (it != null && it.lowercase() == "true") {
+            AccessTokensLocalhost
+        } else {
+            throw NotImplementedError()
+        }
+    }
 
     @JvmStatic
-    fun getClientCredentialsGrantAccessToken(): GrantTypeAccessToken =
-        AccessTokensLocalhost.getClientCredentialsGrantAccessToken()
+    fun obtainPasswordGrantAccessToken(): GrantTypeAccessToken = accessTokens.getPasswordGrantAccessToken()
+
+    @JvmStatic
+    fun obtainClientCredentialsGrantAccessToken(): GrantTypeAccessToken =
+        accessTokens.getClientCredentialsGrantAccessToken()
 }

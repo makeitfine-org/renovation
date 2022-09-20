@@ -385,7 +385,7 @@ internal class WorkControllerApiTest {
     private fun given() = Given {
         header("Content-type", "application/json")
 
-        SecurityHelper.getPasswordGrantAccessToken().bearerAuthorizationHeader().let {
+        SecurityHelper.obtainPasswordGrantAccessToken().bearerAuthorizationHeader().let {
             header(it.headerName, it.headerValue)
         }
     }
