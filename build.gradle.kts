@@ -252,7 +252,7 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("sleep", "10")
+            commandLine("sleep", "30")
         }
         exec {
             workingDir("${rootProject.rootDir}")
