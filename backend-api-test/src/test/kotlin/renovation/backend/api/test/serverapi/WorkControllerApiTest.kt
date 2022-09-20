@@ -10,17 +10,17 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
+import java.util.UUID
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
+import renovation.backend.api.test.ServerRoute
 import renovation.backend.api.test.helper.FileHelper
 import renovation.backend.api.test.helper.SecurityHelper
-import renovation.backend.api.test.ServerRoute
-import java.util.*
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @Tag("smoke")
 internal class WorkControllerApiTest {

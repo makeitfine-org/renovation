@@ -15,7 +15,7 @@ object SecurityHelper {
         if (it != null && it.lowercase() == "true") {
             AccessTokensLocalhost
         } else {
-            throw NotImplementedError()
+            AccessTokensDocker
         }
     }
 
