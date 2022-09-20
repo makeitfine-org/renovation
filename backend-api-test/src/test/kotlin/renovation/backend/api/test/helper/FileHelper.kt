@@ -1,10 +1,10 @@
 /*
- * Created under not commercial project "Renovation"
+ *  Created under not commercial project "Renovation"
  *
- * Copyright 2021-2022
+ *   Copyright 2021-2022
  */
 
-package renovation.backend.api.test
+package renovation.backend.api.test.helper
 
 import org.apache.commons.io.IOUtils
 import java.nio.charset.Charset

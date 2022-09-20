@@ -15,8 +15,8 @@ import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
-import renovation.backend.api.test.FileHelper
-import renovation.backend.api.test.SecurityHelper
+import renovation.backend.api.test.helper.FileHelper
+import renovation.backend.api.test.helper.SecurityHelper
 import renovation.backend.api.test.ServerRoute
 import java.util.*
 import kotlin.test.Test

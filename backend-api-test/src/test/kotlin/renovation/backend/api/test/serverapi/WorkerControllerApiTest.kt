@@ -13,8 +13,8 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
-import renovation.backend.api.test.FileHelper
-import renovation.backend.api.test.SecurityHelper
+import renovation.backend.api.test.helper.FileHelper
+import renovation.backend.api.test.helper.SecurityHelper
 import renovation.backend.api.test.ServerRoute
 import kotlin.test.Test
 
