@@ -45,10 +45,13 @@ class SecurityConfig(
     }
 
     @Bean
+    @Suppress("NestedBlockDepth")
     fun jwtGrantedAuthoritiesConverter(): Converter<Jwt, Collection<GrantedAuthority>> {
         val delegate = JwtGrantedAuthoritiesConverter()
 
         return object : Converter<Jwt, Collection<GrantedAuthority>> {
+
+            @Suppress("ReturnCount")
             override fun convert(jwt: Jwt): Collection<GrantedAuthority>? {
                 val grantedAuthorities = delegate.convert(jwt)
                 if (jwt.getClaim<Any>("realm_access") == null) {

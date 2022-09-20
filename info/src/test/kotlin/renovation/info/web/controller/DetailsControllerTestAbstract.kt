@@ -19,6 +19,7 @@ import kotlin.test.Test
  * Run docker-compose up on renovation/info module before
  */
 
+@Suppress("UnnecessaryAbstractClass")
 internal abstract class DetailsControllerTestAbstract(private val port: Int) {
 
     companion object {

@@ -47,6 +47,8 @@ interface GrantTypeAccessToken : Token {
     )
 
     class AccessToken {
+
+        @Suppress("MemberNameEqualsClassName")
         val accessToken: String
 
         @JsonCreator
