@@ -24,6 +24,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 
 @Tag("smoke")
 @SpringBootTest
@@ -33,9 +35,16 @@ internal class DetailsDataFetcherTest(
     @Autowired
     private val detailsRepository: DetailsRepository
 ) {
+
     companion object {
         @JvmStatic
         private val OBJECT_MAPPER = ObjectMapper()
+
+        @JvmStatic
+        @DynamicPropertySource
+        fun properties(registry: DynamicPropertyRegistry) {
+            registry.add("spring.security.enabled") { "false" }
+        }
     }
 
     @Test

@@ -13,6 +13,8 @@ import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.annotation.Secured
+import org.springframework.security.access.prepost.PreAuthorize
 import renovation.info.data.service.DetailsService
 import renovation.info.generated.dgs.types.AdditionInfo
 import renovation.info.generated.dgs.types.Details
@@ -25,6 +27,7 @@ class DetailsDataFetcher(
     @Autowired
     private val detailsService: DetailsService
 ) {
+
     @DgsQuery
     fun details(@InputArgument filter: DetailsFilter?) = detailsService.getAll().stream()
         .filter {
@@ -51,6 +54,7 @@ class DetailsDataFetcher(
         }.toList()
 
     @DgsData(parentType = "Details")
+    @PreAuthorize("isAuthenticated() && (hasRole('SERVICE') || hasRole('ADMIN'))")
     fun additionInfos(dgsDataFetchingEnvironment: DgsDataFetchingEnvironment) =
         detailsService
             .getById(dgsDataFetchingEnvironment.getSource<Details>().id!!)
@@ -59,5 +63,6 @@ class DetailsDataFetcher(
             ?.toList()
 
     @DgsMutation
+    @Secured(value = ["ROLE_ADMIN", "ROLE_SERVICE"])
     fun details(detailsInput: DetailsInput) = detailsService.save(detailsInput)
 }
