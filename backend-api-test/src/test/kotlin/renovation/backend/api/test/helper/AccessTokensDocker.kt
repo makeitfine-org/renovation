@@ -19,7 +19,7 @@ object AccessTokensDocker : AccessTokens {
 
     @JvmStatic
     private fun getAccessToken(httRequest: HttpRequestBase): String {
-        var token = ""
+        var token: String
 
         HttpClients.createDefault().use {
             it.execute(httRequest).use {
