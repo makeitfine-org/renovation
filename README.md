@@ -88,7 +88,7 @@ https://devcenter.heroku.com/articles/deploying-executable-jar-files
 https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku
 https://github.com/heroku/heroku-cli-deploy
 
-###Usefull
+### Usefull
 1. build backend (skip any kind of test) + run jar (from backend module):  
 `$>grcb -x test -x healthCheck -x smokeTest -x intTest -x functionalTest && java -jar build/libs/backend-0.0.1-SNAPSHOT.jar`
 2. build project and copy dist to backend static resources:  
@@ -195,3 +195,8 @@ For to autofix:
   `$> export VUE_APP_INFO_GRAPHQL_URL=http://localhost:9190`  
   `$> node docker.js`  
 * Refresh with clearing cache short-cut: `Cntr+Shift+R`
+
+### Access tokens from docker renovation network keycloak service:  
+* http://localhost:8281/insecure/token/grant/password  
+* http://localhost:8281/insecure/token/grant/client  
+
