@@ -1,8 +1,8 @@
-import http from "@/http-common";
+import {api} from "@/http-common";
 
 class WorkerDataService {
   getAll() {
-    return http.get("/worker");
+    return api.get("/worker");
   }
 
   // get(id) {
