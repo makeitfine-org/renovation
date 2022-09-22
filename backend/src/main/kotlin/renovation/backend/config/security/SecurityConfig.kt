@@ -33,12 +33,13 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
 //                .and()
                 .disable() //todo: enable
                 .authorizeRequests()
-                .antMatchers("/", "/project", "/logout").permitAll()
+                .antMatchers("/project", "/logout").permitAll()
                 .antMatchers("/api/work").hasAnyRole("WORK")
                 .antMatchers("/api/worker").hasAnyRole("WORKER")
                 .antMatchers("/*").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated()
+                .and().logout().logoutSuccessUrl("/logout")
     }
 
     @Throws(Exception::class)
