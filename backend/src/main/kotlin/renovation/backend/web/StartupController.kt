@@ -29,4 +29,8 @@ class StartupController(
         it.logout()
         response.sendRedirect("/")
     }
+
+    @GetMapping(path = ["/logout-without-redirect"])
+    @Throws(ServletException::class, IOException::class)
+    fun logoutNoRedirect(request: HttpServletRequest) = request.logout()
 }
