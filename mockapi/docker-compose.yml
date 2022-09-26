@@ -6,9 +6,9 @@
 version: '3.7'
 
 services:
-  renovation-gateway:
+  renovation-mockapi:
     image: mockserver/mockserver:5.13.1
-    container_name: "renovation-gateway"
+    container_name: "renovation-mockapi"
     ports:
       - 1080:1080
     environment:
@@ -19,6 +19,8 @@ services:
       - type: bind
         source: ./config
         target: /config
+    networks:
+      - renovation-mockapi-network
 
 networks:
-  renovation-gateway-nework:
+  renovation-mockapi-network:
