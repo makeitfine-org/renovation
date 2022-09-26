@@ -1,8 +1,9 @@
 ##
-# Created under project "Bina"
+# Created under not commercial project "Renovation"
 #
-# Copyright 2022
+# Copyright 2021-2022
 ##
+
 info:
   app:
     name: "renovation/gateway"

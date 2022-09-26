@@ -150,5 +150,22 @@ services:
     networks:
       - renovation-network
 
+  renovation-gateway:
+    image: koresmosto/renovation-gateway
+    build:
+      context: ./gateway
+    restart: always
+    container_name: renovation-gateway
+    depends_on:
+      - renovation-keycloak
+    ports:
+      - ${GATEWAY_SERVER_REDIRECT_PORT}:8085
+    environment:
+
+      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+      KEYCLOAK_PORT: ${KEYCLOAK_PORT}
+    networks:
+      - renovation-network
+
 networks:
   renovation-network:

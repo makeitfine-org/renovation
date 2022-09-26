@@ -27,4 +27,9 @@ class ExposeApiConfig {
     fun anonymous() = Supplier<String> {
         "anonymous"
     }
+
+    @Bean
+    fun unauthorized() = Supplier<String> {
+        "unauthorized"
+    }
 }
