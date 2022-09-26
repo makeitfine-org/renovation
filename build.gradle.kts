@@ -31,7 +31,8 @@ subprojects {
         properties["backendModuleName"],
         properties["backendapitestModuleName"],
         properties["infoModuleName"],
-        properties["commonModuleName"]
+        properties["commonModuleName"],
+        properties["gatewayModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {

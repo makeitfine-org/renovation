@@ -1,0 +1,29 @@
+##
+# Created under project "Bina"
+#
+# Copyright 2022
+##
+info:
+  app:
+    name: "renovation/gateway"
+    description: Gateway module of renovation project
+
+server:
+  port: ${PORT:8085}
+
+logging:
+  level:
+    root: INFO
+    gateway: DEBUG
+  file:
+    path: ${RENOVATION_GATEWAY_LOG_FILE_PATH:/tmp/renovation-gateway}
+  logback:
+    rollingpolicy:
+      max-history: 5
+      max-file-size: 5MB
+
+spring:
+  application:
+    name: ${info.app.name}
+#  main:
+    #web-application-type: none
