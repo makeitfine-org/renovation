@@ -197,6 +197,10 @@ For to autofix:
   `$> node docker.js`  
 * Refresh with clearing cache short-cut: `Cntr+Shift+R`
 
+### Run api test (local):
+1) Run backend module locally
+2) set env. var: `ACCESS_TOKENS_LOCALHOST=true` and `SERVER_URL=http://localhost:8080`
+
 ### Access tokens from docker renovation network keycloak service:  
 * http://localhost:8281/insecure/token/grant/password  
 * http://localhost:8281/insecure/token/grant/client  
