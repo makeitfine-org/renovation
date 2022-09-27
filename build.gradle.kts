@@ -236,6 +236,28 @@ tasks.register<GradleBuild>(checkall) {
     }
 }
 
+val removeImages = "removeImages"
+
+tasks.register<GradleBuild>(removeImages) {
+    description = "Remove renovation docker images"
+    println(description)
+
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-backend:latest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-frontend-info:latest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-backend:latest")
+        }
+    }
+}
+
 val dockerAndApiTest = "dockerAndApiTest"
 
 tasks.register<GradleBuild>(dockerAndApiTest) {

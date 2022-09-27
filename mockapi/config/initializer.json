@@ -15,5 +15,18 @@
       },
       "statusCode": 200
     }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/about"
+    },
+    "httpResponse": {
+      "body": {
+        "name": "renovation mockapi module",
+        "description": "Module for mocking api and using it as test environment"
+      },
+      "statusCode": 200
+    }
   }
 ]

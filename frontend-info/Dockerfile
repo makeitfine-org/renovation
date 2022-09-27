@@ -9,6 +9,7 @@ RUN npm install
 
 COPY dist ./dist
 COPY ./docker.js ./
+COPY ./about.json ./
 
 EXPOSE 8080
 CMD [ "node", "docker.js" ]

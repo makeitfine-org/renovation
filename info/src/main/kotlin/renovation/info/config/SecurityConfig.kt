@@ -28,7 +28,7 @@ class SecurityConfig(
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
-                .antMatchers("/module").permitAll()
+                .antMatchers("/module", "/about").permitAll()
                 .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { resourceServerConfigurer ->

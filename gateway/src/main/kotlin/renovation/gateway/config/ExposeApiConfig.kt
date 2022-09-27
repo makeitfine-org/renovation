@@ -14,6 +14,14 @@ import org.springframework.context.annotation.Configuration
 class ExposeApiConfig {
 
     @Bean
+    fun about() = Supplier<Any> {
+        object : Any() {
+            val name = "renovation gateway module"
+            val description = "Gateway for routing/gathering different request"
+        }
+    }
+
+    @Bean
     fun admin() = Supplier<String> {
         "admin"
     }

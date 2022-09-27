@@ -8,7 +8,16 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const axios = require('axios')
+const fs = require('fs')
 const {getClientCredentialsGrantTypeAccessToken, getPasswordGrantTypeAccessToken} = require("./KeycloakService");
+
+router.get('/about', function (req, res) {
+    const aboutFilePath = __dirname + "/about.json"
+
+    res.setHeader("Content-Type", "application/json")
+    const readable = fs.createReadStream(aboutFilePath);
+    readable.pipe(res);
+})
 
 router.get('/check', function (req, res) {
     let message = "<>Hello from frontend-info!<><br/>"

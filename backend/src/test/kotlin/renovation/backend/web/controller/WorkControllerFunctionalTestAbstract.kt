@@ -51,7 +51,7 @@ internal abstract class WorkControllerFunctionalTestAbstract(
         assertTrue(postgresContainer.isRunning)
         assertTrue(redisContainer.isRunning)
 
-        val url = URL("http://${postgresContainer.containerIpAddress}:${postgresContainer.firstMappedPort}")
+        val url = URL("http://${postgresContainer.host}:${postgresContainer.firstMappedPort}")
 
         url.openConnection() as HttpURLConnection
     }

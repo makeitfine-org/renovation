@@ -1,21 +1,19 @@
 /*
- * Created under not commercial project "Renovation"
+ *  Created under not commercial project "Renovation"
  *
- * Copyright 2021-2022
+ *   Copyright 2021-2022
  */
 
-package renovation.backend.web
+package renovation.info.web.controller
 
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
-import org.apache.http.HttpStatus.SC_OK
+import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
-import renovation.backend.IntegrationTest
 
-@IntegrationTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class StartupControllerTest(
     @LocalServerPort val port: Int
@@ -25,10 +23,12 @@ internal class StartupControllerTest(
     @Test
     fun `Assert startup controller`() {
         When {
-            get("$portHost/project")
+            get("$portHost/module")
         }.Then {
-            statusCode(SC_OK)
-            body(CoreMatchers.equalTo("Hi, it's \"Renovation backend\" project"))
+            statusCode(HttpStatus.SC_OK)
+            body(
+                CoreMatchers.equalTo("Hi, it's \"Renovation info\" module")
+            )
         }
     }
 
@@ -37,11 +37,11 @@ internal class StartupControllerTest(
         When {
             get("$portHost/about")
         }.Then {
-            statusCode(SC_OK)
+            statusCode(HttpStatus.SC_OK)
             body(
                 CoreMatchers.equalTo(
-                    """{"name":"renovation backend module","""
-                            + """"description":"Main backend part of renovation project"}"""
+                    """{"name":"renovation info module","""
+                            + """"description":"Module work as additional info directory"}"""
                 )
             )
         }

@@ -23,6 +23,12 @@ class StartupController(
     @GetMapping("/project")
     fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" project"
 
+    @GetMapping("/about")
+    fun about(): Any = object : Any() {
+        val name = "renovation backend module"
+        val description = "Main backend part of renovation project"
+    }
+
     @GetMapping(path = ["/logout"])
     @Throws(ServletException::class, IOException::class)
     fun logout(request: HttpServletRequest, response: HttpServletResponse) = request.let {
