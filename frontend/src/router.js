@@ -16,23 +16,23 @@ const routing = {
         },
         {
             name: 'workFacade',
-            path: '/work',
+            path: '/fe/work',
             alias: '/',
             component: () => import('@/component/WorkFacade.vue')
         },
         {
             name: "work-details",
-            path: "/work/:id",
+            path: "/fe/work/:id",
             component: () => import("@/component/Work")
         },
         {
             name: 'addWork',
-            path: '/add/work',
+            path: '/fe/add/work',
             component: () => import('@/component/AddWork.vue')
         },
         {
             name: 'workerFacade',
-            path: '/worker',
+            path: '/fe/worker',
             component: () => import('@/component/worker/WorkerFacade.vue')
         },
     ]
