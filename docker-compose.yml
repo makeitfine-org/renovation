@@ -167,5 +167,22 @@ services:
     networks:
       - renovation-network
 
+  renovation-mockapi:
+    image: mockserver/mockserver:5.13.1
+    restart: always
+    container_name: "renovation-mockapi"
+    ports:
+      - ${MOCKAPI_SERVER_REDIRECT_PORT}:1080
+    environment:
+      MOCKSERVER_WATCH_INITIALIZATION_JSON: "true"
+      MOCKSERVER_PROPERTY_FILE: /config/mockserver.properties
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializer.json
+    volumes:
+      - type: bind
+        source: ./mockapi/config
+        target: /config
+    networks:
+      - renovation-network
+
 networks:
   renovation-network:
