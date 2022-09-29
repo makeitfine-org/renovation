@@ -49,7 +49,7 @@ dependencies {
 //    implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
     implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
 
-    testImplementation("com.h2database:${properties["h2Version"]}")
+    testImplementation("com.h2database:h2:${properties["h2Version"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")
         exclude(group = "org.junit.jupiter")
