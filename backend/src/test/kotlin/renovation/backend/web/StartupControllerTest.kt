@@ -12,7 +12,7 @@ import kotlin.test.Test
 import org.apache.http.HttpStatus.SC_OK
 import org.hamcrest.CoreMatchers
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import renovation.backend.IntegrationTest
 
 @IntegrationTest

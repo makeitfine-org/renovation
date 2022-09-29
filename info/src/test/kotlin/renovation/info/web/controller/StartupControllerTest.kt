@@ -12,7 +12,7 @@ import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class StartupControllerTest(

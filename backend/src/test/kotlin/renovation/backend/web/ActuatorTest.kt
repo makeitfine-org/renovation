@@ -8,12 +8,12 @@ package renovation.backend.web
 
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
+import kotlin.test.Test
 import org.apache.http.HttpStatus.SC_OK
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import renovation.backend.IntegrationTest
-import kotlin.test.Test
 
 @IntegrationTest
 @SpringBootTest(
