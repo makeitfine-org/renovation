@@ -25,6 +25,8 @@ dependencies {
     }
     implementation("io.mockk:mockk:${properties["mockkVersion"]}")
     implementation("org.springframework.cloud:spring-cloud-starter-function-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")
