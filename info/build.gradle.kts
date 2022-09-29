@@ -34,7 +34,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersio"]}")
+    testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersion"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")
         exclude(group = "org.junit.jupiter")
