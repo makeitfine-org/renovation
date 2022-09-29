@@ -9,7 +9,7 @@ package renovation.info.data.model
 import org.springframework.data.mongodb.core.index.Indexed
 
 data class AdditionInfoEntity(
-    var nickName: String? = null,
+    val nickName: String?,
     @Indexed(unique = true)
-    var phoneNumber: String? = null,
+    val phoneNumber: String?,
 )

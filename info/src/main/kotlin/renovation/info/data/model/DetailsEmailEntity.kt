@@ -11,6 +11,6 @@ import renovation.info.generated.dgs.types.EmailStatus
 
 data class DetailsEmailEntity(
     @Indexed(unique = true)
-    var email: String? = null,
-    var emailStatus: EmailStatus? = null,
+    val email: String?,
+    val emailStatus: EmailStatus?,
 )
