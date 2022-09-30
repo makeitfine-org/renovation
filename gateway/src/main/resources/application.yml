@@ -15,7 +15,8 @@ server:
 logging:
   level:
     root: INFO
-    gateway: DEBUG
+    renovation.gateway: DEBUG
+    org.springframework.security: DEBUG
   file:
     path: ${RENOVATION_GATEWAY_LOG_FILE_PATH:/tmp/renovation-gateway}
   logback:
@@ -39,6 +40,6 @@ spring:
           oauth-client:
             client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
             client-secret: ${KEYCLOAK_CLIENT_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
-            scope: openid, profile
+            scope: openid, profile, roles
 #            authorization-grant-type: authorization_code
 #            redirect-uri: http://localhost:8080/login/oauth2/code/oauth2-demo-client
