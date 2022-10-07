@@ -30,7 +30,7 @@ internal class DetailsControllerWithPasswordGrantSecurityTest(
     class ControllerTestConfig {
 
         @Bean
-        fun clientCredentialsGrantAccessToken(
+        fun passwordGrantAccessToken(
             @Value("\${spring.security.oauth2.client.registration.client.client-id}")
             clientId: String,
             @Value("\${spring.security.oauth2.client.registration.client.client-secret}")
