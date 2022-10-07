@@ -177,10 +177,6 @@ tasks.register<GradleBuild>(buildall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":gateway:build")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":frontend:npmInstall")
         }
         exec {
@@ -202,6 +198,10 @@ tasks.register<GradleBuild>(buildall) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":info:assemble")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":gateway:assemble")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -253,7 +253,11 @@ tasks.register<GradleBuild>(removeImages) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker", "rmi", "koresmosto/renovation-backend:latest")
+            commandLine("docker", "rmi", "koresmosto/renovation-info:latest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-gateway:latest")
         }
     }
 }
@@ -292,6 +296,10 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":info:build")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":gateway:build")
         }
     }
 }
