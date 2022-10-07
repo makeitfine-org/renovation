@@ -1,0 +1,12 @@
+# and import the 'main' properties
+spring:
+  security:
+    credentials:
+      username: all-test
+      password: test
+
+    oauth2:
+      client:
+        provider:
+          oauth-client:
+            token-uri: ${KEYCLOAK_TOKEN_ENDPOINT:http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token}
