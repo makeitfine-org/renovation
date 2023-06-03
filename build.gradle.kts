@@ -416,6 +416,9 @@ val githookFiles: Array<String> = arrayOf("commit-msg", "pre-push")
 val githooks = "${rootProject.rootDir}/.git/hooks"
 
 tasks.register<Copy>("installGitHooks") {
+
+    dependsOn("removeOldGitHooks")
+
     description = "copy git hooks to .git/hook folder"
     println(description)
     from(
@@ -426,7 +429,6 @@ tasks.register<Copy>("installGitHooks") {
     )
     into("$githooks")
 
-//    dependsOn("removeOldGitHooks")
     finalizedBy("makeGitHookFilesExecutable")
 }
 
