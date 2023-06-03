@@ -5,8 +5,8 @@
  */
 dependencyResolutionManagement {
     repositories {
-        mavenLocal()
         mavenCentral()
+        mavenLocal() // todo: think of deletion
     }
 }
 
