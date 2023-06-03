@@ -205,3 +205,13 @@ For to autofix:
 * http://localhost:8281/insecure/token/grant/password  
 * http://localhost:8281/insecure/token/grant/client  
 
+### Run modules:
+#### mockapi:  
+1) $>`docker-compose up renovation-mockup`
+#### gateway:
+1) $>`docker-compose up`  
+2) Run GatewayApplication locally (See `SecurityConfig, ExposeApiConfig` for) 
+#### backend:
+1) $>`docker-compose up`
+2) Run RenovationApplication locally (config db params in app*.yml)
+ See `application-secured-functional-test.yml` permissions

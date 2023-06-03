@@ -39,7 +39,11 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
                 .antMatchers("/*").hasAnyRole("ADMIN")
                 .anyRequest()
                 .authenticated()
-                .and().logout().logoutSuccessUrl("/logout")
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logout-redirect")
     }
 
     @Throws(Exception::class)

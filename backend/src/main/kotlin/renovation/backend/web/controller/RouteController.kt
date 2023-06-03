@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 const val FORWARD = "forward:/"
+const val REDIRECT = "redirect:/"
 
 @Controller
 class RouteController {
@@ -17,5 +18,8 @@ class RouteController {
     // todo: simplify it or move to separate config
     @RequestMapping("/home", "/fe", "/fe/**")
     // @RequestMapping("/{path:[^\\.]*}")
-    fun redirect() = FORWARD
+    fun forward() = FORWARD
+
+    @RequestMapping("/logout-redirect")
+    fun logoutRedirect() = REDIRECT
 }
