@@ -90,7 +90,7 @@ keycloak:
   auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
   realm: ${KEYCLOAK_REALM:renovation-realm}
   ssl-required: ${KEYCLOAK_SSL_REQUIRED:external}
-  resource: ${KEYCLOAK_RESOURCE:renovation-client}
+  resource: ${KEYCLOAK_CLIENT_ID:renovation-client}
   use-resource-role-mappings: ${KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:true}
   principal-attribute: ${KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred_username}
   credentials:
