@@ -10,6 +10,7 @@ info:
     description: Gateway module of renovation project
 
 server:
+  host: ${GATEWAY_HOST:localhost}
   port: ${PORT:8085}
 
 logging:

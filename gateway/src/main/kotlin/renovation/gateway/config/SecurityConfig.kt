@@ -34,7 +34,12 @@ class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
     private val clientId: String,
     private val jwtDecoder: JwtDecoder,
-    private val clientRegistrationRepository: ClientRegistrationRepository
+    private val clientRegistrationRepository: ClientRegistrationRepository,
+
+    @Value("\${server.host}")
+    private val gatewayHost: String,
+    @Value("\${server.port}")
+    private val gatewayPort: Int
 ) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
@@ -69,7 +74,7 @@ class SecurityConfig(
 
         // Sets the location that the End-User's User Agent will be redirected to
         // after the logout has been performed at the Provider
-        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}")
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://$gatewayHost:$gatewayPort/about")
 
         return oidcLogoutSuccessHandler
     }
