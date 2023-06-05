@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import renovation.backend.data.domain.Worker
 import renovation.backend.data.service.GraphQlService
-import renovation.common.iam.GrantTypeAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
 
 @Service
 class GraphQlServiceImpl(

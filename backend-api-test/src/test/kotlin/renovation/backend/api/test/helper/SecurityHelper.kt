@@ -6,7 +6,7 @@
 
 package renovation.backend.api.test.helper
 
-import renovation.common.iam.GrantTypeAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
 
 object SecurityHelper {
 

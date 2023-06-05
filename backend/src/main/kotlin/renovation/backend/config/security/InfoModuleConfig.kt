@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
 import org.springframework.context.annotation.Scope
-import renovation.common.iam.impl.ClientCredentialsGrantAccessToken
-import renovation.common.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantAccessToken
+import renovation.common.security.iam.impl.PasswordGrantAccessToken
 
 private val log = KotlinLogging.logger { }
 

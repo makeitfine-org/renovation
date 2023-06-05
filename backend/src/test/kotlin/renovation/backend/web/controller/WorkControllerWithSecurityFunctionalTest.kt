@@ -22,8 +22,8 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Container
-import renovation.common.iam.GrantTypeAccessToken
-import renovation.common.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
+import renovation.common.security.iam.impl.PasswordGrantAccessToken
 
 @Tag("functional")
 @ActiveProfiles("secured-functional-test")

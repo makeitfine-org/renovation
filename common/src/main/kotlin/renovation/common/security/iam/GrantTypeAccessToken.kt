@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.common.iam
+package renovation.common.security.iam
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty

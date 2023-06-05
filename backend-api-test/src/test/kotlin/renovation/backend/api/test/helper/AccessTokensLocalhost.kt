@@ -6,8 +6,8 @@
 
 package renovation.backend.api.test.helper
 
-import renovation.common.iam.impl.ClientCredentialsGrantAccessToken
-import renovation.common.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantAccessToken
+import renovation.common.security.iam.impl.PasswordGrantAccessToken
 
 object AccessTokensLocalhost : AccessTokens {
     @JvmStatic

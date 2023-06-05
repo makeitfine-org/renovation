@@ -21,8 +21,8 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
-import renovation.common.iam.GrantTypeAccessToken
-import renovation.common.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
+import renovation.common.security.iam.impl.PasswordGrantAccessToken
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

@@ -4,9 +4,9 @@
  * Copyright 2021-2022
  */
 
-package renovation.common.iam.impl
+package renovation.common.security.iam.impl
 
-import renovation.common.iam.GrantTypeAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
 
 data class ClientCredentialsGrantAccessToken(
     val clientId: String,

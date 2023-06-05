@@ -125,7 +125,7 @@ class SecurityConfig(
                 return grantedAuthorities
             }
 
-            fun addClientRoles(jwt: Jwt, grantedAuthorities: MutableCollection<GrantedAuthority>) {
+            private fun addClientRoles(jwt: Jwt, grantedAuthorities: MutableCollection<GrantedAuthority>) {
                 jwt.getClaim<Any>("resource_access")?.let {
                     (it as? JSONObject)?.let {
                         (it[clientId] as? JSONObject)?.let {

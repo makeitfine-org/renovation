@@ -17,8 +17,8 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import renovation.common.iam.GrantTypeAccessToken
-import renovation.common.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken
+import renovation.common.security.iam.impl.PasswordGrantAccessToken
 
 @Tag("smoke")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
