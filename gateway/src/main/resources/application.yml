@@ -42,4 +42,4 @@ spring:
             client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
             scope: openid, profile, roles
 #            authorization-grant-type: authorization_code
-#            redirect-uri: http://localhost:8080/login/oauth2/code/oauth2-demo-client
+#            redirect-uri: {baseUrl}/login/oauth2/code/oauth2-demo-client

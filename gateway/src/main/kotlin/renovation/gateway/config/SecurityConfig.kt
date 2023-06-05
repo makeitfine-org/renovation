@@ -15,12 +15,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import renovation.common.security.jwt.JwtUtils
 
 @Configuration
@@ -30,6 +34,7 @@ class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
     private val clientId: String,
     private val jwtDecoder: JwtDecoder,
+    private val clientRegistrationRepository: ClientRegistrationRepository
 ) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
@@ -50,7 +55,23 @@ class SecurityConfig(
                 .jwt { jwtConfigurer ->
                     jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
                 }
+        }.logout {
+            it.logoutSuccessHandler(oidcLogoutSuccessHandler())
+            it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
         }
+    }
+
+    /**
+     * https://docs.spring.io/spring-security/reference/servlet/saml2/logout.html
+     */
+    private fun oidcLogoutSuccessHandler(): LogoutSuccessHandler {
+        val oidcLogoutSuccessHandler = OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository)
+
+        // Sets the location that the End-User's User Agent will be redirected to
+        // after the logout has been performed at the Provider
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}")
+
+        return oidcLogoutSuccessHandler
     }
 
     @Bean
