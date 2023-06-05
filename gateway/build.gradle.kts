@@ -27,6 +27,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-function-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.security:spring-security-oauth2-resource-server")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit")

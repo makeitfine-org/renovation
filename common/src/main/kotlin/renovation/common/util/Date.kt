@@ -15,12 +15,12 @@ object Date {
     private val DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss SSS")
 
     @JvmStatic
-    fun formattedNow() = LocalDateTime.now().format(DATE_TIME_FORMAT)
+    fun formattedNow() = LocalDateTime.now().format(DATE_TIME_FORMAT)!!
 
     @JvmStatic
-    fun formattedDate(dateTime: LocalDateTime) = dateTime.format(DATE_TIME_FORMAT)
+    fun formattedDate(dateTime: LocalDateTime) = dateTime.format(DATE_TIME_FORMAT)!!
 
     @JvmStatic
     fun formattedDate(dateTime: LocalDateTime, dateTimePattern: String) =
-        dateTime.format(DateTimeFormatter.ofPattern(dateTimePattern))
+        dateTime.format(DateTimeFormatter.ofPattern(dateTimePattern))!!
 }
