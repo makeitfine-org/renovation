@@ -210,8 +210,50 @@ For to autofix:
 1) $>`docker-compose up renovation-mockup`
 #### gateway:
 1) $>`docker-compose up`  
-2) Run GatewayApplication locally (See `SecurityConfig, ExposeApiConfig` for) 
+2) Run GatewayApplication locally (See `SecurityConfig, ExposeApiConfig` for)  
+application.yml change:
+```
+...
+    port: ${MONGO_PORT:27117}
+...
+```
 #### backend:
 1) $>`docker-compose up`
-2) Run RenovationApplication locally (config db params in app*.yml)
- See `application-secured-functional-test.yml` permissions
+2.1)  
+   - Run RenovationApplication locally (config db params in app*.yml)
+    See `application-secured-functional-test.yml` permissions  
+   application.yml change:
+```
+...
+    url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
+...
+    password: "${POSTGRES_PASSWORD:postgres1}"
+...
+    port: ${REDIS_PORT:6479}
+...
+
+```
+   - Run subj. with csrf:  
+SecurityConfig.kt change:
+```
+.csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
+//                .disable() //todo: enable
+```
+Postman:  
+2.2) Execute `Get`: `http://localhost:8080/api/work` with `Bearer Token` and `Test` tab:
+```
+let xsrfCookie = pm.cookies.get("XSRF-TOKEN")
+pm.environment.set('xsrf-token', xsrfCookie)
+```
+2.2) Execute `Post`: `http://localhost:8080/api/work` with `Bearer Token` and `Test` tab:
+```
+let xsrfCookie = pm.cookies.get("XSRF-TOKEN")
+pm.environment.set('xsrf-token', xsrfCookie)
+```
+and add `header`: `X-XSRF-TOKEN`=`{{xsrf-token}}`
+#### backend-api-test
+Execute test `WorkControllerApiTest` locally in Idea:  
+set `env. var`: `ACCESS_TOKENS_LOCALHOST=true`  
+set `env. var`: `SERVER_URL=http://localhost:8080`
