@@ -59,8 +59,8 @@
       "enabled": true,
       "secret": "02d5170a-053f-11ee-be56-0242ac120002",
       "publicClient": false,
-      "directAccessGrantsEnabled": true,
-      "serviceAccountsEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
       "redirectUris": [
         "*"
       ],
