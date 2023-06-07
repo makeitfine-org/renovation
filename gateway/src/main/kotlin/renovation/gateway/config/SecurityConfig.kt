@@ -51,7 +51,7 @@ class SecurityConfig(
             it
                 .antMatchers("/about").permitAll()
                 .antMatchers("/admin").hasAnyRole("admin")
-                .antMatchers("/user").hasAnyRole("work", "worker", "admin")
+                .antMatchers("/user").hasAnyRole("gateway", "admin")
                 .anyRequest().authenticated()
         }.oauth2Login {
             it.userInfoEndpoint { userInfoEndpoint ->

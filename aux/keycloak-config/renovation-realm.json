@@ -131,6 +131,11 @@
           "name": "admin",
           "description": "admin role",
           "clientRole": true
+        },
+        {
+          "name": "gateway",
+          "description": "gateway role",
+          "clientRole": true
         }
       ]
     }
@@ -223,7 +228,8 @@
           "admin"
         ],
         "renovation-client-gateway": [
-          "admin"
+          "admin",
+          "gateway"
         ]
       },
       "realmRoles": [
@@ -252,6 +258,37 @@
       },
       "realmRoles": [
         "default-roles-renovation-realm"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d6058821-66ae-48ed-b5b4-ad8c35589f39",
+      "createdTimestamp": 1658440800000,
+      "username": "gateway-user",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "id": "a53ff74d-f17d-4dd9-be66-a782d9d5878e",
+          "type": "password",
+          "createdDate": 1658440800000,
+          "secretData": "{\"value\":\"6rfKHaUuHX+6CYl2EoOZEyU3pvy4kAc6vGmJgXGMlzUSbxQRkWureK3kzLRSK/p9D/8alHtcOlXlFGntaAE+yQ==\",\"salt\":\"laHtsVF5BgVt/A8CBdaIKw==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-client-gateway": [
+          "gateway"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation",
+        "offline_access",
+        "uma_authorization"
       ],
       "notBefore": 0,
       "groups": []

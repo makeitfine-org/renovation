@@ -39,8 +39,8 @@ spring:
             issuer-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/${KEYCLOAK_REALM:renovation-realm}
         registration:
           oauth-client:
-            client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
-            client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
+            client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-client-gateway}
+            client-secret: ${KEYCLOAK_GATEWAY_SECRET:02d5170a-053f-11ee-be56-0242ac120002}
             scope: openid, profile, roles
 #            authorization-grant-type: authorization_code
 #            redirect-uri: {baseUrl}/login/oauth2/code/oauth2-demo-client
