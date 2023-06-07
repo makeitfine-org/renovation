@@ -65,7 +65,8 @@
         "*"
       ],
       "attributes": {
-        "backchannel.logout.session.required": "true"
+        "backchannel.logout.session.required": "true",
+        "pkce.code.challenge.method": "S256"
       },
       "protocolMappers": [
         {
