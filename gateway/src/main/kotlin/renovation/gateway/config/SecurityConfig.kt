@@ -18,6 +18,9 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser
 import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.security.oauth2.jwt.Jwt
@@ -55,6 +58,7 @@ class SecurityConfig(
                 userInfoEndpoint
                     .oidcUserService(this.oidcUserService())
             }
+            it.authorizationEndpoint().authorizationRequestResolver(pkceResolver())
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
                 .jwt { jwtConfigurer ->
@@ -63,6 +67,13 @@ class SecurityConfig(
         }.logout {
             it.logoutSuccessHandler(oidcLogoutSuccessHandler())
             it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+        }
+    }
+
+    @Bean
+    fun pkceResolver() = OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI.let {
+        DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, it).also {
+            it.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce())
         }
     }
 

@@ -53,6 +53,53 @@
         "offline_access",
         "microprofile-jwt"
       ]
+    },
+    {
+      "clientId": "renovation-client-gateway",
+      "enabled": true,
+      "secret": "02d5170a-053f-11ee-be56-0242ac120002",
+      "publicClient": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "attributes": {
+        "backchannel.logout.session.required": "true"
+      },
+      "protocolMappers": [
+        {
+          "id": "aa2a6b5c-a07a-4ff8-be15-b6867ed9e105",
+          "name": "account_number",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.session.note": "account_number",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "account_number",
+            "jsonType.label": "String",
+            "multivalued": "",
+            "aggregate.attrs": "",
+            "user.attribute": "account_number"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
     }
   ],
   "roles": {
@@ -76,6 +123,13 @@
         {
           "name": "service",
           "description": "service role",
+          "clientRole": true
+        }
+      ],
+      "renovation-client-gateway": [
+        {
+          "name": "admin",
+          "description": "admin role",
           "clientRole": true
         }
       ]
@@ -166,6 +220,9 @@
         "renovation-client": [
           "work",
           "worker",
+          "admin"
+        ],
+        "renovation-client-gateway": [
           "admin"
         ]
       },
