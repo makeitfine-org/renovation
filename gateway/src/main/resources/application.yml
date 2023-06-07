@@ -39,7 +39,7 @@ spring:
             issuer-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/${KEYCLOAK_REALM:renovation-realm}
         registration:
           oauth-client:
-            client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-client-gateway}
+            client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-gateway-client}
             client-secret: ${KEYCLOAK_GATEWAY_SECRET:02d5170a-053f-11ee-be56-0242ac120002}
             scope: openid, profile, roles
 #            authorization-grant-type: authorization_code

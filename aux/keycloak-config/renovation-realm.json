@@ -55,7 +55,7 @@
       ]
     },
     {
-      "clientId": "renovation-client-gateway",
+      "clientId": "renovation-gateway-client",
       "enabled": true,
       "secret": "02d5170a-053f-11ee-be56-0242ac120002",
       "publicClient": false,
@@ -127,7 +127,7 @@
           "clientRole": true
         }
       ],
-      "renovation-client-gateway": [
+      "renovation-gateway-client": [
         {
           "name": "admin",
           "description": "admin role",
@@ -228,7 +228,7 @@
           "worker",
           "admin"
         ],
-        "renovation-client-gateway": [
+        "renovation-gateway-client": [
           "admin",
           "gateway"
         ]
@@ -282,7 +282,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "clientRoles": {
-        "renovation-client-gateway": [
+        "renovation-gateway-client": [
           "gateway"
         ]
       },
