@@ -23,7 +23,7 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Container
 import renovation.common.security.iam.GrantTypeAccessToken
-import renovation.common.security.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
 @Tag("functional")
 @ActiveProfiles("secured-functional-test")
@@ -44,7 +44,7 @@ internal class WorkControllerWithSecurityFunctionalTest(
             @Value("\${keycloak.credentials.secret}")
             clientSecret: String,
             apiWork: ApiWork,
-        ) = PasswordGrantAccessToken(
+        ) = PasswordGrantTypeAccessToken(
             clientId,
             clientSecret,
             apiWork.username,

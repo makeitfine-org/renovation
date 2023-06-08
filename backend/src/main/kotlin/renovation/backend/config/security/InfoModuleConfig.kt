@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
 import org.springframework.context.annotation.Scope
-import renovation.common.security.iam.impl.ClientCredentialsGrantAccessToken
-import renovation.common.security.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
+import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
 private val log = KotlinLogging.logger { }
 
@@ -41,7 +41,7 @@ class InfoModuleConfig {
         clientId: String,
         @Value("\${keycloak.credentials.secret}")
         clientSecret: String,
-    ) = ClientCredentialsGrantAccessToken(
+    ) = ClientCredentialsGrantTypeAccessToken(
         clientId,
         clientSecret,
         "${authServerUrl}/realms/$realm/protocol/openid-connect/token",
@@ -63,7 +63,7 @@ class InfoModuleConfig {
         clientSecret: String,
         @Autowired
         creds: InfoServiceIamCredentials,
-    ) = PasswordGrantAccessToken(
+    ) = PasswordGrantTypeAccessToken(
         clientId,
         clientSecret,
         creds.username,

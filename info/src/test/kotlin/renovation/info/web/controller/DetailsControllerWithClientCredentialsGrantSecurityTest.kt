@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import renovation.common.security.iam.GrantTypeAccessToken
-import renovation.common.security.iam.impl.ClientCredentialsGrantAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
 
 @Tag("smoke")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -35,7 +35,7 @@ internal class DetailsControllerWithClientCredentialsGrantSecurityTest(
             clientSecret: String,
             @Value("\${spring.security.oauth2.client.provider.client.token-uri}")
             tokenUri: String,
-        ) = ClientCredentialsGrantAccessToken(
+        ) = ClientCredentialsGrantTypeAccessToken(
             clientId,
             clientSecret,
             tokenUri,

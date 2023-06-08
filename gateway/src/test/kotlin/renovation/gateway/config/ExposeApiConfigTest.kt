@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import renovation.common.security.iam.GrantTypeAccessToken
-import renovation.common.security.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -44,7 +44,7 @@ internal class ExposeApiConfigTest(
             @Value("\${spring.security.oauth2.client.provider.oauth-client.token-uri}")
             tokenUri: String,
             creds: AllTestUserCredentials
-        ) = PasswordGrantAccessToken(
+        ) = PasswordGrantTypeAccessToken(
             clientId,
             clientSecret,
             creds.username,

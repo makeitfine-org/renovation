@@ -6,8 +6,8 @@
 
 package renovation.backend.api.test.helper
 
-import renovation.common.security.iam.impl.ClientCredentialsGrantAccessToken
-import renovation.common.security.iam.impl.PasswordGrantAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
+import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
 object AccessTokensLocalhost : AccessTokens {
     @JvmStatic
@@ -26,7 +26,7 @@ object AccessTokensLocalhost : AccessTokens {
     val TOKEN_ENDPOINT = System.getenv("KEYCLOAK_TOKEN_ENDPOINT")
         ?: "http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token"
 
-    override fun getPasswordGrantAccessToken() = PasswordGrantAccessToken(
+    override fun getPasswordGrantAccessToken() = PasswordGrantTypeAccessToken(
         CLIENT_ID,
         CLIENT_SECRET,
         USERNAME,
@@ -34,7 +34,7 @@ object AccessTokensLocalhost : AccessTokens {
         TOKEN_ENDPOINT
     )
 
-    override fun getClientCredentialsGrantAccessToken() = ClientCredentialsGrantAccessToken(
+    override fun getClientCredentialsGrantAccessToken() = ClientCredentialsGrantTypeAccessToken(
         CLIENT_ID,
         CLIENT_SECRET,
         TOKEN_ENDPOINT

@@ -8,7 +8,7 @@ package renovation.common.security.iam.impl
 
 import renovation.common.security.iam.GrantTypeAccessToken
 
-data class ClientCredentialsGrantAccessToken(
+data class ClientCredentialsGrantTypeAccessToken(
     val clientId: String,
     val clientSecret: String,
     override val tokenEndpoint: String,

@@ -8,7 +8,7 @@ package renovation.common.security.iam.impl
 
 import renovation.common.security.iam.GrantTypeAccessToken
 
-data class PasswordGrantAccessToken(
+data class PasswordGrantTypeAccessToken(
     val clientId: String,
     val clientSecret: String,
     val username: String,
