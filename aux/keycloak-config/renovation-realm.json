@@ -60,7 +60,7 @@
       "secret": "02d5170a-053f-11ee-be56-0242ac120002",
       "publicClient": false,
       "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
+      "serviceAccountsEnabled": true,
       "redirectUris": [
         "*"
       ],
@@ -290,6 +290,28 @@
         "default-roles-renovation",
         "offline_access",
         "uma_authorization"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "aa058822-66ae-48ed-b5b4-ad8c35589a38",
+      "createdTimestamp": 1658440800000,
+      "username": "service-account-renovation-gateway-client",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "renovation-gateway-client",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "clientRoles": {
+        "renovation-gateway-client": [
+          "gateway"
+        ]
+      },
+      "realmRoles": [
+        "default-roles-renovation-realm"
       ],
       "notBefore": 0,
       "groups": []

@@ -1,10 +1,6 @@
 # and import the 'main' properties
 spring:
   security:
-    credentials:
-      username: all-test
-      password: test
-
     oauth2:
       client:
         provider:

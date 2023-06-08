@@ -14,21 +14,18 @@ import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import renovation.common.security.iam.GrantTypeAccessToken
-import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
+import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ExposeApiConfigTest(
     @LocalServerPort private val port: Int,
-    @Autowired private val creds: AllTestUserCredentials,
 ) {
     val portHost = "http://localhost:$port"
 
@@ -43,12 +40,9 @@ internal class ExposeApiConfigTest(
             clientSecret: String,
             @Value("\${spring.security.oauth2.client.provider.oauth-client.token-uri}")
             tokenUri: String,
-            creds: AllTestUserCredentials
-        ) = PasswordGrantTypeAccessToken(
+        ) = ClientCredentialsGrantTypeAccessToken(
             clientId,
             clientSecret,
-            creds.username,
-            creds.password,
             tokenUri
         )
     }
@@ -91,11 +85,4 @@ internal class ExposeApiConfigTest(
                 )
             }
     }
-}
-
-@Configuration
-@ConfigurationProperties(prefix = "spring.security.credentials")
-class AllTestUserCredentials {
-    lateinit var username: String
-    lateinit var password: String
 }
