@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.web.controller
+package renovation.backend.web.controller.functional
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
@@ -27,6 +27,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import renovation.backend.FunctionalTestAbstract
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal abstract class WorkControllerFunctionalTestAbstract(

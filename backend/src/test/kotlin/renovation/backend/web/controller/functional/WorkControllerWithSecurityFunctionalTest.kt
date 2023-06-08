@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.web.controller
+package renovation.backend.web.controller.functional
 
 import dasniko.testcontainers.keycloak.KeycloakContainer
 import io.restassured.module.kotlin.extensions.Given
@@ -22,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Container
+import renovation.backend.FunctionalTestAbstract
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 

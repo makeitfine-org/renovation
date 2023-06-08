@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.web.controller
+package renovation.backend.data.service.impl
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
@@ -19,6 +19,7 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import java.util.*
 import kotlin.test.*
+import renovation.backend.FunctionalTestAbstract
 
 @Tag("functional")
 @SpringBootTest

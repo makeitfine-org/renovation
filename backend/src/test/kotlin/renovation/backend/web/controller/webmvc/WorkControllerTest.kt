@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.web.controller
+package renovation.backend.web.controller.webmvc
 
 import org.springframework.test.context.ActiveProfiles
 

@@ -29,7 +29,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 @ExtendWith(MockKExtension::class)
-internal class WorkServiceImplTest {
+internal class WorkServiceImplMockTest {
 
     companion object {
         @JvmStatic

@@ -41,7 +41,7 @@ import kotlin.test.assertTrue
     ]
 )
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-internal class WorkRepositoryTest(
+internal class WorkRepositoryDataJpaTest(
     @Autowired private val entityManager: TestEntityManager,
     @Autowired private val workRepository: WorkRepository,
     @Autowired private val jdbcTemplate: JdbcTemplate

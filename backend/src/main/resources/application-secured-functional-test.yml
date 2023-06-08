@@ -14,3 +14,4 @@ iam:
   api:
     username: all-test
     password: test
+  #renovation-gateway-client / username: gateway-user -> password: test

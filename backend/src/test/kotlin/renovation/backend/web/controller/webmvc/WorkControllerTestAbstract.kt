@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.web.controller
+package renovation.backend.web.controller.webmvc
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
@@ -33,6 +33,7 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import renovation.backend.web.controller.WorkController
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(WorkController::class)
