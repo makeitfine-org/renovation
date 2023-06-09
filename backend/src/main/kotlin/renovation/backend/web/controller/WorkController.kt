@@ -27,6 +27,7 @@ import renovation.backend.data.service.WorkService
 import renovation.backend.data.validation.OnCreate
 import java.util.*
 import javax.validation.Valid
+import renovation.backend.data.validation.OnUpdate
 
 @CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])
 @RestController
@@ -69,8 +70,9 @@ class WorkController(
     }
 
     @PatchMapping("{id}")
+    @Validated(OnUpdate::class)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: UUID, @RequestBody work: Work) {
+    fun update(@PathVariable id: UUID, @RequestBody @Valid work: Work) {
         LOG.info("udpate work with id = $id work: $work")
         workService.update(id, work)
     }

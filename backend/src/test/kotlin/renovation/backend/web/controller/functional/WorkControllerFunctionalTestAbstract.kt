@@ -22,7 +22,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.sql.Date
 import java.time.LocalDate
-import java.util.*
+import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -344,6 +344,59 @@ internal abstract class WorkControllerFunctionalTestAbstract(
             }
     }
 
+    @Order(2)
+    @Test
+    fun updateWork_Return500If4SpacesSymbolsTitle_Fail() {
+        val workId = 3
+        val invalidPayDate = "2020-11-01"
+        given()
+            .When {
+                body(
+                    """
+                    {
+                       "title":"    ",
+                       "description":"desc update",
+                       "price":773.31,
+                       "payDate":"$invalidPayDate"
+                    }
+                    """.trimIndent()
+                )
+                patch("/api/work/$workId")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
+            }
+    }
+
+    @Order(2)
+    @Test
+    fun updateWork_Return500If2SymbolsTitle_Fail() {
+        val workId = 3
+        val invalidPayDate = "2020-11-01"
+        given()
+            .When {
+                body(
+                    """
+                    {
+                       "title":"ab",
+                       "description":"desc update",
+                       "price":773.31,
+                       "payDate":"$invalidPayDate"
+                    }
+                    """.trimIndent()
+                )
+                patch("/api/work/$workId")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
+            }
+    }
+
+
     @Order(30)
     @Test
     fun createWork_Success() {
@@ -400,6 +453,54 @@ internal abstract class WorkControllerFunctionalTestAbstract(
                 body(
                     """
                     {
+                       "description":"desc it",
+                       "price":10000.0,
+                       "payDate":"2020-11-28"
+                    }
+                    """.trimIndent()
+                )
+                post("/api/work")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
+            }
+    }
+
+    @Order(31)
+    @Test
+    fun createWork_Return500If4SpacesSymbolsTitle_Fail() {
+        given()
+            .When {
+                body(
+                    """
+                    {
+                       "title":"    ",
+                       "description":"desc it",
+                       "price":10000.0,
+                       "payDate":"2020-11-28"
+                    }
+                    """.trimIndent()
+                )
+                post("/api/work")
+            }.Then {
+                statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+                body(CoreMatchers.equalTo(INTERNAL_SERVER_ERROR))
+
+                checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT + 1)
+            }
+    }
+
+    @Order(31)
+    @Test
+    fun createWork_Return500IfTwoSymbolsTitle_Fail() {
+        given()
+            .When {
+                body(
+                    """
+                    {
+                       "title":"ab",
                        "description":"desc it",
                        "price":10000.0,
                        "payDate":"2020-11-28"
