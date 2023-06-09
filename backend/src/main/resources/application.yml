@@ -21,9 +21,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL82Dialect
 
   datasource:
-    url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
+    url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=renovation}"
     username: "${POSTGRES_USERNAME:postgres}"
-    password: "${POSTGRES_PASSWORD:postgres1}"
+    password: "${POSTGRES_PASSWORD:postgres}"
     driverClassName: "org.postgresql.Driver"
 
   liquibase:
@@ -31,7 +31,7 @@ spring:
 
   redis:
     host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6479}
+    port: ${REDIS_PORT:6379}
     password: ${REDIS_PASSWORD:redispass}
 
   cache:
