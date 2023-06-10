@@ -13,9 +13,9 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
-import renovation.backend.api.test.frontend.info.FrontendInfoFileHelper
 import renovation.backend.api.test.frontend.info.FrontendInfoServerRoute
 import kotlin.test.Test
+import renovation.backend.api.test.helper.FileHelper
 
 @Tag("smoke")
 internal class FrontendInfoApiTest {
@@ -33,7 +33,7 @@ internal class FrontendInfoApiTest {
             .Then {
                 statusCode(HttpStatus.SC_OK)
 
-                val expected = FrontendInfoFileHelper.WORKER_RESPONSE.fileContent
+                val expected = FileHelper.WORKER_RESPONSE.fileContent
                 body(equalTo(rowJson(expected)))
             }
     }
@@ -47,7 +47,7 @@ internal class FrontendInfoApiTest {
             .Then {
                 statusCode(HttpStatus.SC_OK)
 
-                val expected = FrontendInfoFileHelper.GRAPHQL_RESPONSE.fileContent
+                val expected = FileHelper.GRAPHQL_RESPONSE.fileContent
                 body(equalTo(rowJson(expected)))
             }
     }
