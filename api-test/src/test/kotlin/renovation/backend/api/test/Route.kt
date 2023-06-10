@@ -9,12 +9,17 @@ package renovation.backend.api.test
 import java.util.Optional
 
 interface Route {
-
-    fun baseUrl(envVarName: String, url: String) = Optional.ofNullable(
-        System.getenv(envVarName)
-    ).orElse(url)
-
-    val BASE_URL: String
+    val baseUrlEnvironmentVariableName: String
+    val baseUrlEnvironmentVariableValue: String
+    val path: String
 
     val route: String
+        get() = "$baseUrl/$path"
+
+    private val baseUrl: String
+        get() = baseUrl(baseUrlEnvironmentVariableName, baseUrlEnvironmentVariableValue)
+
+    private fun baseUrl(envVarName: String, url: String) = Optional.ofNullable(
+        System.getenv(envVarName)
+    ).orElse(url)
 }

@@ -12,7 +12,7 @@ enum class FrontendInfoServerRoute(path: String) : Route {
     WORKER("worker"),
     GRAPHQL("graphql");
 
-    override val BASE_URL = baseUrl("FRONTEND_INFO_SERVER_URL", "http://localhost:8281")
-
-    override val route = "$BASE_URL/$path"
+    override val baseUrlEnvironmentVariableName = "FRONTEND_INFO_SERVER_URL"
+    override val baseUrlEnvironmentVariableValue = "http://localhost:8281"
+    override val path = path
 }
