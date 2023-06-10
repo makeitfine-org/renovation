@@ -253,7 +253,7 @@ let xsrfCookie = pm.cookies.get("XSRF-TOKEN")
 pm.environment.set('xsrf-token', xsrfCookie)
 ```
 and add `header`: `X-XSRF-TOKEN`=`{{xsrf-token}}`
-#### backend-api-test
+#### api-test
 Execute test `WorkControllerApiTest` locally in Idea:  
 set `env. var`: `ACCESS_TOKENS_LOCALHOST=true`  
 set `env. var`: `SERVER_URL=http://localhost:8080`

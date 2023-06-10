@@ -10,4 +10,4 @@ export FRONTEND_INFO_SERVER_URL=http://mii
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
-gradle -p "${PROJECT_PATH}" :backend-api-test:build --no-build-cache
+gradle -p "${PROJECT_PATH}" :api-test:build --no-build-cache

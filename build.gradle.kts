@@ -29,7 +29,7 @@ subprojects {
 
     val kotlinBasedSubprojects = arrayOf(
         properties["backendModuleName"],
-        properties["backendapitestModuleName"],
+        properties["apitestModuleName"],
         properties["infoModuleName"],
         properties["commonModuleName"],
         properties["gatewayModuleName"]
@@ -287,11 +287,11 @@ tasks.register<GradleBuild>(dockerAndApiTest) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend-api-test:clean")
+            commandLine("gradle", ":api-test:clean")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend-api-test:build")
+            commandLine("gradle", ":api-test:build")
         }
         exec {
             workingDir("${rootProject.rootDir}")
