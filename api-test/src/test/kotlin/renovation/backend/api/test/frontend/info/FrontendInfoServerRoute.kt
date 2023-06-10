@@ -6,15 +6,13 @@
 
 package renovation.backend.api.test.frontend.info
 
-import java.util.*
+import renovation.backend.api.test.Route
 
-enum class FrontendInfoServerRoute(path: String) {
+enum class FrontendInfoServerRoute(path: String) : Route {
     WORKER("worker"),
     GRAPHQL("graphql");
 
-    private val FRONTEND_INFO_BASE_URL = Optional.ofNullable(System.getenv("FRONTEND_INFO_SERVER_URL"))
-        // todo: extract it from configs
-        .orElse("http://localhost:8281")
+    override val BASE_URL = baseUrl("FRONTEND_INFO_SERVER_URL", "http://localhost:8281")
 
-    val route = "$FRONTEND_INFO_BASE_URL/$path"
+    override val route = "$BASE_URL/$path"
 }

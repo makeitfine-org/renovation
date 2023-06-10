@@ -123,7 +123,7 @@ For to autofix:
    https://helm.sh/docs/intro/install/  
 4. Run api tests on k8s cluster:  
    `$> gradle k8sApiTest`  
-   (in gradle/scripts/k8sApiTest.sh SERVER_URL can be other, so change)  
+   (in gradle/scripts/k8sApiTest.sh BACKEND_SERVER_URL can be other, so change)  
    With ingress:  
    `$> gradle k8sIngressApiTest`
 4.1 Instead of 5 - 9 belove steps execute script:   
@@ -199,7 +199,7 @@ For to autofix:
 
 ### Run api test (local):
 1) Run backend module locally
-2) set env. var: `ACCESS_TOKENS_LOCALHOST=true` and `SERVER_URL=http://localhost:8080`
+2) set env. var: `ACCESS_TOKENS_LOCALHOST=true` and `BACKEND_SERVER_URL=http://localhost:8080`
 
 ### Access tokens from docker renovation network keycloak service:  
 * http://localhost:8281/insecure/token/grant/password  
@@ -256,4 +256,4 @@ and add `header`: `X-XSRF-TOKEN`=`{{xsrf-token}}`
 #### api-test
 Execute test `WorkControllerApiTest` locally in Idea:  
 set `env. var`: `ACCESS_TOKENS_LOCALHOST=true`  
-set `env. var`: `SERVER_URL=http://localhost:8080`
+set `env. var`: `BACKEND_SERVER_URL=http://localhost:8080`

@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.api.test.serverapi
+package renovation.backend.api.test.backend
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
@@ -18,7 +18,6 @@ import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
-import renovation.backend.api.test.ServerRoute
 import renovation.backend.api.test.helper.FileHelper
 import renovation.backend.api.test.helper.SecurityHelper
 
@@ -33,7 +32,7 @@ internal class WorkControllerApiTest {
     fun `find all`() {
         given()
             .When {
-                get(ServerRoute.API_WORK.route)
+                get(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_OK)
@@ -48,7 +47,7 @@ internal class WorkControllerApiTest {
         given()
             .queryParam("title", "ti")
             .When {
-                get(ServerRoute.API_WORK.route)
+                get(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_OK)
@@ -63,7 +62,7 @@ internal class WorkControllerApiTest {
         given()
             .queryParam("title", "ti${UUID.randomUUID()}")
             .When {
-                get(ServerRoute.API_WORK.route)
+                get(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_OK)
@@ -79,7 +78,7 @@ internal class WorkControllerApiTest {
         given()
             .pathParam("id", "55555555-a845-45d7-aea9-ab624172d1c1")
             .When {
-                get(ServerRoute.API_WORK_ID.route)
+                get(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_OK)
@@ -94,7 +93,7 @@ internal class WorkControllerApiTest {
         given()
             .pathParam("id", "5a")
             .When {
-                get(ServerRoute.API_WORK_ID.route)
+                get(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -108,7 +107,7 @@ internal class WorkControllerApiTest {
         given()
             .pathParam("id", "111cc111-a845-45d7-aea9-ab624172d1c1")
             .When {
-                get(ServerRoute.API_WORK_ID.route)
+                get(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
@@ -132,7 +131,7 @@ internal class WorkControllerApiTest {
                     """.trimIndent()
                 )
                     .pathParam("id", id)
-                    .patch(ServerRoute.API_WORK_ID.route)
+                    .patch(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
@@ -140,7 +139,7 @@ internal class WorkControllerApiTest {
                 given()
                     .When {
                         queryParam("title", titleUpdated)
-                            .get(ServerRoute.API_WORK.route)
+                            .get(BackendServerRoute.API_WORK.route)
                     }
                     .Then {
                         statusCode(HttpStatus.SC_OK)
@@ -178,7 +177,7 @@ internal class WorkControllerApiTest {
             """.trimIndent()
         )
             .pathParam("id", id)
-            .patch(ServerRoute.API_WORK_ID.route)
+            .patch(BackendServerRoute.API_WORK_ID.route)
     }
 
     @Test
@@ -194,7 +193,7 @@ internal class WorkControllerApiTest {
                     """.trimIndent()
                 )
                     .pathParam("id", id)
-                    .patch(ServerRoute.API_WORK_ID.route)
+                    .patch(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
@@ -215,7 +214,7 @@ internal class WorkControllerApiTest {
                     """.trimIndent()
                 )
                     .pathParam("id", id)
-                    .patch(ServerRoute.API_WORK_ID.route)
+                    .patch(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -236,7 +235,7 @@ internal class WorkControllerApiTest {
                    "payDate":"2020-11-28"
                 }
                     """.trimIndent()
-                ).post(ServerRoute.API_WORK.route)
+                ).post(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_CREATED)
@@ -244,7 +243,7 @@ internal class WorkControllerApiTest {
                 given()
                     .When {
                         queryParam("title", titleSaved)
-                            .get(ServerRoute.API_WORK.route)
+                            .get(BackendServerRoute.API_WORK.route)
                     }
                     .Then {
                         statusCode(HttpStatus.SC_OK)
@@ -259,14 +258,14 @@ internal class WorkControllerApiTest {
         // Undo create
         val getSavedBody = given()
             .queryParam("title", titleSaved)
-            .get(ServerRoute.API_WORK.route)
+            .get(BackendServerRoute.API_WORK.route)
             .body.asString()
 
         val savedId = OBJECT_MAPPER.readTree(getSavedBody)[0]["id"].asText()
 
         given()
             .pathParam("id", savedId)
-            .delete(ServerRoute.API_WORK_ID.route)
+            .delete(BackendServerRoute.API_WORK_ID.route)
     }
 
     @Test
@@ -284,7 +283,7 @@ internal class WorkControllerApiTest {
             """
                         .trimIndent()
                 )
-                    .post(ServerRoute.API_WORK.route)
+                    .post(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -305,7 +304,7 @@ internal class WorkControllerApiTest {
             """
                         .trimIndent()
                 )
-                    .post(ServerRoute.API_WORK.route)
+                    .post(BackendServerRoute.API_WORK.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
@@ -328,11 +327,11 @@ internal class WorkControllerApiTest {
                 }
             """
                     .trimIndent()
-            ).post(ServerRoute.API_WORK.route)
+            ).post(BackendServerRoute.API_WORK.route)
 
         val getDeletedBody = given()
             .queryParam("title", titleDeleted)
-            .get(ServerRoute.API_WORK.route)
+            .get(BackendServerRoute.API_WORK.route)
             .body.asString()
 
         val deletedId = OBJECT_MAPPER.readTree(getDeletedBody)[0]["id"].asText()
@@ -340,7 +339,7 @@ internal class WorkControllerApiTest {
         given()
             .pathParam("id", deletedId)
             .When {
-                delete(ServerRoute.API_WORK_ID.route)
+                delete(BackendServerRoute.API_WORK_ID.route)
             }
             .Then {
                 statusCode(HttpStatus.SC_NO_CONTENT)
@@ -349,7 +348,7 @@ internal class WorkControllerApiTest {
                     HttpStatus.SC_NOT_FOUND,
                     given()
                         .pathParam("id", deletedId)
-                        .get(ServerRoute.API_WORK_ID.route)
+                        .get(BackendServerRoute.API_WORK_ID.route)
                         .statusCode
                 )
             }
@@ -361,7 +360,7 @@ internal class WorkControllerApiTest {
         given()
             .When {
                 pathParam("id", workId)
-                delete(ServerRoute.API_WORK_ID.route)
+                delete(BackendServerRoute.API_WORK_ID.route)
             }.Then {
                 statusCode(HttpStatus.SC_NOT_FOUND)
             }
@@ -373,7 +372,7 @@ internal class WorkControllerApiTest {
         given()
             .When {
                 pathParam("id", workId)
-                delete(ServerRoute.API_WORK_ID.route)
+                delete(BackendServerRoute.API_WORK_ID.route)
             }.Then {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
             }

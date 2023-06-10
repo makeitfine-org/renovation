@@ -4,7 +4,7 @@
  * Copyright 2021-2022
  */
 
-package renovation.backend.api.test.frontend.info.serverapi
+package renovation.backend.api.test.frontend.info
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
@@ -13,7 +13,6 @@ import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
-import renovation.backend.api.test.frontend.info.FrontendInfoServerRoute
 import kotlin.test.Test
 import renovation.backend.api.test.helper.FileHelper
 
