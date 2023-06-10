@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2022
+ * Copyright 2021-2023
  */
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from '@/component/Home'

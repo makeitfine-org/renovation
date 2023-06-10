@@ -2,7 +2,7 @@
 #
 # Created under not commercial project "Renovation"
 #
-# Copyright 2021-2022
+# Copyright 2021-2023
 #
 K8S_PATH="`dirname \"$0\"`"/../../..
 
