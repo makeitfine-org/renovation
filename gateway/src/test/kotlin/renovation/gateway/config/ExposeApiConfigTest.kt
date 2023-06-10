@@ -33,7 +33,7 @@ internal class ExposeApiConfigTest(
     class ControllerTestConfig {
 
         @Bean
-        fun passwordGrantAccessToken(
+        fun clientCredentialsGrantTypeAccessToken(
             @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
             clientId: String,
             @Value("\${spring.security.oauth2.client.registration.oauth-client.client-secret}")
