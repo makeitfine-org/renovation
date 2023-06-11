@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-package renovation.backend.api.test.frontend.info
+package renovation.backend.api.test.minikube
 
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
@@ -12,13 +12,10 @@ import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
-import renovation.backend.api.test.minikube.MinikubeRoute
 
 @Tag("minikube")
-@Disabled // make tests taged 'minikube' not executed
 internal class MinikubeApiTest : ApiTest {
 
     @Test
@@ -45,7 +42,7 @@ internal class MinikubeApiTest : ApiTest {
 
     @Test
     fun `frontend info about`() = `page content test`(
-        MinikubeRoute.INFO_ABOUT.route,
+        MinikubeRoute.FRONTEND_INFO_ABOUT.route,
         """
         {
             "name": "renovation frontend-info module",
@@ -54,8 +51,7 @@ internal class MinikubeApiTest : ApiTest {
         """.trimIndent()
     )
 
-    @Test
-    fun `page content test`(url: String, expectedContent: String) {
+    private fun `page content test`(url: String, expectedContent: String) {
         given()
             .When {
                 get(url)

@@ -142,6 +142,14 @@ subprojects {
             }
         }
 
+        tasks.register<Test>("minikube") {
+            description = "Run minikube tests"
+
+            useJUnitPlatform {
+                includeTags("minikube")
+            }
+        }
+
         fun testTask(tag: String, mustRunAfter: Any) = tasks.register<Test>(tag) {
             description = "Run $tag tests"
 
