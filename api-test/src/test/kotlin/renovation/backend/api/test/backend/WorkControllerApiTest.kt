@@ -6,7 +6,6 @@
 
 package renovation.backend.api.test.backend
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
@@ -18,15 +17,12 @@ import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.not
 import org.junit.jupiter.api.Tag
+import renovation.backend.api.test.ApiTest
 import renovation.backend.api.test.helper.FileHelper
 import renovation.backend.api.test.helper.SecurityHelper
 
 @Tag("smoke")
-internal class WorkControllerApiTest {
-    companion object {
-        @JvmStatic
-        private val OBJECT_MAPPER = ObjectMapper()
-    }
+internal class WorkControllerApiTest : ApiTest {
 
     @Test
     fun `find all`() {

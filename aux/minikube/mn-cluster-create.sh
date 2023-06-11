@@ -1,14 +1,16 @@
+#!/usr/bin/env bash
 #
 # Created under not commercial project "Renovation"
 #
 # Copyright 2021-2023
 #
+set -x // verbose commands
 
 # shellcheck disable=SC2006
 MINIKUBE_PATH="`dirname \"$0\"`"
 K8S_PATH="${MINIKUBE_PATH}/../k8s"
 
-minikube start -n 2 -p mn
+minikube start -n 2 -p mn --memory 6144 --cpus 4
 
 minikube -p mn addons enable volumesnapshots
 minikube -p mn addons enable registry

@@ -12,38 +12,42 @@ import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers.equalTo
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
-import renovation.backend.api.test.helper.FileHelper
+import renovation.backend.api.test.minikube.MinikubeRoute
 
-@Tag("smoke")
-internal class FrontendInfoApiTest : ApiTest {
+@Tag("minikube")
+@Disabled // make tests taged 'minikube' not executed
+internal class MinikubeApiTest : ApiTest {
 
     @Test
-    fun `worker`() {
+    fun `backend about`() = `page content test`(
+        MinikubeRoute.BACKEND_ABOUT.route,
+        """
+        {
+            "name": "renovation backend module",
+            "description": "Main backend part of renovation project"
+        }
+        """.trimIndent()
+    )
+
+    @Test
+    fun `page content test`(url: String, expectedContent: String) {
         given()
             .When {
-                get(FrontendInfoServerRoute.WORKER.route)
+                get(url)
             }
             .Then {
                 statusCode(HttpStatus.SC_OK)
 
-                val expected = FileHelper.WORKER_RESPONSE.fileContent
-                body(equalTo(rowJson(expected)))
-            }
-    }
-
-    @Test
-    fun `graphql`() {
-        given()
-            .When {
-                get(FrontendInfoServerRoute.GRAPHQL.route)
-            }
-            .Then {
-                statusCode(HttpStatus.SC_OK)
-
-                val expected = FileHelper.GRAPHQL_RESPONSE.fileContent
-                body(equalTo(rowJson(expected)))
+                body(
+                    equalTo(
+                        rowJson(
+                            expectedContent
+                        )
+                    )
+                )
             }
     }
 

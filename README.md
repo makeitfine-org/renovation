@@ -184,7 +184,9 @@ For to autofix:
     To config grafana:  
     > on create PROMETHEUS datasource use url from  
     `k describe service -n monitoring prometheus-kube-prometheus-prometheus`    
-    Or access to prometheus (nodePort: 31909) and grafana (nodePort:31300)  
+    Or access to prometheus (nodePort: 31909) and grafana (nodePort:31300)    
+12. Open `minikube service`:  
+   `$>minikube -p mn service backend --namespace renovation`
 ### Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
   `/api/service/redis/work/evict`
