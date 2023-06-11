@@ -120,9 +120,11 @@ subprojects {
         val integrationTag = "integration"
         val functionalTag = "functional"
 
+        val minikubeTag = "minikube"
+
         tasks.withType<Test> {
             useJUnitPlatform {
-                excludeTags("$smokeTag", "$healthCheckTag", "$integrationTag", "$functionalTag")
+                excludeTags(smokeTag, healthCheckTag, integrationTag, functionalTag, minikubeTag)
             }
             jvmArgs = mutableListOf("--enable-preview")
             maxParallelForks = Runtime.getRuntime().availableProcessors()

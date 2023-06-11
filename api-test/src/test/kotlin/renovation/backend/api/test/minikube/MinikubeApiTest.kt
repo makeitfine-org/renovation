@@ -33,6 +33,28 @@ internal class MinikubeApiTest : ApiTest {
     )
 
     @Test
+    fun `info about`() = `page content test`(
+        MinikubeRoute.INFO_ABOUT.route,
+        """
+        {
+            "name": "renovation info module",
+            "description": "Module work as additional info directory"
+        }
+        """.trimIndent()
+    )
+
+    @Test
+    fun `frontend info about`() = `page content test`(
+        MinikubeRoute.INFO_ABOUT.route,
+        """
+        {
+            "name": "renovation frontend-info module",
+            "description": "Node js based backend module for showing different info"
+        }
+        """.trimIndent()
+    )
+
+    @Test
     fun `page content test`(url: String, expectedContent: String) {
         given()
             .When {
