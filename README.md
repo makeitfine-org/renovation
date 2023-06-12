@@ -187,6 +187,8 @@ For to autofix:
     Or access to prometheus (nodePort: 31909) and grafana (nodePort:31300)    
 12. Open `minikube service`:  
    `$>minikube -p mn service backend --namespace renovation`
+13. Test minikube with junit: 
+   `$>gradle :api-test:minikube --tests "renovation.backend.api.test.minikube.MinikubeApiTest"`  
 ### Redis
 * To evict/remove 'works' keys redis entities call on backend module server URL:  
   `/api/service/redis/work/evict`
