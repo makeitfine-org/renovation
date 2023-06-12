@@ -6,7 +6,6 @@
 
 package renovation.backend.api.test.minikube
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -16,6 +15,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
 import renovation.backend.api.test.ApiTest
+import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
 
 @Tag("minikube")
@@ -71,9 +71,5 @@ internal class MinikubeApiTest : ApiTest {
 
                 assertEquals(expectedBody, actualBody)
             }
-    }
-
-    private fun given() = Given {
-        header("Content-type", "application/json")
     }
 }

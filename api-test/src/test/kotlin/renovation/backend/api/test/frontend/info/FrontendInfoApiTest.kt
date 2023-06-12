@@ -6,7 +6,6 @@
 
 package renovation.backend.api.test.frontend.info
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -15,6 +14,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
 import renovation.backend.api.test.helper.FileHelper
+import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
 
 @Tag("smoke")
@@ -46,9 +46,5 @@ internal class FrontendInfoApiTest : ApiTest {
                 val expected = FileHelper.GRAPHQL_RESPONSE.fileContent
                 body(equalTo(rowJson(expected)))
             }
-    }
-
-    private fun given() = Given {
-        header("Content-type", "application/json")
     }
 }
