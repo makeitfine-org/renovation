@@ -13,10 +13,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import org.apache.http.HttpStatus
 import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode
 import renovation.backend.api.test.ApiTest
 import renovation.common.util.Json.rowJson
 
 @Tag("minikube")
+@Execution(ExecutionMode.CONCURRENT)
 internal class MinikubeApiTest : ApiTest {
 
     @Test
