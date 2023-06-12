@@ -10,8 +10,8 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import org.apache.http.HttpStatus
-import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
 
@@ -19,7 +19,7 @@ import renovation.backend.api.test.ApiTest
 internal class MinikubeApiTest : ApiTest {
 
     @Test
-    fun `backend about`() = `page content test`(
+    fun `backend about`() = `page body content (json formatted)`(
         MinikubeRoute.BACKEND_ABOUT.route,
         """
         {
@@ -30,28 +30,32 @@ internal class MinikubeApiTest : ApiTest {
     )
 
     @Test
-    fun `info about`() = `page content test`(
+    fun `info about`() = `page body content (json formatted)`(
         MinikubeRoute.INFO_ABOUT.route,
         """
         {
-            "name": "renovation info module",
-            "description": "Module work as additional info directory"
+          "name": "renovation info module",
+          "description": "Module work as additional info directory"
         }
         """.trimIndent()
     )
 
     @Test
-    fun `frontend info about`() = `page content test`(
+    fun `frontend info about`() = `page body content`(
         MinikubeRoute.FRONTEND_INFO_ABOUT.route,
         """
         {
-            "name": "renovation frontend-info module",
-            "description": "Node js based backend module for showing different info"
+          "name": "renovation frontend-info module",
+          "description": "Node js based backend module for showing different info"
         }
+        
         """.trimIndent()
     )
 
-    private fun `page content test`(url: String, expectedContent: String) {
+    private fun `page body content (json formatted)`(url: String, expectedBody: String) =
+        `page body content`(url, rowJson(expectedBody))
+
+    private fun `page body content`(url: String, expectedBody: String) {
         given()
             .When {
                 get(url)
@@ -59,13 +63,9 @@ internal class MinikubeApiTest : ApiTest {
             .Then {
                 statusCode(HttpStatus.SC_OK)
 
-                body(
-                    equalTo(
-                        rowJson(
-                            expectedContent
-                        )
-                    )
-                )
+                val actualBody = extract().body().asString()
+
+                assertEquals(expectedBody, actualBody)
             }
     }
 
