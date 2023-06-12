@@ -5,8 +5,8 @@
 # Copyright 2021-2023
 #
 
-export BACKEND_SERVER_URL=http://mib
-export FRONTEND_INFO_SERVER_URL=http://mii
+export BACKEND_SERVER_URL=http://mib #todo: fix
+export FRONTEND_INFO_SERVER_URL=http://mii #todo: fix
 
 PROJECT_PATH="`dirname \"$0\"`"/../..
 
