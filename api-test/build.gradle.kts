@@ -8,4 +8,5 @@ dependencies {
     testImplementation("commons-io:commons-io")
     testImplementation("com.fasterxml.jackson:jackson-bom")
     testImplementation("com.fasterxml.jackson.core:jackson-databind")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${properties["junitJupiterVersion"]}")
 }

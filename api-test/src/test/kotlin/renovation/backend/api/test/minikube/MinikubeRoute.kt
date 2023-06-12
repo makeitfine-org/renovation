@@ -6,19 +6,13 @@
 
 package renovation.backend.api.test.minikube
 
-import renovation.backend.api.test.Route
+enum class MinikubeRoute(route: String) {
+    IP_BACKEND_ABOUT("http://192.168.49.2:30080/about"),
+    IP_INFO_ABOUT("http://192.168.49.2:30090/about"),
+    IP_FRONTEND_INFO_ABOUT("http://192.168.49.2:30081/about"),
 
-enum class MinikubeRoute(port: Int, path: String) : Route {
-    BACKEND_ABOUT(30080,"about"),
-    INFO_ABOUT(30090,"about"),
-    FRONTEND_INFO_ABOUT(30081,"about");
+    MMIB_ABOUT("http://mmib/about"),
+    MMII_ABOUT("http://mmii/about");
 
-    override val baseUrlFromEnvironmentVariable = "MINIKUBE_SERVER_URL"
-    override val baseUrlDefault = "http://192.168.49.2"
-    override val path = path
-
-    private val port = port
-
-    override val baseUrl: String
-        get() = "${super.baseUrl}:$port"
+    val route = route
 }
