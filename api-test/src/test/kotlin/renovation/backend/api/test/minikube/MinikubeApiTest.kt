@@ -14,6 +14,7 @@ import kotlin.test.assertEquals
 import org.apache.http.HttpStatus
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
+import renovation.common.util.Json.rowJson
 
 @Tag("minikube")
 internal class MinikubeApiTest : ApiTest {
@@ -68,9 +69,6 @@ internal class MinikubeApiTest : ApiTest {
                 assertEquals(expectedBody, actualBody)
             }
     }
-
-    // todo: move to util module (to think to create it previously)
-    private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 
     private fun given() = Given {
         header("Content-type", "application/json")

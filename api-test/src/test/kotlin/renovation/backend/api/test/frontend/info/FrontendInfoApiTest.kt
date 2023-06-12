@@ -15,6 +15,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
 import renovation.backend.api.test.helper.FileHelper
+import renovation.common.util.Json.rowJson
 
 @Tag("smoke")
 internal class FrontendInfoApiTest : ApiTest {
@@ -46,9 +47,6 @@ internal class FrontendInfoApiTest : ApiTest {
                 body(equalTo(rowJson(expected)))
             }
     }
-
-    // todo: move to util module (to think to create it previously)
-    private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 
     private fun given() = Given {
         header("Content-type", "application/json")

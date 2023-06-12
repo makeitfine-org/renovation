@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
 import renovation.backend.api.test.helper.FileHelper
 import renovation.backend.api.test.helper.SecurityHelper
+import renovation.common.util.Json.OBJECT_MAPPER
+import renovation.common.util.Json.rowJson
 
 @Tag("smoke")
 internal class WorkControllerApiTest : ApiTest {
@@ -373,9 +375,6 @@ internal class WorkControllerApiTest : ApiTest {
                 statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
             }
     }
-
-    // todo: move to util module (to think to create it previously)
-    private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 
     private fun given() = Given {
         header("Content-type", "application/json")
