@@ -10,7 +10,7 @@ set -x // verbose commands
 MINIKUBE_PATH="`dirname \"$0\"`"
 K8S_PATH="${MINIKUBE_PATH}/../k8s"
 
-minikube start -n 2 -p mn --memory 6144 --cpus 4
+minikube start -n 2 -p mn --memory 6144 --cpus 4 --subnet 192.168.49.0
 
 minikube -p mn addons enable volumesnapshots
 minikube -p mn addons enable registry
