@@ -41,11 +41,12 @@ kubectl apply -f "${K8S_PATH}/yaml/renovation-namespace.yaml"
 kubectl config set-context --current --namespace=renovation
 sh "${K8S_PATH}/scripts/deploy-all.sh"
 kubectl config set-context --current --namespace=default
-sleep 45
+sleep 60
 
 echo "PROMETHEUS and GRAFANA deploying:"
 kubectl apply -f "${K8S_PATH}/yaml/metrics/monitoring-namespace.yaml"
 
+helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo list
 helm install prometheus bitnami/kube-prometheus -n monitoring --set prometheus.service.type=NodePort --set prometheus.service.nodePorts.http=31909
 sleep 45
 
