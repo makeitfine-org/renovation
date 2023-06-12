@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.web.SecurityFilterChain
 import renovation.common.security.jwt.JwtUtils
 
 @Configuration
@@ -16,10 +16,11 @@ import renovation.common.security.jwt.JwtUtils
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.client.client-id}")
     private val clientId: String
-) : WebSecurityConfigurerAdapter() {
+) {
 
+    @Bean
     @Throws(Exception::class)
-    override fun configure(http: HttpSecurity) {
+    fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
                 .antMatchers("/module", "/about").permitAll()
@@ -30,8 +31,7 @@ class SecurityConfig(
                 .jwt { jwtConfigurer ->
                     jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
                 }
-        }
-    }
+        }.build()
 
     @Bean
     fun jwtAuthenticationConverter() = JwtAuthenticationConverter().also {
