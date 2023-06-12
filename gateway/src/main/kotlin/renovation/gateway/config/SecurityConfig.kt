@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler
@@ -26,6 +25,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import renovation.common.security.jwt.JwtUtils
@@ -43,10 +43,11 @@ class SecurityConfig(
     private val gatewayHost: String,
     @Value("\${server.port}")
     private val gatewayPort: Int
-) : WebSecurityConfigurerAdapter() {
+) {
 
+    @Bean
     @Throws(Exception::class)
-    override fun configure(http: HttpSecurity) {
+    fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.authorizeRequests {
             it
                 .antMatchers("/about").permitAll()
@@ -67,8 +68,7 @@ class SecurityConfig(
         }.logout {
             it.logoutSuccessHandler(oidcLogoutSuccessHandler())
             it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
-        }
-    }
+        }.build()
 
     @Bean
     fun pkceResolver() = OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI.let {
