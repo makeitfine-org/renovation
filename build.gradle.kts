@@ -32,7 +32,8 @@ subprojects {
         properties["apitestModuleName"],
         properties["infoModuleName"],
         properties["commonModuleName"],
-        properties["gatewayModuleName"]
+        properties["gatewayModuleName"],
+        properties["tempModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
