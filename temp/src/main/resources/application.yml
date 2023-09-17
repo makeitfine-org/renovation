@@ -1,0 +1,21 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+info:
+  app:
+    name: "Renovation temp"
+    description: Renovation temp module for testing
+
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: ${info.app.name}
+
+logging:
+  level:
+    root: INFO
+    renovation.temp: DEBUG

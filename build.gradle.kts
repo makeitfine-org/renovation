@@ -32,7 +32,8 @@ subprojects {
         properties["apitestModuleName"],
         properties["infoModuleName"],
         properties["commonModuleName"],
-        properties["gatewayModuleName"]
+        properties["gatewayModuleName"],
+        properties["tempModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
@@ -72,6 +73,7 @@ subprojects {
             implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
             implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
             implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
+            //Todo: implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
 
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
@@ -221,6 +223,10 @@ tasks.register<GradleBuild>(buildall) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:build", "-x", "koverVerify")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":temp:build")
+        }
     }
 }
 
@@ -268,6 +274,10 @@ tasks.register<GradleBuild>(removeImages) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("docker", "rmi", "koresmosto/renovation-gateway:latest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-temp:latest")
         }
     }
 }

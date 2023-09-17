@@ -1,0 +1,21 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+spring:
+  cloud:
+    vault:
+      host: ${VAULT_HOST:localhost}
+      port: ${VAULT_PORT:8200}
+      scheme: http
+      token: ${VAULT_TOKEN:undef}
+      application-name: ${VAULT_APPLICATION_NAME:renovation_temp}
+  config:
+    import: vault://
+#    import: vault://secret/renovation_temp
+
+
+vaultValues:
+  value1: ${value.value1:undef}
+  value2: ${value.value2:undef}

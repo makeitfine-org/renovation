@@ -26,12 +26,18 @@ minikube -p mn image load koresmosto/renovation-info
 #create folders inside minikube ssh
 minikube -p mn cp "${MINIKUBE_PATH}/create-mnt-content.sh" mn:/home/docker/create-mnt-content.sh
 minikube -p mn ssh <<'ENDSSH'
+sudo apt update
+sudo apt install net-tools
+
 sudo sh /home/docker/create-mnt-content.sh
 exit
 ENDSSH
 
 minikube -p mn cp "${MINIKUBE_PATH}/create-mnt-content.sh" mn-m02:/home/docker/create-mnt-content.sh
 minikube -p mn -n mn-m02 ssh <<'ENDSSH'
+sudo apt update
+sudo apt install net-tools
+
 sudo sh /home/docker/create-mnt-content.sh
 exit
 ENDSSH
