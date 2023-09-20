@@ -222,6 +222,10 @@ tasks.register<GradleBuild>(buildall) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:build", "-x", "koverVerify")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":temp:build")
+        }
     }
 }
 
@@ -269,6 +273,10 @@ tasks.register<GradleBuild>(removeImages) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("docker", "rmi", "koresmosto/renovation-gateway:latest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "rmi", "koresmosto/renovation-temp:latest")
         }
     }
 }

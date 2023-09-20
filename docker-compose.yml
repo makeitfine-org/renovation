@@ -187,5 +187,16 @@ services:
     networks:
       - renovation-network
 
+  renovation-temp:
+    image: koresmosto/renovation-temp
+    build:
+      context: ./temp
+    restart: always
+    container_name: renovation-temp
+    ports:
+      - ${TEMP_SERVER_REDIRECT_PORT}:8080
+    networks:
+      - renovation-network
+
 networks:
   renovation-network:

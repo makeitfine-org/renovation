@@ -8,14 +8,17 @@ package renovation.temp
 
 import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
-class RenovationApplication
+@SpringBootApplication(exclude = [
+    SecurityAutoConfiguration::class,
+])
+class TempApplication
 
 @Suppress("SpreadOperator")
 fun main(args: Array<String>) {
-    runApplication<RenovationApplication>(*args) {
+    runApplication<TempApplication>(*args) {
         setBannerMode(Banner.Mode.OFF)
     }
 }

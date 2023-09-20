@@ -6,11 +6,11 @@
 info:
   app:
     name: "Renovation temp"
-    description: Renovation tempo module for testing
+    description: Renovation temp module for testing
 
 server:
   port: ${PORT:8080}
 
 spring:
   application:
-    name: "renovation temp"
+    name: ${info.app.name}

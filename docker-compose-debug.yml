@@ -20,3 +20,8 @@ services:
     ports:
       - 5007:5007
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -jar /app.jar
+
+  renovation-temp:
+    ports:
+      - 5008:5008
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -jar /app.jar

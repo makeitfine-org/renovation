@@ -7,16 +7,18 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class StartupController(
-    @Value("\${spring.application.name}")
-    private val applicationName: String
+    @Value("\${info.app.name}")
+    private val appName: String,
+    @Value("\${info.app.description}")
+    private val appDesc: String
 ) {
 
     @GetMapping("/about")
     fun about(): Any = object : Any() {
-        val name = "renovation info module"
-        val description = "Module work as additional info directory"
+        val name = appName
+        val description = appDesc
     }
 
     @GetMapping("/module")
-    fun index() = "Hi, it's \"${StringUtils.capitalize(applicationName)}\" module"
+    fun index() = "Hi, it's \"${StringUtils.capitalize(appName)}\" module"
 }
