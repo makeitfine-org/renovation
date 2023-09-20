@@ -82,6 +82,36 @@ services:
     networks:
       - renovation-network
 
+  renovation-vault:
+    image: vault:1.13.3
+    restart: always
+    container_name: renovation-vault
+    ports:
+      - ${VAULT_SERVER_REDIRECT_PORT}:8200
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+      - ./vault/logs:/vault/logs
+    environment:
+      VAULT_ADDR: "http://localhost:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID}
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - renovation-network
+
+  renovation-vault-prepopulate:
+    image: alpine/curl:8.2.1
+    container_name: renovation-vault-prepopulate
+    depends_on:
+      - renovation-vault
+    volumes:
+      - ./temp/src/main/resources/docker/vault/secrets_provision.sh:/usr/local/bin/secrets_provision.sh
+    command: [ "/bin/sh", "-c", "/usr/local/bin/secrets_provision.sh" ]
+    networks:
+      - renovation-network
+
   renovation-backend:
     image: koresmosto/renovation-backend
     build:
@@ -191,29 +221,18 @@ services:
     image: koresmosto/renovation-temp
     build:
       context: ./temp
+    depends_on:
+      - renovation-vault
+      - renovation-vault-prepopulate
     restart: always
     container_name: renovation-temp
     ports:
       - ${TEMP_SERVER_REDIRECT_PORT}:8080
+    environment:
+      VAULT_HOST: renovation-vault
+      VAULT_TOKEN: ${VAULT_DEV_ROOT_TOKEN_ID}
     networks:
       - renovation-network
-
-  renovation-vault:
-    image: vault:1.13.3
-    restart: always
-    container_name: renovation-vault
-    ports:
-      - ${VAULT_SERVER_REDIRECT_PORT}:8200
-    volumes:
-      - ./vault/config:/vault/config
-      - ./vault/policies:/vault/policies
-      - ./vault/data:/vault/data
-      - ./vault/logs:/vault/logs
-    environment:
-      VAULT_ADDR: "http://localhost:8200"
-      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID}
-    cap_add:
-      - IPC_LOCK
 
 networks:
   renovation-network:
