@@ -10,10 +10,16 @@ plugins {
     id("org.springframework.boot")
 }
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter-web") {
-        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${properties["springCloudDependenciesVersion"]}")
     }
+}
+
+dependencies {
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:${properties["springframeworkPluginVersion"]}"))
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
+    implementation("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web")
 }

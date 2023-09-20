@@ -1,0 +1,21 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+spring:
+#  application:
+#    name: javatodev_core_api
+  cloud:
+    vault:
+      port: 8200
+      scheme: http
+      token: ${VAULT_TOKEN:undef}
+      application-name: ${VAULT_APPLICATION_NAME:under}
+  config:
+    import: vault://
+
+
+vaultValues:
+  value1: ${value.value1:undef}
+  value2: ${value.value2:undef}
