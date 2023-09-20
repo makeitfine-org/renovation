@@ -4,16 +4,15 @@
 # Copyright 2021-2023
 ##
 spring:
-#  application:
-#    name: javatodev_core_api
   cloud:
     vault:
-      port: 8200
+      port: ${VAULT_PORT:8200}
       scheme: http
       token: ${VAULT_TOKEN:undef}
       application-name: ${VAULT_APPLICATION_NAME:under}
   config:
     import: vault://
+#    import: vault://secret/renovation_temp
 
 
 vaultValues:

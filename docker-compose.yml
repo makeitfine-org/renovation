@@ -198,5 +198,22 @@ services:
     networks:
       - renovation-network
 
+  renovation-vault:
+    image: vault:1.13.3
+    restart: always
+    container_name: renovation-vault
+    ports:
+      - ${VAULT_SERVER_REDIRECT_PORT}:8200
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+      - ./vault/logs:/vault/logs
+    environment:
+      VAULT_ADDR: "http://localhost:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID}
+    cap_add:
+      - IPC_LOCK
+
 networks:
   renovation-network:
