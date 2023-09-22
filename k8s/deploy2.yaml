@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-dep2
+  labels:
+    app: simple-dep2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simple-dep2
+  template:
+    metadata:
+      name: simple-dep2
+      labels:
+        app: simple-dep2
+    spec:
+      containers:
+        - name: simple-dep2
+          image: tomcat:8.5.38
+#          image: adv4000/k8sphp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
