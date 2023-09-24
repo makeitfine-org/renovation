@@ -4,9 +4,11 @@ import java.util.UUID
 import java.util.function.BiFunction
 import java.util.function.Function
 import java.util.stream.Collectors
+import java.util.stream.LongStream
 import java.util.stream.Stream
 import kotlin.math.pow
 import kotlin.random.Random
+import kotlin.streams.toList
 import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -85,6 +87,53 @@ class StreamController(
 
     @GetMapping("sort2")
     fun sort2() = s().sorted { e1, e2 -> e1.id.compareTo(e2.id) }
+
+    @GetMapping("longStream")
+    fun longStream() = s().mapToLong { it.id }
+
+    @GetMapping("doubleStream")
+    fun doubleStream() = s().mapToDouble { it.id.toDouble() + 0.5 }.toList()
+
+    @GetMapping("average")
+    fun average() = s().mapToDouble { it.id.toDouble() + 0.5 }.average()
+
+    @GetMapping("range")
+    fun range() = LongStream.range(5, 7)
+
+    @GetMapping("reduce1")
+    fun reduce1(): HashMap<Int, MutableMap<String, Int>> {
+        val map: MutableMap<String, Int> = mutableMapOf();
+
+        map["a"] = 1
+        map["b"] = 1
+        map["c"] = 10
+        map["d"] = 1
+        map["e"] = 100
+        map["f"] = 10
+        map["g"] = 1000
+
+        return map.entries.stream().reduce(
+            HashMap(),
+            { m, e ->
+                if (m[e.value] == null) {
+                    val insideMap: MutableMap<String, Int> = HashMap();
+                    insideMap[e.key] = e.value
+                    m[e.value] = insideMap
+                } else {
+                    m[e.value]?.set(e.key, e.value)
+                }
+                m
+            },
+            { m1, m2 -> m1 })
+    }
+
+//    @GetMapping("reduceSimple")
+//    fun reduceSimple() = mapOf(Pair("a", 1), Pair("b", 1), Pair("c", 1), Pair("b", 1), Pair("c", 1))
+//        .entries.stream().reduce(HashMap)
+//        }
+
+//        s().map { it.id }.reduce(HashMap<Int, Int>()) { m, e -> null }
+//}
 }
 
 class See {
