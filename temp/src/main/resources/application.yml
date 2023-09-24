@@ -9,7 +9,7 @@ info:
     description: Renovation temp module for testing
 
 server:
-  port: ${PORT:18080}
+  port: ${PORT:8080}
 
 spring:
   application:

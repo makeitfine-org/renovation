@@ -15,5 +15,5 @@ spec:
 #  type: NodePort
 #  type: NodePort
 
-#  9375  minikube start -n 3 -p test --memory 2096 --cpus 2 --subnet 192.168.55.0
+#  minikube start -n 3 -p test --memory 2096 --cpus 2 --subnet 192.168.55.0
 #  kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
