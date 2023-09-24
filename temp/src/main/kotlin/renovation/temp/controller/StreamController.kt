@@ -1,5 +1,6 @@
 package renovation.temp.controller
 
+import java.util.LinkedList
 import java.util.UUID
 import java.util.function.BiFunction
 import java.util.function.Function
@@ -8,6 +9,7 @@ import java.util.stream.LongStream
 import java.util.stream.Stream
 import kotlin.math.pow
 import kotlin.random.Random
+import kotlin.streams.asSequence
 import kotlin.streams.toList
 import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
@@ -100,8 +102,8 @@ class StreamController(
     @GetMapping("range")
     fun range() = LongStream.range(5, 7)
 
-    @GetMapping("reduce1")
-    fun reduce1(): HashMap<Int, MutableMap<String, Int>> {
+    @GetMapping("reduce")
+    fun reduce(): HashMap<Int, MutableMap<String, Int>> {
         val map: MutableMap<String, Int> = mutableMapOf();
 
         map["a"] = 1
@@ -124,16 +126,19 @@ class StreamController(
                 }
                 m
             },
-            { m1, m2 -> m1 })
+            { m1, _ -> m1 })
     }
 
-//    @GetMapping("reduceSimple")
-//    fun reduceSimple() = mapOf(Pair("a", 1), Pair("b", 1), Pair("c", 1), Pair("b", 1), Pair("c", 1))
-//        .entries.stream().reduce(HashMap)
-//        }
+    @GetMapping("joining")
+    fun joining() = s()
+        .map { it.name?.chars() }
+        .flatMapToInt { it }
+        .mapToObj { "${it.toChar()}" }
+        .collect(Collectors.joining(", ", ">>>", "<<<"))
 
-//        s().map { it.id }.reduce(HashMap<Int, Int>()) { m, e -> null }
-//}
+    @GetMapping("summarizingIds")
+    fun summarizingDouble() = s()
+        .collect(Collectors.summarizingLong { it.id })
 }
 
 class See {
@@ -194,12 +199,10 @@ fun main() {
     println()
     list.stream().flatMap { it.stream().map { it.toString() } }.map(String::toDouble).toList().forEach(::print)
 
-    println()
-    println("===========")
-
     val l2 = listOf(Show("d"), Show("31"), Show("e"), Show("key"), Show("ded"))
 
-    l2.stream().filter { it.o.length > 1 }.filter { it.o.length == 2 }.forEach(::println)
+    l2.stream().filter { it.o.length > 1 }.filter { it.o.length == 2 }.collect(Collectors.toCollection(::ArrayList))
+    l2.stream().filter { it.o.length > 1 }.filter { it.o.length == 2 }.collect(Collectors.toCollection(::LinkedList))
 }
 
 class Show {
