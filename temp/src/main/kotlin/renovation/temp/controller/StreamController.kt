@@ -1,44 +1,109 @@
 package renovation.temp.controller
 
+import java.util.UUID
+import java.util.function.BiFunction
+import java.util.function.Function
 import java.util.stream.Collectors
 import java.util.stream.Stream
 import kotlin.math.pow
 import kotlin.random.Random
+import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import renovation.temp.data.service.Rec
 import renovation.temp.data.service.StreamService
+
+private val log = KotlinLogging.logger { }
 
 @RestController
 @RequestMapping("/stream")
 class StreamController(
     private val serv: StreamService,
 ) {
-    private fun s() = serv.data()
+    private fun s() = serv.data().stream()
 
     @GetMapping("all")
-    fun all() = serv.data()
+    fun all() = serv.data().stream().peek(::println)
 
     @GetMapping("map")
-    fun map() = s().stream().map { e -> e.id }.distinct()
+    fun map() = s().map { e -> e.id }.distinct()
 
     @GetMapping("map2")
-    fun map2() = s().stream().map { e -> e.id }.collect(Collectors.toSet())
+    fun map2() = s().map { e -> e.id }.collect(Collectors.toSet())
 
     @GetMapping("maxOfFilteredIds")
     fun maxOfFilteredIds() =
-        s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.max().orElse(
+        s().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.max().orElse(
             Int.MIN_VALUE
         )
 
     @GetMapping("sumOfFilteredIds")
     fun sumOfFilteredIds() =
-        s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }
-            .reduce(0, Integer::sum)
-//    s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.sum()
+        s().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }
+            .reduce(0, Integer::sum).also { log.debug { it } }
+    //optional:    s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.sum()
 
     @GetMapping("streamGenerator")
-    fun streamGenerator() = Stream.generate { Random.nextInt(5) }.limit(5)
+    fun streamGenerator(
+        @RequestParam(defaultValue = "5") rand: Int = 5,
+        @RequestParam(defaultValue = "5") limit: Long = 5
+    ) = Stream.generate { Random.nextInt(rand) }.limit(limit)
+
+    @GetMapping("sequenceGenerator")
+    fun sequentGenerator(
+        @RequestParam(defaultValue = "5") start: Int = 5,
+        @RequestParam(defaultValue = "5") limit: Long = 5
+    ) = Stream.iterate(start) { i -> i + 1 }.limit(limit)
+
+    @GetMapping("simpleFunc")
+    fun simpleFunc() = ({ i: UUID -> i.toString() }).invoke(UUID.randomUUID())
+    // val l: (UUID) -> String = { it.toString() }
+
+    @GetMapping("func")
+    fun func() = Function { i: Int -> i.toDouble() }.let { it.apply(Random.nextInt()) }
+    // val fun1: Function<Int, Double> = Function { i -> i.toDouble() }
+
+    @GetMapping("biFunc")
+    fun biFunc() = BiFunction { i: Int, d: Double -> "$i ^ $d" }.let { it.apply(Random.nextInt(), 5.5) }
+    // val biFunc: BiFunction<Int, Double, String> = BiFunction { i: Int, d: Double -> "$i ^ $d" }
+
+    @GetMapping("reduceNames")
+    fun reduceNames() = s().map { e -> e.name }.reduce { s1, s2 -> "$s1 #$s2" }.get()
+
+    @GetMapping("flatMap")
+    fun flatMap() =
+        Stream.of(serv.data(), serv.data(), serv.data()).flatMap { it.stream() }.map(Rec::toString).toList()
+
+    @GetMapping("prop")
+    fun prop() = Stream.of(See("d"), See("31"), See("e"), See("key"), See("ded"), See("OK"))
+        .filter { it.p.length > 1 }.filter { it.p.length == 2 }.toList()
+
+    @GetMapping("sort1")
+    fun sort1() = s().map { it.id }.sorted()
+
+    @GetMapping("sort2")
+    fun sort2() = s().sorted { e1, e2 -> e1.id.compareTo(e2.id) }
+}
+
+class See {
+    var p: String
+        get() = field.also { log.debug("GET: $it") }
+        set(value) {
+            log.debug("SET: $value")
+            field = value
+        }
+
+    constructor(pInit: String) {
+        p = pInit
+        log.debug("Costructor: $pInit")
+    }
+
+    override fun toString(): String {
+        log.debug("toString")
+        return "Show(p='$p')"
+    }
 }
 
 fun main() {
@@ -55,12 +120,59 @@ fun main() {
     println(k?.startsWith("a"))
     println(k?.startsWith("a") == true)
 
-    val l = { i: Int -> i.toString().reversed() }
+    val l: (Int) -> String = { i: Int -> i.toString().reversed() }
     println(l.invoke(511222))
 
     println(cat(15) { n -> n.toString() })
 
+    val show = Show("d")
+    val s = Stream.iterate(5) { i -> i + 2 }.limit(5).map { e -> show.elem(e) }
 
+    s.forEach { println("$it ") }
+
+    val fu: Function<Int, Double> = Function { i -> i.toDouble() }
+    println(fu.apply(55))
+    val bifu: BiFunction<Int, Double, String> = BiFunction { i: Int, d: Double -> "$i $d" }
+    println(bifu.apply(5, 5.5))
+
+    d.stream().map { e -> e.name }.reduce { s1, s2 -> "$s1 # $s2" }.get().let { println(it) }
+
+    val dId = d.stream().map { it.id }.toList()
+
+    val list = listOf(dId, dId, dId)
+
+    list.stream().flatMap { it.stream() }.forEach { print("$it ") }
+    println()
+    list.stream().flatMap { it.stream().map { it.toString() } }.map(String::toDouble).toList().forEach(::print)
+
+    println()
+    println("===========")
+
+    val l2 = listOf(Show("d"), Show("31"), Show("e"), Show("key"), Show("ded"))
+
+    l2.stream().filter { it.o.length > 1 }.filter { it.o.length == 2 }.forEach(::println)
+}
+
+class Show {
+
+    var o: String
+        get() = field.also { println("$it ->") }
+        set(value) {
+            println("--- $value ---")
+            field = value
+        }
+
+
+    fun elem(e: Int) = print("e: $e ").let { e }
+
+    constructor(s: String) {
+        o = s
+        println("get $s")
+    }
+
+    override fun toString(): String {
+        return "Show(o='$o')"
+    }
 }
 
 fun cat(i: Int, k: (Int) -> String) {

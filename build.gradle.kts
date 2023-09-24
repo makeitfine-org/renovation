@@ -73,6 +73,7 @@ subprojects {
             implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
             implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
             implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
+            //Todo: implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
 
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
