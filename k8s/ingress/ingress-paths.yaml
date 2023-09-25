@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-paths
+  annotations:
+#      nginx.ingress.kubernetes.io/rewrite-target: /$1
+#      nginx.ingress.kubernetes.io/rewrite-target: /
+#      ingress.kubernetes.io/use-regex: "true"
+      #/tea/cup will be rewritten to /cup before sending request to endpoint
+#      ingress.kubernetes.io/rewrite-target: /$1
+      kubernetes.io/ingress.class: contour
+spec:
+#  ingressClassName: nginx
+#  ingressClassName: contour
+  rules:
+    - host: webx.my
+      http:
+        paths:
+          - path: /p1/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: web1
+                port:
+                  number: 80
+
+          - path: /p3/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: webx
+                port:
+                  number: 8080
+
+

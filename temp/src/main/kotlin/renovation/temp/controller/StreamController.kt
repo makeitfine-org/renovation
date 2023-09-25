@@ -3,12 +3,16 @@ package renovation.temp.controller
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
+import java.time.LocalDate
+import java.util.Arrays
 import java.util.TreeMap
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 import java.util.function.BiFunction
 import java.util.function.Function
 import java.util.function.Predicate
 import java.util.stream.Collectors
+import java.util.stream.IntStream
 import java.util.stream.LongStream
 import java.util.stream.Stream
 import kotlin.math.pow
@@ -369,6 +373,29 @@ class StreamController(
             Collectors.filtering({ it.id > 5 }, Collectors.toSet())
         ) { c1, c2 -> setOf(c1, c2) }
     )
+
+    @GetMapping("mapCollection")
+    fun mapCollection() = s().distinct().collect(
+        Collectors.toMap(
+            { it },
+            { it.name ?: "" }
+        )
+    )
+
+    @GetMapping("distinctValue")
+    fun distinctValue() = s().filter(distKey({ it.id }))
+        .toList()
+}
+
+fun <T> distKey(vararg keys: Function<T, Any>): Predicate<T> {
+    val seen = ConcurrentHashMap<List<Any>, Boolean>()
+
+    return Predicate { t ->
+        val keys = Arrays.stream(keys)
+            .map { it.apply(t) }
+            .collect(Collectors.toList())
+        seen.putIfAbsent(keys, true) == null
+    }
 }
 
 class See {
@@ -427,5 +454,41 @@ fun main() {
 
     println(isYes.test(55))
     println(isYes.test(-234))
+
+    d.stream().distinct().collect(
+        Collectors.toMap(
+            { it },
+            { it.name ?: "" }
+        )
+    )
+
+    println("---------")
+    Stream.of(2, 333, 23, 23, -23).parallel().forEachOrdered { e ->
+        print("a$e ")
+    }
+
+    println()
+    println(" - - - - -- -  ")
+
+    Stream.of(
+        "Monkey", 3, "Lion", "Giraffe", "Lemur", "Lion", 1
+    ).parallel()
+//        .forEach(::print)
+        .forEachOrdered(::print)
+
+    println("888888888888888888")
+
+    val list = IntStream.of(1,2,3,4,5).boxed()
+    .collect(Collectors.toList())
+
+    println(list)
+
+    val today = LocalDate.now()
+
+    val next3Days = today.datesUntil(today.plusDays(3))
+
+    next3Days.forEach { x: LocalDate? -> println(x) }
 }
+
+
 

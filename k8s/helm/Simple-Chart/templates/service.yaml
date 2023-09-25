@@ -1,19 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: simple-serv
+  name: {{ .Release.Name }}-service
+  labels:
+    owner: me-smile
 spec:
   selector:
-    app: simple-dep
-  clusterIP: 10.96.1.1
+    project: {{ .Release.Name }}
+#  clusterIP: 10.96.1.1
   ports:
-    - protocol: TCP
-      port: 8085
+    - name: {{ .Release.Name }}-listener
+      protocol: TCP
+      port: 80
       targetPort: 80
-#      nodePort: 30080
+{{/*      nodePort: 30080*/}}
 #  type: ClusterIP
 #  type: NodePort
-#  type: NodePort
+  type: LoadBalancer
 
 #  9375  minikube start -n 3 -p test --memory 2096 --cpus 2 --subnet 192.168.55.0
 #  kubectl apply -f https://projectcontour.io/quickstart/contour.yaml

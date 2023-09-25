@@ -1,0 +1,26 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: rewrite-example
+spec:
+  virtualhost:
+    fqdn: myapps
+  routes:
+    - services:
+        - name: webx
+          port: 8080
+      conditions:
+        - prefix: /
+      pathRewritePolicy:
+        replacePrefix:
+          - prefix: /
+            replacement: /temp/okey/
+    - services:
+        - name: webx
+          port: 8080
+      conditions:
+        - prefix: /app2
+      pathRewritePolicy:
+        replacePrefix:
+          - prefix: /app2
+            replacement: /
