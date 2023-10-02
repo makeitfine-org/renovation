@@ -34,6 +34,7 @@ typealias Guava = com.google.common.collect.Streams
 
 @RestController
 @RequestMapping("/stream")
+@Suppress("detekt:all")
 class StreamController(
     private val serv: StreamService,
 ) {
@@ -398,6 +399,7 @@ fun <T> distKey(vararg keys: Function<T, Any>): Predicate<T> {
     }
 }
 
+@Suppress("detekt:all")
 class See {
     var p: String
         get() = field.also { log.debug("GET: $it") }
@@ -421,7 +423,8 @@ class See {
     }
 }
 
-fun main() {
+@Suppress("detekt:all")
+fun mainTemp() {
     val d = StreamService().data()
     val s = d.stream()
 
