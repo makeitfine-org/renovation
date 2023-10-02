@@ -392,10 +392,11 @@ fun <T> distKey(vararg keys: Function<T, Any>): Predicate<T> {
     val seen = ConcurrentHashMap<List<Any>, Boolean>()
 
     return Predicate { t ->
-        val keys = Arrays.stream(keys)
+        val nextKeys = Arrays.stream(keys)
             .map { it.apply(t) }
             .collect(Collectors.toList())
-        seen.putIfAbsent(keys, true) == null
+        println(nextKeys)
+        seen.putIfAbsent(nextKeys, true) == null
     }
 }
 
@@ -426,7 +427,6 @@ class See {
 @Suppress("detekt:all")
 fun mainTemp() {
     val d = StreamService().data()
-    val s = d.stream()
 
     val b = System.nanoTime();
     val l = (1..25_000_000)
@@ -437,12 +437,14 @@ fun mainTemp() {
 
     println("$l >>> [begin:$b | end:$e | time millis: ${(e - b) / 1000000.0}]")
 
-    val b2 = System.nanoTime();
     val l2 = (1..1_925_000_000).asSequence()
         .filter { it % 2 == 1 }
         .map { it * 2 }
         .take(2)
+    println(l2)
+
     val e2 = System.nanoTime();
+    println(e2)
 
     val b3 = System.nanoTime();
     val l3 = Stream.iterate(1, { it < 1_925_000_000 }) { it + 1 }
@@ -466,8 +468,8 @@ fun mainTemp() {
     )
 
     println("---------")
-    Stream.of(2, 333, 23, 23, -23).parallel().forEachOrdered { e ->
-        print("a$e ")
+    Stream.of(2, 333, 23, 23, -23).parallel().forEachOrdered { c ->
+        print("a$c ")
     }
 
     println()
