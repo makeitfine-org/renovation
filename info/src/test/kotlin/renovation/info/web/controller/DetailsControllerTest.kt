@@ -11,8 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 
@@ -32,13 +33,13 @@ internal class DetailsControllerTest(
     }
 
     @TestConfiguration
-    class ApplicationSecurity : WebSecurityConfigurerAdapter() {
+    class ApplicationSecurity {
 
+        @Bean
         @Throws(Exception::class)
-        override fun configure(http: HttpSecurity) {
+        fun filterChain(http: HttpSecurity): SecurityFilterChain =
             http.authorizeRequests { authorizeRequests ->
                 authorizeRequests.antMatchers("/**").permitAll()
-            }
-        }
+            }.let { http.build() }
     }
 }

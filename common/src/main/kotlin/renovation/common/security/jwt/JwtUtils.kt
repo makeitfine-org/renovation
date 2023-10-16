@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 
 object JwtUtils {
 
+    @Suppress("ClassNaming")
     enum class ROLE_CASE {
         LOWERCASE,
         UPPERCASE
