@@ -1,0 +1,6 @@
+# Default values
+
+container:
+  image: adv4000/k8sphp:version2
+
+replicaCount: 3

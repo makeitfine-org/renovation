@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web2
+  labels:
+    app: web2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web2
+  template:
+    metadata:
+      name: web2
+      labels:
+        app: web2
+    spec:
+      containers:
+        - name: web2
+          #          image: tomcat:8.5.38
+          image: adv4000/k8sphp:version2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+      restartPolicy: Always

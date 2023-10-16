@@ -1,0 +1,8 @@
+#h upgrade tempo bitnami/apache --set cloneHtdocsFromGit.enabled=true --set cloneHtdocsFromGit.branch=main --set cloneHtdocsFromGit.repository=https://github.com/stingion/hello.git
+
+# h upgrade tempo-any bitnami/apache -f my_site.yaml
+
+cloneHtdocsFromGit:
+  enabled: true
+  branch: main
+  repository: https://github.com/stingion/hello.git

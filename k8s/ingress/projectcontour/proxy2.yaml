@@ -1,0 +1,16 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: main
+spec:
+  virtualhost:
+    fqdn: myapps
+  includes:
+    - name: app1
+      namespace: app1
+      conditions:
+        - prefix: /app1
+    - name: app2
+      namespace: app2
+      conditions:
+        - prefix: /app2

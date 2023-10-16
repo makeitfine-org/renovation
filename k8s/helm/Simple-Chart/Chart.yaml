@@ -1,0 +1,18 @@
+apiVersion: v2
+name: App-HelmChart
+description: My Helm chart for k8s
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+keywords:
+  - train
+  - k8s
+  - helm
+
+maintainers:
+  - name: Eug
+
+#TODO: scaling, ingress (renovation app, projectcontour), install vault on kubernetes;
+#TODO: Make helm for renovation app
+#TODO: Install vault, keycloak for k8s

@@ -23,4 +23,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
+    implementation("org.apache.commons:commons-lang3:${properties["commonsLang3Version"]}")
+    implementation("com.google.guava:guava:${properties["guavaVersion"]}")
 }

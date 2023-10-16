@@ -1,0 +1,27 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: mn
+spec:
+  virtualhost:
+    fqdn: myapps
+  includes:
+    - name: app1
+      conditions:
+        - prefix: /app1
+#      pathRewritePolicy:
+#        replacePrefix:
+#          - prefix: /app1/abc
+#            replacement: /app/api/v1
+    - name: app2
+      conditions:
+        - prefix: /app2
+#      pathRewritePolicy:
+#        replacePrefix:
+#          - prefix: /app2/abc
+#            replacement: /app/v2
+  routes:
+    pathRewritePolicy:
+      replacePrefix:
+        - prefix: /app1/abc
+          replacement: /app/api/v1

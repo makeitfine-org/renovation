@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webx
+  labels:
+    app: webx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webx
+  template:
+    metadata:
+      name: webx
+      labels:
+        app: webx
+    spec:
+      containers:
+        - name: webx
+#          image: adv4000/k8sphp:versionx
+          image: kicbase/echo-server:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always

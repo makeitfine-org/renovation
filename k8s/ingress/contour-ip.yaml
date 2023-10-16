@@ -1,0 +1,25 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: app1
+spec:
+  routes:
+    - services:
+        - name: webx
+          port: 8080
+#      pathRewritePolicy:
+#        replacePrefix:
+#          - prefix: /app1/api
+#            replacement: /app/api/v1
+#          - prefix: /app1/api2
+#            replacement: /app/v2
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: app2
+spec:
+  routes:
+    - services:
+        - name: web1
+          port: 80
