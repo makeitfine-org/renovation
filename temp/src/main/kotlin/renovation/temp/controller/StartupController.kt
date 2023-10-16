@@ -14,7 +14,7 @@ class StartupController(
 ) {
 
     @GetMapping("/about")
-    fun about(): Any = object : Any() {
+    fun about(): Any = object {
         val name = appName
         val description = appDesc
     }

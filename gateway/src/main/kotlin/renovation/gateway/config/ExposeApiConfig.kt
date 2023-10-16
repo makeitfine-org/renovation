@@ -15,7 +15,7 @@ class ExposeApiConfig {
 
     @Bean
     fun about() = Supplier<Any> {
-        object : Any() {
+        object {
             val name = "renovation gateway module"
             val description = "Gateway for routing/gathering different request"
         }

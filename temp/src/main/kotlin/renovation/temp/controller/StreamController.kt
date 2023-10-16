@@ -23,6 +23,7 @@ private val log = KotlinLogging.logger { }
 
 @RestController
 @RequestMapping("/stream")
+@Suppress("MagicNumber", "TooManyFunctions")
 class StreamController(
     private val serv: StreamService,
 ) {
@@ -160,12 +161,12 @@ class See {
     }
 }
 
-fun main() {
+@Suppress("MagicNumber", "UnusedPrivateMember")
+fun main1() {
     val d = StreamService().data()
 
 //    d.sortedBy { e -> e.id }
 
-    val r = d.stream().filter { e -> e.name?.startsWith("s") == true }
 //    println(r.count())
 //    println(r.mapToInt { e->e.id.toInt() }.max().orElse(Int.MIN_VALUE))
 //    println(r.mapToInt { e -> e.id.toInt() }.reduce(0, Integer::sum))
@@ -186,8 +187,8 @@ fun main() {
 
     val fu: Function<Int, Double> = Function { i -> i.toDouble() }
     println(fu.apply(55))
-    val bifu: BiFunction<Int, Double, String> = BiFunction { i: Int, d: Double -> "$i $d" }
-    println(bifu.apply(5, 5.5))
+//    val bifu: BiFunction<Int, Double, String> = BiFunction { i: Int, d: Double -> "$i $d" }
+//    println(bifu.apply(5, 5.5))
 
     d.stream().map { e -> e.name }.reduce { s1, s2 -> "$s1 # $s2" }.get().let { println(it) }
 
@@ -227,6 +228,7 @@ class Show {
     }
 }
 
+@Suppress("MagicNumber")
 fun cat(i: Int, k: (Int) -> String) {
     println("$$$ ${k.invoke(i.toDouble().pow(3.0).toInt())} $$$")
 }

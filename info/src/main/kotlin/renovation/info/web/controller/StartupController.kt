@@ -12,7 +12,7 @@ class StartupController(
 ) {
 
     @GetMapping("/about")
-    fun about(): Any = object : Any() {
+    fun about(): Any = object {
         val name = "renovation info module"
         val description = "Module work as additional info directory"
     }

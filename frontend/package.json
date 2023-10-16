@@ -12,6 +12,7 @@
     "core-js": "^3.20.1",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12",
+    "vue-types": "^5.1.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
