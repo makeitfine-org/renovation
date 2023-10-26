@@ -6,11 +6,11 @@
 
 package renovation.info.data.model
 
-import java.io.Serializable
+import java.time.LocalDateTime
 
-data class Todo(
+data class TodoModel(
     val id: Int,
     val title: String,
-    val surname: String? = null,
-    val age: Int? = null,
+    val completed: Boolean,
+    val date: LocalDateTime,
 )

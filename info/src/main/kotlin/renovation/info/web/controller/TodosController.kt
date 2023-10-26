@@ -21,7 +21,7 @@ class TodosController(
     @Autowired val todoService: TodoService
 ) {
     @GetMapping
-    fun get() = todoService.getAll()
+    fun findAll() = todoService.getAll()
 
     @GetMapping("{id}")
     fun find(@PathVariable id: Int)= todoService.getById(id)

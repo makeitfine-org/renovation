@@ -7,11 +7,12 @@
 package renovation.info.data.service
 
 import renovation.info.data.entity.TodoEntity
+import renovation.info.data.model.TodoModel
 
 interface TodoService {
-    fun getAll(): List<TodoEntity>
+    fun getAll(): List<TodoModel>
 
-    fun getById(id: Int): TodoEntity
+    fun getById(id: Int): TodoModel
 
     fun save(todoEntity: TodoEntity): TodoEntity
 }

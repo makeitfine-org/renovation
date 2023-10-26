@@ -13,6 +13,7 @@ import renovation.info.data.entity.TodoEntity
 import renovation.info.data.repository.TodoRepository
 import renovation.info.data.service.TodoService
 import renovation.info.data.service.ValidatorService
+import renovation.info.data.util.Helper
 
 private val log = KotlinLogging.logger { }
 
@@ -23,9 +24,13 @@ class TodoServiceImpl(
 ) : TodoService {
 
     override fun getAll() = todoRepository.findAll()
+        .map(Helper::convert)
+        .toList()
         .also { log.info("find all todos") }
 
-    override fun getById(id: Int) = todoRepository.findById(id).orElseThrow()
+    override fun getById(id: Int) = todoRepository.findById(id)
+        .map(Helper::convert)
+        .orElseThrow()
         .also { log.info("find single todo with id = ${id}") }
 
     override fun save(todosEntity: TodoEntity): TodoEntity {
