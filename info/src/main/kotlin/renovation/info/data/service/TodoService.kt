@@ -6,7 +6,6 @@
 
 package renovation.info.data.service
 
-import renovation.info.data.entity.TodoEntity
 import renovation.info.data.model.TodoModel
 
 interface TodoService {
@@ -14,5 +13,7 @@ interface TodoService {
 
     fun getById(id: Int): TodoModel
 
-    fun save(todoEntity: TodoEntity): TodoEntity
+    fun save(todoModel: TodoModel): Unit
+
+    fun delete(id: Int): Unit
 }

@@ -9,7 +9,7 @@ package renovation.info.data.service.impl
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import renovation.info.data.entity.TodoEntity
+import renovation.info.data.model.TodoModel
 import renovation.info.data.repository.TodoRepository
 import renovation.info.data.service.TodoService
 import renovation.info.data.service.ValidatorService
@@ -31,9 +31,20 @@ class TodoServiceImpl(
     override fun getById(id: Int) = todoRepository.findById(id)
         .map(Helper::convert)
         .orElseThrow()
-        .also { log.info("find single todo with id = ${id}") }
+        .also { log.info("find single todo with id = $id") }
 
-    override fun save(todosEntity: TodoEntity): TodoEntity {
-        TODO("Not yet implemented")
+    override fun save(todoModel: TodoModel) = todoRepository.save(
+        validatorService.validate(
+            Helper.convert(todoModel)
+        )
+    ).let { }
+        .also { log.info("create single todo with id = $todoModel") }
+
+    @Throws(RuntimeException::class)
+    override fun delete(id: Int) {
+        if (!todoRepository.existsById(id)) {
+            throw RuntimeException("Not found todo with id=$id")
+        }
+        todoRepository.deleteById(id)
     }
 }

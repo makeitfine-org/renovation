@@ -22,7 +22,7 @@ data class TodoEntity(
     @field:Size(min = 2, max = 50, message = "Name size should have not less 2 and not more 50 symbols")
     var title: String,
 
-    @field:NotBlank
+    @field:NotNull
     var completed: Boolean,
 
     @field:NotNull

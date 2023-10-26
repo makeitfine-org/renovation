@@ -6,10 +6,15 @@
 
 package renovation.info.data.util
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import renovation.info.data.entity.TodoEntity
 import renovation.info.data.model.TodoModel
 
 object Helper {
+
+    @JvmStatic
+    val TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
     @JvmStatic
     fun convert(todoEntity: TodoEntity) =
@@ -17,7 +22,7 @@ object Helper {
             id = todoEntity.id,
             title = todoEntity.title,
             completed = todoEntity.completed,
-            date = todoEntity.date
+            date = todoEntity.date.toString()
         )
 
     @JvmStatic
@@ -26,6 +31,6 @@ object Helper {
             id = todoModel.id,
             title = todoModel.title,
             completed = todoModel.completed,
-            date = todoModel.date
+            date = LocalDateTime.parse(todoModel.date, TIME_FORMATTER)
         )
 }

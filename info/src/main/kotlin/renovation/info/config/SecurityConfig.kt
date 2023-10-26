@@ -27,6 +27,7 @@ class SecurityConfig(
                 .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
                 .antMatchers("/api/v1/info/todo/**").permitAll()
                 .anyRequest().authenticated()
+                .and().csrf().ignoringAntMatchers("/api/v1/info/todo/**")
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
                 .jwt { jwtConfigurer ->
