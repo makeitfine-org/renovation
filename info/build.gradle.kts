@@ -16,6 +16,12 @@ plugins {
     id("com.netflix.dgs.codegen")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
+    }
+}
+
 dependencies {
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${properties["dgsPlatformDependenciesVersion"]}"))
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
@@ -42,6 +48,11 @@ dependencies {
         exclude(group = "org.mockito")
     }
     testImplementation("org.springframework.security:spring-security-test")
+
+    testImplementation("org.testcontainers:junit-jupiter") {
+        exclude("org.junit.jupiter")
+    }
+    testImplementation("org.testcontainers:mongodb")
 }
 
 tasks.generateJava {

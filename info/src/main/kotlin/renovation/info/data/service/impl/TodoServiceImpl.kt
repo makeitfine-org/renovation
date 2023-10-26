@@ -17,6 +17,7 @@ import renovation.info.data.util.Helper
 
 private val log = KotlinLogging.logger { }
 
+@Suppress("TooGenericExceptionThrown")
 @Service
 class TodoServiceImpl(
     @Autowired val todoRepository: TodoRepository,
