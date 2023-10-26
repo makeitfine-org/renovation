@@ -25,6 +25,7 @@ class SecurityConfig(
             authorizeRequests
                 .antMatchers("/module", "/about").permitAll()
                 .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
+                .antMatchers("/api/v1/info/todo/**").permitAll()
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer

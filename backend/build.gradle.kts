@@ -43,7 +43,7 @@ dependencies {
     implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
+    //    implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
     //security
     implementation("org.springframework.boot:spring-boot-starter-security")
 //    implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")

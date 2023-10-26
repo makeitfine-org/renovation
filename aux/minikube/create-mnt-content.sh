@@ -10,7 +10,7 @@ sudo mkdir /mnt/mongo/data
 sudo mkdir /mnt/mongo/init
 
 sudo touch /mnt/mongo/init/v1_0__create_introuser.js
-sudo touch /mnt/mongo/init/v1_1__create_info_collection.js
+sudo touch /mnt/mongo/init/v1_1__create_details_collection.js
 
 sudo mkdir /mnt/pg
 sudo mkdir /mnt/pg/data
@@ -56,7 +56,7 @@ db.createUser(
 
 EOT
 
-cat <<EOT >> /mnt/mongo/init/v1_1__create_info_collection.js
+cat <<EOT >> /mnt/mongo/init/v1_1__create_details_collection.js
 db.createCollection("details");
 db.details.insert({
     "_id": ObjectId('62571572b85c114c70d2c101'),
