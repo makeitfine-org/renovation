@@ -9,26 +9,26 @@ package renovation.info.data.service.impl
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import renovation.info.data.model.TodosEntity
-import renovation.info.data.repository.TodosRepository
-import renovation.info.data.service.TodosService
+import renovation.info.data.entity.TodoEntity
+import renovation.info.data.repository.TodoRepository
+import renovation.info.data.service.TodoService
 import renovation.info.data.service.ValidatorService
 
 private val log = KotlinLogging.logger { }
 
 @Service
-class TodosServiceImpl(
-    @Autowired val todosRepository: TodosRepository,
+class TodoServiceImpl(
+    @Autowired val todoRepository: TodoRepository,
     @Autowired val validatorService: ValidatorService,
-) : TodosService {
+) : TodoService {
 
-    override fun getAll() = todosRepository.findAll()
+    override fun getAll() = todoRepository.findAll()
         .also { log.info("find all todos") }
 
-    override fun getById(id: Int) = todosRepository.findById(id).orElseThrow()
+    override fun getById(id: Int) = todoRepository.findById(id).orElseThrow()
         .also { log.info("find single todo with id = ${id}") }
 
-    override fun save(todosEntity: TodosEntity): TodosEntity {
+    override fun save(todosEntity: TodoEntity): TodoEntity {
         TODO("Not yet implemented")
     }
 }

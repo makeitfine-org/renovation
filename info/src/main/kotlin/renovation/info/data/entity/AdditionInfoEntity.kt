@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-package renovation.info.data.model
+package renovation.info.data.entity
 
 import org.springframework.data.mongodb.core.index.Indexed
 

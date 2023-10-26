@@ -6,26 +6,23 @@
 
 package renovation.info.web.controller
 
-import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import renovation.info.data.service.DetailsService
-import renovation.info.data.service.TodosService
+import renovation.info.data.service.TodoService
 
 @CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])
 @RestController
 @RequestMapping("/api/v1/info/todo")
 class TodosController(
-    @Autowired val todosService: TodosService
+    @Autowired val todoService: TodoService
 ) {
     @GetMapping
-    fun get() = todosService.getAll()
+    fun get() = todoService.getAll()
 
     @GetMapping("{id}")
-    fun find(@PathVariable id: Int)= todosService.getById(id)
+    fun find(@PathVariable id: Int)= todoService.getById(id)
 }

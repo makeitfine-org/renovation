@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-package renovation.info.data.model
+package renovation.info.data.entity
 
 import java.time.LocalDateTime
 import org.springframework.data.annotation.Id
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Document(collection = "todos")
-data class TodosEntity(
+data class TodoEntity(
     @Id
     var id: Int,
 

@@ -6,7 +6,7 @@
 
 package renovation.info.data.service
 
-import renovation.info.data.model.DetailsEntity
+import renovation.info.data.entity.DetailsEntity
 import renovation.info.generated.dgs.types.Details
 import renovation.info.generated.dgs.types.DetailsInput
 

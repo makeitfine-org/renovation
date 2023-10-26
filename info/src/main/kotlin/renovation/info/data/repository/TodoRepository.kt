@@ -7,6 +7,6 @@
 package renovation.info.data.repository
 
 import org.springframework.data.mongodb.repository.MongoRepository
-import renovation.info.data.model.TodosEntity
+import renovation.info.data.entity.TodoEntity
 
-interface TodosRepository : MongoRepository<TodosEntity, Int>
+interface TodoRepository : MongoRepository<TodoEntity, Int>

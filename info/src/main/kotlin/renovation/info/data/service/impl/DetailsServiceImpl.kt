@@ -9,9 +9,9 @@ package renovation.info.data.service.impl
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import renovation.info.data.model.AdditionInfoEntity
-import renovation.info.data.model.DetailsEmailEntity
-import renovation.info.data.model.DetailsEntity
+import renovation.info.data.entity.AdditionInfoEntity
+import renovation.info.data.entity.DetailsEmailEntity
+import renovation.info.data.entity.DetailsEntity
 import renovation.info.data.repository.DetailsRepository
 import renovation.info.data.service.DetailsService
 import renovation.info.data.service.ValidatorService
