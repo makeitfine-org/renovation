@@ -17,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
@@ -36,9 +35,8 @@ class TodoControllerFunctionalTest(
         @JvmStatic
         private val OBJECT_MAPPER = ObjectMapper()
 
-        private const val WORK_COUNT: Long = 5
-        private const val COUNT_WORD = "count"
-
+//        private const val WORK_COUNT: Long = 5
+//        private const val COUNT_WORD = "count"
 
         @Container
         val mongoDBContainer = GenericContainer(DockerImageName.parse(MONGO_DB_DOCKER_IMAGE))
@@ -60,8 +58,7 @@ class TodoControllerFunctionalTest(
         fun properties(registry: DynamicPropertyRegistry) {
             registry.add("spring.security.enabled") { "false" }
 
-            registry.add("spring.data.mongodb.uri")
-            { "mongodb://root:root@localhost:${mongoDBContainer.getMappedPort(27017)}/infodb" }
+            registry.add("spring.data.mongodb.port") { mongoDBContainer.getMappedPort(27017) }
         }
     }
 
@@ -131,47 +128,22 @@ class TodoControllerFunctionalTest(
 
     @Test
     fun findOne_Success() {
+        val ID = 3
         given()
             .When {
-                get("/api/v1/info/todo")
+                get("/api/v1/info/todo/$ID")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
                 body(
                     CoreMatchers.equalTo(
                         rowJson(
                             """
-                           [
-                               {
-                                   "id": 1,
-                                   "title": "Add Casandra support",
-                                   "completed": false,
-                                   "date": "2023-10-18T16:10:30"
-                               },
-                               {
-                                   "id": 2,
-                                   "title": "Add git support",
-                                   "completed": true,
-                                   "date": "2022-03-18T15:10"
-                               },
                                {
                                    "id": 3,
                                    "title": "Add firebase support",
                                    "completed": false,
                                    "date": "2023-06-11T12:10"
-                               },
-                               {
-                                   "id": 4,
-                                   "title": "Add kubernates yamls",
-                                   "completed": false,
-                                   "date": "2023-08-05T15:10"
-                               },
-                               {
-                                   "id": 5,
-                                   "title": "Add Postgress configs",
-                                   "completed": true,
-                                   "date": "2022-03-10T22:15"
                                }
-                           ]                           
                             """
                                 .trimIndent()
                         )
@@ -195,7 +167,7 @@ class TodoControllerFunctionalTest(
 //        jdbcTemplate.queryForList("select count(*) from work where deleted = false")[0][COUNT_WORD]
 //    )
 
-    protected fun given() = Given {
+    private fun given() = Given {
         port(port)
             .and().header("Content-type", "application/json")
     }
