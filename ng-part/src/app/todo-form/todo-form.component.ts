@@ -19,12 +19,18 @@ export class TodoFormComponent implements OnInit {
   addTodo() {
     const todo: Todo = {
       title: this.title,
-      id: Date.now(),
+      id: this.getRandomInt(0, 1000_000),
       completed: false,
-      date: new Date()
+      date: (new Date()).format('DD-MMM-YYYY HH:mm:ss')
     }
 
     this.todosService.addTodo(todo)
     this.title = ''
+  }
+
+  private getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

@@ -35,15 +35,18 @@ export class TodosService {
       });
   }
 
-  deleteTodo(id: number) {
+  addTodo(todo: Todo) {
+    this.createTodo(todo)
+      .subscribe(response => {
+        this.todos.push(todo)
+      });
+  }
+
+  private deleteTodo(id: number) {
     return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
   }
 
-  // deleteTodo(id: number): Observable<any> {
-  //   return this.http.delete(`${ environment.v1ApiTodoUrl }/${ id }`, {responseType: 'text'});
-  // }
-
-  addTodo(todo: Todo) {
-    this.todos.push(todo)
+  private createTodo(todo: Todo): Observable<Object> {
+    return this.http.post(environment.v1ApiTodoUrl, todo);
   }
 }
