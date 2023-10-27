@@ -23,11 +23,12 @@ import org.springframework.web.bind.annotation.RestController
 import renovation.info.data.model.TodoModel
 import renovation.info.data.service.TodoService
 
-@CrossOrigin(
-    originPatterns = ["http://localhost:90*", "http://localhost:4200", "http://r"], //todo: is it work? (take other port and it's still work)
-//    originPatterns = ["*"],
-    methods = [GET, POST, DELETE]
-)
+//@CrossOrigin(
+//    originPatterns = ["http://localhost:90*", "http://localhost:4200", "http://r"],
+// todo: is it work? (take other port and it's still work)
+////    originPatterns = ["*"],
+//    methods = [GET, POST, DELETE]
+//) //todo: cors with options
 @RestController
 @RequestMapping("/api/v1/info/todo")
 class TodoController(

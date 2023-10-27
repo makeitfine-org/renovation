@@ -22,12 +22,15 @@ class CorsConfig {
             addAllowedHeader(CorsConfiguration.ALL)
             addAllowedMethod(HttpMethod.GET)
             addAllowedMethod(HttpMethod.POST)
+            addAllowedMethod(HttpMethod.DELETE)
             addExposedHeader(CorsConfiguration.ALL)
             addAllowedOriginPattern("http://localhost:80*")
+            addAllowedOriginPattern("http://localhost:4200")
         }
 
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/graphql/**", config)
+        source.registerCorsConfiguration("/api/v1/info/todo/**", config)
 
         return CorsFilter(source)
     }

@@ -9,10 +9,10 @@
   </div>
 
   <ul *ngIf="todosService.todos.length; else noTodos">
-    <li *ngFor="let todo of todosService.todos | todosFilter:searchString; let i = index">
+    <li *ngFor="let todo of todosService.todos | todosFilter:searchString">
     <span [class.done]="todo.completed">
       <input type="checkbox" [checked]="todo.completed" (change)="onChange(todo.id)">
-      <strong>{{i + 1}}</strong> {{ todo.title }}
+      <strong>{{ todo.id }}</strong> {{ todo.title }}
     </span>
 
       <small>{{todo.date | date:'medium'}}</small>

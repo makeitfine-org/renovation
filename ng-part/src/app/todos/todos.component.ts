@@ -23,7 +23,7 @@ export class TodosComponent implements OnInit {
   }
 
   onChange(id: number) {
-    this.todosService.onToggle(id)
+    this.todosService.toggleCompletedFlag(id)
   }
 
   removeTodo(id: number) {

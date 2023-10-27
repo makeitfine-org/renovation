@@ -15,21 +15,33 @@ export interface Todo {
 export class TodosService {
   public todos: Todo[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   fetchTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(environment.v1ApiTodoUrl)
       .pipe(tap(todos => this.todos = todos))
   }
 
-  onToggle(id: number) {
-    const idx = this.todos.findIndex(t => t.id === id)
-    this.todos[idx].completed = !this.todos[idx].completed
+  toggleCompletedFlag(id: number) {
+    const elem = this.todos.find(t => t.id == id)!
+    elem.completed = !elem.completed
   }
 
   removeTodo(id: number) {
-    this.todos = this.todos.filter(t => t.id !== id)
+    this.deleteTodo(id)
+      .subscribe(response => {
+        this.todos = this.todos.filter(t => t.id !== id)
+      });
   }
+
+  deleteTodo(id: number) {
+    return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
+  }
+
+  // deleteTodo(id: number): Observable<any> {
+  //   return this.http.delete(`${ environment.v1ApiTodoUrl }/${ id }`, {responseType: 'text'});
+  // }
 
   addTodo(todo: Todo) {
     this.todos.push(todo)
