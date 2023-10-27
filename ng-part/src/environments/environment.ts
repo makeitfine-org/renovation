@@ -9,7 +9,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  v1ApiTodoUrl: "http://localhost:9190/api/v1/info/todo"
 };
 
 /*

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {environment} from "../../environments/environment";
 
 export interface Todo {
   id: number
@@ -17,7 +18,7 @@ export class TodosService {
   constructor(private http: HttpClient) {}
 
   fetchTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>('https://jsonplaceholder.typicode.com/todos?_limit=15')
+    return this.http.get<Todo[]>(environment.v1ApiTodoUrl)
       .pipe(tap(todos => this.todos = todos))
   }
 
