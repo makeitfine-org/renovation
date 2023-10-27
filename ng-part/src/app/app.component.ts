@@ -1,9 +1,3 @@
-/*
- * Created under not commercial project "Renovation"
- *
- * Copyright 2021-2023
- */
-
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-part';
+  title = 'ng-part'
 }

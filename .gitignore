@@ -205,7 +205,7 @@ out/
 *.sublime-workspace
 
 # Miscellaneous
-/.angular/cache
+*/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
