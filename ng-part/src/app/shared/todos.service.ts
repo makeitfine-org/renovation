@@ -3,19 +3,21 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {environment} from "../../environments/environment";
+import {DatePipe} from "@angular/common";
 
 export interface Todo {
   id: number
   title: string
   completed: boolean
-  date?: any
+  date?: Date
 }
 
 @Injectable({providedIn: 'root'})
 export class TodosService {
   public todos: Todo[] = []
+  public TIME_DATE_FORMAT = "yyyy-MM-dd HH:mm"
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
   fetchTodos(): Observable<Todo[]> {
@@ -47,6 +49,10 @@ export class TodosService {
   }
 
   private createTodo(todo: Todo): Observable<Object> {
-    return this.http.post(environment.v1ApiTodoUrl, todo);
+    const todoForSave = {
+      ...todo,
+      date: this.datePipe.transform(todo.date, this.TIME_DATE_FORMAT)
+    }
+    return this.http.post(environment.v1ApiTodoUrl, todoForSave);
   }
 }

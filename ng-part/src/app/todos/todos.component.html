@@ -15,7 +15,7 @@
       <strong>{{ todo.id }}</strong> {{ todo.title }}
     </span>
 
-      <small>{{todo.date | date:'yyyy-MM-dd HH:mm'}}</small>
+      <small>{{ todo.date | date:todosService.TIME_DATE_FORMAT }}</small>
 
       <button class="rm" (click)="removeTodo(todo.id)">&times;</button>
     </li>

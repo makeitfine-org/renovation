@@ -21,7 +21,7 @@ export class TodoFormComponent implements OnInit {
       title: this.title,
       id: this.getRandomInt(0, 1000_000),
       completed: false,
-      date: (new Date()).format('DD-MMM-YYYY HH:mm:ss')
+      date: new Date()
     }
 
     this.todosService.addTodo(todo)
