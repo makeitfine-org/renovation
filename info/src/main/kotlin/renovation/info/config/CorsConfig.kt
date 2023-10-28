@@ -22,6 +22,7 @@ class CorsConfig {
             addAllowedHeader(CorsConfiguration.ALL)
             addAllowedMethod(HttpMethod.GET)
             addAllowedMethod(HttpMethod.POST)
+            addAllowedMethod(HttpMethod.PUT)
             addAllowedMethod(HttpMethod.DELETE)
             addExposedHeader(CorsConfiguration.ALL)
             addAllowedOriginPattern("http://localhost:80*")

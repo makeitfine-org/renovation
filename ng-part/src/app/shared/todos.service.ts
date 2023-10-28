@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {tap} from 'rxjs/operators';
-import {CrudTodosService} from "./crud-todos.service";
+import {TodosCrudService} from "./todos-crud.service";
 import {Todo} from "./todos.common";
 
 export {Todo} from "./todos.common";
@@ -9,7 +9,7 @@ export {Todo} from "./todos.common";
 export class TodosService {
   public todos: Todo[] = []
 
-  constructor(private crudTodosService: CrudTodosService) {
+  constructor(private crudTodosService: TodosCrudService) {
   }
 
   fetchTodos() {
@@ -18,8 +18,13 @@ export class TodosService {
   }
 
   toggleCompletedFlag(id: number) {
-    const elem = this.todos.find(t => t.id == id)!
-    elem.completed = !elem.completed
+    const todo = this.todos.find(t => t.id == id)!
+    todo.completed = !todo.completed
+
+    this.crudTodosService.updateTodo(todo)
+      .subscribe(response => {
+        // this.todos.push(todo)
+      })
   }
 
   removeTodo(id: number) {

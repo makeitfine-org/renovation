@@ -6,7 +6,7 @@ import {DatePipe} from "@angular/common";
 import {Constants, Todo} from "./todos.common";
 
 @Injectable({providedIn: 'root'})
-export class CrudTodosService {
+export class TodosCrudService {
   constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
@@ -18,11 +18,28 @@ export class CrudTodosService {
     return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
   }
 
-  createTodo(todo: Todo): Observable<Object> {
+  createTodo(todo: Todo) {
     const todoForSave = {
       ...todo,
       date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
     }
     return this.http.post(environment.v1ApiTodoUrl, todoForSave);
+  }
+
+  updateTodo(todo: Todo) {
+    const todoForUpdate = {
+      ...todo,
+      date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
+    }
+    return this.http.put(environment.v1ApiTodoUrl, todoForUpdate);
+  }
+
+  private createUpdate(todo: Todo, fn: (url: string, todo: any) => Observable<Object>) {
+    const dateModifiedTodo = {
+      ...todo,
+      date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
+    }
+
+    fn(environment.v1ApiTodoUrl, dateModifiedTodo)
   }
 }
