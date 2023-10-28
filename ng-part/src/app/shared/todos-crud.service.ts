@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {DatePipe} from "@angular/common";
 import {Constants, Todo} from "./todos.common";
@@ -18,28 +17,15 @@ export class TodosCrudService {
     return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
   }
 
-  createTodo(todo: Todo) {
-    const todoForSave = {
-      ...todo,
-      date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
-    }
-    return this.http.post(environment.v1ApiTodoUrl, todoForSave);
-  }
+  createTodo = (todo: Todo) => this.http.post(environment.v1ApiTodoUrl, this.dateModifiedTodo(todo))
 
-  updateTodo(todo: Todo) {
-    const todoForUpdate = {
-      ...todo,
-      date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
-    }
-    return this.http.put(environment.v1ApiTodoUrl, todoForUpdate);
-  }
+  updateTodo = (todo: Todo) => this.http.put(environment.v1ApiTodoUrl, this.dateModifiedTodo(todo))
 
-  private createUpdate(todo: Todo, fn: (url: string, todo: any) => Observable<Object>) {
-    const dateModifiedTodo = {
+  private dateModifiedTodo = (todo: Todo) => {
+    return {
       ...todo,
-      date: this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
+      date:
+        this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
     }
-
-    fn(environment.v1ApiTodoUrl, dateModifiedTodo)
   }
 }
