@@ -176,7 +176,32 @@ class TodoControllerFunctionalTest(
 
     @Order(1)
     @Test
-    fun create() {
+    fun update_Success() {
+        checkTodoCollectionDocumentAmount(TODO_AMOUNT)
+
+        given()
+            .When {
+                body(
+                    """
+                   {
+                       "id": 3,
+                       "title": "New updated",
+                       "completed": false,
+                       "date": "2023-08-10 10:10"
+                   }
+                    """.trimIndent()
+                )
+                    .put("/api/v1/info/todo")
+            }.Then {
+                statusCode(HttpStatus.SC_NO_CONTENT)
+
+                checkTodoCollectionDocumentAmount(TODO_AMOUNT)
+            }
+    }
+
+    @Order(2)
+    @Test
+    fun create_Success() {
         checkTodoCollectionDocumentAmount(TODO_AMOUNT)
 
         given()
@@ -199,9 +224,9 @@ class TodoControllerFunctionalTest(
             }
     }
 
-    @Order(2)
+    @Order(3)
     @Test
-    fun delete() {
+    fun delete_Success() {
         checkTodoCollectionDocumentAmount(TODO_AMOUNT + 1)
 
         val id = 5

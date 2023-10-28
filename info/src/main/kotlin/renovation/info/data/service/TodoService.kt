@@ -15,5 +15,7 @@ interface TodoService {
 
     fun save(todoModel: TodoModel): Unit
 
+    fun update(todoModel: TodoModel): Unit
+
     fun delete(id: Int): Unit
 }

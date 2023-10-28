@@ -38,14 +38,28 @@ class TodoServiceImpl(
         validatorService.validate(
             Helper.convert(todoModel)
         )
-    ).let { }
-        .also { log.info("create single todo with id = $todoModel") }
+    ).let { log.info("create single todo with id = $todoModel") }
+
+    @Throws(RuntimeException::class)
+    override fun update(todoModel: TodoModel) {
+        todoRepository.findById(todoModel.id).orElseThrow()
+
+        todoRepository.save(
+            validatorService.validate(
+                Helper.convert(todoModel)
+            )
+        )
+
+        log.info("update single todo: $todoModel")
+    }
 
     @Throws(RuntimeException::class)
     override fun delete(id: Int) {
         if (!todoRepository.existsById(id)) {
-            throw RuntimeException("Not found todo with id=$id")
+            throw RuntimeException("Not found todo with id = $id")
         }
         todoRepository.deleteById(id)
+
+        log.info("delete single todo with id = $id")
     }
 }
