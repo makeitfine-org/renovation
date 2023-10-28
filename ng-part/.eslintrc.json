@@ -42,17 +42,20 @@
         ]
       }
     },
-//    {
-//      "files": [
-//        "src/**"
-//      ],
-//      "rules": {
-//        "semi": [
-//          "error",
-//          "never"
-//        ]
-//      }
-//    },
+    {
+      "files": [
+        "src/**"
+      ],
+      "excludedFiles": [
+        "polyfills.ts"
+      ],
+      "rules": {
+        "semi": [
+          "error",
+          "never"
+        ]
+      }
+    },
     {
       "files": [
         "*.html"

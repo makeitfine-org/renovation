@@ -11,7 +11,7 @@
 export const environment = {
   production: false,
   v1ApiTodoUrl: "http://localhost:9190/api/v1/info/todo"
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

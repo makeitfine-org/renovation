@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Todo, TodosService} from '../shared/todos.service';
+import {Component, OnInit} from '@angular/core'
+import {Todo, TodosService} from '../shared/todos.service'
 
 @Component({
   selector: 'app-todo-form',
@@ -8,7 +8,7 @@ import {Todo, TodosService} from '../shared/todos.service';
 })
 export class TodoFormComponent implements OnInit {
 
-  title: string = '';
+  title: string = ''
 
   constructor(private todosService: TodosService) {
   }
@@ -29,8 +29,8 @@ export class TodoFormComponent implements OnInit {
   }
 
   private getRandomInt(min: number, max: number) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
   }
 }

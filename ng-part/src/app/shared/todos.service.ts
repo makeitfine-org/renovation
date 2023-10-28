@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {tap} from 'rxjs/operators';
-import {TodosCrudService} from "./todos-crud.service";
-import {Todo} from "./todos.common";
+import {Injectable} from '@angular/core'
+import {tap} from 'rxjs/operators'
+import {TodosCrudService} from "./todos-crud.service"
+import {Todo} from "./todos.common"
 
-export {Todo} from "./todos.common";
+export {Todo} from "./todos.common"
 
 @Injectable({providedIn: 'root'})
 export class TodosService {
@@ -31,13 +31,13 @@ export class TodosService {
     this.crudTodosService.deleteTodo(id)
       .subscribe(response => {
         this.todos = this.todos.filter(t => t.id !== id)
-      });
+      })
   }
 
   addTodo(todo: Todo) {
     this.crudTodosService.createTodo(todo)
       .subscribe(response => {
         this.todos.push(todo)
-      });
+      })
   }
 }

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from "../../environments/environment";
-import {DatePipe} from "@angular/common";
-import {Constants, Todo} from "./todos.common";
+import {Injectable} from '@angular/core'
+import {HttpClient} from '@angular/common/http'
+import {environment} from "../../environments/environment"
+import {DatePipe} from "@angular/common"
+import {Constants, Todo} from "./todos.common"
 
 @Injectable({providedIn: 'root'})
 export class TodosCrudService {
@@ -14,7 +14,7 @@ export class TodosCrudService {
   }
 
   deleteTodo(id: number) {
-    return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
+    return this.http.delete(environment.v1ApiTodoUrl + '/' + id)
   }
 
   createTodo = (todo: Todo) => this.http.post(environment.v1ApiTodoUrl, this.dateModifiedTodo(todo))
