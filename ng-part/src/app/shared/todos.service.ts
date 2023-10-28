@@ -1,27 +1,19 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {environment} from "../../environments/environment";
-import {DatePipe} from "@angular/common";
+import {CrudTodosService} from "./crud-todos.service";
+import {Todo} from "./todos.common";
 
-export interface Todo {
-  id: number
-  title: string
-  completed: boolean
-  date?: Date
-}
+export {Todo} from "./todos.common";
 
 @Injectable({providedIn: 'root'})
 export class TodosService {
   public todos: Todo[] = []
-  public TIME_DATE_FORMAT = "yyyy-MM-dd HH:mm"
 
-  constructor(private http: HttpClient, private datePipe: DatePipe) {
+  constructor(private crudTodosService: CrudTodosService) {
   }
 
-  fetchTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(environment.v1ApiTodoUrl)
+  fetchTodos() {
+    return this.crudTodosService.getTodos()
       .pipe(tap(todos => this.todos = todos))
   }
 
@@ -31,28 +23,16 @@ export class TodosService {
   }
 
   removeTodo(id: number) {
-    this.deleteTodo(id)
+    this.crudTodosService.deleteTodo(id)
       .subscribe(response => {
         this.todos = this.todos.filter(t => t.id !== id)
       });
   }
 
   addTodo(todo: Todo) {
-    this.createTodo(todo)
+    this.crudTodosService.createTodo(todo)
       .subscribe(response => {
         this.todos.push(todo)
       });
-  }
-
-  private deleteTodo(id: number) {
-    return this.http.delete(environment.v1ApiTodoUrl + '/' + id);
-  }
-
-  private createTodo(todo: Todo): Observable<Object> {
-    const todoForSave = {
-      ...todo,
-      date: this.datePipe.transform(todo.date, this.TIME_DATE_FORMAT)
-    }
-    return this.http.post(environment.v1ApiTodoUrl, todoForSave);
   }
 }
