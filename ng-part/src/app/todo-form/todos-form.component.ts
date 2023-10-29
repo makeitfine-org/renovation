@@ -6,14 +6,11 @@ import {Todo, TodosService} from '../shared/todos.service'
   templateUrl: './todos-form.component.html',
   styleUrls: ['./todos-form.component.scss']
 })
-export class TodosFormComponent implements OnInit {
+export class TodosFormComponent {
 
   title: string = ''
 
   constructor(private todosService: TodosService) {
-  }
-
-  ngOnInit() {
   }
 
   addTodo() {
