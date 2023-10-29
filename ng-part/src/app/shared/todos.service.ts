@@ -22,21 +22,21 @@ export class TodosService {
     todo.completed = !todo.completed
 
     this.crudTodosService.updateTodo(todo)
-      .subscribe(response => {
+      .subscribe(() => {
         // this.todos.push(todo)
       })
   }
 
   removeTodo(id: number) {
     this.crudTodosService.deleteTodo(id)
-      .subscribe(response => {
+      .subscribe(() => {
         this.todos = this.todos.filter(t => t.id !== id)
       })
   }
 
   addTodo(todo: Todo) {
     this.crudTodosService.createTodo(todo)
-      .subscribe(response => {
+      .subscribe(() => {
         this.todos.push(todo)
       })
   }
