@@ -239,6 +239,10 @@ tasks.register<GradleBuild>(buildall) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":temp:build")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":common:build")
+        }
     }
 }
 
