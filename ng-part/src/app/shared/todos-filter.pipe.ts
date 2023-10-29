@@ -10,8 +10,6 @@ export class TodosFilterPipe implements PipeTransform {
       return todos
     }
 
-    return todos.filter(todo => {
-      return todo.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
-    })
+    return todos.filter(todo => todo.title.toLowerCase().includes(search.toLowerCase()))
   }
 }

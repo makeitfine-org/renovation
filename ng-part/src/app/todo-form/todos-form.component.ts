@@ -3,10 +3,10 @@ import {Todo, TodosService} from '../shared/todos.service'
 
 @Component({
   selector: 'app-todo-form',
-  templateUrl: './todo-form.component.html',
-  styleUrls: ['./todo-form.component.scss']
+  templateUrl: './todos-form.component.html',
+  styleUrls: ['./todos-form.component.scss']
 })
-export class TodoFormComponent implements OnInit {
+export class TodosFormComponent implements OnInit {
 
   title: string = ''
 
