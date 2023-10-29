@@ -13,3 +13,7 @@ plugins {
 tasks.register<NpmTask>("npmBuild") {
     args.set(listOf("run", "build"))
 }
+
+tasks.register<NpmTask>("npmLint") {
+  args.set(listOf("run", "lint"))
+}

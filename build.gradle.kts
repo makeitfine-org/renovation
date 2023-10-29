@@ -205,6 +205,18 @@ tasks.register<GradleBuild>(buildall) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":ng-part:npmInstall")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":ng-part:npmLint")
+        }
+//        exec { //todo: fix for prod. version
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("gradle", ":ng-part:npmBuild")
+//        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":backend:compileJava")
         }
         exec {
