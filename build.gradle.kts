@@ -169,10 +169,10 @@ subprojects {
     }
 }
 
-val buildall = "buildall"
+val buildAll = "buildAll"
 
-tasks.register<GradleBuild>(buildall) {
-    description = "Execute build on modules"
+tasks.register<GradleBuild>(buildAll) {
+    description = "Execute all tests and build projects (docker compose used)"
     println(description)
 
     doLast {
@@ -183,6 +183,14 @@ tasks.register<GradleBuild>(buildall) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", "detekt")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "test")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "integration")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -208,37 +216,35 @@ tasks.register<GradleBuild>(buildall) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":ng-part:npmLint")
         }
-//        exec { //todo: fix for prod. version
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("gradle", ":ng-part:npmBuild")
-//        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:compileJava")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":info:assemble")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":gateway:assemble")
-        }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", "copyDistToPublic")
         }
+
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:build", "-x", "koverVerify")
+            commandLine("gradle", "assemble")
+        }
+
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "compose", "down")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":temp:build")
+            commandLine("docker", "compose", "build")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":common:build")
+            commandLine("docker", "compose", "up", "-d")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("sleep", "30")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "e2e")
         }
     }
 }
@@ -295,48 +301,6 @@ tasks.register<GradleBuild>(removeImages) {
     }
 }
 
-val dockerAndApiTest = "dockerAndApiTest"
-
-tasks.register<GradleBuild>(dockerAndApiTest) {
-    description = "Run docker and execute backend api tests"
-    println(description)
-
-    doLast {
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "down")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "build")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "up", "-d")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("sleep", "30")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":api-test:clean")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":api-test:build")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":info:build")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":gateway:build")
-        }
-    }
-}
-
 tasks.register<GradleBuild>("all") {
     description = "Execute build on modules, run docker and execute api tests"
     println(description)
@@ -344,15 +308,11 @@ tasks.register<GradleBuild>("all") {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildall)
+            commandLine("gradle", buildAll)
         }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", checkall)
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", dockerAndApiTest)
         }
     }
 }

@@ -12,6 +12,7 @@ import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
+import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,6 +23,7 @@ import org.springframework.test.context.ActiveProfiles
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
 
+@Tag("e2e")
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ExposeApiConfigTest(
