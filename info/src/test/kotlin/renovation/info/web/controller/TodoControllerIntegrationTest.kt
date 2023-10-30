@@ -105,31 +105,31 @@ class TodoControllerIntegrationTest(
                                     "id": 1,
                                     "title": "Add Casandra support",
                                     "completed": false,
-                                    "date": "2023-10-18T16:10:30"
+                                    "date": "2023-10-18T14:10:30"
                                 },
                                 {
                                     "id": 2,
                                     "title": "Add git support",
                                     "completed": true,
-                                    "date": "2022-03-18T15:10"
+                                    "date": "2022-03-18T13:10"
                                 },
                                 {
                                     "id": 3,
                                     "title": "Add firebase support",
                                     "completed": false,
-                                    "date": "2023-06-11T12:10"
+                                    "date": "2023-06-11T10:10"
                                 },
                                 {
                                     "id": 4,
                                     "title": "Add kubernates yamls",
                                     "completed": false,
-                                    "date": "2023-08-05T15:10"
+                                    "date": "2023-08-05T13:10"
                                 },
                                 {
                                     "id": 5,
                                     "title": "Add Postgress configs",
                                     "completed": true,
-                                    "date": "2022-03-10T22:15"
+                                    "date": "2022-03-10T20:15"
                                 }
                             ]
                             """
@@ -161,7 +161,7 @@ class TodoControllerIntegrationTest(
                                    "id": 3,
                                    "title": "Add firebase support",
                                    "completed": false,
-                                   "date": "2023-06-11T12:10"
+                                   "date": "2023-06-11T10:10"
                                }
                             """
                                 .trimIndent()
