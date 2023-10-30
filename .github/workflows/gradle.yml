@@ -32,7 +32,7 @@ jobs:
       with:
         gradle-version: 7.5.1
     - name: Kotlin modules builds (Gradle)
-      run: gradle detekt :backend:compileJava :info:assemble :gateway:assemble :temp:build :common:build :backend:build -x koverVerify
+      run: gradle detekt test integration
 
     - name: Set up Node
       uses: actions/setup-node@v3
