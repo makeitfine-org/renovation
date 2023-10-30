@@ -19,12 +19,12 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import java.util.*
 import kotlin.test.*
-import renovation.backend.TestAbstract
+import renovation.backend.AppByContainersConfig
 
 @Tag("integration")
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class WorkServiceCacheableTest : TestAbstract() {
+internal class WorkServiceCacheableTest : AppByContainersConfig() {
 
     companion object {
         private const val cacheName = "works"

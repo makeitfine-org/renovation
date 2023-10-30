@@ -16,7 +16,7 @@ import org.testcontainers.utility.DockerImageName
 
 @Testcontainers
 @Suppress("UnnecessaryAbstractClass", "UtilityClassWithPublicConstructor")
-internal abstract class TestAbstract {
+internal abstract class AppByContainersConfig {
 
     companion object {
         private const val POSTGRES_DOCKER_IMAGE = "postgres:14.2-alpine"

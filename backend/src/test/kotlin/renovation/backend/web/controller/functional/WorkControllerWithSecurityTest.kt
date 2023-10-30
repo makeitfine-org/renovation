@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Container
-import renovation.backend.TestAbstract
+import renovation.backend.AppByContainersConfig
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
@@ -31,7 +31,7 @@ import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerWithSecurityTest(
     @LocalServerPort private val port: Int,
-) : WorkControllerTestAbstract(port) {
+) : WorkControllerAppByContainersConfig(port) {
 
     @TestConfiguration
     class ControllerTestConfig {
@@ -63,7 +63,7 @@ internal class WorkControllerWithSecurityTest(
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            TestAbstract.properties(registry)
+            AppByContainersConfig.properties(registry)
 
             registry.add("keycloak.auth-server-url") { keycloakContainer.authServerUrl }
         }

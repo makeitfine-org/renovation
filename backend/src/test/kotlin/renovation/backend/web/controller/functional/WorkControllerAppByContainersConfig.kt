@@ -27,12 +27,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import renovation.backend.TestAbstract
+import renovation.backend.AppByContainersConfig
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal abstract class WorkControllerTestAbstract(
+internal abstract class WorkControllerAppByContainersConfig(
     private val port: Int,
-) : TestAbstract() {
+) : AppByContainersConfig() {
 
     companion object {
         @JvmStatic

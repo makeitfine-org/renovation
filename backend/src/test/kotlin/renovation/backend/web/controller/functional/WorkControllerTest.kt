@@ -12,19 +12,19 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDO
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import renovation.backend.TestAbstract
+import renovation.backend.AppByContainersConfig
 
 @Tag("integration")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerTest(
     @LocalServerPort val port: Int,
-) : WorkControllerTestAbstract(port) {
+) : WorkControllerAppByContainersConfig(port) {
     companion object {
 
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            TestAbstract.properties(registry)
+            AppByContainersConfig.properties(registry)
 
             registry.add("keycloak.enabled") { "false" }
             registry.add("spring.autoconfigure.exclude") {

@@ -13,9 +13,9 @@ plugins {
 dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${properties["springCloudDependenciesVersion"]}")
+        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
     }
 }
-
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
@@ -36,4 +36,10 @@ dependencies {
         exclude(group = "org.junit.vintage")
         exclude(group = "org.mockito")
     }
+    testImplementation("org.testcontainers:junit-jupiter") {
+        exclude("org.junit.jupiter")
+    }
+    testImplementation(
+        "com.github.dasniko:testcontainers-keycloak:${properties["testcontainerKeycloakVersion"]}"
+    )
 }
