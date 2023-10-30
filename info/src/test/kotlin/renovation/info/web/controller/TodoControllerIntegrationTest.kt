@@ -32,13 +32,12 @@ import org.testcontainers.utility.MountableFile
 import renovation.info.data.entity.TodoEntity
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-@Tag("functional")
+@Tag("integration")
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TodoControllerFunctionalTest(
+class TodoControllerIntegrationTest(
     @LocalServerPort val port: Int,
 ) {
-
     companion object {
         private const val MONGO_DB_DOCKER_IMAGE = "mongo:5.0.6"
         private const val MONGO_AUTH_DB = "infodb"

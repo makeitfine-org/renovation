@@ -17,7 +17,7 @@ import renovation.backend.api.test.helper.FileHelper
 import renovation.backend.api.test.helper.SecurityHelper
 import kotlin.test.Test
 
-@Tag("smoke")
+@Tag("e2e")
 internal class WorkerControllerApiTest {
     companion object {
         @JvmStatic

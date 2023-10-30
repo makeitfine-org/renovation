@@ -14,7 +14,7 @@ import org.apache.http.HttpStatus
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.helper.SecurityHelper
 
-@Tag("healthCheck")
+@Tag("e2e")
 internal class ActuatorCheckTest {
 
     @Test

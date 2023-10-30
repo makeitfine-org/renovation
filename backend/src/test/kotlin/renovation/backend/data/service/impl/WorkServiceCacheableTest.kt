@@ -19,12 +19,12 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import java.util.*
 import kotlin.test.*
-import renovation.backend.FunctionalTestAbstract
+import renovation.backend.TestAbstract
 
-@Tag("functional")
+@Tag("integration")
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class WorkServiceCacheableFunctionalTest : FunctionalTestAbstract() {
+internal class WorkServiceCacheableTest : TestAbstract() {
 
     companion object {
         private const val cacheName = "works"

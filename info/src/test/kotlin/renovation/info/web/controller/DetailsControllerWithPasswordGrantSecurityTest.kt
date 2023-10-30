@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
-@Tag("smoke")
+@Tag("e2e")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class DetailsControllerWithPasswordGrantSecurityTest(
     @LocalServerPort private val port: Int

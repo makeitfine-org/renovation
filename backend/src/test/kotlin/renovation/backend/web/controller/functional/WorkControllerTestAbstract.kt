@@ -27,12 +27,12 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import renovation.backend.FunctionalTestAbstract
+import renovation.backend.TestAbstract
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal abstract class WorkControllerFunctionalTestAbstract(
+internal abstract class WorkControllerTestAbstract(
     private val port: Int,
-) : FunctionalTestAbstract() {
+) : TestAbstract() {
 
     companion object {
         @JvmStatic

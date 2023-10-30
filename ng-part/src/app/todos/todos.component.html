@@ -9,7 +9,11 @@
   </div>
 
   <ul *ngIf="todosService.todos.length; else noTodos">
-    <li *ngFor="let todo of todosService.todos | todosFilter:searchString">
+    <li *ngFor="let todo of todosService.todos | todosFilter:searchString"
+        [ngStyle]="{
+          color: todo.completed ? 'green': 'black'
+        }"
+    >
     <span [class.done]="todo.completed">
       <input type="checkbox" [checked]="todo.completed" (change)="onChange(todo.id)">
       <strong>{{ todo.id }}</strong> {{ todo.title }}

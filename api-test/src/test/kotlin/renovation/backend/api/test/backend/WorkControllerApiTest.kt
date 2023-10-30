@@ -23,7 +23,7 @@ import renovation.backend.api.test.helper.SecurityHelper
 import renovation.common.util.Json.OBJECT_MAPPER
 import renovation.common.util.Json.rowJson
 
-@Tag("smoke")
+@Tag("e2e")
 internal class WorkControllerApiTest : ApiTest {
 
     @Test

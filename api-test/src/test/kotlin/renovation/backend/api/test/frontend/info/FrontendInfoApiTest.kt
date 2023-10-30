@@ -17,7 +17,7 @@ import renovation.backend.api.test.helper.FileHelper
 import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
 
-@Tag("smoke")
+@Tag("e2e")
 internal class FrontendInfoApiTest : ApiTest {
 
     @Test

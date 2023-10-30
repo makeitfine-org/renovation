@@ -22,16 +22,16 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Container
-import renovation.backend.FunctionalTestAbstract
+import renovation.backend.TestAbstract
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
-@Tag("functional")
-@ActiveProfiles("secured-functional-test")
+@Tag("integration")
+@ActiveProfiles("secured-test")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-internal class WorkControllerWithSecurityFunctionalTest(
+internal class WorkControllerWithSecurityTest(
     @LocalServerPort private val port: Int,
-) : WorkControllerFunctionalTestAbstract(port) {
+) : WorkControllerTestAbstract(port) {
 
     @TestConfiguration
     class ControllerTestConfig {
@@ -63,7 +63,7 @@ internal class WorkControllerWithSecurityFunctionalTest(
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            FunctionalTestAbstract.properties(registry)
+            TestAbstract.properties(registry)
 
             registry.add("keycloak.auth-server-url") { keycloakContainer.authServerUrl }
         }

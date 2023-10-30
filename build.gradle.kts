@@ -117,16 +117,13 @@ subprojects {
             // dependsOn(ktlintCheck)
         }
 
-        val smokeTag = "smoke"
-        val healthCheckTag = "healthCheck"
         val integrationTag = "integration"
-        val functionalTag = "functional"
-
+        val e2eTag = "e2e"
         val minikubeTag = "minikube"
 
         tasks.withType<Test> {
             useJUnitPlatform {
-                excludeTags(smokeTag, healthCheckTag, integrationTag, functionalTag, minikubeTag)
+                excludeTags(integrationTag, e2eTag, minikubeTag)
             }
             jvmArgs = mutableListOf("--enable-preview")
             maxParallelForks = Runtime.getRuntime().availableProcessors()
@@ -162,16 +159,12 @@ subprojects {
             mustRunAfter(mustRunAfter)
         }
 
-        val healthCheckTest = testTask("healthCheck", tasks.test)
-        val smokeTest = testTask("smoke", healthCheckTest)
-        val intTest = testTask("integration", smokeTest)
-        val functionalTest = testTask("functional", intTest)
+        val integrationTest = testTask("integration", tasks.test)
+        val e2eTest = testTask("e2e", integrationTest)
 
         tasks.check {
-            dependsOn(healthCheckTest)
-            dependsOn(smokeTest)
-            dependsOn(intTest)
-            dependsOn(functionalTest)
+            dependsOn(integrationTest)
+            dependsOn(e2eTest)
         }
     }
 }
@@ -186,6 +179,10 @@ tasks.register<GradleBuild>(buildall) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", "clean")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "detekt")
         }
         exec {
             workingDir("${rootProject.rootDir}")
