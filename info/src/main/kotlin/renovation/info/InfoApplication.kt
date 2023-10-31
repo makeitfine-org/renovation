@@ -6,8 +6,8 @@
 
 package renovation.info
 
+import jakarta.annotation.PostConstruct
 import java.util.TimeZone
-import javax.annotation.PostConstruct
 import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

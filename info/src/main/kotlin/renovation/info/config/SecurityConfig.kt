@@ -23,11 +23,11 @@ class SecurityConfig(
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
-                .antMatchers("/module", "/about").permitAll()
-                .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
-                .antMatchers("/api/v1/info/todo/**").permitAll()
+                .requestMatchers("/module", "/about").permitAll()
+                .requestMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
+                .requestMatchers("/api/v1/info/todo/**").permitAll()
                 .anyRequest().authenticated()
-                .and().csrf().ignoringAntMatchers("/api/v1/info/todo/**")
+                .and().csrf().ignoringRequestMatchers("/api/v1/info/todo/**")
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
                 .jwt { jwtConfigurer ->

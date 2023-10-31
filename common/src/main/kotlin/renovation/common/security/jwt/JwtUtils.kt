@@ -1,7 +1,7 @@
 package renovation.common.security.jwt
 
-import com.nimbusds.jose.shaded.json.JSONArray
-import com.nimbusds.jose.shaded.json.JSONObject
+import com.nimbusds.jose.shaded.gson.JsonArray
+import com.nimbusds.jose.shaded.gson.JsonObject
 import org.springframework.core.convert.converter.Converter
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 object JwtUtils {
 
     @Suppress("ClassNaming")
-    enum class ROLE_CASE {
+    enum class ROLE_CASE {/**/
         LOWERCASE,
         UPPERCASE
     }
@@ -32,12 +32,12 @@ object JwtUtils {
                 if (jwt.getClaim<Any>("realm_access") == null) {
                     return grantedAuthorities
                 }
-                val realmAccess = jwt.getClaim<JSONObject>("realm_access")
+                val realmAccess = jwt.getClaim<JsonObject>("realm_access")
                 if (realmAccess["roles"] == null) {
                     return grantedAuthorities
                 }
-                val roles = realmAccess["roles"] as JSONArray
-                val keycloakAuthorities = roles.stream().map { role: Any ->
+                val roles = realmAccess["roles"] as JsonArray
+                val keycloakAuthorities = roles.asIterable().map { role: Any ->
                     SimpleGrantedAuthority("ROLE_$role")
                 }.toList()
                 grantedAuthorities!!.addAll(keycloakAuthorities)
@@ -49,10 +49,10 @@ object JwtUtils {
 
             private fun addClientRoles(jwt: Jwt, grantedAuthorities: MutableCollection<GrantedAuthority>) {
                 jwt.getClaim<Any>("resource_access")?.let {
-                    (it as? JSONObject)?.let {
-                        (it[clientId] as? JSONObject)?.let {
-                            (it["roles"] as? JSONArray)?.let {
-                                val clientRoles = it.stream().map { r: Any ->
+                    (it as? JsonObject)?.let {
+                        (it[clientId] as? JsonObject)?.let {
+                            (it["roles"] as? JsonArray)?.let {
+                                val clientRoles = it.asIterable().map { r: Any ->
                                     SimpleGrantedAuthority(
                                         "ROLE_${
                                             if (rolesUppercase == ROLE_CASE.UPPERCASE) {
@@ -83,10 +83,10 @@ object JwtUtils {
         val grantedAuthorities: MutableCollection<GrantedAuthority> = mutableListOf()
 
         jwt.getClaim<Any>("resource_access")?.let {
-            (it as? JSONObject)?.let {
-                (it[clientId] as? JSONObject)?.let {
-                    (it["roles"] as? JSONArray)?.let {
-                        it.stream().forEach {
+            (it as? JsonObject)?.let {
+                (it[clientId] as? JsonObject)?.let {
+                    (it["roles"] as? JsonArray)?.let {
+                        it.asIterable().forEach {
                             grantedAuthorities.add(
                                 SimpleGrantedAuthority(
                                     "ROLE_${

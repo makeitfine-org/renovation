@@ -6,10 +6,10 @@
 
 package renovation.backend.data.domain
 
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
 import java.io.Serializable
 import java.time.LocalDate
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.Size
 import renovation.backend.data.validation.OnCreate
 import renovation.backend.data.validation.OnUpdate
 

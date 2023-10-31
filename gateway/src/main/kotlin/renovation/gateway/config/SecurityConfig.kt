@@ -50,9 +50,9 @@ class SecurityConfig(
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.authorizeRequests {
             it
-                .antMatchers("/about").permitAll()
-                .antMatchers("/admin").hasAnyRole("admin")
-                .antMatchers("/user").hasAnyRole("gateway", "admin")
+                .requestMatchers("/about").permitAll()
+                .requestMatchers("/admin").hasAnyRole("admin")
+                .requestMatchers("/user").hasAnyRole("gateway", "admin")
                 .anyRequest().authenticated()
         }.oauth2Login {
             it.userInfoEndpoint { userInfoEndpoint ->

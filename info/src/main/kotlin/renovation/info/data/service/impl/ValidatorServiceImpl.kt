@@ -6,10 +6,10 @@
 
 package renovation.info.data.service.impl
 
+import jakarta.validation.Valid
 import org.springframework.stereotype.Service
 import org.springframework.validation.annotation.Validated
 import renovation.info.data.service.ValidatorService
-import javax.validation.Valid
 
 @Service
 @Validated
