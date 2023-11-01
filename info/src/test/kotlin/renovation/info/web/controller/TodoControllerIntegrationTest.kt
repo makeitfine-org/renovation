@@ -109,13 +109,13 @@ class TodoControllerIntegrationTest(
                                 },
                                 {
                                     "id": 2,
-                                    "title": "Add git support",
+                                    "title": "Buy sport products",
                                     "completed": true,
                                     "date": "2022-03-18T13:10"
                                 },
                                 {
                                     "id": 3,
-                                    "title": "Add firebase support",
+                                    "title": "Improve home staff",
                                     "completed": false,
                                     "date": "2023-06-11T10:10"
                                 },
@@ -159,7 +159,7 @@ class TodoControllerIntegrationTest(
                             """
                                {
                                    "id": 3,
-                                   "title": "Add firebase support",
+                                   "title": "Improve home staff",
                                    "completed": false,
                                    "date": "2023-06-11T10:10"
                                }

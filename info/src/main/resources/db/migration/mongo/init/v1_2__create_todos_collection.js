@@ -5,6 +5,7 @@
  */
 
 db.createCollection("todos");
+
 db.todos.insert({
     // "_id": ObjectId('11571572b11c114c70d2c101'),
     _id: 1,
@@ -12,20 +13,23 @@ db.todos.insert({
     completed: false,
     date: new Date("2023-10-18T14:10:30Z")
 });
+
 db.todos.insert({
     // "_id": ObjectId('12571572a12c114c70a2c101'),
     _id: 2,
-    title: "Add git support",
+    title: "Buy sport products",
     completed: true,
     date: new Date("2022-03-18T13:10:00Z")
 });
+
 db.todos.insert({
     // "_id": ObjectId('c2571572a12b114c70a2c212'),
     _id: 3,
-    title: "Add firebase support",
+    title: "Improve home staff",
     completed: false,
     date: new Date("2023-06-11T10:10:00Z")
 });
+
 db.todos.insert({
     // "_id": ObjectId('a3371572a12c114c70a2c222'),
     _id: 4,
@@ -33,6 +37,7 @@ db.todos.insert({
     completed: false,
     date: new Date("2023-08-05T13:10:00Z")
 });
+
 db.todos.insert({
     // "_id": ObjectId('a2571572333c114c70a2c222'),
     _id: 5,
