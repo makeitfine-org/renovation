@@ -4,20 +4,20 @@
  * Copyright 2021-2023
  */
 
-import {Component, OnInit} from '@angular/core'
-import {TodoService} from 'src/app/data/service/todo.service'
-import {delay} from 'rxjs/operators'
+import {Component, OnInit} from "@angular/core"
+import {TodoService} from "src/app/data/service/todo.service"
+import {delay} from "rxjs/operators"
 import {Constant} from "src/app/data/model/constant.modal"
 
 @Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  selector: "app-todo",
+  templateUrl: "./todo.component.html",
+  styleUrls: [ "./todo.component.scss" ]
 })
 export class TodoComponent implements OnInit {
 
   loading: boolean = true
-  searchString = ''
+  searchString = ""
 
   constructor(public todoService: TodoService) {
   }

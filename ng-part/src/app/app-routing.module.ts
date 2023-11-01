@@ -4,8 +4,8 @@
  * Copyright 2021-2023
  */
 
-import {NgModule} from '@angular/core'
-import {CommonModule} from '@angular/common'
+import {NgModule} from "@angular/core"
+import {CommonModule} from "@angular/common"
 
 @NgModule({
   declarations: [],

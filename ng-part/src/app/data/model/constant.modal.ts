@@ -5,5 +5,5 @@
  */
 
 export class Constant {
-  static readonly TIME_DATE_FORMAT: string = "yyyy-MM-dd HH:mm"
+  static readonly TIME_DATE_FORMAT: string = `yyyy-MM-dd HH:mm`
 }

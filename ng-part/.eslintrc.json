@@ -54,6 +54,13 @@
         "semi": [
           "error",
           "never"
+        ],
+        "@typescript-eslint/quotes": [
+          "error",
+          "double",
+          {
+            "allowTemplateLiterals": true
+          }
         ]
       }
     },

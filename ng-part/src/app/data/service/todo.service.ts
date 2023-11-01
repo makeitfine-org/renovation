@@ -4,13 +4,12 @@
  * Copyright 2021-2023
  */
 
-import {Injectable} from '@angular/core'
-import {tap} from 'rxjs/operators'
+import {Injectable} from "@angular/core"
+import {tap} from "rxjs/operators"
 import {TodoCrudService} from "./todos-crud.service"
-
 import {Todo} from "src/app/data/model/todo.model"
 
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: "root"})
 export class TodoService {
   public todos: Todo[] = []
 
