@@ -6,8 +6,8 @@ import {HttpClientModule} from '@angular/common/http'
 import {TodosFormComponent} from './todo-form/todos-form.component'
 import {FormsModule} from '@angular/forms'
 import {TodosFilterPipe} from './shared/todos-filter.pipe'
-import {DatePipe} from "@angular/common";
-import { AppRoutingModule } from './app-routing.module'
+import {DatePipe} from "@angular/common"
+import {AppRoutingModule} from './app-routing.module'
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { AppRoutingModule } from './app-routing.module'
     FormsModule,
     AppRoutingModule
   ],
-  providers: [DatePipe],
-  bootstrap: [AppComponent]
+  providers: [ DatePipe ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }
