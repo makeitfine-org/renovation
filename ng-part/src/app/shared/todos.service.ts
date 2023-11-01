@@ -1,9 +1,14 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
 import {Injectable} from '@angular/core'
 import {tap} from 'rxjs/operators'
 import {TodosCrudService} from "./todos-crud.service"
-import {Todo} from "./todos.common"
 
-export {Todo} from "./todos.common"
+import {Todo} from "../data/model/todo.model"
 
 @Injectable({providedIn: 'root'})
 export class TodosService {
@@ -41,3 +46,4 @@ export class TodosService {
       })
   }
 }
+export {Todo} from "../data/model/todo.model"

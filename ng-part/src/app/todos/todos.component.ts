@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {TodosService} from '../shared/todos.service'
 import {delay} from 'rxjs/operators'
-import {Constants} from "../shared/todos.common"
+import {Constant} from "../data/model/constant.modal"
 
 @Component({
   selector: 'app-todos',
@@ -32,5 +32,5 @@ export class TodosComponent implements OnInit {
     this.todosService.removeTodo(id)
   }
 
-  protected readonly TIME_DATE_FORMAT = Constants.TIME_DATE_FORMAT
+  protected readonly TIME_DATE_FORMAT = Constant.TIME_DATE_FORMAT
 }

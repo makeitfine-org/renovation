@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import {environment} from "../../environments/environment"
 import {DatePipe} from "@angular/common"
-import {Constants, Todo} from "./todos.common"
+import {Constant} from "../data/model/constant.modal"
+import {Todo} from "../data/model/todo.model"
 
 @Injectable({providedIn: 'root'})
 export class TodosCrudService {
@@ -25,7 +26,7 @@ export class TodosCrudService {
     return {
       ...todo,
       date:
-        this.datePipe.transform(todo.date, Constants.TIME_DATE_FORMAT)
+        this.datePipe.transform(todo.date, Constant.TIME_DATE_FORMAT)
     }
   }
 }
