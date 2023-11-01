@@ -8,8 +8,8 @@
     >
   </div>
 
-  <ul *ngIf="todosService.todos.length; else noTodos">
-    <li *ngFor="let todo of todosService.todos | todosFilter:searchString"
+  <ul *ngIf="todoService.todos.length; else noTodos">
+    <li *ngFor="let todo of todoService.todos | todoTitleFilter:searchString"
         [ngStyle]="{
           color: todo.completed ? 'green': 'black'
         }"

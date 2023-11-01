@@ -6,15 +6,15 @@
 
 import {Injectable} from '@angular/core'
 import {tap} from 'rxjs/operators'
-import {TodosCrudService} from "./todos-crud.service"
+import {TodoCrudService} from "./todos-crud.service"
 
-import {Todo} from "../data/model/todo.model"
+import {Todo} from "src/app/data/model/todo.model"
 
 @Injectable({providedIn: 'root'})
-export class TodosService {
+export class TodoService {
   public todos: Todo[] = []
 
-  constructor(private crudTodosService: TodosCrudService) {
+  constructor(private crudTodosService: TodoCrudService) {
   }
 
   fetchTodos() {
@@ -28,7 +28,7 @@ export class TodosService {
 
     this.crudTodosService.updateTodo(todo)
       .subscribe(() => {
-        // this.todos.push(todo)
+        // this.todo.push(todo)
       })
   }
 
@@ -46,4 +46,3 @@ export class TodosService {
       })
   }
 }
-export {Todo} from "../data/model/todo.model"

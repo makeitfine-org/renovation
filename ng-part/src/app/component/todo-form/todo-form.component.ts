@@ -1,16 +1,23 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
 import {Component} from '@angular/core'
-import {Todo, TodosService} from '../shared/todos.service'
+import {TodoService} from 'src/app/data/service/todo.service'
+import {Todo} from "src/app/data/model/todo.model"
 
 @Component({
   selector: 'app-todo-form',
-  templateUrl: './todos-form.component.html',
-  styleUrls: ['./todos-form.component.scss']
+  templateUrl: './todo-form.component.html',
+  styleUrls: [ './todo-form.component.scss' ]
 })
-export class TodosFormComponent {
+export class TodoFormComponent {
 
   title: string = ''
 
-  constructor(private todosService: TodosService) {
+  constructor(private todoService: TodoService) {
   }
 
   addTodo() {
@@ -21,7 +28,7 @@ export class TodosFormComponent {
       date: new Date()
     }
 
-    this.todosService.addTodo(todo)
+    this.todoService.addTodo(todo)
     this.title = ''
   }
 

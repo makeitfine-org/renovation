@@ -1,20 +1,26 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
 import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
-import {AppComponent} from './app.component'
-import {TodosComponent} from './todos/todos.component'
+import {AppComponent} from 'src/app/app.component'
+import {TodoComponent} from 'src/app/component/todo/todo.component'
 import {HttpClientModule} from '@angular/common/http'
-import {TodosFormComponent} from './todo-form/todos-form.component'
+import {TodoFormComponent} from 'src/app/component/todo-form/todo-form.component'
 import {FormsModule} from '@angular/forms'
-import {TodosFilterPipe} from './shared/todos-filter.pipe'
+import {TodoTitleFilterPipe} from 'src/app/pipe/todo-filter.pipe'
 import {DatePipe} from "@angular/common"
 import {AppRoutingModule} from './app-routing.module'
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodosComponent,
-    TodosFormComponent,
-    TodosFilterPipe
+    TodoComponent,
+    TodoFormComponent,
+    TodoTitleFilterPipe
   ],
   imports: [
     BrowserModule,

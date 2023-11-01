@@ -1,12 +1,18 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
 import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
-import {environment} from "../../environments/environment"
+import {environment} from "src/environments/environment"
 import {DatePipe} from "@angular/common"
-import {Constant} from "../data/model/constant.modal"
-import {Todo} from "../data/model/todo.model"
+import {Constant} from "src/app/data/model/constant.modal"
+import {Todo} from "src/app/data/model/todo.model"
 
 @Injectable({providedIn: 'root'})
-export class TodosCrudService {
+export class TodoCrudService {
   constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 

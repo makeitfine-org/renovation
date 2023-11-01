@@ -1,10 +1,16 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
 import {Pipe, PipeTransform} from '@angular/core'
-import {Todo} from './todos.service'
+import {Todo} from "src/app/data/model/todo.model"
 
 @Pipe({
-  name: 'todosFilter'
+  name: 'todoTitleFilter'
 })
-export class TodosFilterPipe implements PipeTransform {
+export class TodoTitleFilterPipe implements PipeTransform {
   transform(todos: Todo[], search: string = ''): Todo[] {
     if (!search.trim()) {
       return todos
