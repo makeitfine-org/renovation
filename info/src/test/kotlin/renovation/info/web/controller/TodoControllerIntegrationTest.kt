@@ -31,6 +31,7 @@ import org.testcontainers.utility.DockerImageName
 import org.testcontainers.utility.MountableFile
 import renovation.info.data.entity.TodoEntity
 
+@Suppress("MaxLineLength")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @Tag("integration")
 @Testcontainers
@@ -105,30 +106,63 @@ class TodoControllerIntegrationTest(
                                     "id": 1,
                                     "title": "Add Casandra support",
                                     "completed": false,
+                                    "description": "Supj. Add its support as separate module with functionality or extend backend module.",
+                                    "category": "IT",
+                                    "image": "/assets/images/img1",
+                                    "price": 0.0,
+                                    "rating": {
+                                        "priority": 5
+                                    },
                                     "date": "2023-10-18T14:10:30"
                                 },
                                 {
                                     "id": 2,
                                     "title": "Buy sport products",
                                     "completed": true,
+                                    "description": "Buy protein, creatine, glutamine",
+                                    "category": "Other",
+                                    "image": "/assets/images/img2",
+                                    "price": 2000.0,
+                                    "rating": null,
                                     "date": "2022-03-18T13:10"
                                 },
                                 {
                                     "id": 3,
                                     "title": "Improve home staff",
                                     "completed": false,
+                                    "description": "Repair some things",
+                                    "category": "Other",
+                                    "image": "/assets/images/img3",
+                                    "price": 500.5,
+                                    "rating": {
+                                        "priority": 3
+                                    },
                                     "date": "2023-06-11T10:10"
                                 },
                                 {
                                     "id": 4,
                                     "title": "Add kubernates yamls",
                                     "completed": false,
+                                    "description": "Improve kubernetes yaml and helm configs in project",
+                                    "category": "IT",
+                                    "image": "/assets/images/img4",
+                                    "price": null,
+                                    "rating": {
+                                        "priority": 4
+                                    },
                                     "date": "2023-08-05T13:10"
                                 },
                                 {
                                     "id": 5,
                                     "title": "Add Postgress configs",
                                     "completed": true,
+                                    "description": null,
+                                    "category": "IT",
+                                    "image": "/assets/images/img5",
+                                    "price": null,
+                                    "rating": {
+                                        "priority": 0
+                                    },
                                     "date": "2022-03-10T20:15"
                                 }
                             ]
@@ -157,10 +191,17 @@ class TodoControllerIntegrationTest(
                     CoreMatchers.equalTo(
                         rowJson(
                             """
-                               {
+                                {
                                    "id": 3,
                                    "title": "Improve home staff",
                                    "completed": false,
+                                   "description": "Repair some things",
+                                   "category": "Other",
+                                   "image": "/assets/images/img3",
+                                   "price": 500.5,
+                                   "rating": {
+                                       "priority": 3
+                                   },
                                    "date": "2023-06-11T10:10"
                                }
                             """

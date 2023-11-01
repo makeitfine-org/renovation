@@ -22,7 +22,15 @@ object Helper {
             id = todoEntity.id,
             title = todoEntity.title,
             completed = todoEntity.completed,
-            date = todoEntity.date.toString()
+
+            description = todoEntity.description,
+            category = todoEntity.category,
+            image = todoEntity.image,
+            price = todoEntity.price?.toDouble() ?: null,
+
+            rating = todoEntity.rating,
+
+            date = todoEntity.date.toString(),
         )
 
     @JvmStatic
@@ -31,6 +39,14 @@ object Helper {
             id = todoModel.id,
             title = todoModel.title,
             completed = todoModel.completed,
+
+            description = todoModel.description,
+            category = todoModel.category,
+            image = todoModel.image,
+            price = todoModel.price?.toBigDecimal() ?: null,
+
+            rating = todoModel.rating,
+
             date = LocalDateTime.parse(todoModel.date, TIME_FORMATTER)
         )
 }

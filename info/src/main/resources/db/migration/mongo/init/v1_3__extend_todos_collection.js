@@ -26,10 +26,7 @@ db.todos.update(
             description: "Buy protein, creatine, glutamine",
             category: "Other",
             image: "/assets/images/img2",
-            price: 2000.0,
-            rating: {
-                priority: 2
-            }
+            price: 2000.0
         }
     }
 )
