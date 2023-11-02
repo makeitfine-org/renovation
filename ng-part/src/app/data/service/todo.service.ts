@@ -5,20 +5,30 @@
  */
 
 import {Injectable} from "@angular/core"
-import {tap} from "rxjs/operators"
+import {catchError, retry, tap} from "rxjs/operators"
 import {TodoCrudService} from "./todos-crud.service"
 import {Todo} from "src/app/data/model/todo.model"
+import {HttpErrorResponse} from "@angular/common/http"
+import {throwError} from "rxjs"
+import {ErrorService} from "./error.service"
 
 @Injectable({providedIn: "root"})
 export class TodoService {
   public todos: Todo[] = []
 
-  constructor(private crudTodosService: TodoCrudService) {
+  constructor(
+    private crudTodosService: TodoCrudService,
+    private errorService: ErrorService,
+  ) {
   }
 
   fetchTodos() {
     return this.crudTodosService.getTodos()
-      .pipe(tap(todos => this.todos = todos))
+      .pipe(
+        retry(2),
+        tap(todos => this.todos = todos),
+        catchError(this.errorHandler.bind(this))
+      )
   }
 
   toggleCompletedFlag(id: number) {
@@ -43,5 +53,10 @@ export class TodoService {
       .subscribe(() => {
         this.todos.push(todo)
       })
+  }
+
+  private errorHandler(error: HttpErrorResponse) {
+    this.errorService.handle(error.message)
+    return throwError(() => error.message) //todo: deprecated `throwError`
   }
 }

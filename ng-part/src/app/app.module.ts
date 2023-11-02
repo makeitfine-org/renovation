@@ -13,14 +13,16 @@ import {TodoFormComponent} from "src/app/component/todo-form/todo-form.component
 import {FormsModule} from "@angular/forms"
 import {TodoTitleFilterPipe} from "src/app/pipe/todo-filter.pipe"
 import {DatePipe} from "@angular/common"
-import {AppRoutingModule} from "./app-routing.module"
+import {AppRoutingModule} from "src/app/app-routing.module"
+import {GlobalErrorComponent} from "src/app/component/global-error/global-error.component"
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
     TodoFormComponent,
-    TodoTitleFilterPipe
+    TodoTitleFilterPipe,
+    GlobalErrorComponent
   ],
   imports: [
     BrowserModule,
