@@ -11,13 +11,14 @@ import {AboutPageComponent} from "src/app/component/about-page/about-page.compon
 
 const routes: Routes = [
   {path: "", component: TodoComponent},
+  {path: "todo", component: TodoComponent},
   {path: "about", component: AboutPageComponent}
 ]
 
 @NgModule({
   declarations: [],
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
 export class AppRoutingModule {
 }

@@ -1,25 +1,26 @@
-<div *ngIf="!loading">
+<div class="container">
+  <div *ngIf="!loading">
 
-  <div class="filter">
-    <input
-      [(ngModel)]="searchString"
-      placeholder="Filter todo by title..."
-      type="text"
-    >
-  </div>
+    <div class="filter">
+      <input
+        [(ngModel)]="searchString"
+        placeholder="Filter todo by title..."
+        type="text"
+      >
+    </div>
 
-  <ul *ngIf="todoService.todos.length; else noTodos">
-    <li *ngFor="let todo of todoService.todos | todoTitleFilter:searchString"
-        [ngStyle]="{
+    <ul *ngIf="todoService.todos.length; else noTodos">
+      <li *ngFor="let todo of todoService.todos | todoTitleFilter:searchString"
+          [ngStyle]="{
           color: todo.completed ? 'green': 'black'
         }"
-    >
+      >
     <span [class.done]="todo.completed">
       <input (change)="onChange(todo.id)" [checked]="todo.completed" type="checkbox">
       <strong>{{ todo.id }}</strong> {{ todo.title }}
     </span>
 
-      <span>
+        <span>
         <small>
           <div [class.text-blue-800]="!todo.completed">
           priority: {{ todo.rating?.priority ? todo.rating?.priority : 0 }}
@@ -27,12 +28,16 @@
           {{ todo.date | date: TIME_DATE_FORMAT }}</small>
       </span>
 
-      <button (click)="removeTodo(todo.id)" class="rm">&times;</button>
-    </li>
-  </ul>
+        <button (click)="removeTodo(todo.id)" class="rm">&times;</button>
+      </li>
+    </ul>
 
-  <ng-template #noTodos>
-    <p style="text-align: center;">No todos now!</p>
-  </ng-template>
+    <ng-template #noTodos>
+      <p style="text-align: center;">No todos now!</p>
+    </ng-template>
+  </div>
+  <p *ngIf="loading">Loading....</p>
+
+  <app-todo-form></app-todo-form>
+
 </div>
-<p *ngIf="loading">Loading....</p>
