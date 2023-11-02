@@ -9,11 +9,10 @@ export class InfoService {
   constructor(private http: HttpClient) {
   }
 
-  getAbout() {
-    return this.http.get<object>(`${ environment.infoModuleUrl }/about`)
-  }
+  getAbout = () => this.http.get<object>(`${ environment.infoModuleUrl }/about`)
 
-  getModule() {
-    return this.http.get<string>(`${ environment.infoModuleUrl }/module`)
-  }
+  getModule = () => this.http.get<string>(
+    `${ environment.infoModuleUrl }/module`,
+    {responseType: "text" as "json"}
+  )
 }

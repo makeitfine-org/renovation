@@ -23,7 +23,7 @@ class SecurityConfig(
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http.authorizeRequests { authorizeRequests ->
             authorizeRequests
-                .antMatchers("/module", "/about").permitAll()
+                .antMatchers("/module", "/about", "/favicon.ico").permitAll()
                 .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
                 .antMatchers("/api/v1/info/todo/**").permitAll()
                 .anyRequest().authenticated()

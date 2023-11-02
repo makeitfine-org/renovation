@@ -35,18 +35,17 @@ export class AboutPageComponent implements OnInit {
           this.about = about as About
         }),
         catchError(this.errorHandler.bind(this))
-      ).subscribe()
+      ).subscribe(() => console.debug("get about"))
 
     this.infoService.getModule()
-      // .pipe(
-      //   retry(2),
-      //   tap(module => {
-      //     console.log(module)
-      //     // this.module = module
-      //   }),
-      //   catchError(this.errorHandler.bind(this))
-      // )
-      .subscribe()
+      .pipe(
+        retry(2),
+        tap(module => {
+          this.module = module
+        }),
+        catchError(this.errorHandler.bind(this))
+      )
+      .subscribe(() => console.debug("get module"))
   }
 
   private errorHandler(error: HttpErrorResponse) {
