@@ -1,9 +1,21 @@
-<div class="container">
-  <h1>{{ title | titlecase }}</h1>
+<app-navigation></app-navigation>
 
-  <app-global-error></app-global-error>
+<app-global-error></app-global-error>
 
-  <app-todo></app-todo>
 
-  <app-todo-form></app-todo-form>
+
+<div class="max-w-2xl container mx-auto pt-5 mt-[50px]">
+
+  <router-outlet></router-outlet>
+
 </div>
+
+<!--<div class="container">-->
+<!--  <h1>{{ title | titlecase }}</h1>-->
+
+<!--  <app-global-error></app-global-error>-->
+
+<!--  <app-todo></app-todo>--> //todo:
+
+<!--  <app-todo-form></app-todo-form>--> //todo:
+<!--</div>-->

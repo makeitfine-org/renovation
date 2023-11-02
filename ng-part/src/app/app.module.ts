@@ -15,6 +15,9 @@ import {TodoTitleFilterPipe} from "src/app/pipe/todo-filter.pipe"
 import {DatePipe} from "@angular/common"
 import {AppRoutingModule} from "src/app/app-routing.module"
 import {GlobalErrorComponent} from "src/app/component/global-error/global-error.component"
+import {NavigationComponent} from "./component/navigation/navigation.component"
+import {RouterLinkActive} from "@angular/router"
+import {AboutPageComponent} from "./component/about-page/about-page.component"
 
 @NgModule({
   declarations: [
@@ -22,13 +25,16 @@ import {GlobalErrorComponent} from "src/app/component/global-error/global-error.
     TodoComponent,
     TodoFormComponent,
     TodoTitleFilterPipe,
-    GlobalErrorComponent
+    GlobalErrorComponent,
+    NavigationComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterLinkActive
   ],
   providers: [ DatePipe ],
   bootstrap: [ AppComponent ]

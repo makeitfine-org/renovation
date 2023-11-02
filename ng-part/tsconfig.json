@@ -10,6 +10,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    //"noUnusedLocals": true, //todo: use in (prod https://github.com/facebook/create-react-app/issues/6023)
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
