@@ -32,6 +32,8 @@ class CorsConfig {
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/graphql/**", config)
         source.registerCorsConfiguration("/api/v1/info/todo/**", config)
+        source.registerCorsConfiguration("/about", config)
+        source.registerCorsConfiguration("/module", config)
 
         return CorsFilter(source)
     }

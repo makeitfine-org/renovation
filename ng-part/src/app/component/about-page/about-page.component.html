@@ -1,3 +1,27 @@
-<div class="bg-amber-200">
-  <p class="text-red-600">TODO: not implemented yet!</p>
+<h1 class="font-bold mb-2 text-center text-lg">{{ "Extra information" | titlecase }}</h1>
+
+<div>
+  <p class="mb-2">
+    <span [ngStyle]="{fontWeight: 'bold'}">
+      Details of module used for backend requests:
+    </span>
+  </p>
+  <p class="ml-2">
+    <span [ngStyle]="{textDecoration: 'underline'}">
+     about
+    </span>:
+    &nbsp;&nbsp;{{ about?.name }}
+  </p>
+  <p class="ml-2">
+    <span [ngStyle]="{textDecoration: 'underline'}">
+     description
+    </span>:
+    &nbsp;&nbsp;{{ about?.description }}
+  </p>
+  <p class="ml-2">
+    <span [ngStyle]="{textDecoration: 'underline'}">
+     module info:
+    </span>
+    {{ module }}
+  </p>
 </div>

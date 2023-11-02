@@ -17,7 +17,7 @@ export class TodoCrudService {
   }
 
   getTodos() {
-    return this.http.get<Todo[]>(environment.v1ApiTodoUrl)
+    return this.http.get<Todo[]>(`${environment.v1ApiTodoUrl}`)
   }
 
   deleteTodo(id: number) {
