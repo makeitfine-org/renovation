@@ -2,9 +2,9 @@
 
   <div class="filter">
     <input
-      type="text"
-      placeholder="Filter todo by title..."
       [(ngModel)]="searchString"
+      placeholder="Filter todo by title..."
+      type="text"
     >
   </div>
 
@@ -15,13 +15,19 @@
         }"
     >
     <span [class.done]="todo.completed">
-      <input type="checkbox" [checked]="todo.completed" (change)="onChange(todo.id)">
+      <input (change)="onChange(todo.id)" [checked]="todo.completed" type="checkbox">
       <strong>{{ todo.id }}</strong> {{ todo.title }}
     </span>
 
-      <small>{{ todo.date | date: TIME_DATE_FORMAT }}</small>
+      <span>
+        <small>
+          <div [class.text-blue-800]="!todo.completed">
+          priority: {{ todo.rating?.priority ? todo.rating?.priority : 0 }}
+          </div>
+          {{ todo.date | date: TIME_DATE_FORMAT }}</small>
+      </span>
 
-      <button class="rm" (click)="removeTodo(todo.id)">&times;</button>
+      <button (click)="removeTodo(todo.id)" class="rm">&times;</button>
     </li>
   </ul>
 
