@@ -27,6 +27,10 @@ class CorsConfig {
             addExposedHeader(CorsConfiguration.ALL)
             addAllowedOriginPattern("http://localhost:80*")
             addAllowedOriginPattern("http://localhost:4200")
+
+            //play with prod (lite-server)
+            addAllowedOriginPattern("http://localhost:3000")
+            addAllowedOriginPattern("http://192.168.0.113:3000")
         }
 
         val source = UrlBasedCorsConfigurationSource()

@@ -169,9 +169,9 @@ subprojects {
     }
 }
 
-val buildAll = "buildAll"
+val buildall = "buildall" // not used camelCase for fast typing buildall
 
-tasks.register<GradleBuild>(buildAll) {
+tasks.register<GradleBuild>(buildall) {
     description = "Execute all tests and build projects (docker compose used)"
     println(description)
 
@@ -308,7 +308,7 @@ tasks.register<GradleBuild>("all") {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildAll)
+            commandLine("gradle", buildall)
         }
         exec {
             workingDir("${rootProject.rootDir}")
