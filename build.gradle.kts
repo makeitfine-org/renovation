@@ -230,6 +230,12 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("docker", "compose", "down")
         }
+
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "removeImages")
+        }
+
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("docker", "compose", "build")
@@ -250,7 +256,15 @@ tasks.register<GradleBuild>(buildAll) {
 }
 
 tasks.register<GradleBuild>("ba") { //alias for "buildAll" task
-    dependsOn(buildAll)
+    description = "Alias for $buildAll"
+    println(description)
+
+    doLast {
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", buildAll)
+        }
+    }
 }
 
 val checkall = "checkall"
@@ -288,6 +302,7 @@ tasks.register<GradleBuild>(removeImages) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            //todo: check if changes with docker compose rebuild
             commandLine("docker", "rmi", "koresmosto/renovation-frontend-info:latest")
         }
         exec {
