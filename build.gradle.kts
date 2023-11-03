@@ -169,9 +169,9 @@ subprojects {
     }
 }
 
-val buildall = "buildall" // not used camelCase for fast typing buildall
+val buildAll = "buildAll" // not used camelCase for fast typing buildall
 
-tasks.register<GradleBuild>(buildall) {
+tasks.register<GradleBuild>(buildAll) {
     description = "Execute all tests and build projects (docker compose used)"
     println(description)
 
@@ -249,6 +249,10 @@ tasks.register<GradleBuild>(buildall) {
     }
 }
 
+tasks.register<GradleBuild>("ba") { //alias for "buildAll" task
+    dependsOn(buildAll)
+}
+
 val checkall = "checkall"
 
 tasks.register<GradleBuild>(checkall) {
@@ -308,7 +312,7 @@ tasks.register<GradleBuild>("all") {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildall)
+            commandLine("gradle", buildAll)
         }
         exec {
             workingDir("${rootProject.rootDir}")

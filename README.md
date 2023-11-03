@@ -18,7 +18,7 @@ Technical configs
 
 ### Pre-config env (for start on docker db):
 1. Install docker and docker-compose (if not installed)  
-2. build project (e.g. `$> gradle buildall`)
+2. build project (e.g. `$> gradle buildAll` or `$> gradle ba`) 
 3. make:  
 `$>docker-compose up`
 4. start RenovationApplication.kt on backend module  
