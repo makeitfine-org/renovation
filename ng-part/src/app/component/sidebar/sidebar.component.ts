@@ -1,4 +1,4 @@
-import {Component} from "@angular/core"
+import {Component, Input} from "@angular/core"
 import {UiService} from "../../data/service/ui.service"
 
 @Component({
@@ -7,6 +7,7 @@ import {UiService} from "../../data/service/ui.service"
   styleUrls: [ "./sidebar.component.scss" ]
 })
 export class SidebarComponent {
+  @Input() title: string
 
   readonly activeClass = "bg-gray-600 bg-opacity-25 text-white border-gray-100"
 
