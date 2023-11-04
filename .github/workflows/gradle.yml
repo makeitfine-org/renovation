@@ -39,12 +39,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.x'
-    - name: frontend module build (Node.js)
+    - name: frontend module install && build (Node.js)
       working-directory: ./frontend
       run: |
         npm install
         npm run-script build
-    - name: frontend-info module build (Node.js)
+    - name: frontend-info module install && build (Node.js)
       working-directory: ./frontend-info
       run: |
         npm install
