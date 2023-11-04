@@ -233,7 +233,7 @@ tasks.register<GradleBuild>(buildAll) {
 
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "removeImages")
+            commandLine("gradle", removeImages)
         }
 
         exec {
