@@ -26,7 +26,7 @@ object Helper {
             description = todoEntity.description,
             category = todoEntity.category,
             image = todoEntity.image,
-            price = todoEntity.price?.toDouble() ?: null,
+            price = todoEntity.price?.toDouble(),
 
             rating = todoEntity.rating,
 
@@ -43,7 +43,7 @@ object Helper {
             description = todoModel.description,
             category = todoModel.category,
             image = todoModel.image,
-            price = todoModel.price?.toBigDecimal() ?: null,
+            price = todoModel.price?.toBigDecimal(),
 
             rating = todoModel.rating,
 

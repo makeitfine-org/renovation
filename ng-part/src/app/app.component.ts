@@ -7,7 +7,4 @@ import {Component} from "@angular/core"
 })
 export class AppComponent {
   title = "ng-part"
-
-  isOpen: boolean = false //todo: is necessary
-  dropdownOpen: boolean = false
 }

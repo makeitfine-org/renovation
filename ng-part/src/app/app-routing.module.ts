@@ -12,7 +12,16 @@ import {AboutPageComponent} from "src/app/component/about-page/about-page.compon
 const routes: Routes = [
   {path: "", component: TodoComponent},
   {path: "todo", component: TodoComponent},
-  {path: "about", component: AboutPageComponent}
+  {path: "about", component: AboutPageComponent},
+
+  //todo: temp:
+  {path: "dashboard", component: AboutPageComponent},
+  {path: "ui", component: AboutPageComponent},
+  {path: "tables", component: AboutPageComponent},
+  {path: "forms", component: AboutPageComponent},
+  {path: "cards", component: AboutPageComponent},
+  {path: "modal", component: AboutPageComponent},
+  {path: "blank", component: AboutPageComponent},
 ]
 
 @NgModule({

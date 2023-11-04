@@ -18,6 +18,8 @@ import {GlobalErrorComponent} from "src/app/component/global-error/global-error.
 import {NavigationComponent} from "./component/navigation/navigation.component"
 import {RouterLinkActive} from "@angular/router"
 import {AboutPageComponent} from "./component/about-page/about-page.component"
+import {HeaderComponent} from "./component/header/header.component"
+import {SidebarComponent} from "./component/sidebar/sidebar.component"
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {AboutPageComponent} from "./component/about-page/about-page.component"
     TodoTitleFilterPipe,
     GlobalErrorComponent,
     NavigationComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
