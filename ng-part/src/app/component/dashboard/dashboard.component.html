@@ -42,8 +42,8 @@
           </div>
 
           <div class="mx-5">
-            <h4 class="text-2xl font-semibold text-gray-700">8,282</h4>
-            <div class="text-gray-500">New Users</div>
+            <h4 class="text-2xl font-semibold text-gray-700">{{ todos.length }}</h4>
+            <div class="text-gray-500">All todos</div>
           </div>
         </div>
       </div>
@@ -75,8 +75,8 @@
           </div>
 
           <div class="mx-5">
-            <h4 class="text-2xl font-semibold text-gray-700">200,521</h4>
-            <div class="text-gray-500">Total Orders</div>
+            <h4 class="text-2xl font-semibold text-gray-700">{{ uncompletedTodo() }}</h4>
+            <div class="text-gray-500">Uncompleted todos</div>
           </div>
         </div>
       </div>
@@ -108,8 +108,8 @@
           </div>
 
           <div class="mx-5">
-            <h4 class="text-2xl font-semibold text-gray-700">215,542</h4>
-            <div class="text-gray-500">Available Products</div>
+            <h4 class="text-2xl font-semibold text-gray-700">{{ completedTodo() }}</h4>
+            <div class="text-gray-500">Completed todos</div>
           </div>
         </div>
       </div>
@@ -129,30 +129,30 @@
             <th
               class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
             >
-              Name
+              Title/Priority
             </th>
             <th
               class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
             >
-              Title
+              Description/Category
             </th>
             <th
               class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
             >
-              Status
+              Completed
             </th>
             <th
               class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
             >
-              Role
+              Price/Date
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
           </tr>
           </thead>
 
           <tbody class="bg-white">
-<!--          <tr :key="index" v-for="(u, index) in users">-->
-          <tr *ngFor="let u of users; let i = index">
+          <!--          <tr :key="index" v-for="(u, index) in users">-->
+          <tr *ngFor="let todo of todos; let i = index">
             <td
               class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
             >
@@ -167,10 +167,11 @@
 
                 <div class="ml-4">
                   <div class="text-sm font-medium leading-5 text-gray-900">
-                    {{ u.name }}
+                    {{ todo.title }}
                   </div>
                   <div class="text-sm leading-5 text-gray-500">
-                    {{ u.email }}
+                    <span class="text-gray-900 font-medium">priority:</span>
+                    {{ todo.rating?.priority ?? 0 }}
                   </div>
                 </div>
               </div>
@@ -180,10 +181,10 @@
               class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
             >
               <div class="text-sm leading-5 text-gray-900">
-                {{ u.title }}
+                {{ todo.description ?? "-" }}
               </div>
               <div class="text-sm leading-5 text-gray-500">
-                {{ u.title2 }}
+                {{ todo.category ?? "-" }}
               </div>
             </td>
 
@@ -191,15 +192,22 @@
               class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
             >
                   <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
-                  >{{ u.status }}</span
+                    [class.bg-green-100.text-green-800]="todo.completed"
+                    [class.bg-yellow-100.text-yellow-800]="!todo.completed"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full"
+                  >{{ todo.completed }}</span
                   >
             </td>
 
             <td
-              class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap"
+              class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
             >
-              {{ u.role }}
+              <div class="text-sm leading-5 text-gray-900">
+                {{ todo.price ?? 0 }}
+              </div>
+              <div class="text-sm leading-5 text-gray-500">
+                {{ todo.date | date: TIME_DATE_FORMAT }}
+              </div>
             </td>
 
             <td

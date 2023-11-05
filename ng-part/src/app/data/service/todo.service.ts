@@ -6,7 +6,7 @@
 
 import {Injectable} from "@angular/core"
 import {catchError, retry, tap} from "rxjs/operators"
-import {TodoCrudService} from "./todos-crud.service"
+import {TodoCrudService} from "src/app/data/service/todo-crud.service"
 import {Todo} from "src/app/data/model/todo.model"
 import {HttpErrorResponse} from "@angular/common/http"
 import {throwError} from "rxjs"
