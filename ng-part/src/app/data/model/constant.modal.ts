@@ -6,4 +6,5 @@
 
 export class Constant {
   static readonly TIME_DATE_FORMAT: string = `yyyy-MM-dd HH:mm`
+  static readonly DEFAULT_TODO_IMG: string = `/assets/images/img0.jpg`
 }

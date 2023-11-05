@@ -30,7 +30,10 @@ export class DashboardComponent implements OnInit {
     this.todoCrudService.getTodos()
       .pipe(delay(500))
       .subscribe(todos => {
-        this.todos = todos
+        this.todos = todos.map(e => {
+          e.image = e.image ?? Constant.DEFAULT_TODO_IMG
+          return e
+        })
       })
   }
 

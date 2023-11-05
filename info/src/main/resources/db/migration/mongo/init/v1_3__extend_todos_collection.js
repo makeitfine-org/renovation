@@ -10,7 +10,7 @@ db.todos.update(
         $set: {
             description: "Supj. Add its support as separate module with functionality or extend backend module.",
             category: "IT",
-            image: "/assets/images/img1",
+            image: "/assets/images/img1.jpg",
             price: 0.0,
             rating: {
                 priority: 5
@@ -25,7 +25,7 @@ db.todos.update(
         $set: {
             description: "Buy protein, creatine, glutamine",
             category: "Other",
-            image: "/assets/images/img2",
+            image: "/assets/images/img2.jpg",
             price: 2000.0
         }
     }
@@ -37,7 +37,6 @@ db.todos.update(
         $set: {
             description: "Repair some things",
             category: "Other",
-            image: "/assets/images/img3",
             price: 500.50,
             rating: {
                 priority: 3
@@ -52,7 +51,7 @@ db.todos.update(
         $set: {
             description: "Improve kubernetes yaml and helm configs in project",
             category: "IT",
-            image: "/assets/images/img4",
+            image: "/assets/images/img4.jpg",
             rating: {
                 priority: 4
             }
@@ -65,7 +64,7 @@ db.todos.update(
     {
         $set: {
             category: "IT",
-            image: "/assets/images/img5",
+            image: "/assets/images/img5.jpg",
             rating: {
                 priority: 0
             }

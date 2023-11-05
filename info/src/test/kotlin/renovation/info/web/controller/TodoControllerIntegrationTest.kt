@@ -108,7 +108,7 @@ class TodoControllerIntegrationTest(
                                     "completed": false,
                                     "description": "Supj. Add its support as separate module with functionality or extend backend module.",
                                     "category": "IT",
-                                    "image": "/assets/images/img1",
+                                    "image": "/assets/images/img1.jpg",
                                     "price": 0.0,
                                     "rating": {
                                         "priority": 5
@@ -121,7 +121,7 @@ class TodoControllerIntegrationTest(
                                     "completed": true,
                                     "description": "Buy protein, creatine, glutamine",
                                     "category": "Other",
-                                    "image": "/assets/images/img2",
+                                    "image": "/assets/images/img2.jpg",
                                     "price": 2000.0,
                                     "rating": null,
                                     "date": "2022-03-18T13:10"
@@ -132,7 +132,7 @@ class TodoControllerIntegrationTest(
                                     "completed": false,
                                     "description": "Repair some things",
                                     "category": "Other",
-                                    "image": "/assets/images/img3",
+                                    "image": null,
                                     "price": 500.5,
                                     "rating": {
                                         "priority": 3
@@ -145,7 +145,7 @@ class TodoControllerIntegrationTest(
                                     "completed": false,
                                     "description": "Improve kubernetes yaml and helm configs in project",
                                     "category": "IT",
-                                    "image": "/assets/images/img4",
+                                    "image": "/assets/images/img4.jpg",
                                     "price": null,
                                     "rating": {
                                         "priority": 4
@@ -158,7 +158,7 @@ class TodoControllerIntegrationTest(
                                     "completed": true,
                                     "description": null,
                                     "category": "IT",
-                                    "image": "/assets/images/img5",
+                                    "image": "/assets/images/img5.jpg",
                                     "price": null,
                                     "rating": {
                                         "priority": 0
@@ -197,7 +197,7 @@ class TodoControllerIntegrationTest(
                                    "completed": false,
                                    "description": "Repair some things",
                                    "category": "Other",
-                                   "image": "/assets/images/img3",
+                                   "image": null,
                                    "price": 500.5,
                                    "rating": {
                                        "priority": 3
