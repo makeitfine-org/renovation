@@ -8,7 +8,8 @@ import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
 import {TodoComponent} from "src/app/component/todo/todo.component"
 import {AboutPageComponent} from "src/app/component/about-page/about-page.component"
-import {AppComponent} from "./app.component"
+import {AppComponent} from "src/app/app.component"
+import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)
@@ -19,7 +20,7 @@ const routes: Routes = [
   {path: "about", component: AboutPageComponent},
 
   //todo: temp:
-  {path: "dashboard", component: AppComponent},
+  {path: "dashboard", component: DashboardComponent},
   {path: "ui", component: AppComponent},
   {path: "tables", component: AppComponent},
   {path: "forms", component: AppComponent},

@@ -15,11 +15,12 @@ import {TodoTitleFilterPipe} from "src/app/pipe/todo-filter.pipe"
 import {DatePipe} from "@angular/common"
 import {AppRoutingModule} from "src/app/app-routing.module"
 import {GlobalErrorComponent} from "src/app/component/global-error/global-error.component"
-import {NavigationComponent} from "./component/navigation/navigation.component"
+import {NavigationComponent} from "src/app/component/navigation/navigation.component"
 import {RouterLinkActive} from "@angular/router"
-import {AboutPageComponent} from "./component/about-page/about-page.component"
-import {HeaderComponent} from "./component/header/header.component"
-import {SidebarComponent} from "./component/sidebar/sidebar.component"
+import {AboutPageComponent} from "src/app/component/about-page/about-page.component"
+import {HeaderComponent} from "src/app/component/header/header.component"
+import {SidebarComponent} from "src/app/component/sidebar/sidebar.component"
+import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {SidebarComponent} from "./component/sidebar/sidebar.component"
     NavigationComponent,
     AboutPageComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
