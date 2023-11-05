@@ -16,13 +16,9 @@ export class TodoCrudService {
   constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
-  getTodos() {
-    return this.http.get<Todo[]>(`${environment.v1ApiTodoUrl}`)
-  }
+  getTodos = () => this.http.get<Todo[]>(`${ environment.v1ApiTodoUrl }`)
 
-  deleteTodo(id: number) {
-    return this.http.delete(environment.v1ApiTodoUrl + "/" + id)
-  }
+  deleteTodo = (id: number) => this.http.delete(environment.v1ApiTodoUrl + "/" + id)
 
   createTodo = (todo: Todo) => this.http.post(environment.v1ApiTodoUrl, this.dateModifiedTodo(todo))
 

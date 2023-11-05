@@ -42,4 +42,14 @@ export class DashboardComponent implements OnInit {
   uncompletedTodo = () => this.todos.filter(e => !e.completed).length
 
   protected readonly length = length
+
+  toggleTodoCompleted(id: number) {
+    const todo = this.todos.find(t => t.id == id)!
+    todo.completed = !todo.completed
+
+    this.todoCrudService.updateTodo(todo)
+      .subscribe(() => {
+        // this.todo.push(todo)
+      })
+  }
 }

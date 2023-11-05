@@ -151,7 +151,6 @@
           </thead>
 
           <tbody class="bg-white">
-          <!--          <tr :key="index" v-for="(u, index) in users">-->
           <tr *ngFor="let todo of todos; let i = index">
             <td
               class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
@@ -160,8 +159,8 @@
                 <div class="flex-shrink-0 w-10 h-10">
                   <img
                     [alt]="todo.title"
-                    class="w-10 h-10 rounded-full text-xs"
                     [src]="todo.image"
+                    class="w-10 h-10 rounded-full text-xs"
                   />
                 </div>
 
@@ -192,6 +191,7 @@
               class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
             >
                   <span
+                    (click)="toggleTodoCompleted(todo.id)"
                     [class.bg-green-100.text-green-800]="todo.completed"
                     [class.bg-yellow-100.text-yellow-800]="!todo.completed"
                     class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full"

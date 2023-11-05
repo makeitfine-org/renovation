@@ -53,6 +53,6 @@ data class TodoEntity(
     companion object {
         const val MIN_TITLE_SIZE = 2
         const val MAX_TITLE_SIZE = 50
-        const val MIN_DESCRIPTION_SIZE = 50
+        const val MIN_DESCRIPTION_SIZE = 3
     }
 }
