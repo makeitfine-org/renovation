@@ -1,1 +1,15 @@
-<p>todo-full works!</p>
+<input
+  [(ngModel)]="term"
+  class="mb-2 border py-2 px-4 w-full"
+  placeholder="Filter products..."
+  type="text"
+>
+
+<p *ngIf="loading" class="text-center text-lg">Loading...</p>
+
+<div *ngIf="todos">
+  <app-todo-description
+    *ngFor="let todo of todos | todoTitleFilter:term; let i = index"
+    [todo]="todo"
+  ></app-todo-description>
+</div>

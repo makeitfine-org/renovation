@@ -28,6 +28,7 @@ import {CardsComponent} from "./component/cards/cards.component"
 import {ModalComponent} from "./component/modal/modal.component"
 import {BlankComponent} from "./component/blank/blank.component"
 import {TodoFullComponent} from "./component/todo-full/todo-full.component"
+import {TodoDescriptionComponent} from "./component/todo-description/todo-description.component"
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {TodoFullComponent} from "./component/todo-full/todo-full.component"
     CardsComponent,
     ModalComponent,
     BlankComponent,
-    TodoFullComponent
+    TodoFullComponent,
+    TodoDescriptionComponent
   ],
   imports: [
     BrowserModule,
