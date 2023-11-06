@@ -1,7 +1,7 @@
 import {Component} from "@angular/core"
 import {TodoCrudService} from "../../data/service/todo-crud.service"
 import {Todo} from "../../data/model/todo.model"
-import {delay} from "rxjs/operators"
+import {delay, retry} from "rxjs/operators"
 
 @Component({
   selector: "app-todo-full",
@@ -15,9 +15,13 @@ export class TodoFullComponent {
 
   constructor(public todoCrudService: TodoCrudService) {
     this.todoCrudService.getTodos()
-      .pipe(delay(750))
-      .subscribe(() => {
-      this.loading = false
-    })
+      .pipe(
+        retry(2),
+        delay(750)
+      )
+      .subscribe(todos => {
+        this.todos = todos
+        this.loading = false
+      })
   }
 }

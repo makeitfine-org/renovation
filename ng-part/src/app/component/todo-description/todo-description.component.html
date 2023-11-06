@@ -1,1 +1,23 @@
-<p>todo-description works!</p>
+<div class="py-4 px-6 border rounded flex items-center flex-col mb-2">
+    <img [src]="todo?.image" [alt]="todo?.title" class="w-1/6 mb-2">
+    <h2 class="mb-2 text-md text-center">{{ todo?.title }}</h2>
+    <p>Price: <span class="font-bold">{{ todo?.price | currency:'UAH' }}</span></p>
+
+    <button
+            class="border py-2 px-4 rounded"
+            [ngClass]="{
+      'bg-yellow-400': !details,
+      'bg-blue-400': details
+    }"
+            (click)="details = !details"
+    >
+        {{ details ? 'Hide' : 'Show' }} Details
+    </button>
+
+    <div *ngIf="details">
+        <p>{{ todo?.description }}</p>
+        <p>Rate: <span [ngStyle]="{fontWeight: 'bold'}">
+      {{ todo?.rating?.priority ?? 0 | number:'1.2-4' }}
+    </span></p>
+    </div>
+</div>
