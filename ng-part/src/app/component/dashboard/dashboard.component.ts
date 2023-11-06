@@ -52,4 +52,11 @@ export class DashboardComponent implements OnInit {
         // this.todo.push(todo)
       })
   }
+
+  removeTodo(id: number) {
+    this.todoCrudService.deleteTodo(id)
+      .subscribe(() => {
+        this.todos = this.todos.filter(t => t.id !== id)
+      })
+  }
 }
