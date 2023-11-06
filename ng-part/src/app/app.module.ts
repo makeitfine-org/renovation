@@ -12,7 +12,7 @@ import {HttpClientModule} from "@angular/common/http"
 import {TodoFormComponent} from "src/app/component/todo-form/todo-form.component"
 import {FormsModule} from "@angular/forms"
 import {TodoTitleFilterPipe} from "src/app/pipe/todo-filter.pipe"
-import {DatePipe} from "@angular/common"
+import {DatePipe, NgOptimizedImage} from "@angular/common"
 import {AppRoutingModule} from "src/app/app-routing.module"
 import {GlobalErrorComponent} from "src/app/component/global-error/global-error.component"
 import {NavigationComponent} from "src/app/component/navigation/navigation.component"
@@ -22,6 +22,7 @@ import {HeaderComponent} from "src/app/component/header/header.component"
 import {SidebarComponent} from "src/app/component/sidebar/sidebar.component"
 import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
 import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
+import {TablesComponent} from "./component/tables/tables.component"
 
 @NgModule({
   declarations: [
@@ -35,14 +36,16 @@ import {UiElementsComponent} from "./component/ui-elements/ui-elements.component
     HeaderComponent,
     SidebarComponent,
     DashboardComponent,
-    UiElementsComponent
+    UiElementsComponent,
+    TablesComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    RouterLinkActive
+    RouterLinkActive,
+    NgOptimizedImage
   ],
   providers: [ DatePipe ],
   bootstrap: [ AppComponent ]
