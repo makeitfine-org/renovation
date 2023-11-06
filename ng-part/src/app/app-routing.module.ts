@@ -8,13 +8,13 @@ import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
 import {TodoComponent} from "src/app/component/todo/todo.component"
 import {AboutPageComponent} from "src/app/component/about-page/about-page.component"
-import {AppComponent} from "src/app/app.component"
 import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
 import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
 import {CardsComponent} from "./component/cards/cards.component"
 import {ModalComponent} from "./component/modal/modal.component"
+import {BlankComponent} from "./component/blank/blank.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)
@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: "forms", component: FormsComponent},
   {path: "cards", component: CardsComponent},
   {path: "modal", component: ModalComponent},
-  {path: "blank", component: AppComponent},
+  {path: "blank", component: BlankComponent},
 ]
 
 @NgModule({

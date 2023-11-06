@@ -26,6 +26,7 @@ import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
 import {CardsComponent} from "./component/cards/cards.component"
 import {ModalComponent} from "./component/modal/modal.component"
+import {BlankComponent} from "./component/blank/blank.component"
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {ModalComponent} from "./component/modal/modal.component"
     TablesComponent,
     FormsComponent,
     CardsComponent,
-    ModalComponent
+    ModalComponent,
+    BlankComponent
   ],
   imports: [
     BrowserModule,
