@@ -10,7 +10,7 @@ import {AppComponent} from "src/app/app.component"
 import {TodoComponent} from "src/app/component/todo/todo.component"
 import {HttpClientModule} from "@angular/common/http"
 import {TodoFormComponent} from "src/app/component/todo-form/todo-form.component"
-import {FormsModule} from "@angular/forms"
+import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {TodoTitleFilterPipe} from "src/app/pipe/todo-filter.pipe"
 import {DatePipe, NgOptimizedImage} from "@angular/common"
 import {AppRoutingModule} from "src/app/app-routing.module"
@@ -23,6 +23,7 @@ import {SidebarComponent} from "src/app/component/sidebar/sidebar.component"
 import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
 import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 import {TablesComponent} from "./component/tables/tables.component"
+import {FormsComponent} from "./component/forms/forms.component"
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {TablesComponent} from "./component/tables/tables.component"
     SidebarComponent,
     DashboardComponent,
     UiElementsComponent,
-    TablesComponent
+    TablesComponent,
+    FormsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import {TablesComponent} from "./component/tables/tables.component"
     FormsModule,
     AppRoutingModule,
     RouterLinkActive,
-    NgOptimizedImage
+    NgOptimizedImage,
+    ReactiveFormsModule
   ],
   providers: [ DatePipe ],
   bootstrap: [ AppComponent ]
