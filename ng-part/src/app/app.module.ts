@@ -25,6 +25,7 @@ import {UiElementsComponent} from "./component/ui-elements/ui-elements.component
 import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
 import {CardsComponent} from "./component/cards/cards.component"
+import {ModalComponent} from "./component/modal/modal.component"
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {CardsComponent} from "./component/cards/cards.component"
     UiElementsComponent,
     TablesComponent,
     FormsComponent,
-    CardsComponent
+    CardsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

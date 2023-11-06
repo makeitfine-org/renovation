@@ -14,6 +14,7 @@ import {UiElementsComponent} from "./component/ui-elements/ui-elements.component
 import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
 import {CardsComponent} from "./component/cards/cards.component"
+import {ModalComponent} from "./component/modal/modal.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)
@@ -29,7 +30,7 @@ const routes: Routes = [
   {path: "tables", component: TablesComponent},
   {path: "forms", component: FormsComponent},
   {path: "cards", component: CardsComponent},
-  {path: "modal", component: AppComponent},
+  {path: "modal", component: ModalComponent},
   {path: "blank", component: AppComponent},
 ]
 
