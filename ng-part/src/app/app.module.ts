@@ -27,6 +27,7 @@ import {FormsComponent} from "./component/forms/forms.component"
 import {CardsComponent} from "./component/cards/cards.component"
 import {ModalComponent} from "./component/modal/modal.component"
 import {BlankComponent} from "./component/blank/blank.component"
+import {TodoFullComponent} from "./component/todo-full/todo-full.component"
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {BlankComponent} from "./component/blank/blank.component"
     FormsComponent,
     CardsComponent,
     ModalComponent,
-    BlankComponent
+    BlankComponent,
+    TodoFullComponent
   ],
   imports: [
     BrowserModule,
