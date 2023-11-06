@@ -7,7 +7,7 @@ import {UiService} from "../../data/service/ui.service"
   styleUrls: [ "./sidebar.component.scss" ]
 })
 export class SidebarComponent {
-  @Input() title: string
+  @Input() title: string = ""
 
   readonly activeClass = "border-gray-300 bg-gray-600 bg-opacity-25 text-white border-gray-100"
 

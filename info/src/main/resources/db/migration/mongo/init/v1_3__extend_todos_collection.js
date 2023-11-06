@@ -8,7 +8,7 @@ db.todos.update(
     {_id: 1},
     {
         $set: {
-            description: "Supj. Add its support as separate module with functionality or extend backend module.",
+            description: "Subj. Add its support as separate module with functionality or extend backend module.",
             category: "IT",
             image: "/assets/images/img1.jpg",
             price: 0.0,

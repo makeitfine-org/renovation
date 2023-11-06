@@ -21,6 +21,7 @@ import {AboutPageComponent} from "src/app/component/about-page/about-page.compon
 import {HeaderComponent} from "src/app/component/header/header.component"
 import {SidebarComponent} from "src/app/component/sidebar/sidebar.component"
 import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
+import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {DashboardComponent} from "src/app/component/dashboard/dashboard.componen
     AboutPageComponent,
     HeaderComponent,
     SidebarComponent,
-    DashboardComponent
+    DashboardComponent,
+    UiElementsComponent
   ],
   imports: [
     BrowserModule,

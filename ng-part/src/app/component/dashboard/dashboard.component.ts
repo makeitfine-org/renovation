@@ -19,7 +19,7 @@ export interface User {
   styleUrls: [ "./dashboard.component.scss" ]
 })
 export class DashboardComponent implements OnInit {
-  todos: Todo[]
+  todos: Todo[] = []
 
   protected readonly TIME_DATE_FORMAT = Constant.TIME_DATE_FORMAT
 

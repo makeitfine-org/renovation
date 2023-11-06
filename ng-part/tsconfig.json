@@ -10,7 +10,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    //"noUnusedLocals": true, //todo: use in (prod https://github.com/facebook/create-react-app/issues/6023)
+//    "noUnusedLocals": true, //todo: use in (prod https://github.com/facebook/create-react-app/issues/6023)
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -19,7 +19,7 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
-    "strictPropertyInitialization": false,
+//    "strictPropertyInitialization": false,
     "lib": [
       "es2020",
       "dom"

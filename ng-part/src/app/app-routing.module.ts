@@ -10,6 +10,7 @@ import {TodoComponent} from "src/app/component/todo/todo.component"
 import {AboutPageComponent} from "src/app/component/about-page/about-page.component"
 import {AppComponent} from "src/app/app.component"
 import {DashboardComponent} from "src/app/component/dashboard/dashboard.component"
+import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)
@@ -21,7 +22,7 @@ const routes: Routes = [
 
   //todo: temp:
   {path: "dashboard", component: DashboardComponent},
-  {path: "ui", component: AppComponent},
+  {path: "ui", component: UiElementsComponent},
   {path: "tables", component: AppComponent},
   {path: "forms", component: AppComponent},
   {path: "cards", component: AppComponent},

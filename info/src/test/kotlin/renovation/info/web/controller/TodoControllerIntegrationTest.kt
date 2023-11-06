@@ -106,7 +106,7 @@ class TodoControllerIntegrationTest(
                                     "id": 1,
                                     "title": "Add Casandra support",
                                     "completed": false,
-                                    "description": "Supj. Add its support as separate module with functionality or extend backend module.",
+                                    "description": "Subj. Add its support as separate module with functionality or extend backend module.",
                                     "category": "IT",
                                     "image": "/assets/images/img1.jpg",
                                     "price": 0.0,
