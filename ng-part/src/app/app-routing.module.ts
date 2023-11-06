@@ -13,6 +13,7 @@ import {DashboardComponent} from "src/app/component/dashboard/dashboard.componen
 import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
+import {CardsComponent} from "./component/cards/cards.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)
@@ -27,7 +28,7 @@ const routes: Routes = [
   {path: "ui", component: UiElementsComponent},
   {path: "tables", component: TablesComponent},
   {path: "forms", component: FormsComponent},
-  {path: "cards", component: AppComponent},
+  {path: "cards", component: CardsComponent},
   {path: "modal", component: AppComponent},
   {path: "blank", component: AppComponent},
 ]

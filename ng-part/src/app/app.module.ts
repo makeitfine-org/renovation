@@ -24,6 +24,7 @@ import {DashboardComponent} from "src/app/component/dashboard/dashboard.componen
 import {UiElementsComponent} from "./component/ui-elements/ui-elements.component"
 import {TablesComponent} from "./component/tables/tables.component"
 import {FormsComponent} from "./component/forms/forms.component"
+import {CardsComponent} from "./component/cards/cards.component"
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {FormsComponent} from "./component/forms/forms.component"
     DashboardComponent,
     UiElementsComponent,
     TablesComponent,
-    FormsComponent
+    FormsComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
