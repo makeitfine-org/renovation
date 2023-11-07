@@ -29,6 +29,7 @@ import {ModalComponent} from "./component/modal/modal.component"
 import {BlankComponent} from "./component/blank/blank.component"
 import {TodoFullComponent} from "./component/todo-full/todo-full.component"
 import {TodoDescriptionComponent} from "./component/todo-description/todo-description.component"
+import {TodoModalComponent} from "./component/todo-modal/todo-modal.component"
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {TodoDescriptionComponent} from "./component/todo-description/todo-descri
     ModalComponent,
     BlankComponent,
     TodoFullComponent,
-    TodoDescriptionComponent
+    TodoDescriptionComponent,
+    TodoModalComponent
   ],
   imports: [
     BrowserModule,

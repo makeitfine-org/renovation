@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core"
-import {InfoService} from "../../data/service/info.service"
+import {InfoService} from "src/app/data/service/info.service"
 import {catchError, retry, tap} from "rxjs/operators"
 import {HttpErrorResponse} from "@angular/common/http"
 import {throwError} from "rxjs"
-import {ErrorService} from "../../data/service/error.service"
+import {ErrorService} from "src/app/data/service/error.service"
 
 export type About = {
   name: string,
