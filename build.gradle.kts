@@ -218,6 +218,14 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":node-server:npmInstall")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":node-server:npmLint")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", "copyDistToPublic")
         }
 

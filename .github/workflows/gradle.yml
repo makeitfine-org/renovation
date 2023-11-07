@@ -55,3 +55,9 @@ jobs:
     - name: ng-part module lint (Node.js)
       working-directory: ./ng-part
       run: npm run-script lint
+    - name: node-server module install (Node.js)
+      working-directory: ./node-server
+      run: npm install
+    - name: node-server module lint (Node.js)
+      working-directory: ./node-server
+      run: npm run-script lint
