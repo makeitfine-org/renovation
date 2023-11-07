@@ -7,6 +7,7 @@
 import {Component} from "@angular/core"
 import {TodoService} from "src/app/data/service/todo.service"
 import {Todo} from "src/app/data/model/todo.model"
+import {Util} from "src/app/util/util"
 
 @Component({
   selector: "app-todo-form",
@@ -23,18 +24,12 @@ export class TodoFormComponent {
   addTodo() {
     const todo: Todo = {
       title: this.title,
-      id: this.getRandomInt(0, 1000_000),
+      id: Util.getRandomInt(0, 1000_000),
       completed: false,
       date: new Date()
     }
 
     this.todoService.addTodo(todo)
     this.title = ""
-  }
-
-  private getRandomInt(min: number, max: number) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min
   }
 }
