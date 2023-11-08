@@ -10,7 +10,7 @@ export class ProbeComponent {
   messages: string[] = []
 
   constructor(private websocketService: WebsocketService) {
-    this.websocketService.connect()
+    this.connectWebSocket()
 
     this.websocketService.messageReceivedFromWsServer.subscribe((message: string) => {
       this.messages.push(message)
@@ -22,7 +22,32 @@ export class ProbeComponent {
     this.websocketService.sendMessage(message)
   }
 
+  connectWebSocket(): void {
+    if (!this.websocketService.isConnectionOpen()) {
+      this.websocketService.connect()
+    }
+  }
+
   closeWebSocket(): void {
     this.websocketService.closeConnection()
+  }
+
+  // @ts-ignore
+  private static WebSocketConnection = class {
+    private isWebSocketConnected: boolean
+
+    constructor(startState: boolean = false) {
+      this.isWebSocketConnected = startState
+    }
+
+    open() {
+      this.isWebSocketConnected = true
+    }
+
+    close() {
+      this.isWebSocketConnected = true
+    }
+
+    status = () => this.isWebSocketConnected
   }
 }

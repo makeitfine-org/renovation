@@ -46,7 +46,8 @@ export class WebsocketService {
 
     this.socket.onerror = (error) => {
       console.error("WebSocket error:", error)
-      this.socket?.close()
+      // @ts-ignore
+      this.socket.close()
     }
   }
 
@@ -57,8 +58,10 @@ export class WebsocketService {
 
   closeConnection(): void {
     // @ts-ignore
-    this.socket.close(WebsocketService.INTENTIONAL_CLOSE_CODE, WebsocketService.INTENTIONAL_CLOSE_MESSAGE)
+    this.socket.close(Constant.INTENTIONAL_CLOSE_CODE, Constant.INTENTIONAL_CLOSE_MESSAGE)
   }
+
+  isConnectionOpen = () => this.socket !== undefined && this.socket?.readyState !== WebSocket.CLOSED
 
   private webSocketReconnect = (closeEvent: CloseEvent) => {
     setTimeout(() => {
