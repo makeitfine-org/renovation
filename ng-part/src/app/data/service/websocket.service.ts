@@ -6,6 +6,7 @@
 
 import {Injectable} from "@angular/core"
 import {Subject} from "rxjs"
+import {environment} from "src/environments/environment"
 
 @Injectable({
   providedIn: "root"
@@ -19,7 +20,7 @@ export class WebsocketService {
   }
 
   connect(): void {
-    this.socket = new WebSocket("ws://localhost:6759")
+    this.socket = new WebSocket(environment.websocketServerUrl)
 
     this.socket.onopen = () => {
       console.log("WebSocket connection established.")

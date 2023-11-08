@@ -13,7 +13,8 @@ export const baseUrl = "http://192.168.0.113:9190"
 export const environment = {
   production: false,
   v1ApiTodoUrl: baseUrl + "/api/v1/info/todo",
-  infoModuleUrl: baseUrl
+  infoModuleUrl: baseUrl,
+  websocketServerUrl: "ws://localhost:3000"
 }
 
 /*
