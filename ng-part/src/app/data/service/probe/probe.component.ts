@@ -23,14 +23,18 @@ export class ProbeComponent {
   }
 
   connectWebSocket(): void {
-    if (!this.websocketService.isConnectionOpen()) {
+    console.debug("attempt to open connection")
+    if (!this.websocketService.isConnectionOpen()) { //if configured button disable checking could be skipped
       this.websocketService.connect()
     }
   }
 
   closeWebSocket(): void {
+    console.debug("attempt to close connection")
     this.websocketService.closeConnection()
   }
+
+  isConnectionOpen = () => this.websocketService.isConnectionOpen()
 
   // @ts-ignore
   private static WebSocketConnection = class {
