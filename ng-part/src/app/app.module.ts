@@ -32,6 +32,7 @@ import {TodoDescriptionComponent} from "./component/todo-description/todo-descri
 import {TodoModalComponent} from "./component/todo-modal/todo-modal.component"
 import {TodoCreateComponent} from "./component/todo-create/todo-create.component"
 import {FocusDirective} from "./directive/focus.directive"
+import {ProbeComponent} from "./data/service/probe/probe.component"
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {FocusDirective} from "./directive/focus.directive"
     TodoDescriptionComponent,
     TodoModalComponent,
     TodoCreateComponent,
-    FocusDirective
+    FocusDirective,
+    ProbeComponent
   ],
   imports: [
     BrowserModule,
