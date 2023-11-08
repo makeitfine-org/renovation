@@ -7,6 +7,7 @@
 import {Injectable} from "@angular/core"
 import {Subject} from "rxjs"
 import {environment} from "src/environments/environment"
+import {Constant} from "../model/constant.modal"
 
 @Injectable({
   providedIn: "root"
@@ -26,24 +27,26 @@ export class WebsocketService {
       console.log("WebSocket connection established.")
     }
 
-    this.socket.onmessage = (event) => {
-      const message = event.data
+    this.socket.onmessage = (messageEvent) => {
+      const message = messageEvent.data
       console.log(`Received message: ${ message }`)
       this.messageReceivedFromWsServer.next(message)
     }
 
-    this.socket.onclose = (event) => {
-      console.log("WebSocket connection closed:", event)
+    this.socket.onclose = (closeEvent: CloseEvent) => {
+      console.log("WebSocket connection closed:", closeEvent)
 
-      console.log("Socket is closed. Reconnect will be attempted in 1 second.", event.reason)
-      setTimeout(() => {
-        console.log("Socket is closed. Reconnect will be attempted in 1 second.", event.reason)
-        this.connect()
-      }, 1000)
+      if (this.checkForIntentionalWebSocketClosing(closeEvent)) {
+        return
+      }
+
+      console.log("Socket is closed. Reconnect will be attempted in 1 second.", closeEvent.reason)
+      this.webSocketReconnect(closeEvent)
     }
 
     this.socket.onerror = (error) => {
       console.error("WebSocket error:", error)
+      this.socket?.close()
     }
   }
 
@@ -54,6 +57,17 @@ export class WebsocketService {
 
   closeConnection(): void {
     // @ts-ignore
-    this.socket.close()
+    this.socket.close(WebsocketService.INTENTIONAL_CLOSE_CODE, WebsocketService.INTENTIONAL_CLOSE_MESSAGE)
   }
+
+  private webSocketReconnect = (closeEvent: CloseEvent) => {
+    setTimeout(() => {
+      console.log("Socket is closed. Reconnect will be attempted in 1 second.", closeEvent.reason)
+      this.connect()
+    }, 1000)
+  }
+
+  private checkForIntentionalWebSocketClosing = (closeEvent: CloseEvent) =>
+    closeEvent.code === Constant.INTENTIONAL_CLOSE_CODE
+    && closeEvent.reason === Constant.INTENTIONAL_CLOSE_MESSAGE
 }

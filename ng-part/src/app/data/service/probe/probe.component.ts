@@ -21,4 +21,8 @@ export class ProbeComponent {
     const message = "Hello, WebSocket!"
     this.websocketService.sendMessage(message)
   }
+
+  closeWebSocket(): void {
+    this.websocketService.closeConnection()
+  }
 }
