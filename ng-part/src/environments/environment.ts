@@ -14,7 +14,8 @@ export const environment = {
   production: false,
   v1ApiTodoUrl: baseUrl + "/api/v1/info/todo",
   infoModuleUrl: baseUrl,
-  websocketServerUrl: "ws://localhost:3000"
+  websocketServerUrl: "ws://localhost:6759",
+  nodeServerUrl: "ws://localhost:3000"
 }
 
 /*
