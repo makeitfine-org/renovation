@@ -13,7 +13,7 @@ import {environment} from "src/environments/environment"
 })
 export class WebsocketService {
   private socket: WebSocket | undefined
-  messageReceived: Subject<string> = new Subject<string>()
+  messageReceivedFromWsServer: Subject<string> = new Subject<string>()
 
   /* eslint-disable  @typescript-eslint/no-useless-constructor */
   constructor() {
@@ -29,7 +29,7 @@ export class WebsocketService {
     this.socket.onmessage = (event) => {
       const message = event.data
       console.log(`Received message: ${ message }`)
-      this.messageReceived.next(message)
+      this.messageReceivedFromWsServer.next(message)
     }
 
     this.socket.onclose = (event) => {

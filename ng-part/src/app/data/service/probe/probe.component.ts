@@ -7,13 +7,13 @@ import {WebsocketService} from "../websocket.service"
   styleUrls: [ "./probe.component.scss" ]
 })
 export class ProbeComponent {
-  receivedMessages: string[] = []
+  messages: string[] = []
 
   constructor(private websocketService: WebsocketService) {
     this.websocketService.connect()
 
-    this.websocketService.messageReceived.subscribe((message: string) => {
-      this.receivedMessages.push(message)
+    this.websocketService.messageReceivedFromWsServer.subscribe((message: string) => {
+      this.messages.push(message)
     })
   }
 
