@@ -66,7 +66,7 @@ wsServer.on("connection", (ws) => {
 
   const timer = () => {
     ws.send(JSON.stringify({
-      event: "counter-abc", counter: ++counter
+      event: "counter", counter: ++counter
     }))
   }
 

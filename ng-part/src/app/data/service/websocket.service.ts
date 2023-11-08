@@ -28,12 +28,18 @@ export class WebsocketService {
 
     this.socket.onmessage = (event) => {
       const message = event.data
-      console.log("Received message:", message)
+      console.log(`Received message: ${ message }`)
       this.messageReceived.next(message)
     }
 
     this.socket.onclose = (event) => {
       console.log("WebSocket connection closed:", event)
+
+      console.log("Socket is closed. Reconnect will be attempted in 1 second.", event.reason)
+      setTimeout(() => {
+        console.log("Socket is closed. Reconnect will be attempted in 1 second.", event.reason)
+        this.connect()
+      }, 1000)
     }
 
     this.socket.onerror = (error) => {
