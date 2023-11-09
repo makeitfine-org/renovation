@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
+  "_moduleAliases": {
+    "@src": "dist"
+  },
   "scripts": {
     "start:dev-server": "nodemon src/http-app/http-server.ts",
     "start:dev-ws": "nodemon src/ws-app/ws-server.ts",
@@ -28,6 +31,7 @@
     "concurrently": "^8.2.2",
     "express": "^4.18.2",
     "lodash.clonedeep": "^4.5.0",
+    "module-alias": "^2.2.3",
     "ws": "^8.14.2"
   },
   "devDependencies": {

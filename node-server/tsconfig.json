@@ -14,7 +14,15 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     //    "importHelpers": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "./src/*"
+      ]
+    }
   },
   "lib": [
     "es2020"

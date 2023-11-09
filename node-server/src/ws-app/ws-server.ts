@@ -4,6 +4,7 @@
  * Copyright 2021-2023
  */
 
+import "module-alias/register" //for alias to be working
 import WebSocket from "ws"
 
 const port = (process.env.WEBSOCKET_PORT || 6759) as number
