@@ -4,11 +4,11 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "dev": "nodemon src/http-app/http-server.ts",
-    "dev-ws": "nodemon src/ws-app/ws-server.ts",
-    "server": "tsc && node dist/http-app/http-server.js",
-    "ws": "tsc && node dist/ws-app/ws-server.js",
-    "serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
+    "start:dev-server": "nodemon src/http-app/http-server.ts",
+    "start:dev-ws": "nodemon src/ws-app/ws-server.ts",
+    "start:server": "tsc && node dist/http-app/http-server.js",
+    "start:ws": "tsc && node dist/ws-app/ws-server.js",
+    "start:serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
     "build": "tsc"
