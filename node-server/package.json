@@ -3,19 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/main/app.js",
-  "_moduleAliases": {
-    "@main": "dist/main",
-    "@test": "dist/test"
-  },
   "scripts": {
     "start:dev-server": "nodemon src/main/http-app/http-server.ts",
     "start:dev-ws": "nodemon src/main/ws-app/ws-server.ts",
-    "start:server": "tsc && node dist/main/http-app/http-server.js",
-    "start:ws": "tsc && node dist/main/ws-app/ws-server.js",
+    "start:server": "node -r ./tsconfig-paths-bootstrap.js dist/main/http-app/http-server.js",
+    "start:ws": "node -r ./tsconfig-paths-bootstrap.js dist/main/ws-app/ws-server.js",
     "start:serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+
+    "devts": "ts-node -r tsconfig-paths/register src/main/http-app/http-server.ts"
   },
   "repository": {
     "type": "git",
@@ -32,7 +30,6 @@
     "concurrently": "^8.2.2",
     "express": "^4.18.2",
     "lodash.clonedeep": "^4.5.0",
-    "module-alias": "^2.2.3",
     "ws": "^8.14.2"
   },
   "devDependencies": {
@@ -50,6 +47,7 @@
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
 }

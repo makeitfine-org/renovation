@@ -13,17 +13,17 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    //    "importHelpers": true,
+    "importHelpers": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "@main/*": [
-        "./src/main/*"
+        "./main/*"
       ],
       "@test/*": [
-        "./src/test/*"
+        "./test/*"
       ]
     }
   },
