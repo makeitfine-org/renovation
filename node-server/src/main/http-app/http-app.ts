@@ -13,7 +13,7 @@ const app: Application = express()
 app.use("/phrase", phraseRoute)
 
 app.get("/", (_, res) => {
-  res.send("Hello World!")
+  res.send("Hello World!!!")
 })
 
 app.use("/module", (req: Request, res: Response): void => {

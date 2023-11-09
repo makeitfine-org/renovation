@@ -2,19 +2,20 @@
   "name": "simpleserver",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "dist/main/app.js",
   "_moduleAliases": {
-    "@src": "dist"
+    "@main": "dist/main",
+    "@test": "dist/test"
   },
   "scripts": {
-    "start:dev-server": "nodemon src/http-app/http-server.ts",
-    "start:dev-ws": "nodemon src/ws-app/ws-server.ts",
-    "start:server": "tsc && node dist/http-app/http-server.js",
-    "start:ws": "tsc && node dist/ws-app/ws-server.js",
+    "start:dev-server": "nodemon src/main/http-app/http-server.ts",
+    "start:dev-ws": "nodemon src/main/ws-app/ws-server.ts",
+    "start:server": "tsc && node dist/main/http-app/http-server.js",
+    "start:ws": "tsc && node dist/main/ws-app/ws-server.js",
     "start:serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",

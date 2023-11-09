@@ -6,11 +6,11 @@
 import cloneDeep from "lodash.clonedeep"
 
 const phrases: Phrase[] = [ {
-  id: 1, title: "hi", text: "Hello everyone!!!"
+  id: 1, title: "hi", text: "Hello everyone!"
 }, {
-  id: 2, title: "place", text: "I'm here!!!"
+  id: 2, title: "place", text: "I'm here!"
 }, {
-  id: 3, title: "question", text: "Who there???"
+  id: 3, title: "question", text: "Who there?"
 }, {
   id: 4, title: "bed words", text: "Damn!"
 }, {

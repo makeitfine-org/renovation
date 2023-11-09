@@ -19,8 +19,11 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": [
-        "./src/*"
+      "@main/*": [
+        "./src/main/*"
+      ],
+      "@test/*": [
+        "./src/test/*"
       ]
     }
   },
@@ -31,7 +34,8 @@
     "./coverage",
     "./dist",
     "__tests__",
-    "jest.config.js"
+    "jest.config.js",
+    "src/test"
   ],
   "ts-node": {
     "transpileOnly": true,

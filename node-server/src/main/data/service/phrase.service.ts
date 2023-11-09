@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-import {defaultPhrases, Phrase} from "@src/data/model/phrase.model"
+import {defaultPhrases, Phrase} from "@main/data/model/phrase.model"
 
 //todo: write test
 export class PhraseService {
