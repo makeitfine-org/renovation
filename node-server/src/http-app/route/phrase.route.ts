@@ -9,8 +9,10 @@ import {PhraseService} from "../../data/service/phrase.service" //todo: route fr
 
 const router = Router()
 
-router.get("/", (req: Request, res: Response): void => {
-  res.status(200).send(new PhraseService().getPhrase())//todo: single tor service
-})
+router.get("/", (_: Request, res: Response) =>
+  res
+    .send(PhraseService.getInstance().getPhrase())
+    .status(200)
+)
 
 export {router}

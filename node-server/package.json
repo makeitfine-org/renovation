@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon src/http-app/http-server.ts",
     "dev-ws": "nodemon src/ws-app/ws-server.ts",
-    "server": "tsc && node dist/app-server.js",
-    "ws": "tsc && node dist/app-websocket.js",
+    "server": "tsc && node dist/http-app/http-server.js",
+    "ws": "tsc && node dist/ws-app/ws-server.js",
     "serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
@@ -27,11 +27,13 @@
   "dependencies": {
     "concurrently": "^8.2.2",
     "express": "^4.18.2",
+    "lodash.clonedeep": "^4.5.0",
     "ws": "^8.14.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.8",
+    "@types/lodash.clonedeep": "^4.5.9",
     "@types/supertest": "^2.0.16",
     "@types/ws": "^8.5.9",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

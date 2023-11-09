@@ -4,24 +4,23 @@
  * Copyright 2021-2023
  */
 
-import {Phrase} from "../model/phrase.model"
+import {defaultPhrases, Phrase} from "../model/phrase.model"
 
 //todo: write test
 export class PhraseService {
+  private static instance: PhraseService
   private phrases: Phrase[] = []
 
-  constructor() {
-    this.phrases = [ {
-      id: 1, title: "hi", text: "Hello everyone!!!"
-    }, {
-      id: 2, title: "place", text: "I'm here!!!"
-    }, {
-      id: 3, title: "question", text: "Who there???"
-    }, {
-      id: 4, title: "bed words", text: "Damn!"
-    }, {
-      id: 5, title: "quite", text: "I'm off"
-    } ]
+  private constructor() {
+    this.phrases = defaultPhrases()
+  }
+
+  public static getInstance(): PhraseService {
+    if (!PhraseService.instance) {
+      PhraseService.instance = new PhraseService()
+    }
+
+    return PhraseService.instance
   }
 
   getPhrase = () => this.phrases
