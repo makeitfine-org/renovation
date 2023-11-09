@@ -8,7 +8,7 @@ import {Phrase} from "../model/phrase.model"
 
 //todo: write test
 export class PhraseService {
-  public phrases: Phrase[] = []
+  private phrases: Phrase[] = []
 
   constructor() {
     this.phrases = [ {

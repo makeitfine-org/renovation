@@ -13,10 +13,20 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-//    "importHelpers": true,
+    //    "importHelpers": true,
     "noUnusedLocals": true
   },
   "lib": [
     "es2020"
-  ]
+  ],
+  "exclude": [
+    "./coverage",
+    "./dist",
+    "__tests__",
+    "jest.config.js"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  }
 }
