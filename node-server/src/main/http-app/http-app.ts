@@ -6,7 +6,7 @@
 
 import express, {Application, Request, Response} from "express"
 
-import {router as phraseRoute} from "./route/phrase.route"
+import {router as phraseRoute} from "@main/http-app/route/phrase.route"
 
 const app: Application = express()
 

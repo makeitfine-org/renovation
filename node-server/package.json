@@ -12,7 +12,7 @@
     "start:ws": "node -r ./tsconfig-paths-bootstrap.js dist/main/ws-app/ws-server.js",
     "start:serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
 
-    "test": "jest",
+    "test": "jest --runInBand ",
     "coverage": "jest --coverage",
     "lint": "eslint . --ext .ts",
 

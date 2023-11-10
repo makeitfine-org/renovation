@@ -5,7 +5,7 @@
  */
 
 import {Request, Response, Router} from "express"
-import {PhraseService} from "../../data/service/phrase.service" //todo: route from src as default
+import {PhraseService} from "@main/data/service/phrase.service" //todo: route from src as default
 
 const router = Router()
 

@@ -5,6 +5,7 @@
  */
 
 import {defaultPhrases, Phrase} from "@main/data/model/phrase.model"
+import cloneDeep from "lodash.clonedeep"
 
 //todo: write test
 export class PhraseService {
@@ -19,11 +20,10 @@ export class PhraseService {
     if (!PhraseService.instance) {
       PhraseService.instance = new PhraseService()
     }
-
     return PhraseService.instance
   }
 
-  getPhrase = () => this.phrases
+  getPhrase = () => cloneDeep(this.phrases)
 
   addPhrase = (phrase: Phrase) => this.phrases.push(phrase)
 
