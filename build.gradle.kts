@@ -226,6 +226,10 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":node-server:npmTest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", "copyDistToPublic")
         }
 
