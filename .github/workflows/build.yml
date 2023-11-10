@@ -39,6 +39,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.x'
+
     - name: frontend module install && build (Node.js)
       working-directory: ./frontend
       run: |
@@ -49,15 +50,20 @@ jobs:
       run: |
         npm install
         npm run-script build
+
     - name: ng-part module install (Node.js)
       working-directory: ./ng-part
       run: npm install
     - name: ng-part module lint (Node.js)
       working-directory: ./ng-part
       run: npm run-script lint
+
     - name: node-server module install (Node.js)
       working-directory: ./node-server
       run: npm install
     - name: node-server module lint (Node.js)
       working-directory: ./node-server
       run: npm run-script lint
+    - name: node-server module test (Node.js)
+      working-directory: ./node-server
+      run: npm run-script test

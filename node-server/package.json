@@ -6,14 +6,18 @@
   "scripts": {
     "start:dev-server": "nodemon src/main/http-app/http-server.ts",
     "start:dev-ws": "nodemon src/main/ws-app/ws-server.ts",
+    "devts": "ts-node -r tsconfig-paths/register src/main/http-app/http-server.ts",
+
     "start:server": "node -r ./tsconfig-paths-bootstrap.js dist/main/http-app/http-server.js",
     "start:ws": "node -r ./tsconfig-paths-bootstrap.js dist/main/ws-app/ws-server.js",
     "start:serverAndWs": "concurrently --kill-others \"npm run server\" \"npm run ws\"",
-    "lint": "eslint . --ext .ts",
-    "test": "jest --coverage",
-    "build": "rm -rf dist && tsc",
 
-    "devts": "ts-node -r tsconfig-paths/register src/main/http-app/http-server.ts"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts",
+
+    "build": "rm -rf dist && tsc",
+    "buildAll": "eslint . --ext .ts && jest --coverage && rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
