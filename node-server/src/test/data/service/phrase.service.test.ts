@@ -4,10 +4,8 @@
  * Copyright 2021-2023
  */
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import {PhraseService} from "@main/data/service/phrase.service"
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import {Phrase} from "@main/data/model/phrase.model"
 
