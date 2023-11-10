@@ -23,16 +23,23 @@ export class PhraseService {
     return PhraseService.instance
   }
 
-  getPhrase = () => cloneDeep(this.phrases)
+  getPhrase = (): Phrase[] => cloneDeep(this.phrases)
 
-  addPhrase = (phrase: Phrase) => this.phrases.push(phrase)
+  getPhraseById = (id: number): Phrase | null => cloneDeep(this.phrases.find(p => p.id == id) || null)
 
-  updatePhrase = (phrase: Phrase) => {
-    const index = this.phrases.findIndex((p => p.id == phrase.id))
-    this.phrases[index] = phrase
+  addPhrase = (phrase: Phrase): void => {
+    this.phrases.push(cloneDeep(phrase))
   }
 
-  removePhrase = (phrase: Phrase) => this.removePhraseById(phrase.id)
+  updatePhrase = (phrase: Phrase) => { //todo: add case if no element
+    const index = this.phrases.findIndex((p => p.id == phrase.id))
+    this.phrases[index] = cloneDeep(phrase)
+  }
 
-  removePhraseById = (phraseId: number) => this.phrases = this.phrases.filter(p => p.id !== phraseId)
+  removePhrase = (phrase: Phrase) => this.removePhraseById(phrase.id) //todo: add case if no element
+
+  //todo: add case if no element
+  removePhraseById = (phraseId: number) => {
+    this.phrases = this.phrases.filter(p => p.id !== phraseId)
+  }
 }
