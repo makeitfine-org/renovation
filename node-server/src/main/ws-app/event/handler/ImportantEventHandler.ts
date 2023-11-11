@@ -6,9 +6,8 @@
 
 import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 
-export class NotImportantEventHandler extends EventHandler<{}> {
+export class ImportantEventHandler extends EventHandler<{}> {
 
   handle(data: {}): void {
   }
 }
-

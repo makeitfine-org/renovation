@@ -4,9 +4,20 @@
  * Copyright 2021-2023
  */
 
-import {IEvent} from "@main/ws-app/event/IEvent"
+import {Subject} from "rxjs"
 
-export interface EventHandler<T = IEvent> {
+export abstract class EventHandler<T = {}> {
 
-  handle(event: T): void
+  subject: Subject<T>
+
+  constructor(subject: Subject<T>) {
+    this.subject = subject
+
+    this.subject.subscribe(data => {
+      console.log(`hello from important ${ JSON.stringify(data) }`)
+      this.handle(data)
+    })
+  }
+
+  abstract handle(data: T): void
 }

@@ -6,16 +6,14 @@
 
 import WebSocket from "ws"
 import {IEvent} from "@main/ws-app/event/IEvent"
+import {ImportantEventHandler} from "@main/ws-app/event/handler/ImportantEventHandler"
+import {NotImportantEventHandler} from "@main/ws-app/event/handler/NotImportEventHandler"
+import {OtherEventHandler} from "@main/ws-app/event/handler/OtherEventHandler"
+import {Subject} from "rxjs"
 import {EventType} from "@main/ws-app/event/EventType"
-import {ImportEventHandler} from "@main/ws-app/event/handler/ImportEventHandler"
-import {NotImportEventHandler} from "@main/ws-app/event/handler/NotImportEventHandler"
-import {OtherEvent} from "@main/ws-app/event/OtherEvent"
-import {ImportantEvent} from "@main/ws-app/event/ImportantEvent"
-import {NotImportantEvent} from "@main/ws-app/event/NotImportantEvent"
-import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 
 export const wsMessageEventOn = (messageEvent: WebSocket.RawData) => {
-  console.log("websocket messageEvent: " + messageEvent)
+  console.debug("websocket messageEvent: " + messageEvent)
 
   //todo: exception for json parsing / unsuitable event / errors in websocket
   const event = JSON.parse(messageEvent) as IEvent
@@ -26,9 +24,6 @@ export const wsMessageEventOn = (messageEvent: WebSocket.RawData) => {
 class EventHandlerFacade {
   private static instance: EventHandlerFacade
 
-  private static events: typeof = [ ImportantEvent, NotImportantEvent, OtherEvent ]
-  private static handlers: EventHandler[] = [ new ImportEventHandler(), new NotImportEventHandler() ]
-
   static getInstance(): EventHandlerFacade {
     if (!EventHandlerFacade.instance) {
       EventHandlerFacade.instance = new EventHandlerFacade()
@@ -36,16 +31,20 @@ class EventHandlerFacade {
     return EventHandlerFacade.instance
   }
 
-  handle(event: IEvent) {
-    Object
-      .values(EventType)
-      .filter((value) => {
-        console.log(value)
-      })
+  private static map: Map<EventType, Subject<{}>> = new Map()
+  private static importantSubject$ = new Subject<{}>()
+  private static noImportantSubject$ = new Subject<{}>()
+  private static otherSubject$ = new Subject<{}>()
 
+  private constructor() {
+    new ImportantEventHandler(EventHandlerFacade.importantSubject$)
+    new NotImportantEventHandler(EventHandlerFacade.noImportantSubject$)
+    new OtherEventHandler(EventHandlerFacade.otherSubject$)
+
+    EventHandlerFacade.map.set(EventType.Important, EventHandlerFacade.importantSubject$)
+    EventHandlerFacade.map.set(EventType.NotImportant, EventHandlerFacade.noImportantSubject$)
+    EventHandlerFacade.map.set(EventType.Other, EventHandlerFacade.otherSubject$)
   }
 
-  private defineEvent(event: IEvent) {
-    EventHandlerFacade.events.find(event => event typeof event)
-  }
+  handle = (event: IEvent) => EventHandlerFacade.map.get(event.type)?.next(event.data)
 }
