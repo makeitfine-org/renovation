@@ -5,7 +5,7 @@
  */
 
 import WebSocket from "ws"
-import {wsMessageHandler} from "@main/ws-app/wsMessageHandler"
+import {wsMessageEventOn} from "@main/ws-app/event-hendler"
 import {PhraseService} from "@main/data/service/phrase.service"
 
 const phraseService = PhraseService.getInstance()
@@ -21,7 +21,7 @@ wsServer.on("connection", (ws: WebSocket) => {
 
   console.log("WebSocket connection!")
 
-  ws.on("message", wsMessageHandler)
+  ws.on("message", wsMessageEventOn)
 
   ws.on("close", () => {
     console.log("disconnected")
