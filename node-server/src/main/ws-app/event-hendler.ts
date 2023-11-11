@@ -16,6 +16,7 @@ export const wsMessageEventOn = (messageEvent: WebSocket.RawData) => {
   console.debug("websocket messageEvent: " + messageEvent)
 
   //todo: exception for json parsing / unsuitable event / errors in websocket
+  // @ts-ignore
   const event = JSON.parse(messageEvent) as IEvent
 
   EventHandlerFacade.getInstance().handle(event)
@@ -31,10 +32,10 @@ class EventHandlerFacade {
     return EventHandlerFacade.instance
   }
 
-  private static map: Map<EventType, Subject<{}>> = new Map()
-  private static importantSubject$ = new Subject<{}>()
-  private static noImportantSubject$ = new Subject<{}>()
-  private static otherSubject$ = new Subject<{}>()
+  private static map: Map<EventType, Subject<object>> = new Map()
+  private static importantSubject$ = new Subject<object>()
+  private static noImportantSubject$ = new Subject<object>()
+  private static otherSubject$ = new Subject<object>()
 
   private constructor() {
     new ImportantEventHandler(EventHandlerFacade.importantSubject$)

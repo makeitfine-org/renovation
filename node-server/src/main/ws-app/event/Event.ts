@@ -7,7 +7,7 @@
 import {IEvent} from "@main/ws-app/event/IEvent"
 import {EventType} from "@main/ws-app/event/EventType"
 
-export class Event<T = {}> implements IEvent<T> {
+export class Event<T = object> implements IEvent<T> {
   readonly type: EventType
   readonly data: T
 

@@ -6,7 +6,7 @@
 
 import {Subject} from "rxjs"
 
-export abstract class EventHandler<T = {}> {
+export abstract class EventHandler<T = object> {
 
   subject: Subject<T>
 

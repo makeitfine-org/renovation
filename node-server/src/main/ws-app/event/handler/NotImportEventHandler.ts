@@ -6,9 +6,10 @@
 
 import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 
-export class NotImportantEventHandler extends EventHandler<{}> {
+export class NotImportantEventHandler extends EventHandler {
 
-  handle(data: {}): void {
+  handle(data: object): void {
+    console.debug(`${ data }`)
   }
 }
 

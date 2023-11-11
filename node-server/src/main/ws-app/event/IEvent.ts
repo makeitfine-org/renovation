@@ -6,7 +6,7 @@
 
 import {EventType} from "@main/ws-app/event/EventType"
 
-export interface IEvent<T = {}> {
+export interface IEvent<T = object> {
   readonly type: EventType
   readonly data: T
 }
