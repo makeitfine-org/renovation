@@ -16,7 +16,7 @@ import {CardsComponent} from "./component/cards/cards.component"
 import {ModalComponent} from "./component/modal/modal.component"
 import {BlankComponent} from "./component/blank/blank.component"
 import {TodoFullComponent} from "./component/todo-full/todo-full.component"
-import {ProbeComponent} from "./data/service/probe/probe.component"
+import {ProbeComponent} from "./component/probe/probe.component"
 
 const routes: Routes = [
   //deprecated: to be rewritten and removed (for learning purposes)

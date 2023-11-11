@@ -1,5 +1,5 @@
 import {Component} from "@angular/core"
-import {WebsocketService} from "../websocket.service"
+import {WebsocketService} from "src/app/data/service/websocket.service"
 
 @Component({
   selector: "app-probe",
@@ -20,18 +20,19 @@ export class ProbeComponent {
   sendMessage(): void {
     const message = "Hello, WebSocket!"
     this.websocketService.sendMessage(message)
+    console.debug(`send message: ${ message }`)
   }
 
   connectWebSocket(): void {
-    console.debug("attempt to open connection")
     if (!this.websocketService.isConnectionOpen()) { //if configured button disable checking could be skipped
       this.websocketService.connect()
+      console.debug(`connection open`)
     }
   }
 
   closeWebSocket(): void {
-    console.debug("attempt to close connection")
     this.websocketService.closeConnection()
+    console.debug(`connection close`)
   }
 
   isConnectionOpen = () => this.websocketService.isConnectionOpen()
