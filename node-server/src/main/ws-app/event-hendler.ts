@@ -9,8 +9,7 @@ import {IEvent} from "@main/ws-app/event/IEvent"
 import {ImportantEventHandler} from "@main/ws-app/event/handler/ImportantEventHandler"
 import {NotImportantEventHandler} from "@main/ws-app/event/handler/NotImportEventHandler"
 import {OtherEventHandler} from "@main/ws-app/event/handler/OtherEventHandler"
-import {Subject} from "rxjs"
-import {EventType} from "@main/ws-app/event/EventType"
+import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 
 export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket) => {
   console.debug("websocket messageEvent: " + messageEvent)
@@ -19,7 +18,12 @@ export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket)
   // @ts-ignore
   const event = JSON.parse(messageEvent) as IEvent
 
-  EventHandlerFacade.getInstance().handle(event)
+  EventHandlerFacade.getInstance().handle(event).forEach(r => ws.send(
+    JSON.stringify({
+      type: event.type,
+      response: r
+    })
+  ))
 }
 
 class EventHandlerFacade {
@@ -32,20 +36,15 @@ class EventHandlerFacade {
     return EventHandlerFacade.instance
   }
 
-  private static map: Map<EventType, Subject<object>> = new Map()
-  private static importantSubject$ = new Subject<object>()
-  private static noImportantSubject$ = new Subject<object>()
-  private static otherSubject$ = new Subject<object>()
+  private static handlers: EventHandler[] = []
 
   private constructor() {
-    new ImportantEventHandler(EventHandlerFacade.importantSubject$)
-    new NotImportantEventHandler(EventHandlerFacade.noImportantSubject$)
-    new OtherEventHandler(EventHandlerFacade.otherSubject$)
-
-    EventHandlerFacade.map.set(EventType.Important, EventHandlerFacade.importantSubject$)
-    EventHandlerFacade.map.set(EventType.NotImportant, EventHandlerFacade.noImportantSubject$)
-    EventHandlerFacade.map.set(EventType.Other, EventHandlerFacade.otherSubject$)
+    EventHandlerFacade.handlers.push(new ImportantEventHandler())
+    EventHandlerFacade.handlers.push(new NotImportantEventHandler())
+    EventHandlerFacade.handlers.push(new OtherEventHandler())
   }
 
-  handle = (event: IEvent) => EventHandlerFacade.map.get(event.type)?.next(event.data)
+  handle = (event: IEvent): object[] => EventHandlerFacade.handlers
+    .filter(h => h.eventType == event.type)
+    .map(h => h.handle(event.data))
 }

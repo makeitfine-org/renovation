@@ -4,20 +4,10 @@
  * Copyright 2021-2023
  */
 
-import {Subject} from "rxjs"
+import {EventType} from "@main/ws-app/event/EventType"
 
 export abstract class EventHandler<T = object, R = object> {
-
-  subject: Subject<T>
-
-  constructor(subject: Subject<T>) {
-    this.subject = subject
-
-    this.subject.subscribe(data => {
-      console.log(`hello from important ${ JSON.stringify(data) }`)
-      this.handle(data)
-    })
-  }
+  abstract readonly eventType: EventType
 
   abstract handle(data: T): R
 }
