@@ -7,7 +7,6 @@
 import {defaultPhrases, Phrase} from "@main/data/model/phrase.model"
 import cloneDeep from "lodash.clonedeep"
 
-//todo: write test
 export class PhraseService {
   private static instance: PhraseService
   private phrases: Phrase[] = []
