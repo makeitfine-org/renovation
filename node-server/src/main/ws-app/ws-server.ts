@@ -15,13 +15,14 @@ export const wsServer = new WebSocket.Server(
   {port: port},
   () => console.log(`started websocket server on port ${ port }`)
 )
+let connectionCount = 0
 
 wsServer.on("connection", (ws: WebSocket) => {
   ws.binaryType = "arraybuffer"
 
-  console.log("WebSocket connection!")
+  console.log(`WebSocket connection (num: ${ ++connectionCount })!`)
 
-  ws.on("message", wsMessageEventOn)
+  ws.on("message", (rawData) => wsMessageEventOn(rawData, ws))
 
   ws.on("close", () => {
     console.log("disconnected")
@@ -40,7 +41,7 @@ const serverStartConnectionActions = (ws: WebSocket) => {
   }))
 
   ws.send(JSON.stringify({
-    event: "update-texts", buffer: Buffer.from(JSON.stringify([ "Text Data" ]))
+    event: "update-texts", buffer: Buffer.from(JSON.stringify(["Text Data"]))
   }))
 
   setInterval(() => {

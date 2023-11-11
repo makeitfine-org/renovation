@@ -5,11 +5,13 @@
  */
 
 import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
+import {EventType} from "@main/ws-app/event/EventType"
 
 export class OtherEventHandler extends EventHandler {
 
-  handle(data: object): void {
+  handle(data: object): object {
     console.debug(`${ data }`)
+    return {"handler": EventType.Other}
   }
 }
 

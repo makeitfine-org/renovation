@@ -6,7 +6,7 @@
 
 import {Subject} from "rxjs"
 
-export abstract class EventHandler<T = object> {
+export abstract class EventHandler<T = object, R = object> {
 
   subject: Subject<T>
 
@@ -19,5 +19,5 @@ export abstract class EventHandler<T = object> {
     })
   }
 
-  abstract handle(data: T): void
+  abstract handle(data: T): R
 }

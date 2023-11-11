@@ -12,7 +12,7 @@ import {OtherEventHandler} from "@main/ws-app/event/handler/OtherEventHandler"
 import {Subject} from "rxjs"
 import {EventType} from "@main/ws-app/event/EventType"
 
-export const wsMessageEventOn = (messageEvent: WebSocket.RawData) => {
+export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket) => {
   console.debug("websocket messageEvent: " + messageEvent)
 
   //todo: exception for json parsing / unsuitable event / errors in websocket
