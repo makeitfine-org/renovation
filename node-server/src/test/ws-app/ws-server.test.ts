@@ -41,7 +41,7 @@ describe("WebSocket Server", () => {
     server.close()
   })
 
-  test("Send important type message and get response", async() => {
+  test("Send 'important type' message and get response", async() => {
     const testMessage: string = `
     {
       "type" : "important",
@@ -66,7 +66,7 @@ describe("WebSocket Server", () => {
       })
   })
 
-  test("Send not important type message and get response", async() => {
+  test("Send 'not important' type message and get response", async() => {
     const testMessage: string = `
     {
       "type" : "not_important",
@@ -91,7 +91,7 @@ describe("WebSocket Server", () => {
       })
   })
 
-  test("Send other type message and get response", async() => {
+  test("Send 'other' type message and get response", async() => {
     const testMessage: string = `
     {
       "type" : "other",
@@ -113,6 +113,52 @@ describe("WebSocket Server", () => {
           "handler": "other"
         },
         "type": "other"
+      })
+  })
+
+  test("Send 'phrase_get_all' type message and get response", async() => {
+    const testMessage: string = `
+    {
+      "type" : "phrase_get_all",
+      "data" : null
+    }
+    `
+    await sendMessage(testMessage)
+
+    // Perform assertions on the response
+    expect(responseMessage).not.toEqual({})
+
+    expect(
+      responseMessage)
+      .toEqual({
+        "type": "phrase_get_all",
+        "response": [
+          {
+            "id": 1,
+            "title": "hi",
+            "text": "Hello everyone!"
+          },
+          {
+            "id": 2,
+            "title": "place",
+            "text": "I'm here!"
+          },
+          {
+            "id": 3,
+            "title": "question",
+            "text": "Who there?"
+          },
+          {
+            "id": 4,
+            "title": "bed words",
+            "text": "Damn!"
+          },
+          {
+            "id": 5,
+            "title": "quite",
+            "text": "I'm off"
+          }
+        ]
       })
   })
 
@@ -139,7 +185,7 @@ function waitForSocketState(socket: WebSocket, state: number) {
       } else {
         waitForSocketState(socket, state).then(resolve)
       }
-    }, 5)
+    }, 10)
   })
 }
 

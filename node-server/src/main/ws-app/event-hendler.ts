@@ -10,6 +10,7 @@ import {ImportantEventHandler} from "@main/ws-app/event/handler/ImportantEventHa
 import {NotImportantEventHandler} from "@main/ws-app/event/handler/NotImportEventHandler"
 import {OtherEventHandler} from "@main/ws-app/event/handler/OtherEventHandler"
 import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
+import {PhraseGetAllEventHandler} from "@main/ws-app/event/handler/PhraseGetAllEventHandler"
 
 export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket) => {
   console.debug("websocket messageEvent: " + messageEvent)
@@ -42,9 +43,11 @@ class EventHandlerFacade {
     EventHandlerFacade.handlers.push(new ImportantEventHandler())
     EventHandlerFacade.handlers.push(new NotImportantEventHandler())
     EventHandlerFacade.handlers.push(new OtherEventHandler())
+
+    EventHandlerFacade.handlers.push(new PhraseGetAllEventHandler())
   }
 
-  handle = (event: IEvent): object[] => EventHandlerFacade.handlers
-    .filter(h => h.eventType == event.type)
+  handle = (event: IEvent): (object | null)[] => EventHandlerFacade.handlers //todo: test for null
+    .filter(h => h.eventType === event.type)
     .map(h => h.handle(event.data))
 }

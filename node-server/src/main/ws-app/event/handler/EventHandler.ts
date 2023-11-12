@@ -6,7 +6,7 @@
 
 import {EventType} from "@main/ws-app/event/EventType"
 
-export abstract class EventHandler<T = object, R = object> {
+export abstract class EventHandler<T = object | null, R = object | null> {
   abstract readonly eventType: EventType
 
   handle(data: T): R {
