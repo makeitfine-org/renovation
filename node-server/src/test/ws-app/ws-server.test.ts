@@ -21,7 +21,7 @@ describe("WebSocket Server", () => {
 
   let responseMessage: object | null = null
 
-  beforeAll(async() => {
+  beforeAll(async () => {
     // Start server
     server = await startServer(port)
 
@@ -34,7 +34,7 @@ describe("WebSocket Server", () => {
     })
   })
 
-  afterAll(async() => {
+  afterAll(async () => {
     // Close the client after it receives the response
     client.close()
 
@@ -43,12 +43,12 @@ describe("WebSocket Server", () => {
     server.close()
   })
 
-  const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
+  const sendMessage = async (message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
     client.send(message)
     await sleep(sleepMS)
   }
 
-  test("Send 'important type' message and get response", async() => {
+  test("Send 'important type' message and get response", async () => {
     const testMessage: string = `
     {
       "type" : "important",
@@ -73,7 +73,7 @@ describe("WebSocket Server", () => {
       })
   })
 
-  test("Send 'not important' type message and get response", async() => {
+  test("Send 'not important' type message and get response", async () => {
     const testMessage: string = `
     {
       "type" : "not_important",
@@ -98,7 +98,7 @@ describe("WebSocket Server", () => {
       })
   })
 
-  test("Send 'other' type message and get response", async() => {
+  test("Send 'other' type message and get response", async () => {
     const testMessage: string = `
     {
       "type" : "other",
@@ -123,7 +123,7 @@ describe("WebSocket Server", () => {
       })
   })
 
-  test("Send 'phrase_get_all' type message and get response", async() => {
+  test("Send 'phrase_get_all' type message and get response", async () => {
     const testMessage: string = `
     {
       "type" : "phrase_get_all",
@@ -170,7 +170,7 @@ describe("WebSocket Server", () => {
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhrase())
   })
 
-  test("Send 'phrase_get_one' type message and get response", async() => {
+  test("Send 'phrase_get_one' type message and get response", async () => {
     const id = 3
     const testMessage: string = `
     {
@@ -196,7 +196,7 @@ describe("WebSocket Server", () => {
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById(id))
   })
 
-  test("Send 'phrase_get_one' type message with not exists id and get response", async() => {
+  test("Send 'phrase_get_one' type message with not exists id and get response", async () => {
     const id = 1_001
     const testMessage: string = `
     {
@@ -216,7 +216,7 @@ describe("WebSocket Server", () => {
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById(id))
   })
 
-  test("Send 'phrase_get_one' type message with not null id and get response", async() => {
+  test("Send 'phrase_get_one' type message with not null id and get response", async () => {
     const testMessage: string = `
     {
       "type" : "phrase_get_one",
@@ -235,7 +235,7 @@ describe("WebSocket Server", () => {
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById())
   })
 
-  test("Send 'phrase_add_one' type message and get response", async() => {
+  test("Send 'phrase_add_one' type message and get response", async () => {
     const addedId = 1_000_000
     const phrasesCountBeforeAdding = phrasesService.getPhrase().length
 
@@ -263,7 +263,7 @@ describe("WebSocket Server", () => {
     expect(phrasesService.getPhrase().length).toBe(phrasesCountBeforeAdding + 1)
   })
 
-  test("Send 'phrase_update_one' type message and get response", async() => {
+  test("Send 'phrase_update_one' type message and get response", async () => {
     const updateId = 4
     const phrasesCountBeforeUpdate = phrasesService.getPhrase().length
 
@@ -290,6 +290,32 @@ describe("WebSocket Server", () => {
       })
     expect(phrasesService.getPhrase().length).toEqual(phrasesCountBeforeUpdate)
     expect(phrasesService.getPhraseById(4)).toEqual({"id": 4, "title": "updated title", "text": "updated text"})
+  })
+
+  test("Send 'phrase_remove_one' type message with not null id and get response", async () => {
+    const removedId = 4
+    expect(phrasesService.getPhraseById(4)).not.toBeNull()
+    const phrasesCountBeforeRemoval = phrasesService.getPhrase().length
+
+    const testMessage: string = `
+    {
+      "type" : "phrase_remove_one",
+      "data" : {
+        "id" : ${ removedId }
+      }
+    }
+    `
+    await sendMessage(testMessage, 100)
+
+    // Perform assertions on the response
+    expect(responseMessage).not.toEqual({})
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_remove_one",
+        "response": null
+      })
+    expect(phrasesService.getPhraseById(4)).toBeNull()
+    expect(phrasesService.getPhrase().length).toBe(phrasesCountBeforeRemoval - 1)
   })
 })
 

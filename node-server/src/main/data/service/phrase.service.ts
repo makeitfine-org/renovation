@@ -37,8 +37,8 @@ export class PhraseService {
 
   removePhrase = (phrase: Phrase) => this.removePhraseById(phrase.id) //todo: add case if no element
 
-  //todo: add case if no element
-  removePhraseById = (phraseId: number) => {
+  //todo: add case if no element or phraseId is null
+  removePhraseById = (phraseId?: number) => {
     this.phrases = this.phrases.filter(p => p.id !== phraseId)
   }
 }
