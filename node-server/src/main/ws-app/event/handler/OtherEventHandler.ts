@@ -11,6 +11,6 @@ export class OtherEventHandler extends EventHandler {
   readonly eventType: EventType = EventType.Other
 
   handleInside(data: object): object {
-    return {"handler": EventType.Other}
+    return {"handler": EventType.Other, "data": data}
   }
 }

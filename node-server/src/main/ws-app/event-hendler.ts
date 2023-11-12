@@ -16,7 +16,7 @@ export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket)
 
   //todo: exception for json parsing / unsuitable event / errors in websocket
   // @ts-ignore
-  const event = JSON.parse(messageEvent) as IEvent
+  const event = JSON.parse(messageEvent.toString()) as IEvent
 
   EventHandlerFacade.getInstance().handle(event).forEach(r => ws.send(
     JSON.stringify({

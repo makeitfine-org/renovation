@@ -11,6 +11,6 @@ export class NotImportantEventHandler extends EventHandler {
   readonly eventType: EventType = EventType.NotImportant
 
   handleInside(data: object): object {
-    return {"handler": EventType.NotImportant}
+    return {"handler": EventType.NotImportant, "data": data}
   }
 }
