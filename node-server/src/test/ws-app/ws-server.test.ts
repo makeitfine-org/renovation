@@ -230,6 +230,34 @@ describe("WebSocket Server", () => {
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById())
   })
 
+  test("Send 'phrase_add_one' type message and get response", async() => {
+    const addedId = 1_000_000
+    const phrasesCountBeforeAdding = phrasesService.getPhrase().length
+
+    const testMessage: string = `
+    {
+      "type" : "phrase_add_one",
+      "data" : {
+        "phrase": {
+          "id" : ${ addedId },
+          "title" : "added title",
+          "text" : "added text"
+        }
+      }
+    }
+    `
+    await sendMessage(testMessage, 100)
+
+    // Perform assertions on the response
+    expect(responseMessage).not.toEqual({})
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_add_one",
+        "response": null
+      })
+    expect(phrasesService.getPhrase().length).toBe(phrasesCountBeforeAdding+1)
+  })
+
   const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
     client.send(message)
     await sleep(sleepMS)

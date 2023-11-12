@@ -13,6 +13,7 @@ import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 import {PhraseGetAllEventHandler} from "@main/ws-app/event/handler/PhraseGetAllEventHandler"
 import {WsResponse} from "@main/data/model/wsResponse.model"
 import {PhraseGetOneEventHandler} from "@main/ws-app/event/handler/PhraseGetOneEventHandler"
+import {PhraseAddOneEventHandler} from "@main/ws-app/event/handler/PhraseAddOneEventHandler"
 
 
 export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket) => {
@@ -44,8 +45,10 @@ class EventHandlerFacade {
     EventHandlerFacade.handlers.push(new NotImportantEventHandler())
     EventHandlerFacade.handlers.push(new OtherEventHandler())
 
+    // events
     EventHandlerFacade.handlers.push(new PhraseGetAllEventHandler())
     EventHandlerFacade.handlers.push(new PhraseGetOneEventHandler())
+    EventHandlerFacade.handlers.push(new PhraseAddOneEventHandler())
   }
 
   handle = (event: IEvent): (object | null)[] => EventHandlerFacade.handlers //todo: test for null
