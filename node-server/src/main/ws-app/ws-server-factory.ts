@@ -6,26 +6,35 @@
 
 import WebSocket from "ws"
 import {wsMessageEventOn} from "@main/ws-app/event-hendler"
+import {Constant} from "@main/Constant"
+import {createServer, Server as HTTPServer} from "http"
 
 export class WsServerFactory {
   private constructor() {
   }
 
   static start(port?: number, starterActions?: (ws: WebSocket) => void): WebSocket.Server {
-    const wsServer = WsServerFactory.checkPortAndAndCreateWsServer(port)
+    const httpServer = WsServerFactory.checkPortAndAndCreateHttpServer(port)
+
+    return WsServerFactory.startServer(httpServer, starterActions)
+  }
+
+  static startServer(server: HTTPServer, starterActions?: (ws: WebSocket) => void): WebSocket.Server {
+    // const wsServer = new WebSocket.Server({server})
+    const wsServer = new WebSocket.Server({server})
 
     WsServerFactory.defineWsServerOn(wsServer, starterActions)
 
     return wsServer
   }
 
-  private static checkPortAndAndCreateWsServer(port?: number): WebSocket.Server {
+  private static checkPortAndAndCreateHttpServer(port?: number): HTTPServer {
     if (!port) {
-      port = (process.env.WEBSOCKET_PORT || 6759) as number
+      port = (process.env.WEBSOCKET_PORT || Constant.DEFAULT_WS_SERVER_PORT) as number
     }
 
-    return new WebSocket.Server(
-      {port: port},
+    return createServer().listen(
+      port,
       () => console.log(`started websocket server on port ${ port }`)
     )
   }

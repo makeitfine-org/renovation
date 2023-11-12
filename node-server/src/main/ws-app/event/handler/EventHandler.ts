@@ -9,5 +9,10 @@ import {EventType} from "@main/ws-app/event/EventType"
 export abstract class EventHandler<T = object, R = object> {
   abstract readonly eventType: EventType
 
-  abstract handle(data: T): R
+  handle(data: T): R {
+    console.debug(`handle event>>> type: ${ this.eventType } | data: ${ JSON.stringify(data) }`)
+    return this.handleInside(data)
+  }
+
+  protected abstract handleInside(data: T): R
 }

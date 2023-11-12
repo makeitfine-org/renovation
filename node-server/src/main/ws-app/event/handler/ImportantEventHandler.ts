@@ -10,8 +10,7 @@ import {EventType} from "@main/ws-app/event/EventType"
 export class ImportantEventHandler extends EventHandler {
   readonly eventType: EventType = EventType.Important
 
-  handle(data: object): object {
-    console.debug(`${ data }`)
+  handleInside(data: object): object {
     return {"handler": EventType.Important}
   }
 }
