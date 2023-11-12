@@ -6,7 +6,7 @@
 
 import * as http from "http"
 import {WsServerFactory} from "../../main/ws-app/ws-server-factory"
-import WebSocket from "ws"
+import {WebSocket} from "ws"
 import {Constant} from "../../main/Constant"
 import {PhraseService} from "../../main/data/service/phrase.service"
 import {WsResponse} from "../../main/data/model/wsResponse.model"
@@ -29,7 +29,6 @@ describe("WebSocket Server", () => {
     client = new WebSocket(`ws://localhost:${ port }`)
     await waitForSocketState(client, client.OPEN)
 
-    // @ts-ignore
     client.on("message", (data) => {
       responseMessage = JSON.parse(data.toString())
     })
@@ -164,6 +163,71 @@ describe("WebSocket Server", () => {
       })
 
     expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhrase())
+  })
+
+  test("Send 'phrase_get_one' type message and get response", async() => {
+    const id = 3
+    const testMessage: string = `
+    {
+      "type" : "phrase_get_one",
+      "data" : { "id": ${ id } }
+    }
+    `
+    await sendMessage(testMessage)
+
+    // Perform assertions on the response
+    expect(responseMessage).not.toEqual({})
+
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_get_one",
+        "response": {
+          "id": id,
+          "title": "question",
+          "text": "Who there?"
+        }
+      })
+
+    expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById(id))
+  })
+
+  test("Send 'phrase_get_one' type message with not exists id and get response", async() => {
+    const id = 1_001
+    const testMessage: string = `
+    {
+      "type" : "phrase_get_one",
+      "data" : { "id": ${ id } }
+    }
+    `
+    await sendMessage(testMessage)
+
+    // Perform assertions on the response
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_get_one",
+        "response": null
+      })
+
+    expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById(id))
+  })
+
+  test("Send 'phrase_get_one' type message with not null id and get response", async() => {
+    const testMessage: string = `
+    {
+      "type" : "phrase_get_one",
+      "data" : { "id": null }
+    }
+    `
+    await sendMessage(testMessage)
+
+    // Perform assertions on the response
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_get_one",
+        "response": null
+      })
+
+    expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhraseById())
   })
 
   const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {

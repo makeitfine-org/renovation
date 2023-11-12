@@ -11,7 +11,7 @@ import {Phrase} from "@main/data/model/phrase.model"
 export class PhraseGetAllEventHandler extends PhraseEventHandler {
   readonly eventType: EventType = EventType.PHRASE_GET_ALL
 
-  handleInside(): Phrase[] | null {
+  handleInside(): Phrase[] {
     return this.phraseService.getPhrase()
   }
 }

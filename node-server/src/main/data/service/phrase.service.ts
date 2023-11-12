@@ -24,7 +24,7 @@ export class PhraseService {
 
   getPhrase = (): Phrase[] => cloneDeep(this.phrases)
 
-  getPhraseById = (id: number): Phrase | null => cloneDeep(this.phrases.find(p => p.id == id) || null)
+  getPhraseById = (id?: number): Phrase | null => cloneDeep(this.phrases.find(p => p.id == id) || null)
 
   addPhrase = (phrase: Phrase): void => {
     this.phrases.push(cloneDeep(phrase))

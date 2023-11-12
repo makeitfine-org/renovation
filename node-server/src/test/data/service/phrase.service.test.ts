@@ -98,6 +98,10 @@ describe("phrase.service.ts", () => {
     expect(phraseService.getPhraseById(id)).not.toEqual(phrase)
   })
 
+  test("getPhraseById", () => {
+    expect(phraseService.getPhraseById()).toEqual(null)
+  })
+
   test("addPhrase and check it's added as deep copy", () => {
     const id = 1_000_000
     const addedPhrase: Phrase = {id, title: "any title", text: "any text"}
