@@ -43,6 +43,11 @@ describe("WebSocket Server", () => {
     server.close()
   })
 
+  const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
+    client.send(message)
+    await sleep(sleepMS)
+  }
+
   test("Send 'important type' message and get response", async() => {
     const testMessage: string = `
     {
@@ -255,13 +260,37 @@ describe("WebSocket Server", () => {
         "type": "phrase_add_one",
         "response": null
       })
-    expect(phrasesService.getPhrase().length).toBe(phrasesCountBeforeAdding+1)
+    expect(phrasesService.getPhrase().length).toBe(phrasesCountBeforeAdding + 1)
   })
 
-  const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
-    client.send(message)
-    await sleep(sleepMS)
-  }
+  test("Send 'phrase_update_one' type message and get response", async() => {
+    const updateId = 4
+    const phrasesCountBeforeUpdate = phrasesService.getPhrase().length
+
+    const testMessage: string = `
+    {
+      "type" : "phrase_update_one",
+      "data" : {
+        "phrase": {
+          "id" : ${ updateId },
+          "title" : "updated title",
+          "text" : "updated text"
+        }
+      }
+    }
+    `
+    await sendMessage(testMessage, 100)
+
+    // Perform assertions on the response
+    expect(responseMessage).not.toEqual({})
+    expect(responseMessage)
+      .toEqual({
+        "type": "phrase_update_one",
+        "response": null
+      })
+    expect(phrasesService.getPhrase().length).toEqual(phrasesCountBeforeUpdate)
+    expect(phrasesService.getPhraseById(4)).toEqual({"id": 4, "title": "updated title", "text": "updated text"})
+  })
 })
 
 function startServer(port: number) {

@@ -8,6 +8,8 @@ import WebSocket from "ws"
 import {PhraseService} from "@main/data/service/phrase.service"
 import {WsServerFactory} from "@main/ws-app/ws-server-factory"
 
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const serverStartConnectionActions = (ws: WebSocket) => {
   ws.send(JSON.stringify({
     event: "messages", message: PhraseService.getInstance().getPhrase()
@@ -24,4 +26,4 @@ const serverStartConnectionActions = (ws: WebSocket) => {
   }, 10000)
 }
 
-WsServerFactory.start(undefined, serverStartConnectionActions)
+WsServerFactory.start()
