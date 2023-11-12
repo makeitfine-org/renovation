@@ -7,27 +7,91 @@
 import * as http from "http"
 import {WsServerFactory} from "../../main/ws-app/ws-server-factory"
 import WebSocket from "ws"
+import {Constant} from "../../main/Constant"
 
 describe("WebSocket Server", () => {
   const DEFAULT_TEST_PORT = 3111
   const port = DEFAULT_TEST_PORT
+
   let server: http.Server
+  let client: WebSocket
+
+  let responseMessage: object | null = null
 
   beforeAll(async() => {
     // Start server
     server = await startServer(port)
+
+    // Create test client
+    client = new WebSocket(`ws://localhost:${ port }`)
+    await waitForSocketState(client, client.OPEN)
+
+    // @ts-ignore
+    client.on("message", (data) => {
+      responseMessage = JSON.parse(data.toString())
+    })
   })
 
-  afterAll(() => {
+  afterAll(async() => {
+    // Close the client after it receives the response
+    client.close()
+
+    await waitForSocketState(client, client.CLOSED)
     // Close server
     server.close()
   })
 
-  test("Server echoes the message it receives from client", async() => {
-    // Create test client
-    const client = new WebSocket(`ws://localhost:${ port }`)
-    await waitForSocketState(client, client.OPEN)
+  test("Send important type message and get response", async() => {
+    const testMessage: string = `
+    {
+      "type" : "important",
+      "data" : {
+                  "message":"hello"
+               }
+    }
+    `
+    await sendMessage(testMessage)
 
+    // Perform assertions on the response
+    expect(
+      responseMessage)
+      .toEqual({
+        "response": {
+          "data": {
+            "message": "hello"
+          },
+          "handler": "important"
+        },
+        "type": "important"
+      })
+  })
+
+  test("Send not important type message and get response", async() => {
+    const testMessage: string = `
+    {
+      "type" : "not_important",
+      "data" : {
+                  "message":"hello 2"
+               }
+    }
+    `
+    await sendMessage(testMessage)
+
+    // Perform assertions on the response
+    expect(
+      responseMessage)
+      .toEqual({
+        "response": {
+          "data": {
+            "message": "hello 2"
+          },
+          "handler": "not_important"
+        },
+        "type": "not_important"
+      })
+  })
+
+  test("Send other type message and get response", async() => {
     const testMessage: string = `
     {
       "type" : "other",
@@ -36,21 +100,9 @@ describe("WebSocket Server", () => {
                }
     }
     `
-    let responseMessage: object | null = null
-
-    // @ts-ignore
-    client.on("message", (data) => {
-      responseMessage = JSON.parse(data.toString())
-
-      // Close the client after it receives the response
-      client.close()
-    })
-
-    // Send client message
-    client.send(testMessage)
+    await sendMessage(testMessage)
 
     // Perform assertions on the response
-    await waitForSocketState(client, client.CLOSED)
     expect(
       responseMessage)
       .toEqual({
@@ -63,6 +115,11 @@ describe("WebSocket Server", () => {
         "type": "other"
       })
   })
+
+  const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {
+    client.send(message)
+    await sleep(sleepMS)
+  }
 })
 
 function startServer(port: number) {
@@ -84,4 +141,8 @@ function waitForSocketState(socket: WebSocket, state: number) {
       }
     }, 5)
   })
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
