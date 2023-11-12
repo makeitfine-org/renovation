@@ -5,43 +5,16 @@
  */
 
 import WebSocket from "ws"
-import {wsMessageEventOn} from "@main/ws-app/event-hendler"
 import {PhraseService} from "@main/data/service/phrase.service"
-
-const phraseService = PhraseService.getInstance()
-
-const port = (process.env.WEBSOCKET_PORT || 6759) as number //todo: add env. var for port
-export const wsServer = new WebSocket.Server(
-  {port: port},
-  () => console.log(`started websocket server on port ${ port }`)
-)
-let connectionCount = 0
-
-wsServer.on("connection", (ws: WebSocket) => {
-  ws.binaryType = "arraybuffer"
-
-  console.log(`WebSocket connection (num: ${ ++connectionCount })!`)
-
-  ws.on("message", (rawData) => wsMessageEventOn(rawData, ws))
-
-  ws.on("close", () => {
-    console.log("disconnected")
-  })
-
-  ws.on("error", () => {
-    console.log("open connection")
-  })
-
-  serverStartConnectionActions(ws)
-})
+import {WsServerFactory} from "@main/ws-app/ws-server-factory"
 
 const serverStartConnectionActions = (ws: WebSocket) => {
   ws.send(JSON.stringify({
-    event: "messages", message: phraseService.getPhrase()
+    event: "messages", message: PhraseService.getInstance().getPhrase()
   }))
 
   ws.send(JSON.stringify({
-    event: "update-texts", buffer: Buffer.from(JSON.stringify(["Text Data"]))
+    event: "update-texts", buffer: Buffer.from(JSON.stringify([ "Text Data" ]))
   }))
 
   setInterval(() => {
@@ -50,3 +23,5 @@ const serverStartConnectionActions = (ws: WebSocket) => {
     }))
   }, 10000)
 }
+
+WsServerFactory.start(undefined, serverStartConnectionActions)
