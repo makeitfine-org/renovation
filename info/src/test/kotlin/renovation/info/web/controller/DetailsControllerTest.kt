@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 
-@Tag("e2e")
+@Tag("e2eTest")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class DetailsControllerTest(
     @LocalServerPort private val port: Int

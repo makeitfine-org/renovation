@@ -14,7 +14,7 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import renovation.backend.AppByContainersConfig
 
-@Tag("integration")
+@Tag("integrationTest")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerTest(
     @LocalServerPort val port: Int,

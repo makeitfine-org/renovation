@@ -33,7 +33,7 @@ jobs:
         gradle-version: 7.5.1
     - run: gradle detekt
     - run: gradle test
-    - run: gradle integration
+    - run: gradle integrationTest
 
     - name: Set up Node
       uses: actions/setup-node@v3

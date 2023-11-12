@@ -9,6 +9,6 @@ package renovation.backend
 import org.junit.jupiter.api.Tag
 import org.springframework.test.context.ActiveProfiles
 
-@Tag("integration")
+@Tag("integrationTest")
 @ActiveProfiles("itest")
 annotation class IntegrationTest

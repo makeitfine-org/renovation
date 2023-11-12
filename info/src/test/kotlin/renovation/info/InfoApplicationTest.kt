@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
 
-@Tag("integration")
+@Tag("integrationTest")
 @SpringBootTest(classes = [InfoApplication::class])
 internal class InfoApplicationTest {
     @Test

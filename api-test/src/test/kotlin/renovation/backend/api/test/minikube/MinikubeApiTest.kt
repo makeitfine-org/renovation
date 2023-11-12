@@ -21,7 +21,7 @@ import renovation.backend.api.test.ApiTest
 import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
 
-@Tag("minikube")
+@Tag("minikubeTest")
 @Execution(ExecutionMode.CONCURRENT)
 internal class MinikubeApiTest : ApiTest {
 

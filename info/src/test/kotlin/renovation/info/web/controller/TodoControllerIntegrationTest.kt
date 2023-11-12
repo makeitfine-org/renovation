@@ -33,7 +33,7 @@ import renovation.info.data.entity.TodoEntity
 
 @Suppress("MaxLineLength")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-@Tag("integration")
+@Tag("integrationTest")
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TodoControllerIntegrationTest(

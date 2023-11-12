@@ -26,7 +26,7 @@ import renovation.backend.AppByContainersConfig
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
-@Tag("integration")
+@Tag("integrationTest")
 @ActiveProfiles("secured-test")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 internal class WorkControllerWithSecurityTest(

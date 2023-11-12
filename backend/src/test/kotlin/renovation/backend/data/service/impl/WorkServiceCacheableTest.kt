@@ -21,7 +21,7 @@ import java.util.*
 import kotlin.test.*
 import renovation.backend.AppByContainersConfig
 
-@Tag("integration")
+@Tag("integrationTest")
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal class WorkServiceCacheableTest : AppByContainersConfig() {

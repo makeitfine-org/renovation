@@ -117,13 +117,13 @@ subprojects {
             // dependsOn(ktlintCheck)
         }
 
-        val integrationTag = "integration"
-        val e2eTag = "e2e"
-        val minikubeTag = "minikube"
+        val integrationTestTag = "integrationTest"
+        val e2eTestTag = "e2eTest"
+        val minikubeTestTag = "minikubeTest"
 
         tasks.withType<Test> {
             useJUnitPlatform {
-                excludeTags(integrationTag, e2eTag, minikubeTag)
+                excludeTags(integrationTestTag, e2eTestTag, minikubeTestTag)
             }
             jvmArgs = mutableListOf("--enable-preview")
             maxParallelForks = Runtime.getRuntime().availableProcessors()
@@ -141,11 +141,11 @@ subprojects {
             }
         }
 
-        tasks.register<Test>("minikube") {
+        tasks.register<Test>("minikubeTest") {
             description = "Run minikube tests"
 
             useJUnitPlatform {
-                includeTags("minikube")
+                includeTags("minikubeTest")
             }
         }
 
@@ -159,8 +159,8 @@ subprojects {
             mustRunAfter(mustRunAfter)
         }
 
-        val integrationTest = testTask("integration", tasks.test)
-        val e2eTest = testTask("e2e", integrationTest)
+        val integrationTest = testTask("integrationTest", tasks.test)
+        val e2eTest = testTask("e2eTest", integrationTest)
 
         tasks.check {
             dependsOn(integrationTest)
@@ -190,7 +190,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "integration")
+            commandLine("gradle", "integrationTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -262,7 +262,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "e2e")
+            commandLine("gradle", "e2eTest")
         }
     }
 }

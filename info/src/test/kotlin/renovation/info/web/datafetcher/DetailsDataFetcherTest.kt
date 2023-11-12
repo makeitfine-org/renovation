@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 
-@Tag("e2e")
+@Tag("e2eTest")
 @SpringBootTest
 internal class DetailsDataFetcherTest(
     @Autowired
