@@ -8,10 +8,13 @@ import * as http from "http"
 import {WsServerFactory} from "../../main/ws-app/ws-server-factory"
 import WebSocket from "ws"
 import {Constant} from "../../main/Constant"
+import {PhraseService} from "../../main/data/service/phrase.service"
+import {WsResponse} from "../../main/data/model/wsResponse.model"
 
 describe("WebSocket Server", () => {
   const DEFAULT_TEST_PORT = 3111
   const port = DEFAULT_TEST_PORT
+  const phrasesService = PhraseService.getInstance()
 
   let server: http.Server
   let client: WebSocket
@@ -128,8 +131,7 @@ describe("WebSocket Server", () => {
     // Perform assertions on the response
     expect(responseMessage).not.toEqual({})
 
-    expect(
-      responseMessage)
+    expect(responseMessage)
       .toEqual({
         "type": "phrase_get_all",
         "response": [
@@ -160,6 +162,8 @@ describe("WebSocket Server", () => {
           }
         ]
       })
+
+    expect((responseMessage as WsResponse).response).toEqual(phrasesService.getPhrase())
   })
 
   const sendMessage = async(message: string, sleepMS: number = Constant.DEFAULT_SLEEP_AFTER_WS_SEND_MESSAGE) => {

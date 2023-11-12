@@ -11,6 +11,8 @@ import {NotImportantEventHandler} from "@main/ws-app/event/handler/NotImportEven
 import {OtherEventHandler} from "@main/ws-app/event/handler/OtherEventHandler"
 import {EventHandler} from "@main/ws-app/event/handler/EventHandler"
 import {PhraseGetAllEventHandler} from "@main/ws-app/event/handler/PhraseGetAllEventHandler"
+import {WsResponse} from "@main/data/model/wsResponse.model"
+
 
 export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket) => {
   console.debug("websocket messageEvent: " + messageEvent)
@@ -20,10 +22,7 @@ export const wsMessageEventOn = (messageEvent: WebSocket.RawData, ws: WebSocket)
   const event = JSON.parse(messageEvent.toString()) as IEvent
 
   EventHandlerFacade.getInstance().handle(event).forEach(r => ws.send(
-    JSON.stringify({
-      type: event.type,
-      response: r
-    })
+    JSON.stringify(new WsResponse(event.type, r))
   ))
 }
 
