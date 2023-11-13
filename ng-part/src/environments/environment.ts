@@ -8,7 +8,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const baseUrl = "http://192.168.0.113:9190"
+export const baseUrl = "http://localhost:9190"
 
 export const environment = {
   production: false,
