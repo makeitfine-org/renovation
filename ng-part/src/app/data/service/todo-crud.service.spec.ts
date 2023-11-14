@@ -4,13 +4,14 @@
  * Copyright 2021-2023
  */
 
-import {HttpClient, HttpErrorResponse} from "@angular/common/http"
+import {HttpClient, HttpClientModule, HttpErrorResponse} from "@angular/common/http"
 import {TodoCrudService} from "./todo-crud.service"
 import {DatePipe} from "@angular/common"
-import {defer} from "rxjs"
+import {defer, firstValueFrom} from "rxjs"
 import {Todo} from "../model/todo.model"
+import {TestBed} from "@angular/core/testing"
 
-describe("TodoCrudService mock/spy", () => {
+describe("TodoCrudService", () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>
   let todoCrudService: TodoCrudService
   const datePipe = new DatePipe("en")
@@ -70,4 +71,38 @@ describe("TodoCrudService mock/spy", () => {
   function asyncError<T>(errorObject: any) {
     return defer(() => Promise.reject(errorObject))
   }
+})
+
+describe("TodoCrudService (real request to server)", () => {
+  let httpClient: HttpClient
+  let datePipe: DatePipe
+  let todoCrudService: TodoCrudService
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      // Import the HttpClient mocking services
+      imports: [ HttpClientModule, ],
+      // Provide the service-under-test
+      providers: [ DatePipe, HttpClient ],
+    })
+
+    // Inject the http, test controller, and service-under-test
+    // as they will be referenced by each test.
+    httpClient = TestBed.inject(HttpClient)
+    datePipe = TestBed.inject(DatePipe)
+    todoCrudService = new TodoCrudService(httpClient, datePipe)
+  })
+
+  afterEach(() => {
+  })
+
+  it("get todos: http://localhost:9190/api/v1/info/todo", async() => {
+    const todos = await firstValueFrom(todoCrudService.getTodos())
+      .then(todos => {
+          return todos
+        }
+      )
+
+    expect(todos!!.length).toBe(5)
+  })
 })

@@ -25,12 +25,14 @@ class CorsConfig {
             addAllowedMethod(HttpMethod.PUT)
             addAllowedMethod(HttpMethod.DELETE)
             addExposedHeader(CorsConfiguration.ALL)
-            addAllowedOriginPattern("http://localhost:80*")
-            addAllowedOriginPattern("http://localhost:4200")
-
             //play with prod (lite-server)
-            addAllowedOriginPattern("http://localhost:3000")
             addAllowedOriginPattern("http://192.168.0.113:3000")
+
+//            addAllowedOriginPattern("http://localhost:80*")
+//            addAllowedOriginPattern("http://localhost:4200")
+
+            // needed for ng-part test
+            addAllowedOriginPattern("http://localhost:*")
         }
 
         val source = UrlBasedCorsConfigurationSource()
