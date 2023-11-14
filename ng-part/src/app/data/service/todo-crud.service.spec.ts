@@ -83,7 +83,7 @@ describe("TodoCrudService (real request to server)", () => {
       // Import the HttpClient mocking services
       imports: [ HttpClientModule, ],
       // Provide the service-under-test
-      providers: [ DatePipe, HttpClient ],
+      providers: [ DatePipe ],
     })
 
     // Inject the http, test controller, and service-under-test
