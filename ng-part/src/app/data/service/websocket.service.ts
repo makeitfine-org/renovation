@@ -58,7 +58,7 @@ export class WebsocketService {
 
   closeConnection(): void {
     // @ts-ignore
-    this.socket.close(Constant.INTENTIONAL_CLOSE_CODE, Constant.INTENTIONAL_CLOSE_MESSAGE)
+    this.socket.close(Constant.WS_INTENTIONAL_CLOSE_CODE, Constant.WS_INTENTIONAL_CLOSE_MESSAGE)
   }
 
   isConnectionOpen = () => this.socket !== undefined && this.socket?.readyState !== WebSocket.CLOSED
@@ -71,6 +71,6 @@ export class WebsocketService {
   }
 
   private checkForIntentionalWebSocketClosing = (closeEvent: CloseEvent) =>
-    closeEvent.code === Constant.INTENTIONAL_CLOSE_CODE
-    && closeEvent.reason === Constant.INTENTIONAL_CLOSE_MESSAGE
+    closeEvent.code === Constant.WS_INTENTIONAL_CLOSE_CODE
+    && closeEvent.reason === Constant.WS_INTENTIONAL_CLOSE_MESSAGE
 }

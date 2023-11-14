@@ -16,7 +16,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint && tsc --noUnusedLocals"
+    "lint": "ng lint && tsc --noUnusedLocals",
+    "buildAll": "ng lint && tsc --noUnusedLocals && ng test --watch=false && ng build"
   },
   "private": true,
   "dependencies": {
