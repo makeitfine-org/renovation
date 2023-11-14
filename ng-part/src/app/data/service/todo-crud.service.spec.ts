@@ -44,6 +44,7 @@ describe("TodoCrudService", () => {
     })
 
     expect(httpClientSpy.get.calls.count()).withContext("one call").toBe(1)
+    expect(TODOS.length).toBe(7) //todo: temp
   })
 
   it("should return an error when the server returns a 404", (done: DoneFn) => {
@@ -56,7 +57,7 @@ describe("TodoCrudService", () => {
     httpClientSpy.get.and.returnValue(asyncError(errorResponse))
 
     todoCrudService.getTodos().subscribe({
-      next: (heroes) => done.fail("expected an error, not todos"),
+      next: () => done.fail("expected an error, not todos"),
       error: (error) => {
         expect(error.message).toContain("Http failure response for (unknown url): 404 Not Found")
         done()
@@ -68,7 +69,7 @@ describe("TodoCrudService", () => {
     return defer(() => Promise.resolve(data))
   }
 
-  function asyncError<T>(errorObject: any) {
+  function asyncError(errorObject: any) {
     return defer(() => Promise.reject(errorObject))
   }
 })
@@ -96,7 +97,7 @@ describe("TodoCrudService (real request to server)", () => {
   afterEach(() => {
   })
 
-  it("get todos: http://localhost:9190/api/v1/info/todo", async() => {
+  it("todoCrudService.getTodos(): get todos: http://localhost:9190/api/v1/info/todo", async() => {
     const todos = await firstValueFrom(todoCrudService.getTodos())
       .then(todos => {
           return todos

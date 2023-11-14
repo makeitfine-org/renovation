@@ -17,3 +17,7 @@ tasks.register<NpmTask>("npmBuild") {
 tasks.register<NpmTask>("npmLint") {
   args.set(listOf("run", "lint"))
 }
+
+tasks.register<NpmTask>("npmTest") {
+  args.set(listOf("run", "test.nw"))
+}

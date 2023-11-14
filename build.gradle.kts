@@ -262,6 +262,10 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":ng-part:npmTest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", "e2eTest")
         }
     }
