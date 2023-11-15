@@ -238,11 +238,11 @@ tasks.register<GradleBuild>(buildAll) {
             commandLine("gradle", "assemble")
         }
 
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("docker", "compose", "down")
-//        }
-//
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "compose", "down")
+        }
+
 //        exec {
 //            workingDir("${rootProject.rootDir}")
 //            commandLine("gradle", removeImages)
