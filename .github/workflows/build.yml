@@ -35,6 +35,12 @@ jobs:
       - run: gradle test
       - run: gradle integrationTest
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: docker compose (env. for e2e test)
+        run: docker compose up renovation-postgres renovation-mongo renovation-info  -d --build
+
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
@@ -57,6 +63,9 @@ jobs:
       - name: ng-part module lint (Node.js)
         working-directory: ./ng-part
         run: npm run-script lint
+      - name: ng-part module e2e test (Node.js)
+        working-directory: ./ng-part
+        run: npm run-script test.nw.headless
 
       - name: node-server module install (Node.js)
         working-directory: ./node-server
