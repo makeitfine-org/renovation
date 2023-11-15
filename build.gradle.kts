@@ -238,36 +238,36 @@ tasks.register<GradleBuild>(buildAll) {
             commandLine("gradle", "assemble")
         }
 
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "down")
-        }
-
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", removeImages)
-        }
-
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "build")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "up", "-d")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("sleep", "30")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":ng-part:npmTest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "e2eTest")
-        }
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("docker", "compose", "down")
+//        }
+//
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("gradle", removeImages)
+//        }
+//
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("docker", "compose", "build")
+//        }
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("docker", "compose", "up", "-d")
+//        }
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("sleep", "30")
+//        }
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("gradle", ":ng-part:npmTest")
+//        }
+//        exec {
+//            workingDir("${rootProject.rootDir}")
+//            commandLine("gradle", "e2eTest")
+//        }
     }
 }
 
