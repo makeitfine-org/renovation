@@ -194,6 +194,16 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "assemble")
+        }
+
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "copyDistToPublic")
+        }
+
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":frontend:npmInstall")
         }
         exec {
@@ -228,30 +238,19 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":node-server:npmTest")
         }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "copyDistToPublic")
-        }
-
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "assemble")
-        }
 
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("docker", "compose", "down")
         }
-
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("gradle", removeImages)
-//        }
-//
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("docker", "compose", "build")
-//        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", removeImages)
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "compose", "build")
+        }
 //        exec {
 //            workingDir("${rootProject.rootDir}")
 //            commandLine("docker", "compose", "up", "-d")
