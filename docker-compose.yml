@@ -11,7 +11,7 @@ services:
     restart: always
     container_name: "renovation-postgres"
     ports:
-      - "${POSTGRES_LOCALHOST_REDIRECT_PORT}:5432"
+      - ${POSTGRES_LOCALHOST_REDIRECT_PORT}:5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USERNAME}

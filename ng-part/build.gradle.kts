@@ -18,6 +18,6 @@ tasks.register<NpmTask>("npmLint") {
   args.set(listOf("run", "lint"))
 }
 
-tasks.register<NpmTask>("npmTest") {
+tasks.register<NpmTask>("npmE2eTest") {
   args.set(listOf("run", "test.nw.headless"))
 }

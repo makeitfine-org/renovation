@@ -28,85 +28,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
       - name: Set up Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           gradle-version: 7.5.1
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
-
-#      - run: gradle detekt
-#      - run: gradle test
-#      - run: gradle integrationTest
-#
-#      - run: gradle assemble
       - run: gradle buildAll
-
-      #      - name: Login to Docker Hub
-      #        uses: docker/login-action@v3
-      #        with:
-      #          username: ${{ secrets.DOCKERHUB_USERNAME_KORES }}
-      #          password: ${{ secrets.DOCKERHUB_TOKEN_KORES }}
-      #      - name: Build and push
-      #        uses: docker/build-push-action@v5
-      #        with:
-      #          context: ./backend
-      #          push: true
-      #          tags: ${{ secrets.DOCKERHUB_USERNAME_KORES }}/renovation-backend:latest
-
-#      - name: 'Create env file'
-#        run: |
-#          touch .env
-#          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
-#          echo API_KEY=${{ secrets.API_KEY }} >> .env
-#          cat .env
-
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
-#
-#      - name: docker compose (env. for e2e test)
-#        run: docker compose up -d --build
-#
-#      - name: Set up Node
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: '16.x'
-#
-#      - name: frontend module install && build (Node.js)
-#        working-directory: ./frontend
-#        run: |
-#          npm install
-#          npm run-script build
-#      - name: frontend-info module install && build (Node.js)
-#        working-directory: ./frontend-info
-#        run: |
-#          npm install
-#          npm run-script build
-#
-#      - name: ng-part module install (Node.js)
-#        working-directory: ./ng-part
-#        run: npm install
-#      - name: ng-part module lint (Node.js)
-#        working-directory: ./ng-part
-#        run: npm run-script lint
-#      - name: ng-part module e2e test (Node.js)
-#        working-directory: ./ng-part
-#        run: npm run-script test.nw.headless
-#
-#      - name: node-server module install (Node.js)
-#        working-directory: ./node-server
-#        run: npm install
-#      - name: node-server module lint (Node.js)
-#        working-directory: ./node-server
-#        run: npm run-script lint
-#      - name: node-server module test (Node.js)
-#        working-directory: ./node-server
-#        run: npm run-script test

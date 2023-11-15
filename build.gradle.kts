@@ -199,17 +199,17 @@ tasks.register<GradleBuild>(buildAll) {
 
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "copyDistToPublic")
-        }
-
-        exec {
-            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":frontend:npmInstall")
         }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":frontend:npmBuild")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "copyDistToPublic")
+        }
+
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":frontend-info:npmInstall")
@@ -249,24 +249,28 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "build")
+            commandLine("docker", "compose", "up", "-d", "--build")
         }
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("docker", "compose", "up", "-d")
-//        }
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("sleep", "30")
-//        }
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("gradle", ":ng-part:npmTest")
-//        }
-//        exec {
-//            workingDir("${rootProject.rootDir}")
-//            commandLine("gradle", "e2eTest")
-//        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("sleep", "30")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "compose", "ps")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":ng-part:npmE2eTest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("gradle", "e2eTest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("docker", "compose", "down")
+        }
     }
 }
 
@@ -311,27 +315,18 @@ tasks.register<GradleBuild>(removeImages) {
     println(description)
 
     doLast {
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "rmi", "koresmosto/renovation-backend:latest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            //todo: check if changes with docker compose rebuild
-            commandLine("docker", "rmi", "koresmosto/renovation-frontend-info:latest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "rmi", "koresmosto/renovation-info:latest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "rmi", "koresmosto/renovation-gateway:latest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("docker", "rmi", "koresmosto/renovation-temp:latest")
-        }
+        removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-frontend-info:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-info:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-gateway:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
+    }
+}
+
+fun removeImageLocallyIfExists(imageName: String): ExecResult {
+    return exec {
+        workingDir("${rootProject.rootDir}")
+        commandLine("sh", "-c", "[ -z \"$(docker images -q $imageName)\" ] || docker rmi $imageName")
     }
 }
 
