@@ -19,5 +19,5 @@ tasks.register<NpmTask>("npmLint") {
 }
 
 tasks.register<NpmTask>("npmTest") {
-  args.set(listOf("run", "test.nw"))
+  args.set(listOf("run", "test.nw.headless"))
 }

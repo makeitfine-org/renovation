@@ -17,6 +17,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test.nw": "ng test --watch false",
+    "test.nw.headless": "ng test --watch false --browsers ChromeHeadless",
     "lint": "ng lint && tsc --noUnusedLocals",
     "buildAll": "ng lint && tsc --noUnusedLocals && ng test --watch=false && ng build"
   },
