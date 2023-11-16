@@ -1,0 +1,52 @@
+name: Reusable Project Assemble
+on:
+  workflow_call:
+    inputs:
+      command_line_task:
+        required: true
+        type: string
+      timeout-minutes:
+        required: false
+        type: number
+        default: 10
+jobs:
+  assemble_and_docker_run_job:
+    timeout-minutes:  ${{ inputs.timeout-minutes }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+        with:
+          gradle-version: 7.5.1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - run: gradle assemble
+
+      - run: gradle :frontend:npmInstall
+      - run: gradle :frontend:npmBuild
+
+      - run: gradle copyDistToPublic
+      - run: gradle :frontend-info:npmInstall
+      - run: gradle :frontend-info:npmBuild
+
+      - run: gradle :ng-part:npmInstall
+
+      - run: docker compose up -d --build
+      - run: sleep 30
+      - run: docker ps
+
+      - run: |
+          ${{ inputs.command_line_task }}
+
+      - run: docker compose down
