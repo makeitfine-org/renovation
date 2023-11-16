@@ -265,7 +265,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "e2eTest")
+            commandLine("gradle", ":info:e2eTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
