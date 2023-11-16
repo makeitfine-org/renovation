@@ -257,7 +257,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("docker", "compose", "ps")
+            commandLine("docker", "ps")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -265,7 +265,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":info:e2eTest")
+            commandLine("gradle", "e2eTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")

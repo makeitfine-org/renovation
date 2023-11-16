@@ -39,4 +39,36 @@ jobs:
         with:
           node-version: '16.x'
 
-      - run: gradle buildAll
+      - run: gradle clean
+      - run: gradle clean
+      - run: gradle detekt
+
+      - run: gradle test
+      - run: gradle integrationTest
+
+      - run: gradle assemble
+
+      - run: gradle :frontend:npmInstall
+      - run: gradle :frontend:npmInstall
+      - run: gradle :frontend:npmBuild
+
+      - run: gradle copyDistToPublic
+      - run: gradle :frontend-info:npmInstall
+      - run: gradle :frontend-info:npmBuild
+
+      - run: gradle :ng-part:npmInstall
+      - run: gradle :ng-part:npmLint
+
+      - run: gradle :node-server:npmInstall
+      - run: gradle :node-server:npmLint
+      - run: gradle :node-server:npmTest
+
+      - run: docker compose down
+      - run: gradle removeImages
+      - run: docker compose up -d --build
+      - run: sleep 30
+      - run: docker ps
+
+      - run: gradle :ng-part:npmE2eTest
+      - run: gradle e2eTest
+      - run: docker compose down
