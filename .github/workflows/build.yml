@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    timeout-minutes: 10
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,47 +36,11 @@ jobs:
         with:
           node-version: '16.x'
 
-      - run: gradle detekt
+      - run: gradle buildAll
 
-      - run: gradle test
-      - run: gradle integrationTest
-
-      - run: gradle assemble
-
-      - run: gradle :frontend:npmInstall
-      - run: gradle :frontend:npmBuild
-
-      - run: gradle :frontend-info:npmInstall
-      - run: gradle :frontend-info:npmBuild
-
-      - run: gradle :ng-part:npmInstall
-      - run: gradle :ng-part:npmLint
-
-      - run: gradle :node-server:npmInstall
-      - run: gradle :node-server:npmLint
-      - run: gradle :node-server:npmTest
-
-  ng_part_e2eTest:
-    needs: [ build ]
-    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
-    with:
-      command_line_task: "gradle :ng-part:npmE2eTest"
-
-  gateway_e2eTest:
-    needs: [ build ]
-    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
-    with:
-      command_line_task: "gradle :gateway:e2eTest"
-
-  info_e2eTest:
-    needs: [ build ]
-    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
-    with:
-      command_line_task: "gradle :info:e2eTest"
-
-  api_test_e2eTest:
-    needs: [ build ]
-    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
-    with:
-      command_line_task: "gradle :api-test:e2eTest"
-      timeout-minutes: 12
+#  api_test_e2eTest:
+#    needs: [ build ]
+#    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
+#    with:
+#      command_line_task: "gradle :api-test:e2eTest"
+#      timeout-minutes: 12
