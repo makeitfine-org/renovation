@@ -15,11 +15,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "test.nw": "ng test --watch false",
+    "test": "ng test --browsers ChromeHeadless",
+    "test.nw": "ng test --watch false --browsers ChromeHeadless",
     "test.nw.headless": "ng test --watch false --browsers ChromeHeadless",
     "lint": "ng lint && tsc --noUnusedLocals",
-    "buildAll": "ng lint && tsc --noUnusedLocals && ng test --watch=false && ng build"
+    "buildAll": "npm run lint && npm run test.nw.headless && npm run build"
   },
   "private": true,
   "dependencies": {

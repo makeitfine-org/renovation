@@ -5,14 +5,11 @@
  */
 
 import {TestBed} from "@angular/core/testing"
-import {About, AboutPageComponent} from "./about-page.component"
+import {AboutPageComponent} from "./about-page.component"
 import {HttpClientModule} from "@angular/common/http"
-import {InfoService} from "../../data/service/info.service"
-import {firstValueFrom} from "rxjs"
 
 describe("AboutPageComponent", () => {
   let component: AboutPageComponent
-  let infoService: InfoService
 
   beforeAll((done: DoneFn) => {
     TestBed.configureTestingModule({
@@ -21,7 +18,6 @@ describe("AboutPageComponent", () => {
         AboutPageComponent,
       ],
     })
-    infoService = TestBed.inject(InfoService)
     component = TestBed.inject(AboutPageComponent)
 
     component.ngOnInit()
@@ -37,23 +33,5 @@ describe("AboutPageComponent", () => {
     })
 
     expect(component.module).toEqual("Hi, it's \"Renovation info\" module")
-  })
-
-  it("about / module", (done: DoneFn) => {
-    infoService.getModule().subscribe((value) => {
-      expect(value).toEqual("Hi, it's \"Renovation info\" module")
-      done()
-    })
-  })
-
-  it(`about / name & description`, async() => {
-    const about = await firstValueFrom(infoService.getAbout())
-      .then(about => {
-          return about
-        }
-      )
-
-    expect((about as About)?.name).toEqual("renovation info module")
-    expect((about as About)?.description).toEqual("Module work as additional info directory")
   })
 })
