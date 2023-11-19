@@ -10,7 +10,7 @@ import {TodoService} from "./todo.service"
 import {DatePipe} from "@angular/common"
 import {TodoCrudService} from "./todo-crud.service"
 import {ErrorService} from "./error.service"
-import {convertTodoDateOfStringRepresentationToDate, expectedTodos} from "./test.utils"
+import {convertTodoDateOfStringRepresentationToDateArray, expectedTodos} from "./test.utils"
 
 describe("TodoService", () => {
   let todoService: TodoService
@@ -37,9 +37,7 @@ describe("TodoService", () => {
   it("module", (done: DoneFn) => {
     todoService.fetchTodos().subscribe((todos) => {
       expect(5).toBe(todos.length)
-      expect(expectedTodos).toEqual(
-        todos.map(todo => convertTodoDateOfStringRepresentationToDate(todo))
-      )
+      expect(expectedTodos).toEqual(convertTodoDateOfStringRepresentationToDateArray(todos))
 
       done()
     })

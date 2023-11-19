@@ -10,7 +10,7 @@ import {DatePipe} from "@angular/common"
 import {defer, firstValueFrom} from "rxjs"
 import {Todo} from "../model/todo.model"
 import {TestBed} from "@angular/core/testing"
-import {convertTodoDateOfStringRepresentationToDate, expectedTodos} from "./test.utils"
+import {convertTodoDateOfStringRepresentationToDateArray, expectedTodos} from "./test.utils"
 
 describe("TodoCrudService", () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>
@@ -100,9 +100,7 @@ describe("TodoCrudService (real request to server)", () => {
     const todos = await firstValueFrom(todoCrudService.getTodos())
 
     expect(5).toBe(todos.length)
-    expect(expectedTodos).toEqual(
-      todos.map(todo => convertTodoDateOfStringRepresentationToDate(todo))
-    )
+    expect(expectedTodos).toEqual(convertTodoDateOfStringRepresentationToDateArray(todos))
   })
 
   it("todoCrudService.createTodo()", async() => {
@@ -121,6 +119,28 @@ describe("TodoCrudService (real request to server)", () => {
     )
   })
 
+  it("todoCrudService.updateTodo()", async() => {
+    const todoBeforeUpdate = await firstValueFrom(todoCrudService.getTodos())
+    expect(6).toBe(todoBeforeUpdate.length)
+
+    const foundCreated = todoBeforeUpdate.find(t => t.id == todoUpdated.id)!!
+    expect(foundCreated.id).toEqual(todoUpdated.id)
+    expect(foundCreated.title).not.toEqual(todoUpdated.title)
+    expect(foundCreated.completed).not.toEqual(todoUpdated.completed)
+
+    await firstValueFrom(todoCrudService.updateTodo(todoUpdated)).then(
+      async() => {
+        const todos = await firstValueFrom(todoCrudService.getTodos())
+        expect(6).toBe(todos.length)
+
+        const foundCreated = todos.find(t => t.id == todoUpdated.id)!!
+        expect(foundCreated.id).toEqual(todoUpdated.id)
+        expect(foundCreated.title).toEqual(todoUpdated.title)
+        expect(foundCreated.completed).toEqual(todoUpdated.completed)
+      }
+    )
+  })
+
   it("todoCrudService.deleteTodo()", async() => {
     expect(6).toBe((await firstValueFrom(todoCrudService.getTodos())).length)
 
@@ -130,8 +150,9 @@ describe("TodoCrudService (real request to server)", () => {
           const todos = await firstValueFrom(todoCrudService.getTodos())
           expect(5).toBe(todos.length)
           expect(todos.map(t => t.id)).not.toContain(
-            6
+            todoDeletedId
           )
+          expect(expectedTodos).toEqual(convertTodoDateOfStringRepresentationToDateArray(todos))
         }
       )
   })

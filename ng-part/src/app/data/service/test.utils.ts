@@ -64,7 +64,10 @@ export const expectedTodos: Todo[] = [
   }
 ]
 
-export const convertTodoDateOfStringRepresentationToDate = (todo: Todo) => {
+export const convertTodoDateOfStringRepresentationToDateArray = (todos: Todo[]) =>
+  todos.map(todo => convertTodoDateOfStringRepresentationToDate(todo))
+
+const convertTodoDateOfStringRepresentationToDate = (todo: Todo) => {
   return {
     ...todo,
     date: (todo.date !== null && todo.date !== undefined ? new Date(todo.date.toString()) : null)
