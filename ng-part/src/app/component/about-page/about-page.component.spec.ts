@@ -8,7 +8,7 @@ import {TestBed} from "@angular/core/testing"
 import {AboutPageComponent} from "./about-page.component"
 import {HttpClientModule} from "@angular/common/http"
 
-describe("AboutPageComponent", () => {
+describe("AboutPageComponent ts", () => {
   let component: AboutPageComponent
 
   beforeAll((done: DoneFn) => {
