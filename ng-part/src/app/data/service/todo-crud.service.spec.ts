@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common"
 import {defer, firstValueFrom} from "rxjs"
 import {Todo} from "../model/todo.model"
 import {TestBed} from "@angular/core/testing"
+import {convertTodoDateOfStringRepresentationToDate, expectedTodos} from "./test.utils"
 
 describe("TodoCrudService", () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>
@@ -75,9 +76,12 @@ describe("TodoCrudService", () => {
 })
 
 describe("TodoCrudService (real request to server)", () => {
-  let httpClient: HttpClient
-  let datePipe: DatePipe
   let todoCrudService: TodoCrudService
+  const todoCreatedId = 6
+  const todoCreated: Todo = {id: 6, title: "new title 6", completed: false}
+  const todoUpdated: Todo = {id: 6, title: "new updated 6", completed: true}
+  const todoDeletedId = 6
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -89,21 +93,46 @@ describe("TodoCrudService (real request to server)", () => {
 
     // Inject the http, test controller, and service-under-test
     // as they will be referenced by each test.
-    httpClient = TestBed.inject(HttpClient)
-    datePipe = TestBed.inject(DatePipe)
-    todoCrudService = new TodoCrudService(httpClient, datePipe)
-  })
-
-  afterEach(() => {
+    todoCrudService = TestBed.inject(TodoCrudService)
   })
 
   it("todoCrudService.getTodos(): get todos: http://localhost:9190/api/v1/info/todo", async() => {
     const todos = await firstValueFrom(todoCrudService.getTodos())
-      .then(todos => {
-          return todos
+
+    expect(5).toBe(todos.length)
+    expect(expectedTodos).toEqual(
+      todos.map(todo => convertTodoDateOfStringRepresentationToDate(todo))
+    )
+  })
+
+  it("todoCrudService.createTodo()", async() => {
+    expect(5).toBe((await firstValueFrom(todoCrudService.getTodos())).length)
+
+    await firstValueFrom(todoCrudService.createTodo(todoCreated)).then(
+      async() => {
+        const todos = await firstValueFrom(todoCrudService.getTodos())
+        expect(6).toBe(todos.length)
+
+        const foundCreated = todos.find(t => t.id == todoCreatedId)!!
+        expect(foundCreated.id).toEqual(todoCreated.id)
+        expect(foundCreated.title).toEqual(todoCreated.title)
+        expect(foundCreated.completed).toEqual(todoCreated.completed)
+      }
+    )
+  })
+
+  it("todoCrudService.deleteTodo()", async() => {
+    expect(6).toBe((await firstValueFrom(todoCrudService.getTodos())).length)
+
+    await firstValueFrom(todoCrudService.deleteTodo(6))
+      .then(
+        async() => {
+          const todos = await firstValueFrom(todoCrudService.getTodos())
+          expect(5).toBe(todos.length)
+          expect(todos.map(t => t.id)).not.toContain(
+            6
+          )
         }
       )
-
-    expect(todos!!.length).toBe(5)
   })
 })

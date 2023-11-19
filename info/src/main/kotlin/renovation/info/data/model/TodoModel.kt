@@ -17,5 +17,5 @@ data class TodoModel(
     var price: Double? = null,
     var rating: Rating? = null,
 
-    val date: String,
+    val date: String? = null,
 )

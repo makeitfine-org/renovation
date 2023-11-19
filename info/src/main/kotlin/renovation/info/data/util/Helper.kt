@@ -47,6 +47,6 @@ object Helper {
 
             rating = todoModel.rating,
 
-            date = LocalDateTime.parse(todoModel.date, TIME_FORMATTER)
+            date = todoModel.date?.let { LocalDateTime.parse(it, TIME_FORMATTER) } ?: LocalDateTime.now()
         )
 }
