@@ -40,9 +40,20 @@ jobs:
 
       - run: gradle buildAll
 
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+
 #  api_test_e2eTest:
 #    needs: [ build ]
 #    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
 #    with:
 #      command_line_task: "gradle :api-test:e2eTest"
 #      timeout-minutes: 12
+
+
