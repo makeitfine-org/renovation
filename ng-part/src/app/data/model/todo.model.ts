@@ -11,11 +11,11 @@ export interface Todo {
   title: string
   completed: boolean
 
-  description?: boolean,
-  category?: string,
-  image?: string,
-  price?: number,
-  rating?: Rating,
+  description?: string | null,
+  category?: string | null,
+  image?: string | null,
+  price?: number | null,
+  rating?: Rating | null,
 
-  date?: Date
+  date?: Date | null
 }
