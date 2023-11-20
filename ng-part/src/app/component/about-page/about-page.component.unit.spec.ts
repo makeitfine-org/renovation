@@ -4,13 +4,14 @@
  * Copyright 2021-2023
  */
 
-import {TestBed} from "@angular/core/testing"
+import {ComponentFixture, TestBed} from "@angular/core/testing"
 import {AboutPageComponent} from "./about-page.component"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {InfoService} from "../../data/service/info.service"
 import {of} from "rxjs"
 
 describe("AboutPageComponent ts (unit)", () => {
+  let fixture: ComponentFixture<AboutPageComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,16 +24,15 @@ describe("AboutPageComponent ts (unit)", () => {
         // MockPipe
       ]
     })//.compileComponents()
+    fixture = TestBed.createComponent(AboutPageComponent)
   })
 
   it("should create the app", () => {
-    const fixture = TestBed.createComponent(AboutPageComponent)
     const app = fixture.componentInstance
     expect(app).toBeTruthy()
   })
 
   it("should create the app", () => {
-    const fixture = TestBed.createComponent(AboutPageComponent)
     fixture.detectChanges()
     const compiled = fixture.nativeElement as HTMLElement
     expect(compiled.querySelector("h1.font-bold.mb-2.text-center.text-lg")?.textContent).toContain("Extra Information")
@@ -48,7 +48,6 @@ describe("AboutPageComponent ts (unit)", () => {
   })
 
   it(`should return about and module`, () => {
-    const fixture = TestBed.createComponent(AboutPageComponent)
     const app = fixture.componentInstance
     let service = fixture.debugElement.injector.get(InfoService)
 

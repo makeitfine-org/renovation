@@ -35,9 +35,24 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/ng-part'),
       subdir: '.',
       reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
-      ]
+        {type: 'html'},
+        {type: 'text-summary'}
+      ],
+      // check: {
+      //   emitWarning: true,
+      //   global: {
+      //     statements: 100,
+      //     branches: 100,
+      //     functions: 100,
+      //     lines: 100
+      //   },
+      //   each: {
+      //     statements: 100,
+      //     branches: 100,
+      //     functions: 100,
+      //     lines: 100
+      //   }
+      // }
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
@@ -47,5 +62,5 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true
-  });
-};
+  })
+}
