@@ -5,16 +5,16 @@
  */
 
 import {TestBed} from "@angular/core/testing"
-import {HttpClientModule} from "@angular/common/http"
 import {InfoService} from "src/app/data/service/info.service"
 import {of} from "rxjs"
+import {HttpClientTestingModule} from "@angular/common/http/testing"
 
 describe("AboutPageComponent", () => {
   let infoService: InfoService
 
   beforeAll(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientModule ],
+      imports: [ HttpClientTestingModule ],
       providers: [ InfoService ]
     })
     infoService = TestBed.inject(InfoService)
