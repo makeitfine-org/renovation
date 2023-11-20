@@ -17,6 +17,7 @@
     "watch": "ng build --watch --configuration development",
 
     "test": "ng test",
+    "unit.test.watch": "ng test --browsers ChromeHeadless --include **/*.unit.spec.ts",
     "unit.test": "ng test --watch false --browsers ChromeHeadless --include **/*.unit.spec.ts",
     "e2e.test": "ng test --watch false --browsers ChromeHeadless --include **/*.e2e.spec.ts",
     "test.all": "ng test --watch false --browsers ChromeHeadless",
