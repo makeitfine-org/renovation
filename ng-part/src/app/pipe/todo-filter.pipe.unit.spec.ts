@@ -47,4 +47,16 @@ describe("TodoTitleFilterPipe", () => {
   it("find 'quest it one again'", () => {
     expect(pipe.transform(todos, "quest it one again")).toEqual([ {id: 1, title: "Quest it one again", completed: true} ])
   })
+
+  it("find with empty string", () => {
+    expect(pipe.transform(todos, "")).toEqual(todos)
+  })
+
+  it("find with spaces in search string", () => {
+    expect(pipe.transform(todos, "  ")).toEqual(todos)
+  })
+
+  it("find with spaces in search string", () => {
+    expect(pipe.transform(todos)).toEqual(todos)
+  })
 })
