@@ -15,11 +15,14 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --browsers ChromeHeadless",
-    "test.nw": "ng test --watch false --browsers ChromeHeadless",
-    "test.nw.headless": "ng test --watch false --browsers ChromeHeadless",
+
+    "test": "ng test",
+    "unit.test": "ng test --watch false --browsers ChromeHeadless --include **/*.unit.spec.ts",
+    "e2e.test": "ng test --watch false --browsers ChromeHeadless --include **/*.e2e.spec.ts",
+    "test.all": "ng test --watch false --browsers ChromeHeadless",
+
     "lint": "ng lint && tsc --noUnusedLocals",
-    "buildAll": "npm run lint && npm run test.nw.headless && npm run build"
+    "buildAll": "npm run lint && npm run test.all && npm run build"
   },
   "private": true,
   "dependencies": {

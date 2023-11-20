@@ -228,6 +228,10 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("gradle", ":ng-part:npmUnitTest")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("gradle", ":node-server:npmInstall")
         }
         exec {

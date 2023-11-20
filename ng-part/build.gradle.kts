@@ -18,6 +18,10 @@ tasks.register<NpmTask>("npmLint") {
   args.set(listOf("run", "lint"))
 }
 
+tasks.register<NpmTask>("npmUnitTest") { //make part of e2eTest gradle  task
+  args.set(listOf("run", "unit.test"))
+}
+
 tasks.register<NpmTask>("npmE2eTest") { //make part of e2eTest gradle  task
-  args.set(listOf("run", "test.nw.headless"))
+  args.set(listOf("run", "e2e.test"))
 }
