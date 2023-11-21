@@ -178,69 +178,69 @@ tasks.register<GradleBuild>(buildAll) {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "clean")
+            commandLine("./gradlew", "clean")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "detekt")
+            commandLine("./gradlew", "detekt")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "test")
+            commandLine("./gradlew", "test")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "integrationTest")
+            commandLine("./gradlew", "integrationTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "assemble")
-        }
-
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend:npmInstall")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend:npmBuild")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "copyDistToPublic")
+            commandLine("./gradlew", "assemble")
         }
 
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend-info:npmInstall")
+            commandLine("./gradlew", ":frontend:npmInstall")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":frontend-info:npmBuild")
+            commandLine("./gradlew", ":frontend:npmBuild")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":ng-part:npmInstall")
+            commandLine("./gradlew", "copyDistToPublic")
+        }
+
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":frontend-info:npmInstall")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":ng-part:npmLint")
+            commandLine("./gradlew", ":frontend-info:npmBuild")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":ng-part:npmUnitTest")
+            commandLine("./gradlew", ":ng-part:npmInstall")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":node-server:npmInstall")
+            commandLine("./gradlew", ":ng-part:npmLint")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":node-server:npmLint")
+            commandLine("./gradlew", ":ng-part:npmUnitTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":node-server:npmTest")
+            commandLine("./gradlew", ":node-server:npmInstall")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":node-server:npmLint")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":node-server:npmTest")
         }
 
         exec {
@@ -249,7 +249,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", removeImages)
+            commandLine("./gradlew", removeImages)
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -278,11 +278,11 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":ng-part:npmE2eTest")
+            commandLine("./gradlew", ":ng-part:npmE2eTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "e2eTest")
+            commandLine("./gradlew", "e2eTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")
@@ -298,7 +298,7 @@ tasks.register<GradleBuild>("ba") { //alias for "buildAll" task
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildAll)
+            commandLine("./gradlew", buildAll)
         }
     }
 }
@@ -312,15 +312,15 @@ tasks.register<GradleBuild>(checkall) {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "ktlintCheck")
+            commandLine("./gradlew", "ktlintCheck")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", ":backend:koverVerify")
+            commandLine("./gradlew", ":backend:koverVerify")
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", "dependencyCheckAnalyze")
+            commandLine("./gradlew", "dependencyCheckAnalyze")
         }
     }
 }
@@ -354,11 +354,11 @@ tasks.register<GradleBuild>("all") {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", buildAll)
+            commandLine("./gradlew", buildAll)
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("gradle", checkall)
+            commandLine("./gradlew", checkall)
         }
     }
 }
