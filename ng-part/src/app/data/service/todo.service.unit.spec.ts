@@ -54,12 +54,16 @@ describe("TodoService", () => {
       }
     })
     todoCrudService.createTodo.and.returnValue(of())
-
   })
 
   it(`fetchTodos`, (done: DoneFn) => {
+    todoCrudService.getTodos.calls.reset() //unnecessary
+
     todoService.fetchTodos().subscribe((todos) => {
       expect(todos).toEqual([ testTodo ])
+
+      expect(todoCrudService.getTodos).toHaveBeenCalledTimes(1)
+      expect(todoCrudService.getTodos).toHaveBeenCalledWith()
       done()
     })
   })
@@ -68,15 +72,24 @@ describe("TodoService", () => {
     const completedBeforeToggle = testTodo.completed
     todoService.toggleCompletedFlag(1)
     expect(testTodo.completed).toBe(!completedBeforeToggle)
+
+    expect(todoCrudService.updateTodo).toHaveBeenCalledTimes(1)
+    expect(todoCrudService.updateTodo).toHaveBeenCalledWith(testTodo)
   })
 
   it(`removeTodo`, () => {
     todoService.removeTodo(1)
     expect(todoService.todos).toContain(testTodo)
+
+    expect(todoCrudService.deleteTodo).toHaveBeenCalledTimes(1)
+    expect(todoCrudService.deleteTodo).toHaveBeenCalledWith(1)
   })
 
-  it(`removeTodo`, () => {
+  it(`addTodo`, () => {
     todoService.addTodo(testTodo)
     expect(todoService.todos).toContain(testTodo)
+
+    expect(todoCrudService.createTodo).toHaveBeenCalledTimes(1)
+    expect(todoCrudService.createTodo).toHaveBeenCalledWith(testTodo)
   })
 })
