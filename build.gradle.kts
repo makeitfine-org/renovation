@@ -117,14 +117,9 @@ subprojects {
             // dependsOn(ktlintCheck)
         }
 
-        val integrationTestTag = "integrationTest"
-        val e2eTestTag = "e2eTest"
-        val minikubeTestTag = "minikubeTest"
+        // --- test part
 
         tasks.withType<Test> {
-            useJUnitPlatform {
-                excludeTags(integrationTestTag, e2eTestTag, minikubeTestTag)
-            }
             jvmArgs = mutableListOf("--enable-preview")
             maxParallelForks = Runtime.getRuntime().availableProcessors()
 
@@ -141,26 +136,31 @@ subprojects {
             }
         }
 
-        tasks.register<Test>("minikubeTest") {
-            description = "Run minikube tests"
+        val integrationTestTag = "integrationTest"
+        val e2eTestTag = "e2eTest"
+        val minikubeTestTag = "minikubeTest"
 
-            useJUnitPlatform {
-                includeTags("minikubeTest")
-            }
-        }
-
-        fun testTask(tag: String, mustRunAfter: Any) = tasks.register<Test>(tag) {
+        fun testTask(tag: String, mustRunAfter: Any?) = tasks.register<Test>(tag) {
             description = "Run $tag tests"
 
             useJUnitPlatform {
                 includeTags("$tag")
             }
 
-            mustRunAfter(mustRunAfter)
+            mustRunAfter?.let { mustRunAfter(it) }
         }
 
-        val integrationTest = testTask("integrationTest", tasks.test)
-        val e2eTest = testTask("e2eTest", integrationTest)
+        val integrationTest = testTask(integrationTestTag, tasks.test)
+        val e2eTest = testTask(e2eTestTag, integrationTest)
+        val minikubeTest = testTask(minikubeTestTag, integrationTest)
+
+        tasks.named<Test>("test") {
+            description = "Run test tests"
+
+            useJUnitPlatform {
+                excludeTags(integrationTestTag, e2eTestTag, minikubeTestTag)
+            }
+        }
 
         tasks.check {
             dependsOn(integrationTest)
@@ -261,7 +261,8 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("sh", "-c", """
+            commandLine(
+                "sh", "-c", """
                 while 
                     ! curl -s http://localhost:18080/realms/renovation-realm/.well-known/openid-configuration > /dev/null  || 
                     ! curl -s http://localhost:8280/about > /dev/null   || 
@@ -274,7 +275,8 @@ tasks.register<GradleBuild>(buildAll) {
                     echo "In Waiting for services up and readiness ..."
                     sleep 5
                 done
-            """.trimIndent())
+            """.trimIndent()
+            )
         }
         exec {
             workingDir("${rootProject.rootDir}")
