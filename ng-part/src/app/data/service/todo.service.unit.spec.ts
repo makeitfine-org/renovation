@@ -9,7 +9,7 @@ import {TodoService} from "./todo.service"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {TodoCrudService} from "./todo-crud.service"
 import {DatePipe} from "@angular/common"
-import {of} from "rxjs"
+import {of, throwError} from "rxjs"
 import {ErrorService} from "./error.service"
 import {Todo} from "../model/todo.model"
 
@@ -17,6 +17,7 @@ describe("TodoService", () => {
   const testTodo = {id: 1, title: "title", completed: true}
   let todoService: TodoService
   let todoCrudService: jasmine.SpyObj<TodoCrudService>
+  let errorService: jasmine.SpyObj<ErrorService>
 
   // const datePipe = jasmine.createSpyObj("DatePipe")
   const errorServiceSpy = jasmine.createSpyObj("ErrorService", [ "handle" ])
@@ -30,13 +31,14 @@ describe("TodoService", () => {
       providers: [
         TodoService,
         DatePipe,
-        // {provider: DatePipe, useValue: datePipe},
-        {provider: ErrorService, useValue: errorServiceSpy},
+        // {provide: DatePipe, useValue: datePipe},
+        {provide: ErrorService, useValue: errorServiceSpy},
         {provide: TodoCrudService, useValue: todoCrudServiceSpy}
       ]
     })
     todoService = TestBed.inject(TodoService)
     todoCrudService = TestBed.inject(TodoCrudService) as jasmine.SpyObj<TodoCrudService>
+    errorService = TestBed.inject(ErrorService) as jasmine.SpyObj<ErrorService>
 
     todoCrudService.getTodos.and.returnValue(of([ testTodo ] as Todo[]))
     todoCrudService.updateTodo.and.callFake((todo) => {
@@ -54,6 +56,27 @@ describe("TodoService", () => {
       }
     })
     todoCrudService.createTodo.and.returnValue(of())
+
+    errorService.handle.and.callFake(() => {
+    })
+  })
+
+  it(`fetchTodos with error`, (done: DoneFn) => {
+    todoCrudService.getTodos.and.returnValue(throwError(() => new Error("Just error in getTodos")))
+
+    // todoService.fetchTodos()
+    // expect(()=>todoService.fetchTodos()).toThrowError("Just error in getTodos")
+    // try{
+    todoService.fetchTodos().subscribe({
+      error: error => {
+        expect(error).toBeTruthy()
+        expect(error).toEqual("Just error in getTodos")
+      }
+    })
+    expect(errorService.handle).toHaveBeenCalledTimes(1)
+
+    todoCrudService.getTodos.and.returnValue(of([ testTodo ] as Todo[]))
+    done()
   })
 
   it(`fetchTodos`, (done: DoneFn) => {

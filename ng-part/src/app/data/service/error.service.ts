@@ -5,13 +5,21 @@ import {Subject} from "rxjs"
   providedIn: "root"
 })
 export class ErrorService {
-  error$ = new Subject<string>()
+  private _error$ = new Subject<string>()
+
+  get error$(): Subject<string> {
+    return this._error$
+  }
+
+  set error$(value: Subject<string>) {
+    this._error$ = value
+  }
 
   handle(message: string) {
-    this.error$.next(message)
+    this._error$.next(message)
   }
 
   clear() {
-    this.error$.next("")
+    this._error$.next("")
   }
 }
