@@ -9,7 +9,7 @@ import {TodoService} from "./todo.service"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {TodoCrudService} from "./todo-crud.service"
 import {DatePipe} from "@angular/common"
-import {of, throwError} from "rxjs"
+import {BehaviorSubject, of, throwError} from "rxjs"
 import {ErrorService} from "./error.service"
 import {Todo} from "../model/todo.model"
 
@@ -59,6 +59,17 @@ describe("TodoService", () => {
 
     errorService.handle.and.callFake(() => {
     })
+
+    Object.defineProperty(errorService, "error$", {
+      get: () => new BehaviorSubject<String>("!"), set: () => {
+      }, configurable: true
+    })
+  })
+
+  it(`just check error$`, () => {
+    expect(errorService.error$).toBeTruthy()
+    expect(errorService.error$).toEqual(new BehaviorSubject<String>("!"))
+    expect(errorService.error$).not.toEqual(new BehaviorSubject<String>("!!"))
   })
 
   it(`fetchTodos with error`, (done: DoneFn) => {
