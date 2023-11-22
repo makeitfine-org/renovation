@@ -54,7 +54,6 @@ val gatewayModuleName: String by settings
 val tempModuleName: String by settings
 val ngPartModuleName: String by settings
 val nodeServerModuleName: String by settings
-val springboot3ServerModuleName: String by settings
 
 include(backendModuleName)
 include(frontendModuleName)
@@ -67,4 +66,3 @@ include(gatewayModuleName)
 include(tempModuleName)
 include(ngPartModuleName)
 include(nodeServerModuleName)
-include(springboot3ServerModuleName)
