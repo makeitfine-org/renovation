@@ -108,7 +108,16 @@ services:
       - renovation-vault
     volumes:
       - ./temp/src/main/resources/docker/vault/secrets_provision.sh:/usr/local/bin/secrets_provision.sh
-    command: [ "/bin/sh", "-c", "/usr/local/bin/secrets_provision.sh" ]
+    entrypoint: [ "/bin/sh", "-c" ]
+    command:
+      - |
+                while                    
+                    ! curl -s renovation-vault:8200 > /dev/null;
+                 do                
+                    echo 'In Waiting for services up and readiness ...'
+                sleep 1
+                done                
+                /usr/local/bin/secrets_provision.sh
     networks:
       - renovation-network
 
