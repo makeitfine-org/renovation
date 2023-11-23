@@ -33,8 +33,6 @@ dependencies {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-oauth2-resource-server")

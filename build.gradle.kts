@@ -74,6 +74,7 @@ subprojects {
             implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
             implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
             implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
+            implementation("org.jetbrains.kotlin:kotlin-reflect")
 
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
