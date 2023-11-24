@@ -44,6 +44,7 @@ class TodoController(
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Suppress("ktlint:annotation")
     fun update(@RequestBody @Valid todoModel: TodoModel) = todoService.update(todoModel)
 
     @DeleteMapping("{id}")

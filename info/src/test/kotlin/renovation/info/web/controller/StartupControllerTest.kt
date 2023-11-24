@@ -40,8 +40,8 @@ internal class StartupControllerTest(
             statusCode(HttpStatus.SC_OK)
             body(
                 CoreMatchers.equalTo(
-                    """{"name":"renovation info module","""
-                            + """"description":"Module work as additional info directory"}"""
+                    """{"name":"renovation info module",""" +
+                            """"description":"Module work as additional info directory"}"""
                 )
             )
         }

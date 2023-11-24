@@ -17,7 +17,8 @@ class MetricsConfig {
 
     @Bean
     fun getAllWorksCounter(@Autowired meterRegistry: MeterRegistry) =
-        Counter.builder("get_all_works_counter")
+        Counter
+            .builder("get_all_works_counter")
             .description("Count number of all works requests (it's used for main page loading)")
             .register(meterRegistry)
 }

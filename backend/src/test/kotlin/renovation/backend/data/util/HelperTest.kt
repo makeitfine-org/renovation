@@ -18,52 +18,52 @@ import renovation.backend.data.entity.WorkEntity
 
 internal class HelperTest {
     companion object {
-        val id = UUID.randomUUID()
-        const val title = "test title"
-        const val description = "test description"
-        val endDate = LocalDate.now()
-        const val price = 10000.0
-        val payDate = LocalDate.now()
+        val ID = UUID.randomUUID()
+        const val TITLE = "test title"
+        const val DESCRIPTION = "test description"
+        val END_DATE = LocalDate.now()
+        const val PRICE = 10000.0
+        val PAY_DATE = LocalDate.now()
     }
 
     @Test
     fun `convert work entity to work`() {
-        val workEntity = WorkEntity(id, title, description, endDate, price, payDate)
+        val workEntity = WorkEntity(ID, TITLE, DESCRIPTION, END_DATE, PRICE, PAY_DATE)
 
         val work = Helper.convert(workEntity)
 
-        assertEquals(id.toString(), work.id)
-        assertEquals(title, work.title)
-        assertEquals(description, work.description)
-        assertEquals(endDate, work.endDate)
-        assertEquals(price, work.price)
-        assertEquals(payDate, work.payDate)
+        assertEquals(ID.toString(), work.id)
+        assertEquals(TITLE, work.title)
+        assertEquals(DESCRIPTION, work.description)
+        assertEquals(END_DATE, work.endDate)
+        assertEquals(PRICE, work.price)
+        assertEquals(PAY_DATE, work.payDate)
     }
 
     @Test
     fun `convert work entity (all fields null except necessary) to work`() {
-        val work = Helper.convert(WorkEntity(title = title))
+        val work = Helper.convert(WorkEntity(title = TITLE))
         assertNotNull(work.id)
     }
 
     @Test
     fun `convert work entity (all fields null except necessary and id = null) to work`() {
-        val work = Helper.convert(WorkEntity(id = null, title = title))
+        val work = Helper.convert(WorkEntity(id = null, title = TITLE))
         assertNull(work.id)
     }
 
     @Test
     fun `convert work to work entity`() {
-        val work = Work(id.toString(), title, description, endDate, price, payDate)
+        val work = Work(ID.toString(), TITLE, DESCRIPTION, END_DATE, PRICE, PAY_DATE)
 
         val workEntity = Helper.convert(work)
 
-        assertEquals(id, workEntity.id)
-        assertEquals(title, workEntity.title)
-        assertEquals(description, workEntity.description)
-        assertEquals(endDate, workEntity.endDate)
-        assertEquals(price, workEntity.price)
-        assertEquals(payDate, workEntity.payDate)
+        assertEquals(ID, workEntity.id)
+        assertEquals(TITLE, workEntity.title)
+        assertEquals(DESCRIPTION, workEntity.description)
+        assertEquals(END_DATE, workEntity.endDate)
+        assertEquals(PRICE, workEntity.price)
+        assertEquals(PAY_DATE, workEntity.payDate)
     }
 
     @Test

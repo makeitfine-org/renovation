@@ -19,7 +19,7 @@ plugins {
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-//        mavenBom("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
+        // mavenBom("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
     }
 }
 
@@ -41,9 +41,9 @@ dependencies {
     implementation("org.hibernate:hibernate-core:${properties["hibernateVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    //security
+    // security
     implementation("org.springframework.boot:spring-boot-starter-security")
-//    implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
+    // implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
     implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
 
     testImplementation("com.h2database:h2:${properties["h2Version"]}")

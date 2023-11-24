@@ -80,36 +80,51 @@ subprojects {
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
             testImplementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinTestVersion"]}")
 
-            ktlint("com.pinterest:ktlint:${properties["ktlintVersion"]}") {
+            ktlint("com.pinterest.ktlint:ktlint-cli:${properties["ktlintVersion"]}") {
                 attributes {
                     attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
                 }
             }
         }
 
-        val outputDir = "${project.buildDir}/reports/ktlint/"
-        val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
+//        val outputDir = "${project.buildDir}/reports/ktlint/"
+//        val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
-        val ktlintCheck by tasks.creating(JavaExec::class) {
-            inputs.files(inputFiles)
-            outputs.dir(outputDir)
+        val ktlintCheck by tasks.registering(JavaExec::class) {
+            group = LifecycleBasePlugin.VERIFICATION_GROUP
 
-            description = "Check Kotlin code style."
+//            inputs.files(inputFiles)
+//            outputs.dir(outputDir)
+
+            description = "Check Kotlin code style"
             classpath = ktlint
             mainClass.set("com.pinterest.ktlint.Main")
-            args = listOf("src/**/*.kt")
+            // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+//            args = listOf("src/**/*.kt")
+            args(
+                "**/src/**/*.kt",
+//                "**.kts",
+                "!**/build/**",
+            )
         }
 
-        val ktlintFormat by tasks.creating(JavaExec::class) {
-            inputs.files(inputFiles)
-            outputs.dir(outputDir)
-
-            description = "Fix Kotlin code style deviations."
+        tasks.register<JavaExec>("ktlintFormat") {
+            group = LifecycleBasePlugin.VERIFICATION_GROUP
+            description = "Check Kotlin code style and format"
             classpath = ktlint
             mainClass.set("com.pinterest.ktlint.Main")
-            args = listOf("-F", "src/**/*.kt")
+            jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+            // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+//            args = listOf("-F", "src/**/*.kt")
+            args(
+                "-F",
+                "**/src/**/*.kt",
+//                "**.kts",
+                "!**/build/**",
+            )
         }
 
+        // --- compile
         tasks.withType<KotlinCompile> {
             kotlinOptions {
                 freeCompilerArgs = listOf("-Xjsr305=strict")

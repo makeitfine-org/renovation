@@ -23,7 +23,7 @@ object AccessTokensDocker : AccessTokens {
 
         HttpClients.createDefault().use {
             it.execute(httRequest).use {
-                token = EntityUtils.toString(it.entity);
+                token = EntityUtils.toString(it.entity)
             }
         }
 

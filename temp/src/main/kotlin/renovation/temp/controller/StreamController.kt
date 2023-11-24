@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController
 import renovation.temp.data.service.Rec
 import renovation.temp.data.service.StreamService
 
-
 private val log = KotlinLogging.logger { }
 
 typealias Guava = com.google.common.collect.Streams
@@ -79,7 +78,6 @@ class StreamController(
         @RequestParam(defaultValue = "5") limit: Long = 5
     ) = Stream.iterate(start, { it <= start * limit }) { it + 1 }
 
-
     @GetMapping("simpleFunc")
     fun simpleFunc() = ({ i: UUID -> i.toString() }).invoke(UUID.randomUUID())
     // val l: (UUID) -> String = { it.toString() }
@@ -123,7 +121,7 @@ class StreamController(
 
     @GetMapping("reduce")
     fun reduce(): HashMap<Int, MutableMap<String, Int>> {
-        val map: MutableMap<String, Int> = mutableMapOf();
+        val map: MutableMap<String, Int> = mutableMapOf()
 
         map["a"] = 1
         map["b"] = 1
@@ -137,7 +135,7 @@ class StreamController(
             HashMap(),
             { m, e ->
                 if (m[e.value] == null) {
-                    val insideMap: MutableMap<String, Int> = HashMap();
+                    val insideMap: MutableMap<String, Int> = HashMap()
                     insideMap[e.key] = e.value
                     m[e.value] = insideMap
                 } else {
@@ -338,30 +336,30 @@ class StreamController(
 
     @GetMapping("performance")
     fun performance(): String {
-        val b = System.nanoTime();
+        val b = System.nanoTime()
         val l = (1..25_000_000)
             .filter { it % 2 == 1 }
             .map { it * 2 }
             .take(2)
-        val e = System.nanoTime();
+        val e = System.nanoTime()
 
         log.debug { "$l >>> [begin:$b | end:$e | time millis: ${(e - b) / 1000000.0}]" }
 
-        val b2 = System.nanoTime();
+        val b2 = System.nanoTime()
         val l2 = (1..1_925_000_000).asSequence()
             .filter { it % 2 == 1 }
             .map { it * 2 }
             .take(2)
-        val e2 = System.nanoTime();
+        val e2 = System.nanoTime()
 
         log.debug { "${l2.toList()} >>> [begin:$b2 | end:$e2 | time millis: ${(e2 - b2) / 1000000.0}]" }
 
-        val b3 = System.nanoTime();
+        val b3 = System.nanoTime()
         val l3 = Stream.iterate(1, { it < 1_925_000_000 }) { it + 1 }
             .filter { it % 2 == 1 }
             .map { it * 2 }
             .limit(2)
-        val e3 = System.nanoTime();
+        val e3 = System.nanoTime()
 
         log.debug { "${l3.toList()} >>> [begin:$b3 | end:$e3 | time millis: ${(e3 - b3) / 1000000.0}]" }
 
@@ -429,12 +427,12 @@ class See {
 fun mainTemp() {
     val d = StreamService().data()
 
-    val b = System.nanoTime();
+    val b = System.nanoTime()
     val l = (1..25_000_000)
         .filter { it % 2 == 1 }
         .map { it * 2 }
         .take(2)
-    val e = System.nanoTime();
+    val e = System.nanoTime()
 
     println("$l >>> [begin:$b | end:$e | time millis: ${(e - b) / 1000000.0}]")
 
@@ -444,15 +442,15 @@ fun mainTemp() {
         .take(2)
     println(l2)
 
-    val e2 = System.nanoTime();
+    val e2 = System.nanoTime()
     println(e2)
 
-    val b3 = System.nanoTime();
+    val b3 = System.nanoTime()
     val l3 = Stream.iterate(1, { it < 1_925_000_000 }) { it + 1 }
         .filter { it % 2 == 1 }
         .map { it * 2 }
         .limit(2)
-    val e3 = System.nanoTime();
+    val e3 = System.nanoTime()
 
     println("${l3.toList()} >>> [begin:$b3 | end:$e3 | time millis: ${(e3 - b3) / 1000000.0}]")
 
@@ -493,6 +491,3 @@ fun mainTemp() {
 
     next3Days.forEach { x: LocalDate? -> println(x) }
 }
-
-
-

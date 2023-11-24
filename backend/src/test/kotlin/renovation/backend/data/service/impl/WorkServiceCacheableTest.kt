@@ -33,7 +33,7 @@ import renovation.backend.data.service.WorkService
 internal class WorkServiceCacheableTest : AppByContainersConfig() {
 
     companion object {
-        private const val cacheName = "works"
+        private const val CACHE_NAME = "works"
     }
 
     @Autowired
@@ -45,10 +45,10 @@ internal class WorkServiceCacheableTest : AppByContainersConfig() {
 
     @BeforeTest
     fun init() {
-        cacheManager.getCache(cacheName)?.clear()
+        cacheManager.getCache(CACHE_NAME)?.clear()
     }
 
-    private fun get(uuid: UUID) = cacheManager.getCache(cacheName)?.get(uuid, Work::class.java)
+    private fun get(uuid: UUID) = cacheManager.getCache(CACHE_NAME)?.get(uuid, Work::class.java)
 
     @Test
     fun `findById Cacheable if price is not greater 10000`() {

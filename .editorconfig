@@ -7,14 +7,19 @@ insert_final_newline = true
 max_line_length = 120
 tab_width = 4
 trim_trailing_whitespace = true
-trailing_comma_on_declaration_site = unset
+trailing_comma_on_declaration_site = disabled
 ij_continuation_indent_size = 8
 ij_formatter_off_tag = @formatter:off
-ij_formatter_on_tag = @formatter:on
+ij_formatter_on_tag = @formatter : on
 ij_formatter_tags_enabled = true
 ij_smart_tabs = false
 #ij_visual_guides =
 ij_wrap_on_typing = false
+ktlint_code_style = intellij_idea
+
+ktlint_standard_trailing-comma-on-declaration-site = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_function-signature = disabled
 
 [*.avdl]
 indent_style = tab

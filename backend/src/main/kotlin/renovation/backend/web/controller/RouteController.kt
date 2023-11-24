@@ -16,8 +16,8 @@ const val REDIRECT = "redirect:/"
 class RouteController {
 
     // todo: simplify it or move to separate config
-    @RequestMapping("/home", "/fe", "/fe/**")
     // @RequestMapping("/{path:[^\\.]*}")
+    @RequestMapping("/home", "/fe", "/fe/**")
     fun forward() = FORWARD
 
     @RequestMapping("/logout-redirect")

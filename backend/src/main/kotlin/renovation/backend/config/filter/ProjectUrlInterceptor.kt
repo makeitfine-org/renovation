@@ -28,7 +28,6 @@ class ProjectUrlInterceptor : HandlerInterceptor {
         modelAndView: ModelAndView?
     ) = log.debug { "Request (after controller) to url: '${request.requestURI}'" }
 
-
     override fun afterCompletion(
         request: HttpServletRequest,
         response: HttpServletResponse,

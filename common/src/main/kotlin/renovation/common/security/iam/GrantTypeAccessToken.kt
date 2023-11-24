@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate
 interface GrantTypeAccessToken : Token {
     val grantType: String
     val tokenEndpoint: String
-    override val token:  String
+    override val token: String
 
     fun bearerAuthorizationHeader() =
         Header("Authorization", "Bearer $token")
