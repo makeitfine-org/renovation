@@ -4,7 +4,6 @@ import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import reactor.core.publisher.Mono
 import renovation.temp.data.service.CoroutinesService
 
 private val log = KotlinLogging.logger { }
@@ -18,7 +17,7 @@ class CoroutinesController(private val coroutinesService: CoroutinesService) {
     fun hello() = "Hello from coroutines!"
 
     @GetMapping("/default")
-    suspend fun default(): Mono<String> {
+    suspend fun default(): String {
         val r = coroutinesService.default()
         log.debug { "Controller: $r" }
         return r

@@ -20,7 +20,7 @@ dependencies {
     implementation(platform("org.springframework.boot:spring-boot-dependencies:${properties["springframeworkPluginVersion"]}"))
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.apache.commons:commons-lang3:${properties["commonsLang3Version"]}")
     implementation("com.google.guava:guava:${properties["guavaVersion"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")

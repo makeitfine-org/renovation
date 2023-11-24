@@ -16,7 +16,6 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Mono
 
 private val log = KotlinLogging.logger { }
 
@@ -29,7 +28,7 @@ class CoroutinesService {
         val th = newSingleThreadContext("one")
     }
 
-    suspend fun default() = Mono.just(coroutine())
+    suspend fun default() = coroutine()
 
     fun coroutineBlocking() = runBlocking {
         launch {
