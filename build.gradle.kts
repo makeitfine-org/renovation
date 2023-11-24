@@ -198,6 +198,10 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", "ktlintCheck")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", "test")
         }
         exec {
