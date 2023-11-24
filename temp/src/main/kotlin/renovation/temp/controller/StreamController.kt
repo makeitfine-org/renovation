@@ -59,7 +59,7 @@ class StreamController(
     fun sumOfFilteredIds() =
         s().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }
             .reduce(0, Integer::sum).also { log.debug { it } }
-    //optional:    s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.sum()
+    // optional:    s().stream().filter { e -> e.name?.startsWith("s") == true }.mapToInt { e -> e.id.toInt() }.sum()
 
     @GetMapping("streamGenerator")
     fun streamGenerator(
@@ -145,7 +145,8 @@ class StreamController(
                 }
                 m
             },
-            { m1, _ -> m1 })
+            { m1, _ -> m1 }
+        )
     }
 
     @GetMapping("joining")

@@ -10,7 +10,7 @@ import renovation.info.data.entity.DetailsEntity
 import renovation.info.generated.dgs.types.Details
 import renovation.info.generated.dgs.types.DetailsInput
 
-//todo: create DetailsModel and use it in service
+// todo: create DetailsModel and use it in service
 interface DetailsService {
     fun getAll(): List<DetailsEntity>
 

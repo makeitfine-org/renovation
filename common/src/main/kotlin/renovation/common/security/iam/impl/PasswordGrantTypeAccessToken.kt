@@ -17,7 +17,7 @@ data class PasswordGrantTypeAccessToken(
 ) : GrantTypeAccessToken {
     override val grantType = "password"
 
-    //todo: it's write jwt token iss not null
+    // todo: it's write jwt token iss not null
     override val token: String = super.obtainToken(
         "client_id" to clientId,
         "client_secret" to clientSecret,

@@ -18,14 +18,14 @@ class CorsConfig {
     @Bean
     fun corsFilter(): CorsFilter {
         val config = CorsConfiguration().apply {
-//            allowCredentials = false
+            // allowCredentials = false
             addAllowedHeader(CorsConfiguration.ALL)
             addAllowedMethod(HttpMethod.GET)
             addAllowedMethod(HttpMethod.POST)
             addAllowedMethod(HttpMethod.PUT)
             addAllowedMethod(HttpMethod.DELETE)
             addExposedHeader(CorsConfiguration.ALL)
-            //play with prod (lite-server)
+            // play with prod (lite-server)
             addAllowedOriginPattern("http://192.168.0.113:3000")
 
             addAllowedOriginPattern("http://localhost:80*")

@@ -30,8 +30,8 @@ class SecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
             http
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                .and()
-                .disable() //todo: enable
+                // .and()
+                .disable() // todo: enable
                 .authorizeRequests()
                 .antMatchers("/about", "/project", "/logout").permitAll()
                 .antMatchers("/api/work").hasAnyRole("WORK")

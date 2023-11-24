@@ -225,8 +225,7 @@ internal class WorkServiceCacheableTest : AppByContainersConfig() {
 
     @Test
     @Order(Int.MAX_VALUE - 1)
-    @Suppress("MaxLineLength")
-    fun `update not CachePut price is greater than 10000 and note cached but try before (init price more than 10000)`() {
+    fun `update not CachePut price is greater than 10000 + note cached but try before (init price more than 10000)`() {
         val uuid = UUID.fromString("44444444-a845-45d7-aea9-ab624172d1c1")
         val workForUpdate =
             Work(title = "updated title ${UUID.randomUUID()}", description = "updated desc", price = 15000.5)
