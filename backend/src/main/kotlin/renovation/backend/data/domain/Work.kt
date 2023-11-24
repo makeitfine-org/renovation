@@ -19,7 +19,9 @@ data class Work(
     @field:NotBlank(groups = [OnCreate::class, OnUpdate::class])
     @field:Size(
         groups = [OnCreate::class, OnUpdate::class],
-        message = "title symbol amount should be from 3 to 150", min = 3, max = 150
+        message = "title symbol amount should be from 3 to 150",
+        min = 3,
+        max = 150
     )
     val title: String? = null,
 

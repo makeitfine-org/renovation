@@ -92,7 +92,11 @@ internal abstract class DetailsDataFetcherTestAbstract(
         val data = OBJECT_MAPPER.convertValue(roughData, Details::class.java)
         assertEquals(
             Details(
-                id = data.id, name = "Hello", surname = "There", age = 32, gender = Gender.Male,
+                id = data.id,
+                name = "Hello",
+                surname = "There",
+                age = 32,
+                gender = Gender.Male,
                 detailsEmails = listOf(DetailsEmail("temo@eet.ddd", EmailStatus.Active))
             ),
             data
@@ -171,7 +175,9 @@ internal abstract class DetailsDataFetcherTestAbstract(
         assertEquals(Details(name = "Alfred", surname = "Hatton", age = 33), result[0])
         assertEquals(
             Details(
-                name = "Kate", surname = "Hatton", age = 33,
+                name = "Kate",
+                surname = "Hatton",
+                age = 33,
                 detailsEmails = listOf(
                     DetailsEmail("kh33@email.com", EmailStatus.Active),
                     DetailsEmail("kh33_other@email.two", EmailStatus.Inactive)
