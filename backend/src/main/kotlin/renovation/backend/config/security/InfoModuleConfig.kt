@@ -44,7 +44,7 @@ class InfoModuleConfig {
     ) = ClientCredentialsGrantTypeAccessToken(
         clientId,
         clientSecret,
-        "${authServerUrl}/realms/$realm/protocol/openid-connect/token",
+        "$authServerUrl/realms/$realm/protocol/openid-connect/token",
     ).also {
         log.debug { "clientCredentialsGrantAccessToken: $it" }
     }
@@ -68,7 +68,7 @@ class InfoModuleConfig {
         clientSecret,
         creds.username,
         creds.password,
-        "${authServerUrl}/realms/$realm/protocol/openid-connect/token"
+        "$authServerUrl/realms/$realm/protocol/openid-connect/token"
     ).also {
         log.debug { "passwordGrantAccessToken: $it" }
     }

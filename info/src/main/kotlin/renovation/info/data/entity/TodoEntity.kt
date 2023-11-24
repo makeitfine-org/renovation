@@ -34,7 +34,7 @@ data class TodoEntity(
 
     @field:Size(
         min = MIN_DESCRIPTION_SIZE,
-        message = "description size should be not less then ${MIN_DESCRIPTION_SIZE} chapters"
+        message = "description size should be not less then $MIN_DESCRIPTION_SIZE chapters"
     )
     var description: String? = null,
 

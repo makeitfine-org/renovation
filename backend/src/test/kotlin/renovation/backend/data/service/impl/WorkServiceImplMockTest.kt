@@ -163,7 +163,8 @@ internal class WorkServiceImplMockTest {
         val updatedTitle = "updated title"
 
         workService.update(
-            updatedUUID, Work(title = updatedTitle)
+            updatedUUID,
+            Work(title = updatedTitle)
         ).let {
             assertEquals(updatedUUID, UUID.fromString(it.id))
             assertEquals(updatedTitle, it.title)
