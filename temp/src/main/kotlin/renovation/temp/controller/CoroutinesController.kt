@@ -1,10 +1,13 @@
 package renovation.temp.controller
 
+import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import renovation.temp.data.service.CoroutinesService
+
+private val log = KotlinLogging.logger { }
 
 @RestController
 @RequestMapping("/coroutines")
@@ -15,5 +18,16 @@ class CoroutinesController(private val coroutinesService: CoroutinesService) {
     fun hello() = "Hello from coroutines!"
 
     @GetMapping("/default")
-    suspend fun default(): Mono<String> = coroutinesService.default()
+    suspend fun default(): Mono<String> {
+        val r = coroutinesService.default()
+        log.debug { "Controller: $r" }
+        return r
+    }
+
+    @GetMapping("/blocking")
+    fun blocking(): String {
+        val r = coroutinesService.coroutineBlocking()
+        log.debug { "Controller: $r" }
+        return r
+    }
 }
