@@ -43,5 +43,5 @@ class SecurityConfig(
     @Bean
     @Suppress("NestedBlockDepth")
     fun jwtGrantedAuthoritiesConverter() =
-        JwtUtils.jwtGrantedAuthoritiesConverter(clientId, JwtUtils.ROLE_CASE.UPPERCASE)
+        JwtUtils.jwtGrantedAuthoritiesConverter(clientId, JwtUtils.RoleCase.UPPERCASE)
 }

@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 object JwtUtils {
 
     @Suppress("ClassNaming")
-    enum class ROLE_CASE {
+    enum class RoleCase {
         LOWERCASE,
         UPPERCASE
     }
@@ -20,7 +20,7 @@ object JwtUtils {
     @Suppress("NestedBlockDepth")
     fun jwtGrantedAuthoritiesConverter(
         clientId: String,
-        rolesUppercase: ROLE_CASE = ROLE_CASE.LOWERCASE
+        rolesUppercase: RoleCase = RoleCase.LOWERCASE
     ): Converter<Jwt, Collection<GrantedAuthority>> {
         val delegate = JwtGrantedAuthoritiesConverter()
 
@@ -55,7 +55,7 @@ object JwtUtils {
                                 val clientRoles = it.stream().map { r: Any ->
                                     SimpleGrantedAuthority(
                                         "ROLE_${
-                                            if (rolesUppercase == ROLE_CASE.UPPERCASE) {
+                                            if (rolesUppercase == RoleCase.UPPERCASE) {
                                                 r.toString().uppercase()
                                             } else {
                                                 r.toString().lowercase()
@@ -78,7 +78,7 @@ object JwtUtils {
     fun clientRolesAuthorities(
         clientId: String,
         jwt: Jwt,
-        rolesUppercase: ROLE_CASE = ROLE_CASE.LOWERCASE
+        rolesUppercase: RoleCase = RoleCase.LOWERCASE
     ): Collection<GrantedAuthority> {
         val grantedAuthorities: MutableCollection<GrantedAuthority> = mutableListOf()
 
@@ -90,7 +90,7 @@ object JwtUtils {
                             grantedAuthorities.add(
                                 SimpleGrantedAuthority(
                                     "ROLE_${
-                                        if (rolesUppercase == ROLE_CASE.UPPERCASE) {
+                                        if (rolesUppercase == RoleCase.UPPERCASE) {
                                             it.toString().uppercase()
                                         } else {
                                             it.toString().lowercase()

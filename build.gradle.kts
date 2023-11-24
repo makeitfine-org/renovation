@@ -87,24 +87,22 @@ subprojects {
             }
         }
 
-//        val outputDir = "${project.buildDir}/reports/ktlint/"
-//        val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
+        val outputDir = "${project.buildDir}/reports/ktlint/"
+        val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
         val ktlintCheck by tasks.registering(JavaExec::class) {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
 
-//            inputs.files(inputFiles)
-//            outputs.dir(outputDir)
+            inputs.files(inputFiles)
+            outputs.dir(outputDir)
 
             description = "Check Kotlin code style"
             classpath = ktlint
             mainClass.set("com.pinterest.ktlint.Main")
             // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-//            args = listOf("src/**/*.kt")
             args(
                 "**/src/**/*.kt",
-//                "**.kts",
-                "!**/build/**",
+                //"**.kts",
             )
         }
 
@@ -115,12 +113,10 @@ subprojects {
             mainClass.set("com.pinterest.ktlint.Main")
             jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
             // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-//            args = listOf("-F", "src/**/*.kt")
             args(
                 "-F",
                 "**/src/**/*.kt",
-//                "**.kts",
-                "!**/build/**",
+                //"**.kts",
             )
         }
 
