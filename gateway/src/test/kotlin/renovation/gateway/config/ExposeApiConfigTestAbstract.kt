@@ -64,8 +64,8 @@ internal abstract class ExposeApiConfigTestAbstract(
             statusCode(HttpStatus.SC_OK)
             body(
                 CoreMatchers.equalTo(
-                    """{"name":"renovation gateway module","""
-                            + """"description":"Gateway for routing/gathering different request"}"""
+                    """{"name":"renovation gateway module",""" +
+                        """"description":"Gateway for routing/gathering different request"}"""
                 )
             )
         }

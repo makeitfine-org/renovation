@@ -61,7 +61,7 @@ internal class WorkRepositoryDataJpaTest(
         assertTrue {
             findAll.stream().filter { w ->
                 w.title.equals("title sticker") &&
-                        w.price?.let { it == 33000.0 }
+                    w.price?.let { it == 33000.0 }
                         ?: false
             }
                 .findAny().isPresent

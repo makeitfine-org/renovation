@@ -159,7 +159,7 @@ class StreamController(
         .collect(Collectors.summarizingLong { it.id })
 
     @GetMapping("summaryStatisticsIds")
-    fun summaryStatisticsIds() = s().mapToDouble() { it.id.toDouble() }.summaryStatistics()
+    fun summaryStatisticsIds() = s().mapToDouble { it.id.toDouble() }.summaryStatistics()
 
     @GetMapping("groupingBy1")
     fun groupingBy1() = s().collect(Collectors.groupingBy { Pair(it.id, it.name) })
@@ -266,8 +266,7 @@ class StreamController(
     @GetMapping("reducing")
     fun reducing() =
         s().collect(
-            Collectors.reducing(0, { it.id })
-            { s1, s2 -> s1 + s2 }
+            Collectors.reducing(0, { it.id }) { s1, s2 -> s1 + s2 }
         )
 
     @GetMapping("reducing2")

@@ -23,11 +23,11 @@ class LoggingFilter : HttpFilter() {
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         log.debug {
             "Request | " +
-                    "addr: '${request.remoteAddr}' " +
-                    "host: '${request.remoteHost}' " +
-                    "port: '${request.remotePort}' " +
-                    "user: '${SecurityContextHolder.getContext().authentication.principal}' " +
-                    "url: '${(request as HttpServletRequest).requestURI}'"
+                "addr: '${request.remoteAddr}' " +
+                "host: '${request.remoteHost}' " +
+                "port: '${request.remotePort}' " +
+                "user: '${SecurityContextHolder.getContext().authentication.principal}' " +
+                "url: '${(request as HttpServletRequest).requestURI}'"
         }
 
         chain.doFilter(request, response)

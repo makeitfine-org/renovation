@@ -41,7 +41,7 @@ internal class StartupControllerTest(
             body(
                 CoreMatchers.equalTo(
                     """{"name":"renovation backend module",""" +
-                            """"description":"Main backend part of renovation project"}"""
+                        """"description":"Main backend part of renovation project"}"""
                 )
             )
         }

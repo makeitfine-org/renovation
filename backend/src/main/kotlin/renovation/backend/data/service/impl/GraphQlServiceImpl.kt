@@ -54,14 +54,14 @@ class GraphQlServiceImpl(
         }
 
         return (
-                restTemplate.postForEntity(
-                    infoServiceBaseUrl,
-                    HttpEntity(
-                        "{\"query\": \"${graphQlBody.replace("\n", "\\n")}\"}",
-                        httpHeaders
-                    ),
-                    Any::class.java
-                ).body as Map<*, *>
-                )["data"] as Map<*, *>
+            restTemplate.postForEntity(
+                infoServiceBaseUrl,
+                HttpEntity(
+                    "{\"query\": \"${graphQlBody.replace("\n", "\\n")}\"}",
+                    httpHeaders
+                ),
+                Any::class.java
+            ).body as Map<*, *>
+            )["data"] as Map<*, *>
     }
 }

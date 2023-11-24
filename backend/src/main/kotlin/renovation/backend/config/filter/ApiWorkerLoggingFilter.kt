@@ -24,8 +24,8 @@ class ApiWorkerLoggingFilter : HttpFilter() {
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         log.debug {
             "New request date: '${formattedNow()}' " +
-                    "user: '${SecurityContextHolder.getContext().authentication.principal}' " +
-                    "url: '${(request as HttpServletRequest).requestURI}'"
+                "user: '${SecurityContextHolder.getContext().authentication.principal}' " +
+                "url: '${(request as HttpServletRequest).requestURI}'"
         }
 
         chain.doFilter(request, response)

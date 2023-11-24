@@ -45,7 +45,6 @@ class CoroutinesService {
 
     @DelicateCoroutinesApi
     private suspend fun coroutine() = coroutineScope {
-
         val job = launch(start = CoroutineStart.LAZY) {
             try {
                 delayed()
@@ -89,7 +88,7 @@ class CoroutinesService {
     }
 
     private suspend fun printHello(): String {
-        delay(500L)  // имитация продолжительной работы
+        delay(500L) // imitation of long work
         return "Hello work!"
     }
 

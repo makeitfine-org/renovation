@@ -29,8 +29,8 @@ internal class WorkControllerTest(
             registry.add("keycloak.enabled") { "false" }
             registry.add("spring.autoconfigure.exclude") {
                 "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration," +
-                        "org.springframework.boot.actuate.autoconfigure.security.servlet" +
-                        ".ManagementWebSecurityAutoConfiguration"
+                    "org.springframework.boot.actuate.autoconfigure.security.servlet" +
+                    ".ManagementWebSecurityAutoConfiguration"
             }
         }
     }

@@ -130,8 +130,8 @@ internal abstract class DetailsDataFetcherTestAbstract(
 
         assertEquals(
             "Validation error of type WrongType: argument 'detailsInput.age' " +
-                    "with value 'StringValue{value='32a'}' is not a valid 'Age' - " +
-                    "Expected AST type 'IntValue' but was 'StringValue'. @ 'details'",
+                "with value 'StringValue{value='32a'}' is not a valid 'Age' - " +
+                "Expected AST type 'IntValue' but was 'StringValue'. @ 'details'",
             res.errors[0].message
         )
         assertFalse { res.isDataPresent }

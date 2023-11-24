@@ -41,7 +41,7 @@ internal class StartupControllerTest(
             body(
                 CoreMatchers.equalTo(
                     """{"name":"renovation info module",""" +
-                            """"description":"Module work as additional info directory"}"""
+                        """"description":"Module work as additional info directory"}"""
                 )
             )
         }
