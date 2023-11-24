@@ -1,5 +1,6 @@
 package renovation.temp.controller
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import mu.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,6 +17,7 @@ class CoroutinesController(private val coroutinesService: CoroutinesService) {
     @GetMapping
     fun hello() = "Hello from coroutines!"
 
+    @DelicateCoroutinesApi
     @GetMapping("/default")
     suspend fun default(): String {
         val r = coroutinesService.default()

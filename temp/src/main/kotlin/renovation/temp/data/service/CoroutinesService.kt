@@ -8,6 +8,7 @@ package renovation.temp.data.service
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -24,10 +25,13 @@ private val log = KotlinLogging.logger { }
 class CoroutinesService {
 
     companion object {
+
         @JvmStatic
+        @DelicateCoroutinesApi
         val th = newSingleThreadContext("one")
     }
 
+    @DelicateCoroutinesApi
     suspend fun default() = coroutine()
 
     fun coroutineBlocking() = runBlocking {
@@ -39,12 +43,12 @@ class CoroutinesService {
         r
     }
 
+    @DelicateCoroutinesApi
     private suspend fun coroutine() = coroutineScope {
 
         val job = launch(start = CoroutineStart.LAZY) {
             try {
                 delayed()
-                1
             } catch (e: CancellationException) {
                 log.debug { "!!! ${e.message}" }
             } finally {
@@ -53,6 +57,7 @@ class CoroutinesService {
         }
 
         job.start()
+        println(job)
         delay(700)
 
         job.cancel(CancellationException("one!!!"))
@@ -79,7 +84,7 @@ class CoroutinesService {
         "${printHello2.await()}"
         log.debug { v }
 
-        job?.start()
+        job.start()
         r
     }
 

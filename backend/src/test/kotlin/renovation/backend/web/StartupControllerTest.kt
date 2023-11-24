@@ -40,8 +40,8 @@ internal class StartupControllerTest(
             statusCode(SC_OK)
             body(
                 CoreMatchers.equalTo(
-                    """{"name":"renovation backend module","""
-                            + """"description":"Main backend part of renovation project"}"""
+                    """{"name":"renovation backend module",""" +
+                            """"description":"Main backend part of renovation project"}"""
                 )
             )
         }

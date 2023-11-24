@@ -6,10 +6,10 @@
 
 package renovation.backend.data.repository
 
+import java.util.UUID
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import renovation.backend.data.entity.WorkEntity
-import java.util.*
 
 @Repository
 interface WorkRepository : JpaRepository<WorkEntity, UUID> {

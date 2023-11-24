@@ -10,14 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
-import org.apache.http.HttpStatus
-import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.MethodOrderer
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.TestMethodOrder
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.jdbc.core.JdbcTemplate
-import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import java.net.HttpURLConnection
 import java.net.URL
 import java.sql.Date
@@ -27,7 +19,15 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import org.apache.http.HttpStatus
+import org.hamcrest.CoreMatchers
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.TestMethodOrder
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.jdbc.core.JdbcTemplate
 import renovation.backend.AppByContainersConfig
+import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal abstract class WorkControllerAppByContainersConfig(
@@ -235,7 +235,7 @@ internal abstract class WorkControllerAppByContainersConfig(
                           "price":33000.0,
                           "payDate":"2021-12-05"
                        }
-                    ]    
+                    ]
                             """.trimIndent()
                         )
                     )
@@ -274,7 +274,7 @@ internal abstract class WorkControllerAppByContainersConfig(
                        "description":"desc update",
                        "price":773.31,
                        "payDate":"2020-11-18"
-                    }    
+                    }
                     """.trimIndent()
                 )
                     .pathParam("id", workId)
@@ -395,7 +395,6 @@ internal abstract class WorkControllerAppByContainersConfig(
                 checkWorkTableRecordsCountWithoutDeleted(WORK_COUNT)
             }
     }
-
 
     @Order(30)
     @Test

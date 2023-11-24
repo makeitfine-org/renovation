@@ -475,16 +475,14 @@ fun mainTemp() {
     println()
     println(" - - - - -- -  ")
 
-    Stream.of(
-        "Monkey", 3, "Lion", "Giraffe", "Lemur", "Lion", 1
-    ).parallel()
+    Stream.of("Monkey", 3, "Lion", "Giraffe", "Lemur", "Lion", 1).parallel()
 //        .forEach(::print)
         .forEachOrdered(::print)
 
     println("888888888888888888")
 
-    val list = IntStream.of(1,2,3,4,5).boxed()
-    .collect(Collectors.toList())
+    val list = IntStream.of(1, 2, 3, 4, 5).boxed()
+        .collect(Collectors.toList())
 
     println(list)
 

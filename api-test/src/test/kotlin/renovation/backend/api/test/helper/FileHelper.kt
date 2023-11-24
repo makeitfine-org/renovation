@@ -6,8 +6,8 @@
 
 package renovation.backend.api.test.helper
 
-import org.apache.commons.io.IOUtils
 import java.nio.charset.Charset
+import org.apache.commons.io.IOUtils
 
 enum class FileHelper(filePath: String) {
     WORK_CONTROLLER_GET_ALL_RESPONSE("backend/work_controller/get_all_response.json"),

@@ -6,13 +6,13 @@
 
 package renovation.backend.web
 
+import java.io.IOException
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import java.io.IOException
-import javax.servlet.ServletException
-import javax.servlet.http.HttpServletRequest
 
 @RestController
 class StartupController(

@@ -6,8 +6,8 @@
 
 package renovation.backend
 
-import renovation.backend.data.domain.Work
 import java.time.LocalDate
+import renovation.backend.data.domain.Work
 
 object TestHelper {
 

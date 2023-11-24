@@ -7,6 +7,8 @@
 package renovation.backend.web.controller
 
 import io.micrometer.core.instrument.Counter
+import java.util.UUID
+import javax.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
@@ -25,8 +27,6 @@ import org.springframework.web.bind.annotation.RestController
 import renovation.backend.data.domain.Work
 import renovation.backend.data.service.WorkService
 import renovation.backend.data.validation.OnCreate
-import java.util.*
-import javax.validation.Valid
 import renovation.backend.data.validation.OnUpdate
 
 @CrossOrigin(originPatterns = ["http://localhost:80*", "http://r"])

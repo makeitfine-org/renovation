@@ -6,6 +6,17 @@
 
 package renovation.backend.data.repository
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -18,17 +29,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import renovation.backend.IntegrationTest
 import renovation.backend.config.PersistenceConfig
 import renovation.backend.data.entity.WorkEntity
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 @IntegrationTest
 @ExtendWith(SpringExtension::class)
@@ -61,7 +61,7 @@ internal class WorkRepositoryDataJpaTest(
         assertTrue {
             findAll.stream().filter { w ->
                 w.title.equals("title sticker") &&
-                    w.price?.let { it == 33000.0 }
+                        w.price?.let { it == 33000.0 }
                         ?: false
             }
                 .findAny().isPresent

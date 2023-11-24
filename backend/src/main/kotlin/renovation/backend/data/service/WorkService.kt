@@ -6,8 +6,8 @@
 
 package renovation.backend.data.service
 
+import java.util.UUID
 import renovation.backend.data.domain.Work
-import java.util.*
 
 interface WorkService {
     fun findAll(): List<Work>

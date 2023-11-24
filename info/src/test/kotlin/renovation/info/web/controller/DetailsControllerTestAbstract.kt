@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
+import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
-import kotlin.test.Test
 
 /**
  * Run docker-compose up on renovation/info module before

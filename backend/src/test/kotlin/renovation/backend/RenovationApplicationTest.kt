@@ -6,8 +6,8 @@
 
 package renovation.backend
 
-import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.Test
+import org.springframework.boot.test.context.SpringBootTest
 
 @IntegrationTest
 @SpringBootTest

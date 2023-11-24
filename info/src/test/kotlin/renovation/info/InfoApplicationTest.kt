@@ -6,9 +6,9 @@
 
 package renovation.info
 
+import kotlin.test.Test
 import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
-import kotlin.test.Test
 
 @Tag("integrationTest")
 @SpringBootTest(classes = [InfoApplication::class])

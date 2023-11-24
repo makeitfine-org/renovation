@@ -6,6 +6,14 @@
 
 package renovation.backend.data.service.impl
 
+import java.util.UUID
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Tag
@@ -14,12 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cache.CacheManager
+import renovation.backend.AppByContainersConfig
 import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
-import java.util.*
-import kotlin.test.*
-import renovation.backend.AppByContainersConfig
 
 @Tag("integrationTest")
 @SpringBootTest

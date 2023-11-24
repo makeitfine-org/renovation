@@ -12,6 +12,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.micrometer.core.instrument.Counter
 import io.mockk.every
 import io.mockk.mockk
+import java.time.LocalDate
+import java.util.UUID
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -29,10 +33,6 @@ import renovation.backend.TestHelper.WORKS
 import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
-import java.time.LocalDate
-import java.util.*
-import kotlin.test.BeforeTest
-import kotlin.test.Test
 import renovation.backend.web.controller.WorkController
 
 @ExtendWith(SpringExtension::class)
@@ -219,8 +219,8 @@ internal abstract class WorkControllerTestAbstract {
                 .content(
                     """
                 {
-                    "title": "title updated", 
-                    "price": 500.5, 
+                    "title": "title updated",
+                    "price": 500.5,
                     "endDate": "2021-05-05"
                 }
             """
@@ -280,8 +280,8 @@ internal abstract class WorkControllerTestAbstract {
                 .content(
                     """
                 {
-                    "title": "title saved", 
-                    "price": 5005.55, 
+                    "title": "title saved",
+                    "price": 5005.55,
                     "endDate": "2021-10-25"
                 }
                     """.trimIndent()
@@ -300,8 +300,8 @@ internal abstract class WorkControllerTestAbstract {
                 .content(
                     """
                 {
-                    "title": "title saved", 
-                    "price": 5005.55, 
+                    "title": "title saved",
+                    "price": 5005.55,
                     "endDate": "abc"
                 }
                     """.trimIndent()
@@ -318,7 +318,8 @@ internal abstract class WorkControllerTestAbstract {
         val id = WORKS[0].id
 
         mvc.perform(
-            this.delete(API_WORK_ID, "$id"))
+            this.delete(API_WORK_ID, "$id")
+        )
             .andExpect(MockMvcResultMatchers.status().isNoContent)
             .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
     }
@@ -328,7 +329,8 @@ internal abstract class WorkControllerTestAbstract {
         val id = "ccc3333a-17db-40d7-9781-aad518619699"
 
         mvc.perform(
-            this.delete(API_WORK_ID, "$id"))
+            this.delete(API_WORK_ID, "$id")
+        )
             .andExpect(MockMvcResultMatchers.status().is4xxClientError)
             .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
     }
@@ -338,7 +340,8 @@ internal abstract class WorkControllerTestAbstract {
         val id = "wrong format id"
 
         mvc.perform(
-            this.delete(API_WORK_ID, "$id"))
+            this.delete(API_WORK_ID, "$id")
+        )
             .andExpect(MockMvcResultMatchers.status().is5xxServerError)
             .andExpect(
                 MockMvcResultMatchers.content().string("Internal server error (500)")

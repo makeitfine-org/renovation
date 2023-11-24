@@ -6,15 +6,15 @@
 
 package renovation.backend.config.filter
 
-import mu.KotlinLogging
-import org.springframework.security.core.context.SecurityContextHolder
-import renovation.common.util.Date.formattedNow
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.annotation.WebFilter
 import javax.servlet.http.HttpFilter
 import javax.servlet.http.HttpServletRequest
+import mu.KotlinLogging
+import org.springframework.security.core.context.SecurityContextHolder
+import renovation.common.util.Date.formattedNow
 
 private val log = KotlinLogging.logger { }
 
