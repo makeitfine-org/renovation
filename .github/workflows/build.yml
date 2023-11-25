@@ -29,16 +29,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-          gradle-version: 7.2
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
-      - run: gradle buildAll
+      - run: ./gradlew buildAll
 
       - name: Report Status
         if: always()

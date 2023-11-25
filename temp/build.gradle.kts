@@ -20,9 +20,16 @@ dependencies {
     implementation(platform("org.springframework.boot:spring-boot-dependencies:${properties["springframeworkPluginVersion"]}"))
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+    }
     implementation("org.apache.commons:commons-lang3:${properties["commonsLang3Version"]}")
     implementation("com.google.guava:guava:${properties["guavaVersion"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "junit", module = "junit")
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
 }

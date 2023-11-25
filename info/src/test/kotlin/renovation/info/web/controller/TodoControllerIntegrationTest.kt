@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
