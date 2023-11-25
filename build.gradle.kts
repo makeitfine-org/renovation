@@ -175,6 +175,8 @@ subprojects {
         }
 
         tasks.check {
+            detekt
+            dependsOn(ktlintCheck)
             dependsOn(integrationTest)
             dependsOn(e2eTest)
         }

@@ -1,0 +1,9 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+spring:
+  autoconfigure:
+    exclude: >
+      org.springframework.cloud.vault.config.VaultAutoConfiguration

@@ -11,14 +11,12 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.test.context.ActiveProfiles
 import renovation.common.util.Json
+import renovation.temp.E2eTest
 
-@Tag("e2eTest")
-@ActiveProfiles("vault")
+@E2eTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class VaultControllerTest(
     @LocalServerPort private val port: Int,
@@ -30,17 +28,18 @@ internal class VaultControllerTest(
             .When {
                 get("vault")
             }.Then {
-                body(CoreMatchers.equalTo(
-                    Json.rowJson(
-                        """
-                        [
-                            "Next Hello!",
-                            "Next there!!!"
-                        ]
-                        """.trimIndent()
+                body(
+                    CoreMatchers.equalTo(
+                        Json.rowJson(
+                            """
+                            [
+                                "Next Hello!",
+                                "Next there!!!"
+                            ]
+                            """.trimIndent()
+                        )
                     )
-                ))
-
+                )
             }
     }
 

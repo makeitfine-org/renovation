@@ -5,16 +5,11 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.test.context.TestPropertySource
+import renovation.temp.IntegrationTest
 
-@Tag("integrationTest")
-@TestPropertySource(
-    properties =
-    ["spring.autoconfigure.exclude=org.springframework.cloud.vault.config.VaultAutoConfiguration"]
-)
+@IntegrationTest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class CoroutinesControllerTest(
     @LocalServerPort val port: Int
