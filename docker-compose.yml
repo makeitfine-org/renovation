@@ -64,18 +64,18 @@ services:
     ]
     volumes:
       - ./aux/keycloak-config:/opt/keycloak/data/import
-#      - ./aux/ex:/opt/keycloak/data/export
-#    depends_on:
-#      - renovation-postgres
+    #      - ./aux/ex:/opt/keycloak/data/export
+    #    depends_on:
+    #      - renovation-postgres
     ports:
       - ${KEYCLOAK_LOCALHOST_REDIRECT_PORT}:8080
     environment:
-#      DB_VENDOR: POSTGRES
-#      DB_ADDR: "renovation-postgres"
-#      DB_DATABASE: ${POSTGRES_DB}
-#      DB_SCHEMA: ${POSTGRES_DB_SCHEMA}
-#      DB_USER: ${POSTGRES_USERNAME}
-#      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      #      DB_VENDOR: POSTGRES
+      #      DB_ADDR: "renovation-postgres"
+      #      DB_DATABASE: ${POSTGRES_DB}
+      #      DB_SCHEMA: ${POSTGRES_DB_SCHEMA}
+      #      DB_USER: ${POSTGRES_USERNAME}
+      #      DB_PASSWORD: ${POSTGRES_PASSWORD}
 
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -111,13 +111,13 @@ services:
     entrypoint: [ "/bin/sh", "-c" ]
     command:
       - |
-                while                    
-                    ! curl -s renovation-vault:8200 > /dev/null;
-                 do                
-                    echo 'In Waiting for services up and readiness ...'
-                sleep 1
-                done                
-                /usr/local/bin/secrets_provision.sh
+        while
+            ! curl -s renovation-vault:8200 > /dev/null;
+         do
+            echo 'In Waiting for services up and readiness ...'
+        sleep 1
+        done
+        /usr/local/bin/secrets_provision.sh
     networks:
       - renovation-network
 
@@ -165,7 +165,7 @@ services:
       MONGO_DB: ${MONGO_DB}
       MONGO_PORT: ${MONGO_PORT}
       MONGO_HOST: ${MONGO_HOST}
-#      MONGO_DB_URI: ${MONGO_DB_URI}
+      #      MONGO_DB_URI: ${MONGO_DB_URI}
 
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
       KEYCLOAK_PORT: ${KEYCLOAK_PORT}
@@ -240,6 +240,7 @@ services:
       - ${TEMP_SERVER_REDIRECT_PORT}:8080
     environment:
       VAULT_HOST: renovation-vault
+      VAULT_PORT: 8200
       VAULT_TOKEN: ${VAULT_DEV_ROOT_TOKEN_ID}
     networks:
       - renovation-network

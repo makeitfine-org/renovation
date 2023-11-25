@@ -7,9 +7,9 @@ spring:
   cloud:
     vault:
       host: ${VAULT_HOST:localhost}
-      port: ${VAULT_PORT:8200}
+      port: ${VAULT_PORT:8400}
       scheme: http
-      token: ${VAULT_TOKEN:undef}
+      token: ${VAULT_TOKEN:00000000-0000-0000-0000-000000000000}
       application-name: ${VAULT_APPLICATION_NAME:renovation_temp}
   config:
     import: vault://
