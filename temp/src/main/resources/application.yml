@@ -25,3 +25,22 @@ spring:
   autoconfigure:
     exclude: >
       org.springframework.cloud.vault.config.VaultAutoConfiguration
+
+---
+
+spring:
+  config:
+    import: vault://
+    activate:
+      on-profile: vault
+  cloud:
+    vault:
+      host: ${VAULT_HOST:localhost}
+      port: ${VAULT_PORT:8400}
+      scheme: http
+      token: ${VAULT_TOKEN:00000000-0000-0000-0000-000000000000}
+      application-name: ${VAULT_APPLICATION_NAME:renovation_temp}
+
+vaultValues:
+  value1: ${value.value1:undef}
+  value2: ${value.value2:undef}
