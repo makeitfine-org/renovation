@@ -8,13 +8,6 @@ info:
     name: "Renovation temp"
     description: Renovation temp module for testing
 
-server:
-  port: ${PORT:8080}
-
-spring:
-  application:
-    name: ${info.app.name}
-
 logging:
   pattern:
     console: "%clr(%d{${LOG_DATEFORMAT_PATTERN}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(-){faint} %clr([%15.15t]){faint} %clr(%-35.35logger{20}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
@@ -22,3 +15,13 @@ logging:
   level:
     root: INFO
     renovation.temp: DEBUG
+
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: ${info.app.name}
+  autoconfigure:
+    exclude: >
+      org.springframework.cloud.vault.config.VaultAutoConfiguration
