@@ -279,22 +279,7 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine(
-                "sh", "-c", """
-                while
-                    ! curl -s http://localhost:18080/realms/renovation-realm/.well-known/openid-configuration > /dev/null  ||
-                    ! curl -s http://localhost:8280/about > /dev/null   ||
-                    ! curl -s http://localhost:8281/about > /dev/null   ||
-                    ! curl -s http://localhost:8285/about > /dev/null   ||
-                    ! curl -s http://localhost:9190/about > /dev/null   ||
-                    ! curl -s http://localhost:1280/about > /dev/null   ||
-                    ! curl -s http://localhost:8290/about > /dev/null;
-                 do
-                    echo "In Waiting for services up and readiness ..."
-                    sleep 5
-                done
-            """.trimIndent()
-            )
+            commandLine("bash", "aux/project/docker_compose_services_starting.bash")
         }
         exec {
             workingDir("${rootProject.rootDir}")
