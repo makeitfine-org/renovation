@@ -10,7 +10,6 @@ import {TodoComponent} from "./todo.component"
 import {TodoService} from "../../data/service/todo.service"
 import {of} from "rxjs"
 import {Todo} from "../../data/model/todo.model"
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core"
 import {FormsModule} from "@angular/forms"
 import {TodoTitleFilterPipe} from "../../pipe/todo-filter.pipe"
 
@@ -20,49 +19,49 @@ describe("TodoComponent ts (unit)", () => {
     {id: 10, title: "title 10", completed: false}
   ]
 
-  let todoComponentFixture: ComponentFixture<TodoComponent>
+  let fixture: ComponentFixture<TodoComponent>
+  let component: TodoComponent
   let todoService: jasmine.SpyObj<TodoService>
 
   const todoServiceSpy = jasmine.createSpyObj("TodoService",
     [ "fetchTodos", "toggleCompletedFlag", "removeTodo", "addTodo" ],
   )
 
-  beforeEach(async() => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         FormsModule
       ],
       providers: [
-        // TodoTitleFilterPipe,
         {provide: TodoService, useValue: todoServiceSpy},
       ],
       declarations: [
         TodoTitleFilterPipe,
         TodoComponent,
-        // MockPipe
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents()
+      // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    })//.compileComponents()
 
-    todoComponentFixture = TestBed.createComponent(TodoComponent)
+    fixture = TestBed.createComponent(TodoComponent)
+    component = fixture.componentInstance
+
     todoService = TestBed.inject(TodoService) as jasmine.SpyObj<TodoService>
   })
 
   it("should create the app", () => {
-    const app = todoComponentFixture.componentInstance
-    expect(app).toBeTruthy()
+    expect(component).toBeTruthy()
   })
 
-  it("should html elements and their data (empty todos)", async() => {
+  it("should html elements and their data (empty todos)", () => {
     todoService.fetchTodos.and.returnValue(of([]))
 
-    todoComponentFixture.detectChanges()
+    fixture.detectChanges()
 
-    const compiled = todoComponentFixture.nativeElement as HTMLElement
+    const compiled = fixture.nativeElement as HTMLElement
     expect(compiled.querySelector("div.container > p")?.textContent).toEqual("Loading...")
 
-    todoComponentFixture.whenStable().then(() => {
+    fixture.whenStable().then(() => {
       expect(compiled.querySelector("div.container > p")?.textContent).toEqual("Loading...")
     })
   })
@@ -76,21 +75,22 @@ describe("TodoComponent ts (unit)", () => {
       configurable: true
     })
 
-    const todoComponent = todoComponentFixture.componentInstance
-    const compiled = todoComponentFixture.nativeElement as HTMLElement
+    const compiled = fixture.nativeElement as HTMLElement
 
-    todoComponentFixture.autoDetectChanges()
-    todoComponentFixture.detectChanges()
+    fixture.autoDetectChanges()
+    // fixture.detectChanges()
 
     expect(compiled.querySelector("div.container > p")?.textContent).toEqual("Loading...")
     expect(compiled.querySelector("div.filter > input")).toBeNull()
-    expect(todoComponent.loading).toBe(true)
+    expect(component.loading).toBe(true)
 
     tick(600)
 
-    expect(todoComponent.loading).toBe(false)
+    expect(component.loading).toBe(false)
     expect(compiled.querySelector("div.container > p")).toBeNull()
     expect(compiled.querySelector("div.filter > input")?.getAttribute("placeholder"))
+    expect(compiled.querySelector("div.filter > input")?.getAttribute("placeholder"))
       .toEqual("Filter todo by title...")
+    expect(compiled.querySelectorAll("button.rm").length).toBe(2)
   }))
 })
