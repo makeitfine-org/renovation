@@ -11,30 +11,30 @@ import {InfoService} from "../../data/service/info.service"
 import {of} from "rxjs"
 
 describe("AboutPageComponent ts (unit)", () => {
-  let fixture: ComponentFixture<AboutPageComponent>
+  let aboutPageComponentFixture: ComponentFixture<AboutPageComponent>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        // TitleCasePipe
+// TitleCasePipe
       ],
       declarations: [
         AboutPageComponent,
-        // MockPipe
+// MockPipe
       ]
-    })//.compileComponents()
-    fixture = TestBed.createComponent(AboutPageComponent)
+    })
+    aboutPageComponentFixture = TestBed.createComponent(AboutPageComponent)
   })
 
   it("should create the app", () => {
-    const app = fixture.componentInstance
+    const app = aboutPageComponentFixture.componentInstance
     expect(app).toBeTruthy()
   })
 
-  it("should create the app", () => {
-    fixture.detectChanges()
-    const compiled = fixture.nativeElement as HTMLElement
+  it("should html elements and their info", () => {
+    aboutPageComponentFixture.detectChanges()
+    const compiled = aboutPageComponentFixture.nativeElement as HTMLElement
     expect(compiled.querySelector("h1.font-bold.mb-2.text-center.text-lg")?.textContent).toContain("Extra Information")
     expect(compiled.querySelector("div > p.mb-2 > span")?.textContent)
       .toContain("Details of module used for backend requests:")
@@ -47,9 +47,9 @@ describe("AboutPageComponent ts (unit)", () => {
       ])
   })
 
-  it(`should return about and module`, () => {
-    const app = fixture.componentInstance
-    let service = fixture.debugElement.injector.get(InfoService)
+  it(`should return about and module info`, () => {
+    const aboutPageComponent = aboutPageComponentFixture.componentInstance
+    let service = aboutPageComponentFixture.debugElement.injector.get(InfoService)
 
     spyOn(service, "getAbout").and.callFake(() => {
       return of({name: "name about", description: "description about"})
@@ -58,11 +58,11 @@ describe("AboutPageComponent ts (unit)", () => {
       return of("some module description")
     })
 
-    app.ngOnInit()
-    expect(app.about).toEqual({name: "name about", description: "description about"})
-    expect(app.about).not.toEqual({name: "(other) name about", description: "(other) description about"})
+    aboutPageComponentFixture.detectChanges() // same effect when calling: aboutPageComponent.ngOnInit()
+    expect(aboutPageComponent.about).toEqual({name: "name about", description: "description about"})
+    expect(aboutPageComponent.about).not.toEqual({name: "(other) name about", description: "(other) description about"})
 
-    expect(app.module).toEqual("some module description")
-    expect(app.module).not.toEqual("(other) some module description")
+    expect(aboutPageComponent.module).toEqual("some module description")
+    expect(aboutPageComponent.module).not.toEqual("(other) some module description")
   })
 })
