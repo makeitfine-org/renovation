@@ -11,7 +11,6 @@ interface User {
 @Component({
   selector: "app-forms",
   templateUrl: "./forms.component.html",
-  styleUrls: [ "./forms.component.scss" ]
 })
 export class FormsComponent {
   userForm = new FormGroup({
