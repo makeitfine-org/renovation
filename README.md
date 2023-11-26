@@ -261,3 +261,9 @@ and add `header`: `X-XSRF-TOKEN`=`{{xsrf-token}}`
 Execute test `WorkControllerApiTest` locally in Idea:  
 set `env. var`: `ACCESS_TOKENS_LOCALHOST=true`  
 set `env. var`: `BACKEND_SERVER_URL=http://localhost:8080`
+
+### Codestyle foramtter:
+Enable editorconfig plugin in idea and enable editor config support for .editorconfig in root to work
+
+- Code checkstayle check: `gradle ktlintCheck` && `gradle detekt`
+- Code checkstayle format: `gradle ktlintFormat`
