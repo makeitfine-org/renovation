@@ -8,7 +8,6 @@ import {TestBed} from "@angular/core/testing"
 import {TodoService} from "./todo.service"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {TodoCrudService} from "./todo-crud.service"
-import {DatePipe} from "@angular/common"
 import {BehaviorSubject, of, throwError} from "rxjs"
 import {ErrorService} from "./error.service"
 import {Todo} from "../model/todo.model"
@@ -19,7 +18,6 @@ describe("TodoService", () => {
   let todoCrudService: jasmine.SpyObj<TodoCrudService>
   let errorService: jasmine.SpyObj<ErrorService>
 
-  // const datePipe = jasmine.createSpyObj("DatePipe")
   const errorServiceSpy = jasmine.createSpyObj("ErrorService", [ "handle" ])
   const todoCrudServiceSpy = jasmine.createSpyObj("TodoCrudService",
     [ "getTodos", "updateTodo", "deleteTodo", "createTodo" ])
@@ -30,8 +28,6 @@ describe("TodoService", () => {
       imports: [ HttpClientTestingModule ],
       providers: [
         TodoService,
-        DatePipe,
-        // {provide: DatePipe, useValue: datePipe},
         {provide: ErrorService, useValue: errorServiceSpy},
         {provide: TodoCrudService, useValue: todoCrudServiceSpy}
       ]
