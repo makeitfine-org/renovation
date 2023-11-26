@@ -58,8 +58,9 @@ describe("TodoCrudService", () => {
     httpClientSpy.get.and.returnValue(asyncError(errorResponse))
 
     todoCrudService.getTodos().subscribe({
+      complete: () => done.fail("expected an error, not completed"),
       next: () => done.fail("expected an error, not todos"),
-      error: (error) => {
+      error: error => {
         expect(error.message).toContain("Http failure response for (unknown url): 404 Not Found")
         done()
       },

@@ -8,7 +8,7 @@ import {TestBed} from "@angular/core/testing"
 import {TodoService} from "./todo.service"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {TodoCrudService} from "./todo-crud.service"
-import {BehaviorSubject, of, throwError} from "rxjs"
+import {BehaviorSubject, firstValueFrom, of, throwError} from "rxjs"
 import {ErrorService} from "./error.service"
 import {Todo} from "../model/todo.model"
 
@@ -95,6 +95,26 @@ describe("TodoService", () => {
       expect(todoCrudService.getTodos).toHaveBeenCalledTimes(1)
       expect(todoCrudService.getTodos).toHaveBeenCalledWith()
       done()
+    })
+  })
+
+  it(`fetchTodos (async example)`, async() => {
+    todoCrudService.getTodos.calls.reset() //unnecessary
+
+    const todos = await firstValueFrom(todoService.fetchTodos())
+    expect(todos).toEqual([ testTodo ])
+    expect(todoCrudService.getTodos).toHaveBeenCalledTimes(1)
+    expect(todoCrudService.getTodos).toHaveBeenCalledWith()
+  })
+
+  it(`fetchTodos (promise example)`, () => {
+    todoCrudService.getTodos.calls.reset() //unnecessary
+
+    return firstValueFrom(todoService.fetchTodos()).then((todos) => {
+      expect(todos).toEqual([ testTodo ])
+
+      expect(todoCrudService.getTodos).toHaveBeenCalledTimes(1)
+      expect(todoCrudService.getTodos).toHaveBeenCalledWith()
     })
   })
 
