@@ -9,4 +9,4 @@ package renovation.temp.githubplay
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class User(val name: String, val blog: String)
+data class User(val username: String, val email: String)

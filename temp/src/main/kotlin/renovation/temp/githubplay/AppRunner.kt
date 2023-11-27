@@ -20,15 +20,16 @@ private val log = KotlinLogging.logger { }
 
 @Component
 class AppRunner(private val gitHubLookupService: GitHubLookupService) : CommandLineRunner {
+    @Suppress("detekt:MagicNumber")
     @Throws(Exception::class)
     override fun run(vararg args: String) {
         // Start the clock
         val start = System.currentTimeMillis()
 
         // Kick of multiple, asynchronous lookups
-        val page1 = gitHubLookupService.findUser("PivotalSoftware")
-        val page2 = gitHubLookupService.findUser("CloudFoundry")
-        val page3 = gitHubLookupService.findUser("Spring-Projects")
+        val page1 = gitHubLookupService.findUser(2)
+        val page2 = gitHubLookupService.findUser(1)
+        val page3 = gitHubLookupService.findUser(5)
 
         // Wait until they are all done
         CompletableFuture.allOf(page1, page2, page3).join()

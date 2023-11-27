@@ -25,9 +25,9 @@ class GitHubLookupService(restTemplateBuilder: RestTemplateBuilder) {
 
     @Async
     @Throws(InterruptedException::class)
-    fun findUser(user: String): CompletableFuture<User?> {
-        logger.info("Looking up $user")
-        val url = "https://api.github.com/users/$user"
+    fun findUser(id: Int): CompletableFuture<User?> {
+        logger.info("Looking up $id")
+        val url = "https://jsonplaceholder.typicode.com/users/$id"
         val results = restTemplate.getForObject(url, User::class.java)
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(DELAY)
