@@ -519,19 +519,18 @@ tasks.register<Exec>("makeGitHookFilesExecutable") {
 
 val pushTaskName = "push"
 tasks.register<Task>(pushTaskName) { //alias for "buildAll" task
-    val force = if (project.hasProperty("f")) "--force" else ""
+    val push = if (!project.hasProperty("f")) {
+        "git push origin && git push bitbucket"
+    } else {
+        "git push origin --force && git push bitbucket --force"
+    }
 
-    println("push to origin and bitbucket: $force")
+    println("push to origin and bitbucket:")
+    println(push)
 
     doLast {
         exec {
-            if (force.isEmpty()) {
-                commandLine("git", "push", "origin")
-                commandLine("git", "push", "bitbucket")
-            } else {
-                commandLine("git", "push", "origin", force)
-                commandLine("git", "push", "bitbucket", force)
-            }
+            commandLine("sh", "-c", push)
         }
     }
 }

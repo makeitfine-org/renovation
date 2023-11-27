@@ -5,40 +5,55 @@
  */
 
 import {AppComponent} from "./app.component"
-import {TestBed} from "@angular/core/testing"
+import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from "@angular/core/testing"
 
 describe("AppComponent", () => {
+  let fixture: ComponentFixture<AppComponent>
+  let component: AppComponent
 
-  // beforeEach(async() => {
-  //   await TestBed.configureTestingModule({
-  //     imports: [
-  //       RouterTestingModule
-  //     ],
-  //     declarations: [
-  //       AppComponent
-  //     ],
-  //     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-  //   }).compileComponents()
-  // })
-
-  it(`should create the app`, () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.componentInstance
-    expect(app).toBeTruthy()
-  })
-
-  it(`should have as title "ng-part"`, () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.componentInstance
-    expect(app.title).toEqual("ng-part")
-  })
-
-  it("should render", () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent ]
     })
 
-    const fixture = TestBed.createComponent(AppComponent)
+    fixture = TestBed.createComponent(AppComponent)
+    component = fixture.componentInstance
+  })
+
+  it(`should create the app`, () => {
+    expect(component).toBeTruthy()
+  })
+
+  it(`should have as title "ng-part"`, () => {
+    jasmine.clock().install()
+    component.setTitle()
+    jasmine.clock().tick(200)
+    expect(component.title).toEqual("ng-part")
+    jasmine.clock().uninstall()
+  })
+
+  it(`should have as title "ng-part" (fakeAsync)`, fakeAsync(() => {
+    component.setTitle().then(() => {
+      expect(component.title).toEqual("ng-part")
+    })
+    tick(200)
+  }))
+
+  it(`should have as title "ng-part" (waitForAsync)`, waitForAsync(() => {
+    component.setTitle().then(() => {
+      expect(component.title).toEqual("ng-part")
+    })
+  }))
+
+  it(`should have not have as title "ng-part"`, () => {
+    jasmine.clock().install()
+    component.setTitle()
+    jasmine.clock().tick(50)
+    expect(component.title).not.toEqual("ng-part")
+    jasmine.clock().uninstall()
+  })
+
+  it("should render", () => {
     const compiled = fixture.nativeElement as HTMLElement
 
     expect(compiled.querySelectorAll("div.flex.h-screen.bg-gray-200.font-roboto > app-sidebar").length).toBe(1)

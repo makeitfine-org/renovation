@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-import {ComponentFixture, fakeAsync, TestBed, tick} from "@angular/core/testing"
+import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from "@angular/core/testing"
 import {HttpClientTestingModule} from "@angular/common/http/testing"
 import {TodoComponent} from "./todo.component"
 import {TodoService} from "../../data/service/todo.service"
@@ -92,5 +92,27 @@ describe("TodoComponent ts (unit)", () => {
     expect(compiled.querySelector("div.filter > input")?.getAttribute("placeholder"))
       .toEqual("Filter todo by title...")
     expect(compiled.querySelectorAll("button.rm").length).toBe(2)
+  }))
+
+  it("should html elements and their data (todos)", waitForAsync(() => {
+    todoService.fetchTodos.and.returnValue(of(TEST_TODOS))
+    Object.defineProperty(todoService, "todos", {
+      get: () => TEST_TODOS,
+      set: () => {
+      },
+      configurable: true
+    })
+
+    fixture.autoDetectChanges()
+
+    const compiled = fixture.nativeElement as HTMLElement
+
+    fixture.whenStable().then(()=>{
+      expect(component.loading).toBe(false)
+      expect(compiled.querySelector("div.container > p")).toBeNull()
+      expect(compiled.querySelector("div.filter > input")?.getAttribute("placeholder"))
+      expect(compiled.querySelector("div.filter > input")?.getAttribute("placeholder"))
+        .toEqual("Filter todo by title...")
+    })
   }))
 })

@@ -6,5 +6,17 @@ import {Component} from "@angular/core"
   styleUrls: [ "./app.component.scss" ]
 })
 export class AppComponent {
-  title = "ng-part"
+  title = ""
+
+  /**
+   * Created for test reasons
+   */
+  setTitle(): Promise<void> {
+    return new Promise((res) => {
+      setTimeout(() => {
+        this.title = "ng-part"
+        res()
+      }, 100)
+    })
+  }
 }
