@@ -14,6 +14,9 @@ class AsyncController(private val asyncService: AsyncService) {
 
     @GetMapping()
     fun get() = asyncService.get()
+
+    @GetMapping("/job")
+    fun job() = asyncService.asyncJot().let { "Result in console of app" }
 }
 
 @Configuration
