@@ -33,7 +33,8 @@ subprojects {
         properties["infoModuleName"],
         properties["commonModuleName"],
         properties["gatewayModuleName"],
-        properties["tempModuleName"]
+        properties["tempModuleName"],
+        properties["webfluxServerModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {

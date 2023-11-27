@@ -22,7 +22,8 @@ internal class AsyncFilter : Filter {
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain) {
         // sleep for 200ms
-//        Thread.sleep(200)
+        @Suppress("detekt:MagicNumber")
+        Thread.sleep(200)
         log.debug { "doFilter" }
         filterChain.doFilter(servletRequest, servletResponse)
     }

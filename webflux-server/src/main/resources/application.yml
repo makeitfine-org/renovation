@@ -1,0 +1,19 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+
+info:
+  app:
+    name: "renovation/webflux-server"
+    description: Webflux server module of renovation project
+
+server:
+  host: ${WEBFLUX_SERVER_HOST:localhost}
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    renovation.webflux.server: DEBUG

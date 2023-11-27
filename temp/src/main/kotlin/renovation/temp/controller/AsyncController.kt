@@ -27,7 +27,8 @@ class AsyncController(private val asyncService: AsyncService) {
     @Async
     fun getResultAsync(): CompletableFuture<*> {
         // sleep for 500 ms
-        // Thread.sleep(500)
+        @Suppress("detekt:MagicNumber")
+        Thread.sleep(500)
         log.debug { "getResultAsyc" }
         return CompletableFuture.completedFuture("Result is ready!")
     }
