@@ -16,7 +16,6 @@ import org.openjdk.jmh.annotations.OutputTimeUnit
 import org.openjdk.jmh.annotations.Warmup
 import org.openjdk.jmh.infra.Blackhole
 
-
 @Fork(value = 1, warmups = 1)
 @BenchmarkMode(Mode.AverageTime)
 @Warmup(iterations = 1)
