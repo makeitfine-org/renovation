@@ -267,3 +267,7 @@ Enable editorconfig plugin in idea and enable editor config support for .editorc
 
 - Code checkstayle check: `gradle ktlintCheck` && `gradle detekt`
 - Code checkstayle format: `gradle ktlintFormat`
+
+### Performance:
+- https://httpd.apache.org/docs/2.4/programs/ab.html  
+`$> ab -n 1600 -c 40 localhost:8080/async_result`
