@@ -8,6 +8,7 @@ plugins {
     id("io.spring.dependency-management")
     kotlin("plugin.spring")
     id("org.springframework.boot")
+    id("me.champeau.jmh").version("0.6.6")
 }
 
 dependencyManagement {
@@ -28,8 +29,15 @@ dependencies {
     implementation("com.google.guava:guava:${properties["guavaVersion"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "junit", module = "junit")
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+}
+
+jmh {
+//    includes.add(".*init1000")
+//    excludes.add(".*init10000")
+//    threads.set(2)
 }
