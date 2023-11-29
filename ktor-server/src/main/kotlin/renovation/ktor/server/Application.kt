@@ -3,7 +3,7 @@ package renovation.ktor.server
 import io.ktor.server.application.Application
 import mu.KotlinLogging
 import renovation.ktor.server.plugins.configureRouting
-import renovation.ktor.server.plugins.configureSerialization
+import renovation.ktor.server.plugins.installs
 
 val log = KotlinLogging.logger { }
 
@@ -13,6 +13,6 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    configureSerialization()
+    installs()
     configureRouting()
 }

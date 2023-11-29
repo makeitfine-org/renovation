@@ -6,7 +6,7 @@
 
 package renovation.backend.data.service.impl
 
-import java.util.*
+import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service

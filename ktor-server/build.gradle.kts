@@ -21,6 +21,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:${properties["logbackVersion"]}")
     implementation("io.ktor:ktor-server-config-yaml")
+    implementation("io.ktor:ktor-server-cors-jvm")
     testImplementation("io.ktor:ktor-server-tests-jvm")
 }
 
