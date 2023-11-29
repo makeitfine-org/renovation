@@ -1,4 +1,4 @@
-package renovation.data.models
+package renovation.ktor.server.data.models
 
 import kotlinx.serialization.Serializable
 

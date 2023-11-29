@@ -10,8 +10,8 @@ import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
-import renovation.data.models.Customer
-import renovation.data.models.customerStorage
+import renovation.ktor.server.data.models.Customer
+import renovation.ktor.server.data.models.customerStorage
 
 fun Route.customerRouting() {
     route("/customer") {

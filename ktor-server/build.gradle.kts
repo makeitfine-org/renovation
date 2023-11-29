@@ -14,14 +14,6 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    all {
-        /* only junit 5 should be used */
-        exclude(group = "junit", module = "junit")
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
-}
-
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")

@@ -12,14 +12,9 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
 }
 
-// configurations.all {
-//    exclude(group = "junit", module = "junit")
-// }
-
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-        // mavenBom("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
     }
 }
 
@@ -47,21 +42,12 @@ dependencies {
     implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
 
     testImplementation("com.h2database:h2:${properties["h2Version"]}")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit")
-        exclude(group = "org.junit.jupiter")
-        exclude(group = "org.junit.vintage")
-        exclude(group = "org.mockito")
-    }
-    testImplementation("org.testcontainers:junit-jupiter") {
-        exclude("org.junit.jupiter")
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("io.mockk:mockk:${properties["mockkVersion"]}")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation(
-        "com.github.dasniko:testcontainers-keycloak:${properties["testcontainerKeycloakVersion"]}"
-    )
+    testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
 }
 
 tasks.koverVerify {

@@ -30,16 +30,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit")
-        exclude(group = "org.junit.jupiter")
-        exclude(group = "org.junit.vintage")
-        exclude(group = "org.mockito")
-    }
-    testImplementation("org.testcontainers:junit-jupiter") {
-        exclude("org.junit.jupiter")
-    }
-    testImplementation(
-        "com.github.dasniko:testcontainers-keycloak:${properties["testcontainerKeycloakVersion"]}"
-    )
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
 }

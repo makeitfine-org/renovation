@@ -16,8 +16,5 @@ dependencies {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit", module = "junit")
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

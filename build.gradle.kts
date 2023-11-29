@@ -67,6 +67,14 @@ subprojects {
             config = files("${rootProject.rootDir}/aux/detekt/config.yml")
         }
 
+        configurations {
+            all {
+                /* only junit 5 should be used */
+                exclude(group = "junit", module = "junit")
+                exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+            }
+        }
+
         dependencies {
             if (project.name != properties["commonModuleName"]) {
                 api(project(":${properties["commonModuleName"]}"))

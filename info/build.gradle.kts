@@ -38,19 +38,13 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:${properties["junitJupiterVersion"]}")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "junit")
-        exclude(group = "org.junit.jupiter")
-        exclude(group = "org.junit.vintage")
-        exclude(group = "org.mockito")
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
-    testImplementation("org.testcontainers:junit-jupiter") {
-        exclude("org.junit.jupiter")
-    }
+    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mongodb")
+    //needed for testcontainers
+    testImplementation("io.quarkus:quarkus-junit4-mock:${properties["quarkusJunit4MockVersion"]}")
 }
 
 tasks.generateJava {

@@ -1,14 +1,14 @@
 package renovation.ktor.server.routes
 
-import org.junit.jupiter.api.Assertions.*
-
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.testApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import org.junit.jupiter.api.Tag
 
+@Tag("integrationTest")
 class OrderRouteTests {
 
     @Test
