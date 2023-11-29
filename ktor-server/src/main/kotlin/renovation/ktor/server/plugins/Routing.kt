@@ -26,6 +26,21 @@ fun Application.configureRouting() {
         totalizeOrderRoute()
 
         serviceRouting()
+        about()
+    }
+}
+
+fun Route.about() {
+    // curl -k https://0.0.0.0:8443/about
+    get("/about") {
+        call.respond(
+            """
+            {
+                "name" : "ktor-server module",
+                "description" : "Module for work with ktor"
+            }
+            """.trimIndent()
+        )
     }
 }
 

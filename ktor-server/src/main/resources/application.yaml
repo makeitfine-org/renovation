@@ -4,3 +4,10 @@ ktor:
       - renovation.ktor.server.ApplicationKt.module
   deployment:
     port: 8080
+    sslPort: 8443
+  security:
+    ssl:
+      keyStore: build/keystore.jks
+      keyAlias: sampleAlias
+      keyStorePassword: pubPassword
+      privateKeyPassword: priPassword
