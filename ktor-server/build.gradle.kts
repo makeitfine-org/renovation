@@ -1,0 +1,49 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
+plugins {
+    kotlin("jvm")
+    id("io.ktor.plugin")
+    id("org.jetbrains.kotlin.plugin.serialization")
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    all {
+        /* only junit 5 should be used */
+        exclude(group = "junit", module = "junit")
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
+}
+
+dependencies {
+    implementation("io.ktor:ktor-server-core-jvm")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation("io.ktor:ktor-server-netty-jvm")
+    implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
+    implementation("ch.qos.logback:logback-classic:${properties["logbackVersion"]}")
+    implementation("io.ktor:ktor-server-config-yaml")
+    testImplementation("io.ktor:ktor-server-tests-jvm")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+}
+
+project.ext["development"] = true
+
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+
+    //VM options: -Dio.ktor.development=true
+    val isDevelopment: Boolean = project.ext.has("development") && project.ext["development"] == true
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

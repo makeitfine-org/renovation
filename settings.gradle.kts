@@ -25,6 +25,8 @@ pluginManagement {
     val koverPluginVersion: String by settings
     val dgsCodegenVersion: String by settings
     val detektVersion: String by settings
+    val ktorPluginVersion: String by settings
+    val kotlinPluginSerialization: String by settings
 
 
     plugins {
@@ -38,6 +40,8 @@ pluginManagement {
         id("org.jetbrains.kotlinx.kover") version "$koverPluginVersion"
         id("com.netflix.dgs.codegen") version "$dgsCodegenVersion"
         id("io.gitlab.arturbosch.detekt") version "$detektVersion"
+        id("io.ktor.plugin") version "$ktorPluginVersion"
+        id("org.jetbrains.kotlin.plugin.serialization") version "$kotlinPluginVersion"
     }
 }
 
@@ -55,6 +59,7 @@ val tempModuleName: String by settings
 val ngPartModuleName: String by settings
 val nodeServerModuleName: String by settings
 val webfluxServerModuleName: String by settings
+val ktorServerModuleName: String by settings
 
 include(backendModuleName)
 include(frontendModuleName)
@@ -68,3 +73,4 @@ include(tempModuleName)
 include(ngPartModuleName)
 include(nodeServerModuleName)
 include(webfluxServerModuleName)
+include(ktorServerModuleName)
