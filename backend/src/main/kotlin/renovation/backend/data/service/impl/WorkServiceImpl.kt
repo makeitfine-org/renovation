@@ -35,7 +35,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
     @Throws(WorkNotFoundException::class)
     override fun findById(id: UUID) = workRepository
         .findById(id).orElse(null)
-        ?.let { Helper.convert(it) } ?: throw WorkNotFoundException(id)
+        ?.let { Helper.convert(it) } ?: failWork(id)
 
     override fun save(work: Work) = workRepository.save(
         Helper.convert(work.copy(id = null))
@@ -44,7 +44,7 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
     @Throws(WorkNotFoundException::class)
     override fun update(id: UUID, work: Work): Work {
         val workEntityForUpdate = workRepository.findById(id).orElse(null)
-            ?.let { it } ?: throw WorkNotFoundException(id)
+            ?.let { it } ?: failWork(id)
         updateEntity(work, workEntityForUpdate)
         return workRepository.save(workEntityForUpdate).let { Helper.convert(it) }
     }
@@ -64,4 +64,6 @@ class WorkServiceImpl(@Autowired val workRepository: WorkRepository) : WorkServi
         work.price?.let { workEntityForUpdate.price = it }
         work.payDate?.let { workEntityForUpdate.payDate = it }
     }
+
+    private fun failWork(id: UUID): Nothing = throw WorkNotFoundException(id)
 }

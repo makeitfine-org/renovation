@@ -28,10 +28,12 @@ object Helper {
     fun convert(work: Work) =
         WorkEntity(
             id = work.id?.let { UUID.fromString(it) } ?: UUID.randomUUID(),
-            title = work.title?.let { it } ?: throw UndefineTitleException(),
+            title = work.title?.let { it } ?: failTitle(),
             description = work.description,
             endDate = work.endDate,
             price = work.price,
             payDate = work.payDate
         )
+
+    private fun failTitle(): Nothing = throw UndefineTitleException()
 }
