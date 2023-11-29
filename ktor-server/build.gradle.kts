@@ -40,3 +40,10 @@ application {
 tasks.test {
     useJUnitPlatform()
 }
+
+ktor {
+    docker {
+        localImageName.set("koresmosto/renovation-ktor-server")
+        imageTag.set("latest")
+    }
+}

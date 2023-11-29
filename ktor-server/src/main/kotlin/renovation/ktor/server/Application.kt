@@ -11,7 +11,7 @@ import renovation.ktor.server.plugins.installs
 val log = KotlinLogging.logger { }
 
 fun main(args: Array<String>) {
-    sslConfigCreation()
+    // sslConfigCreation()
 
     io.ktor.server.netty.EngineMain.main(args)
 
