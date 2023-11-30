@@ -11,6 +11,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import renovation.ktor.server.data.models.customerStorage
+import renovation.ktor.server.routes.bookRouting
 import renovation.ktor.server.routes.customerRouting
 import renovation.ktor.server.routes.getOrderRoute
 import renovation.ktor.server.routes.listOrdersRoute
@@ -27,6 +28,8 @@ fun Application.configureRouting() {
 
         serviceRouting()
         about()
+
+        bookRouting()
     }
 }
 
