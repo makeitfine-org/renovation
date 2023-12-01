@@ -1,6 +1,5 @@
 package renovation.temp.controller
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Tags
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
+import renovation.common.util.Rest.given
 
 @Tags(
     Tag("integrationTest"),
@@ -20,7 +20,7 @@ internal class CoroutinesControllerTest(
 ) {
     @Test
     fun blocked() {
-        given()
+        given(port)
             .When {
                 get("/coroutines/default")
             }.Then {
@@ -30,16 +30,11 @@ internal class CoroutinesControllerTest(
 
     @Test
     fun unblocked() {
-        given()
+        given(port)
             .When {
                 get("/coroutines/blocking")
             }.Then {
                 body(CoreMatchers.equalTo("Result is being printed in app console (blocking) ..."))
             }
-    }
-
-    fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
     }
 }

@@ -25,6 +25,7 @@ import org.testcontainers.junit.jupiter.Container
 import renovation.backend.AppByContainersConfig
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
+import renovation.common.util.Rest.given
 
 @Tag("integrationTest")
 @ActiveProfiles("secured-test")
@@ -75,7 +76,7 @@ internal class WorkControllerWithSecurityTest(
     override fun given() = Given {
         val header = token.bearerAuthorizationHeader()
 
-        super.given()
+        given(port)
             .and()
             .header(header.headerName, header.headerValue)
     }

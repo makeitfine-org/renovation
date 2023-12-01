@@ -18,8 +18,8 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import renovation.backend.api.test.ApiTest
-import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
+import renovation.common.util.Rest.given
 
 @Tag("minikubeTest")
 @Execution(ExecutionMode.CONCURRENT)
@@ -61,7 +61,7 @@ internal class MinikubeApiTest : ApiTest {
                       "name": "renovation frontend-info module",
                       "description": "Node js based backend module for showing different info"
                     }
-                    
+
                     """.trimIndent()
                 ),
 
@@ -84,7 +84,7 @@ internal class MinikubeApiTest : ApiTest {
                       "name": "renovation frontend-info module",
                       "description": "Node js based backend module for showing different info"
                     }
-                    
+
                     """.trimIndent()
                 ),
             )

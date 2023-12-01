@@ -1,6 +1,5 @@
 package renovation.webflux.server.web
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -9,15 +8,16 @@ import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import renovation.common.util.Json
+import renovation.common.util.Rest.given
 
-@Tag("integrationTest")
+@Tag("e2eTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CompanyControllerTest(
     @LocalServerPort val port: Int
 ) {
     @Test
     fun getApiCompanies() {
-        given()
+        given(port)
             .When {
                 get("/api/companies")
             }.Then {
@@ -93,7 +93,7 @@ class CompanyControllerTest(
 
     @Test
     fun getApiCompaniesByName() {
-        given()
+        given(port)
             .When {
                 queryParam("name", "Company 3")
                 get("/api/companies")
@@ -138,7 +138,7 @@ class CompanyControllerTest(
 
     @Test
     fun getApiCompanyById() {
-        given()
+        given(port)
             .When {
                 pathParams("id", "2")
                 get("/api/companies/{id}")
@@ -165,10 +165,5 @@ class CompanyControllerTest(
                     )
                 )
             }
-    }
-
-    fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
     }
 }

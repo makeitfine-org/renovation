@@ -6,7 +6,6 @@
 
 package renovation.temp.controller
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -16,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import renovation.common.util.Json
+import renovation.common.util.Rest.given
 
 @Tag("e2eTest")
 @ActiveProfiles("vault")
@@ -25,7 +25,7 @@ internal class VaultControllerTest(
 ) {
     @Test
     fun unblocked() {
-        given()
+        given(port)
             .When {
                 get("vault")
             }.Then {
@@ -42,10 +42,5 @@ internal class VaultControllerTest(
                     )
                 )
             }
-    }
-
-    fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
     }
 }

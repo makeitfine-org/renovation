@@ -14,8 +14,8 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Tag
 import renovation.backend.api.test.ApiTest
 import renovation.backend.api.test.helper.FileHelper
-import renovation.common.util.Json.given
 import renovation.common.util.Json.rowJson
+import renovation.common.util.Rest.given
 
 @Tag("e2eTest")
 internal class FrontendInfoApiTest : ApiTest {

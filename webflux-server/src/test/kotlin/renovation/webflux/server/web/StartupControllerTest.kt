@@ -1,6 +1,5 @@
 package renovation.webflux.server.web
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -9,15 +8,16 @@ import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import renovation.common.util.Json
+import renovation.common.util.Rest.given
 
-@Tag("integrationTest")
+@Tag("e2eTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class StartupControllerTest(
     @LocalServerPort val port: Int
 ) {
     @Test
     fun get() {
-        given()
+        given(port)
             .When {
                 get("/about")
             }.Then {
@@ -34,10 +34,5 @@ internal class StartupControllerTest(
                     )
                 )
             }
-    }
-
-    fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
     }
 }

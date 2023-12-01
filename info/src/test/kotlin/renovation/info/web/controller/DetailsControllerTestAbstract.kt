@@ -7,13 +7,13 @@
 package renovation.info.web.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
+import renovation.common.util.Rest.given
 
 /**
  * Run docker-compose up on renovation/info module before
@@ -160,10 +160,7 @@ internal abstract class DetailsControllerTestAbstract(private val port: Int) {
             }
     }
 
-    protected open fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
-    }
+    protected open fun given() = given(port)
 
     private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 }

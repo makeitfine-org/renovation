@@ -1,7 +1,6 @@
 package renovation.info.web.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -29,6 +28,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.shaded.com.google.common.collect.ImmutableList
 import org.testcontainers.utility.DockerImageName
 import org.testcontainers.utility.MountableFile
+import renovation.common.util.Rest.given
 import renovation.info.data.entity.TodoEntity
 
 @Suppress("MaxLineLength")
@@ -92,7 +92,7 @@ class TodoControllerIntegrationTest(
     fun findAll_Success() {
         checkTodoCollectionDocumentAmount(TODO_AMOUNT)
 
-        given()
+        given(port)
             .When {
                 get("/api/v1/info/todo")
             }.Then {
@@ -182,7 +182,7 @@ class TodoControllerIntegrationTest(
         checkTodoCollectionDocumentAmount(TODO_AMOUNT)
 
         val id = 3
-        given()
+        given(port)
             .When {
                 get("/api/v1/info/todo/$id")
             }.Then {
@@ -219,7 +219,7 @@ class TodoControllerIntegrationTest(
     fun update_Success() {
         checkTodoCollectionDocumentAmount(TODO_AMOUNT)
 
-        given()
+        given(port)
             .When {
                 body(
                     """
@@ -244,7 +244,7 @@ class TodoControllerIntegrationTest(
     fun create_Success() {
         checkTodoCollectionDocumentAmount(TODO_AMOUNT)
 
-        given()
+        given(port)
             .When {
                 body(
                     """
@@ -270,7 +270,7 @@ class TodoControllerIntegrationTest(
         checkTodoCollectionDocumentAmount(TODO_AMOUNT + 1)
 
         val id = 5
-        given()
+        given(port)
             .When {
                 pathParam("id", id)
                 delete("/api/v1/info/todo/{id}")
@@ -285,11 +285,6 @@ class TodoControllerIntegrationTest(
         amount,
         mongoTemplate.count(Query(), TodoEntity::class.java)
     )
-
-    private fun given() = Given {
-        port(port)
-            .and().header("Content-type", "application/json")
-    }
 
     private fun rowJson(prettyJson: String) = OBJECT_MAPPER.readTree(prettyJson).toString()
 }

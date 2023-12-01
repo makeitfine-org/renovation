@@ -7,7 +7,6 @@
 package renovation.common.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.restassured.module.kotlin.extensions.Given
 
 object Json {
 
@@ -17,9 +16,4 @@ object Json {
     @JvmStatic
     fun rowJson(prettyJson: String, objectMapper: ObjectMapper = OBJECT_MAPPER) =
         objectMapper.readTree(prettyJson).toString()
-
-    @JvmStatic
-    fun given() = Given {
-        header("Content-type", "application/json")
-    }
 }
