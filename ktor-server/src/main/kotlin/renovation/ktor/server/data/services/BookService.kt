@@ -8,8 +8,9 @@ package renovation.ktor.server.data.services
 
 import renovation.ktor.server.data.models.Book
 
+@Suppress("detekt:MagicNumber")
 class BookService {
-    private val books = mutableListOf<Book>();
+    private val books = mutableListOf<Book>()
 
     init {
         books.add(Book(1, "C Programming Language", "Kernighan Brian W", "Pearson"))

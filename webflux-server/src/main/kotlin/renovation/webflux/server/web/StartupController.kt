@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class StartupController {
+
     @GetMapping("/about")
     fun about(): Any = object {
         val name = "renovation webflux server module"

@@ -16,6 +16,7 @@ private val log = KotlinLogging.logger { }
 
 @RestController
 class WebFluxController {
+
     @GetMapping("/flux_result")
     fun getResult(): Mono<String> {
         log.debug { "flux_result" }

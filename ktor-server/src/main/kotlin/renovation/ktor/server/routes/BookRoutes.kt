@@ -13,7 +13,6 @@ import renovation.ktor.server.data.models.Book
 import renovation.ktor.server.data.services.BookService
 
 fun Route.bookRouting() {
-
     val bookService = BookService()
 
     route("/book") {
@@ -24,7 +23,7 @@ fun Route.bookRouting() {
             val bookIdFromQuery = call.parameters["id"] ?: fail("Please provide a valid id")
             val book = bookService.getBook(bookIdFromQuery?.toIntOrNull())
             if (book == null) {
-                call.respond(HttpStatusCode.NotFound, "Book not found");
+                call.respond(HttpStatusCode.NotFound, "Book not found")
             } else {
                 call.respond(book)
             }
@@ -42,4 +41,4 @@ fun Route.bookRouting() {
     }
 }
 
-private fun fail(message: String): Nothing = throw Exception()
+private fun fail(message: String): Nothing = throw IllegalArgumentException(message)
