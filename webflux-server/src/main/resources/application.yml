@@ -17,3 +17,12 @@ logging:
   level:
     root: INFO
     renovation.webflux.server: DEBUG
+
+spring:
+  r2dbc:
+    url: "${POSTGRES_R2DBC_URL:r2dbc:postgresql://localhost:55312}"
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres1}
+
+  flyway:
+    url: "${POSTGRES_URL:jdbc:postgresql://localhost:5532/postgres}"
