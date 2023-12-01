@@ -21,7 +21,7 @@ fun Route.bookRouting() {
         }
         get("/{id}") {
             val bookIdFromQuery = call.parameters["id"] ?: fail("Please provide a valid id")
-            val book = bookService.getBook(bookIdFromQuery?.toIntOrNull())
+            val book = bookService.getBook(bookIdFromQuery.toIntOrNull())
             if (book == null) {
                 call.respond(HttpStatusCode.NotFound, "Book not found")
             } else {
@@ -35,7 +35,7 @@ fun Route.bookRouting() {
         }
         delete("/{id}") {
             val bookIdFromQuery = call.parameters["id"] ?: fail("Please provide a valid id")
-            bookService.deleteBook(bookIdFromQuery?.toIntOrNull())
+            bookService.deleteBook(bookIdFromQuery.toIntOrNull())
             call.respond("Book is deleted")
         }
     }
