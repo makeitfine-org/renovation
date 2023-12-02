@@ -1,7 +1,5 @@
 package renovation.webflux.server.web
 
-import com.codersee.springcoroutines.dto.IdNameTypeResponse
-import com.codersee.springcoroutines.dto.ResultType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
@@ -9,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import renovation.webflux.server.dto.IdNameTypeResponse
+import renovation.webflux.server.dto.ResultType
 import renovation.webflux.server.model.Company
 import renovation.webflux.server.model.User
 import renovation.webflux.server.service.CompanyService

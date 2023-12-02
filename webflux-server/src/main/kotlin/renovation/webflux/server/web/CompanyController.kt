@@ -1,8 +1,6 @@
 package renovation.webflux.server.web
 
 import com.codersee.springcoroutines.controller.toResponse
-import com.codersee.springcoroutines.dto.CompanyRequest
-import com.codersee.springcoroutines.dto.CompanyResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import renovation.webflux.server.dto.CompanyRequest
+import renovation.webflux.server.dto.CompanyResponse
 import renovation.webflux.server.model.Company
 import renovation.webflux.server.model.User
 import renovation.webflux.server.service.CompanyService

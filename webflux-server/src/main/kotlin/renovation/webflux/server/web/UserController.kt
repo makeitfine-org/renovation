@@ -1,7 +1,5 @@
 package com.codersee.springcoroutines.controller
 
-import com.codersee.springcoroutines.dto.UserRequest
-import com.codersee.springcoroutines.dto.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.springframework.http.HttpStatus
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import renovation.webflux.server.dto.UserRequest
+import renovation.webflux.server.dto.UserResponse
 import renovation.webflux.server.model.User
 import renovation.webflux.server.service.UserService
 

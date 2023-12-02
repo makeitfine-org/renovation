@@ -1,4 +1,4 @@
-package com.codersee.springcoroutines.dto
+package renovation.webflux.server.dto
 
 data class CompanyResponse(
     val id: Long,
