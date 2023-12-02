@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 data class Rec(
     val id: Long,
     val name: String? = null,
-    val any: Any? = null,
+    val data: Any? = null,
 )
 
 @Service
