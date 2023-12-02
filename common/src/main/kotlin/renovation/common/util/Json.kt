@@ -13,7 +13,14 @@ object Json {
     @JvmStatic
     val OBJECT_MAPPER = ObjectMapper()
 
+    /**
+     * Pretty json presentation (with formatting) to simple one (no foramtting)
+     */
     @JvmStatic
-    fun rowJson(prettyJson: String, objectMapper: ObjectMapper = OBJECT_MAPPER) =
-        objectMapper.readTree(prettyJson).toString()
+    fun rowJson(prettyJson: String, objectMapper: ObjectMapper = OBJECT_MAPPER) = objectMapper.readTree(prettyJson).toString()
+
+    /**
+     * Object to json string simple representation (no formatting)
+     */
+    fun json(obj: Any, objectMapper: ObjectMapper = OBJECT_MAPPER) = objectMapper.writeValueAsString(obj)
 }

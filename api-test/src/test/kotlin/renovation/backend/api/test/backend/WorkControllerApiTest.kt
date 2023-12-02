@@ -153,7 +153,7 @@ internal class WorkControllerApiTest : ApiTest {
                                     "description": "desc update",
                                     "endDate": "2021-12-01",
                                     "price": 773.31,
-                                    "payDate": "2020-11-18"                                    
+                                    "payDate": "2020-11-18"
                                 }
                             ]
                                     """.trimIndent()
@@ -186,7 +186,7 @@ internal class WorkControllerApiTest : ApiTest {
                 body(
                     """
                 {
-                   "title":"title update"                 
+                   "title":"title update"
                 }
                     """.trimIndent()
                 )
