@@ -712,7 +712,7 @@ class KotlinConcepts {
                 this.age = 5
             }
         )
-        assertSame(5, pRun.age)
+        assertEquals(5, pRun.age)
 
         assertSame(pRun, pRun.also { it.age = 1 })
         assertSame(1, pRun.age)
