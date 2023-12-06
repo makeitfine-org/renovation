@@ -3,6 +3,7 @@
  *
  * Copyright 2021-2023
  */
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
@@ -27,6 +28,7 @@ pluginManagement {
     val detektVersion: String by settings
     val ktorPluginVersion: String by settings
     val kotlinPluginSerialization: String by settings
+    val champeauJmhVersion: String by settings
 
 
     plugins {
@@ -42,6 +44,7 @@ pluginManagement {
         id("io.gitlab.arturbosch.detekt") version "$detektVersion"
         id("io.ktor.plugin") version "$ktorPluginVersion"
         id("org.jetbrains.kotlin.plugin.serialization") version "$kotlinPluginVersion"
+        id("me.champeau.jmh") version "$champeauJmhVersion"
     }
 }
 
