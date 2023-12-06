@@ -21,6 +21,18 @@ services:
     networks:
       - renovation-network
 
+  renovation-mysql:
+    image: mysql:8.0
+    restart: always
+    container_name: "renovation-mysql"
+    ports:
+      - ${MYSQL_LOCALHOST_REDIRECT_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
   renovation-redis:
     image: redis:7.0.0-alpine
     container_name: renovation-redis

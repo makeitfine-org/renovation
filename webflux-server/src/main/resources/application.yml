@@ -20,9 +20,9 @@ logging:
 
 spring:
   r2dbc:
-    url: "${POSTGRES_R2DBC_URL:r2dbc:postgresql://localhost:5532}"
-    username: ${POSTGRES_USERNAME:postgres}
-    password: ${POSTGRES_PASSWORD:postgres1}
+    url: "${MYSQL_R2DBC_URL:r2dbc:mysql://localhost:3406/r2}"
+    username: ${MYSQL_USER:r2user}
+    password: ${MYSQL_PASSWORD:r2pass}
 
   flyway:
-    url: "${POSTGRES_URL:jdbc:postgresql://localhost:5532/postgres}"
+    url: "${MYSQL_URL:jdbc:mysql://localhost:3406/r2}"
