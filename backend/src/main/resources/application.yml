@@ -25,6 +25,11 @@ spring:
     username: "${POSTGRES_USERNAME:postgres}"
     password: "${POSTGRES_PASSWORD:postgres1}"
     driverClassName: "org.postgresql.Driver"
+    hikari:
+      max-lifetime: 5000
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 12
 
   liquibase:
     change-log: db/liquibase/changelog.xml
