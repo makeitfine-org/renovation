@@ -6,15 +6,15 @@
 
 package renovation.backend.data.entity
 
+import jakarta.persistence.Entity
+import jakarta.persistence.EntityListeners
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.UUID
-import javax.persistence.Entity
-import javax.persistence.EntityListeners
-import javax.persistence.Id
-import javax.persistence.Table
 import org.hibernate.annotations.SQLDelete
-import org.hibernate.annotations.Where
+import org.hibernate.annotations.SQLRestriction
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -23,7 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 @Table(name = "work")
 @EntityListeners(AuditingEntityListener::class)
 @SQLDelete(sql = "UPDATE work SET deleted = true WHERE id=?")
-@Where(clause = "deleted=false")
+@SQLRestriction("deleted=false")
 data class WorkEntity(
     @Id
     var id: UUID? = UUID.randomUUID(),

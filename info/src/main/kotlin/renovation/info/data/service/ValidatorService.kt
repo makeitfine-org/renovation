@@ -6,7 +6,7 @@
 
 package renovation.info.data.service
 
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 interface ValidatorService {
     fun <T> validate(@Valid validatedEntity: T): T

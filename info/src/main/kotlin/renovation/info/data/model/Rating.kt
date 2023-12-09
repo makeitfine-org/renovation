@@ -6,7 +6,7 @@
 
 package renovation.info.data.model
 
-import javax.validation.constraints.Min
+import jakarta.validation.constraints.Min
 
 data class Rating(
     @field:Min(MIN_PRIORITY, message = "min priory should be $MIN_PRIORITY")

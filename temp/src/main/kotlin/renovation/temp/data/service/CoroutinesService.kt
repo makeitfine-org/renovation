@@ -9,6 +9,7 @@ package renovation.temp.data.service
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -28,10 +29,12 @@ class CoroutinesService {
 
         @JvmStatic
         @DelicateCoroutinesApi
+        @ExperimentalCoroutinesApi
         val th = newSingleThreadContext("one")
     }
 
     @DelicateCoroutinesApi
+    @ExperimentalCoroutinesApi
     suspend fun default() = coroutine()
 
     fun coroutineBlocking() = runBlocking {
@@ -44,6 +47,7 @@ class CoroutinesService {
     }
 
     @DelicateCoroutinesApi
+    @ExperimentalCoroutinesApi
     private suspend fun coroutine() = coroutineScope {
         val job = launch(start = CoroutineStart.LAZY) {
             try {
@@ -67,7 +71,7 @@ class CoroutinesService {
 //        job.join()
 
         runBlocking(th) {
-            log.debug { "> ${Thread.currentThread().id}" }
+            log.debug { "> ${Thread.currentThread().threadId()}" }
             log.debug { "inside 1 sec ..." }
             delay(1000)
         }

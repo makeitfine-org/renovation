@@ -7,8 +7,8 @@
 package renovation.backend.web.controller
 
 import io.micrometer.core.instrument.Counter
+import jakarta.validation.Valid
 import java.util.UUID
-import javax.validation.Valid
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus

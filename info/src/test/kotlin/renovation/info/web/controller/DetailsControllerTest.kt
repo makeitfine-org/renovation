@@ -38,8 +38,8 @@ internal class DetailsControllerTest(
         @Bean
         @Throws(Exception::class)
         fun filterChain(http: HttpSecurity): SecurityFilterChain =
-            http.authorizeRequests { authorizeRequests ->
-                authorizeRequests.antMatchers("/**").permitAll()
+            http.authorizeHttpRequests { authorizeRequests ->
+                authorizeRequests.requestMatchers("/**").permitAll()
             }.let { http.build() }
     }
 }

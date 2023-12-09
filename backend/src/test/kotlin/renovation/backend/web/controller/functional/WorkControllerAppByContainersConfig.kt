@@ -11,6 +11,7 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import java.sql.Date
 import java.time.LocalDate
@@ -52,7 +53,7 @@ internal abstract class WorkControllerAppByContainersConfig(
         assertTrue(postgresContainer.isRunning)
         assertTrue(redisContainer.isRunning)
 
-        val url = URL("http://${postgresContainer.host}:${postgresContainer.firstMappedPort}")
+        val url = URI("http://${postgresContainer.host}:${postgresContainer.firstMappedPort}").toURL()
 
         url.openConnection() as HttpURLConnection
     }

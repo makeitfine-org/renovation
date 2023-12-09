@@ -11,6 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
@@ -33,7 +34,7 @@ import kotlinx.coroutines.withTimeout
 class KotlinAsyncFlow {
 
     @Test
-    fun flowDelayReal() = runTest(dispatchTimeoutMs = 3000L) {
+    fun flowDelayReal() = runTest(timeout = 3000L.milliseconds) {
         withContext(context = Dispatchers.Default) { // In such case real delay don't turn into virtual
             val users = mutableListOf<String>()
             getUsers(950).collect {

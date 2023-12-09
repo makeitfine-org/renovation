@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService
@@ -31,7 +31,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import renovation.common.security.jwt.JwtUtils
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true)
 @ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
@@ -48,20 +48,20 @@ class SecurityConfig(
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.authorizeRequests {
+        http.authorizeHttpRequests() {
             it
-                .antMatchers("/about", "/unauthorized", "/anonymous").permitAll()
-                .antMatchers("/admin").hasAnyRole("admin")
-                .antMatchers("/user").hasAnyRole("gateway", "admin")
-                .antMatchers("/anonymous").anonymous()
-                .antMatchers("/unauthorized").not().authenticated()
+                .requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
+                .requestMatchers("/admin").hasAnyRole("admin")
+                .requestMatchers("/user").hasAnyRole("gateway", "admin")
+                .requestMatchers("/anonymous").anonymous()
+                .requestMatchers("/unauthorized").permitAll()
                 .anyRequest().authenticated()
         }.oauth2Login {
             it.userInfoEndpoint { userInfoEndpoint ->
                 userInfoEndpoint
                     .oidcUserService(this.oidcUserService())
             }
-            it.authorizationEndpoint().authorizationRequestResolver(pkceResolver())
+            it.authorizationEndpoint { it.authorizationRequestResolver(pkceResolver()) }
         }.oauth2ResourceServer { resourceServerConfigurer ->
             resourceServerConfigurer
                 .jwt { jwtConfigurer ->

@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
 import org.springframework.security.web.SecurityFilterChain
 import renovation.common.security.jwt.JwtUtils
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.client.client-id}")
@@ -21,18 +21,18 @@ class SecurityConfig(
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.authorizeRequests { authorizeRequests ->
-            authorizeRequests
-                .antMatchers("/module", "/about", "/favicon.ico").permitAll()
-                .antMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
-                .antMatchers("/api/v1/info/todo/**").permitAll()
+        http.authorizeHttpRequests {
+            it
+                .requestMatchers("/module", "/about", "/favicon.ico").permitAll()
+                .requestMatchers("/graphiql", "/graphql").hasAnyRole("ADMIN", "SERVICE")
+                .requestMatchers("/api/v1/info/todo/**").permitAll()
                 .anyRequest().authenticated()
-                .and().csrf().ignoringAntMatchers("/api/v1/info/todo/**")
-        }.oauth2ResourceServer { resourceServerConfigurer ->
-            resourceServerConfigurer
-                .jwt { jwtConfigurer ->
-                    jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                }
+        }.csrf {
+            it.ignoringRequestMatchers("/api/v1/info/todo/**")
+        }.oauth2ResourceServer {
+            it.jwt { jwtConfigurer ->
+                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
+            }
         }.build()
 
     @Bean

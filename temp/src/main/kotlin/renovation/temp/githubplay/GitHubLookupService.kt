@@ -17,11 +17,7 @@ const val DELAY = 1000L
 
 @Service
 class GitHubLookupService(restTemplateBuilder: RestTemplateBuilder) {
-    private val restTemplate: RestTemplate
-
-    init {
-        restTemplate = restTemplateBuilder.build()
-    }
+    private val restTemplate = restTemplateBuilder.build()
 
     @Async
     @Throws(InterruptedException::class)

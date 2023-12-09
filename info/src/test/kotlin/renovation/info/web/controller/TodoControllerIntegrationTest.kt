@@ -78,10 +78,13 @@ class TodoControllerIntegrationTest(
         @Bean
         @Throws(Exception::class)
         fun filterChain(http: HttpSecurity): SecurityFilterChain =
-            http.authorizeRequests { authorizeRequests ->
-                authorizeRequests.antMatchers("/**").permitAll()
-                    .and().csrf().ignoringAntMatchers("/api/v1/info/todo/**")
-            }.let { http.build() }
+            http.authorizeHttpRequests {
+                it.requestMatchers("/**").permitAll()
+            }.csrf {
+                it.ignoringRequestMatchers("/api/v1/info/todo/**")
+            }.let {
+                http.build()
+            }
     }
 
     @Autowired
