@@ -88,7 +88,7 @@ subprojects {
 
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
-            testImplementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinTestVersion"]}")
+            testImplementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinVersion"]}")
 
             ktlint("com.pinterest.ktlint:ktlint-cli:${properties["ktlintVersion"]}") {
                 attributes {
