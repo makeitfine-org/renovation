@@ -54,7 +54,6 @@ class SecurityConfig(
                 .requestMatchers("/admin").hasAnyRole("admin")
                 .requestMatchers("/user").hasAnyRole("gateway", "admin")
                 .requestMatchers("/anonymous").anonymous()
-                .requestMatchers("/unauthorized").permitAll()
                 .anyRequest().authenticated()
         }.oauth2Login {
             it.userInfoEndpoint { userInfoEndpoint ->

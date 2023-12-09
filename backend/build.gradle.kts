@@ -22,6 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-web") {
+//        todo: remove jackson exlude
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
@@ -29,7 +30,7 @@ dependencies {
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
     implementation("io.micrometer:micrometer-registry-prometheus")
-    implementation("org.liquibase:liquibase-core:${properties["liquibaseVersion"]}")
+    implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") {
         exclude("org.hibernate:hibernate-core")
     }
@@ -39,7 +40,11 @@ dependencies {
     // security
     implementation("org.springframework.boot:spring-boot-starter-security")
     // implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
-    implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
+//    implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
+
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    implementation("org.springframework.security:spring-security-oauth2-resource-server")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
 
     testImplementation("com.h2database:h2:${properties["h2Version"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -9,40 +9,8 @@ info:
     description: Renovation reporter for workers  and cutomers
 
 server:
+  host: ${BACKEND_SERVER_HOST:localhost}
   port: ${PORT:8080}
-
-spring:
-  application:
-    name: "renovation backend"
-
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  datasource:
-    url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
-    username: "${POSTGRES_USERNAME:postgres}"
-    password: "${POSTGRES_PASSWORD:postgres1}"
-    driverClassName: "org.postgresql.Driver"
-    hikari:
-      max-lifetime: 5000
-      connection-timeout: 5000
-      validation-timeout: 1000
-      maximum-pool-size: 12
-
-  liquibase:
-    change-log: db/liquibase/changelog.xml
-
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6479}
-    password: ${REDIS_PASSWORD:redispass}
-
-  cache:
-    redis:
-      time-to-live: 1800000
-      cache-null-values: false
 
 logging:
   level:
@@ -91,12 +59,56 @@ info-service:
     username: ${INFO_SERVICE_IAM_USERNAME:all-test}
     password: ${INFO_SERVICE_IAM_PASSWORD:test}
 
-keycloak:
-  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
-  realm: ${KEYCLOAK_REALM:renovation-realm}
-  ssl-required: ${KEYCLOAK_SSL_REQUIRED:external}
-  resource: ${KEYCLOAK_CLIENT_ID:renovation-client}
-  use-resource-role-mappings: ${KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:true}
-  principal-attribute: ${KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred_username}
-  credentials:
-    secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
+spring:
+  application:
+    name: "renovation backend"
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
+    username: "${POSTGRES_USERNAME:postgres}"
+    password: "${POSTGRES_PASSWORD:postgres1}"
+    driverClassName: "org.postgresql.Driver"
+    hikari:
+      max-lifetime: 5000
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 12
+
+  liquibase:
+    change-log: db/liquibase/changelog.xml
+
+  redis: #todo: change
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6479}
+    password: ${REDIS_PASSWORD:redispass}
+
+  cache:
+    redis:
+      time-to-live: 1800000
+      cache-null-values: false
+
+  security:
+    oauth2:
+      client:
+        provider:
+          oauth-client:
+            issuer-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/${KEYCLOAK_REALM:renovation-realm}
+        registration:
+          oauth-client:
+            client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
+            client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
+
+#keycloak:
+#  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080} #
+#  realm: ${KEYCLOAK_REALM:renovation-realm} #
+#  ssl-required: ${KEYCLOAK_SSL_REQUIRED:external} #
+#  resource: ${KEYCLOAK_CLIENT_ID:renovation-client} #
+#  use-resource-role-mappings: ${KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:true} #
+#  principal-attribute: ${KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred_username}
+#  credentials:
+#    secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
