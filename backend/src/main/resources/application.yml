@@ -18,7 +18,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
     url: "${POSTGRES_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"

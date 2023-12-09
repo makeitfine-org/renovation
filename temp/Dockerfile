@@ -4,7 +4,7 @@
 #  Copyright 2021-2023
 ###
 
-FROM openjdk:17.0.2-jdk
+FROM openjdk:21-jdk
 MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
 VOLUME /tmp
