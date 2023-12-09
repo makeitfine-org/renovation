@@ -26,3 +26,17 @@ spring:
 
   flyway:
     url: "${MYSQL_URL:jdbc:mysql://localhost:3406/r2}"
+
+#---
+
+#spring:
+#  config:
+#    activate:
+#      on-profile: integration-test
+#  r2dbc:
+#    url: r2dbc:tc:mysql:///testdb?TC_IMAGE_TAG=8
+#
+#  flyway:
+##    url: "${MYSQL_URL:jdbc:mysql://localhost:3306/r2}"
+
+#---

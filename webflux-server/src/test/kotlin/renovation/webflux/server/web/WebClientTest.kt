@@ -145,7 +145,7 @@ class WebClientTest(
     @Test
     fun headers() {
         runBlocking {
-            val companies = webClient.get()
+            webClient.get()
                 .uri("/api/companies/1")
                 .awaitExchange {
                     val headers = it.headers().asHttpHeaders()

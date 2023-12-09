@@ -97,6 +97,8 @@ https://github.com/heroku/heroku-cli-deploy
  && gradle :backend:build`  
 or just  
 `$> gradle all`
+3. backup db (mysql):
+   `$> docker exec renovation-mysql /usr/bin/mysqldump -u root --password=... r2 > backup.sql`
 
 ### Use mockserver
 From module mockapi run `docker-compose renovation-mockapi up`  
