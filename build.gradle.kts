@@ -48,8 +48,8 @@ subprojects {
             plugin("io.gitlab.arturbosch.detekt")
         }
 
-        java.sourceCompatibility = JavaVersion.VERSION_17
-        java.targetCompatibility = JavaVersion.VERSION_17
+        java.sourceCompatibility = JavaVersion.VERSION_21
+        java.targetCompatibility = JavaVersion.VERSION_21
 
         dependencyCheck {
             failBuildOnCVSS = 0f
@@ -81,8 +81,8 @@ subprojects {
             }
 
             implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
-            implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonBomVersion"]}")
-            implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonDatabindVersion"]}")
+            implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonVersion"]}")
+            implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonVersion"]}")
             implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
             implementation("org.jetbrains.kotlin:kotlin-reflect")
 

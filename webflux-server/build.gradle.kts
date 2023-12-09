@@ -24,7 +24,7 @@ dependencies {
     }
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    implementation("mysql:mysql-connector-java")
+    runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("io.asyncer:r2dbc-mysql:${properties["r2dbcMysqlDriverVersion"]}")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
