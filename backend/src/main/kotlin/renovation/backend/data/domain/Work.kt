@@ -31,6 +31,6 @@ data class Work(
     val payDate: LocalDate? = null,
 ) : Serializable {
     companion object {
-        const val serialVersionUID = 1L
+        private const val serialVersionUID = 1L
     }
 }

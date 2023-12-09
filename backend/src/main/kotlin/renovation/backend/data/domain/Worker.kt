@@ -15,6 +15,6 @@ data class Worker(
     val age: Int? = null,
 ) : Serializable {
     companion object {
-        const val serialVersionUID = 1L
+        private const val serialVersionUID = 1L
     }
 }

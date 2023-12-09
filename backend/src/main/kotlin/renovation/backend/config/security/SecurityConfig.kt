@@ -11,9 +11,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
+@Suppress("detekt:UtilityClassWithPublicConstructor")
 @KeycloakConfiguration
 @ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
-class SecurityConfig {//: KeycloakWebSecurityConfigurerAdapter() {
+class SecurityConfig { // : KeycloakWebSecurityConfigurerAdapter() {
 
     companion object {
 

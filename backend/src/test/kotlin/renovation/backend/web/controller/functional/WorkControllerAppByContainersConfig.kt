@@ -12,7 +12,6 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import java.net.HttpURLConnection
 import java.net.URI
-import java.net.URL
 import java.sql.Date
 import java.time.LocalDate
 import java.util.UUID

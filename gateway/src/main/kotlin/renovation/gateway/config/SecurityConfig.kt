@@ -48,7 +48,7 @@ class SecurityConfig(
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http.authorizeHttpRequests() {
+        http.authorizeHttpRequests {
             it
                 .requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
                 .requestMatchers("/admin").hasAnyRole("admin")
