@@ -6,9 +6,9 @@
 
 package renovation.backend.config.security.delete
 
-//@Configuration
-//@EnableWebSecurity
-//@ConditionalOnProperty(name = ["security.config.use-test-security"], havingValue = "true")
+// @Configuration
+// @EnableWebSecurity
+// @ConditionalOnProperty(name = ["security.config.use-test-security"], havingValue = "true")
 class TestSecurityConfig2 {
 
 //    @Bean

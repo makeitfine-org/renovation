@@ -33,10 +33,10 @@ internal class ExposeApiConfigIntegrationTest(
         fun properties(registry: DynamicPropertyRegistry) {
             registry.add("keycloak.auth-server-url") { keycloakContainer.authServerUrl }
             registry.add("spring.security.oauth2.client.provider.oauth-client.token-uri") {
-                "${keycloakContainer.authServerUrl}realms/renovation-realm/protocol/openid-connect/token"
+                "${keycloakContainer.authServerUrl}/realms/renovation-realm/protocol/openid-connect/token"
             }
             registry.add("spring.security.oauth2.client.provider.oauth-client.issuer-uri") {
-                "${keycloakContainer.authServerUrl}realms/renovation-realm"
+                "${keycloakContainer.authServerUrl}/realms/renovation-realm"
             }
         }
     }

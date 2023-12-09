@@ -9,9 +9,9 @@ package renovation.backend.config.security.delete
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
+// @KeycloakConfiguration
+// @ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
 @Suppress("detekt:UtilityClassWithPublicConstructor")
-//@KeycloakConfiguration
-//@ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig2 { // : KeycloakWebSecurityConfigurerAdapter() {
 
     companion object {

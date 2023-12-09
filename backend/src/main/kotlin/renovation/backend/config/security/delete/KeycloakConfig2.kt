@@ -6,8 +6,8 @@
 
 package renovation.backend.config.security.delete
 
-//@Configuration
-//@ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
+// @Configuration
+// @ConditionalOnProperty(name = ["keycloak.enabled"], havingValue = "true", matchIfMissing = true)
 class KeycloakConfig2 {
 
 //    @Bean
