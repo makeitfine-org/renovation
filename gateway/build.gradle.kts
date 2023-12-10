@@ -34,16 +34,3 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
 }
-
-tasks.processTestResources {
-    dependsOn("copyTestKeycloakFiles")
-}
-
-tasks.register<Copy>("copyTestKeycloakFiles") {
-    from("${rootProject.rootDir}/aux/keycloak-config/renovation-realm.json")
-        .rename("renovation-realm.json", "renovation-realm-test.json")
-
-    into("${rootProject.rootDir}/gateway/src/test/resources/keycloak")
-    into("${rootProject.rootDir}/gateway/src/test/resources/keycloak")
-//    into("${project.layout.buildDirectory}/resources/test/keycloak")
-}

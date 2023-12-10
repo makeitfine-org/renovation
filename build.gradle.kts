@@ -190,6 +190,26 @@ subprojects {
             dependsOn(integrationTest)
             dependsOn(e2eTest)
         }
+
+        // Keycloak test modules
+        if (arrayOf(
+                properties["backendModuleName"],
+                properties["gatewayModuleName"]
+            ).contains(project.name)
+        ) {
+            tasks.register<Copy>("copyTestKeycloakFiles") {
+                description = "Copy renovation-realm.json to renovation-realm-test.json"
+
+                from("${rootProject.rootDir}/aux/keycloak-config/renovation-realm.json")
+                    .rename("renovation-realm.json", "renovation-realm-test.json")
+
+                into("${rootProject.rootDir}/${project.name}/src/test/resources/keycloak")
+            }
+
+            tasks.processTestResources {
+                dependsOn("copyTestKeycloakFiles")
+            }
+        }
     }
 }
 
