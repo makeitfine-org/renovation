@@ -215,3 +215,6 @@ testem.log
 
 # System files
 Thumbs.db
+
+# Ignore for tests
+/gateway/src/test/resources/keycloak/renovation-realm-test.json
