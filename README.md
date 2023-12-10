@@ -206,6 +206,8 @@ For to autofix:
 ### Run api test (local):
 1) Run backend module locally
 2) set env. var: `ACCESS_TOKENS_LOCALHOST=true` and `BACKEND_SERVER_URL=http://localhost:8080`
+3) Run gateway locally bootTestRun (from root project):  
+`$> ./gradle :gateway:bootTestRun`
 
 ### Access tokens from docker renovation network keycloak service:  
 * http://localhost:8281/insecure/token/grant/password  

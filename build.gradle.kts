@@ -198,7 +198,7 @@ subprojects {
 
                 into("${rootProject.rootDir}/${project.name}/src/test/resources/keycloak")
 
-                finalizedBy(ktlintCheck)
+                mustRunAfter(ktlintCheck) // necessary for build
             }
 
             tasks.processTestResources {
