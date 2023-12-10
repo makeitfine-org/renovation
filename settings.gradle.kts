@@ -9,6 +9,31 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal() // todo: think of deletion
     }
+
+    versionCatalogs {
+        create("libs") {
+            val springCloudDependenciesVersion: String by settings
+            library(
+                "spring-cloud-dependencies",
+                "org.springframework.cloud:spring-cloud-dependencies:$springCloudDependenciesVersion"
+            )
+
+            val testcontainersVersion: String by settings
+            library(
+                "testcontainers-bom",
+                "org.testcontainers:testcontainers-bom:$testcontainersVersion"
+            )
+
+            val mockkVersion: String by settings
+            library("mockk", "io.mockk:mockk:$mockkVersion")
+
+            val testcontainersKeycloakVersion: String by settings
+            library(
+                "testcontainers-keycloak",
+                "com.github.dasniko:testcontainers-keycloak:$testcontainersKeycloakVersion"
+            )
+        }
+    }
 }
 
 pluginManagement {

@@ -10,20 +10,15 @@ plugins {
     id("org.springframework.boot")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${properties["springCloudDependenciesVersion"]}")
-        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-    }
-}
-
 dependencies {
+    implementation(platform(libs.spring.cloud.dependencies))
+    implementation(platform(libs.testcontainers.bom))
+
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter") {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
-    implementation("io.mockk:mockk:${properties["mockkVersion"]}")
     implementation("org.springframework.cloud:spring-cloud-starter-function-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -32,5 +27,5 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
+    testImplementation(libs.testcontainers.keycloak)
 }
