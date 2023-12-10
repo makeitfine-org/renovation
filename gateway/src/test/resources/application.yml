@@ -1,5 +1,8 @@
 # and import the 'main' properties
 spring:
+  config:
+    import: file:src/main/resources/application.yml
+
   security:
     oauth2:
       client:

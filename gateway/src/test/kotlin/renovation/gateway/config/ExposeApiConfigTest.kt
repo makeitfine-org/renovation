@@ -12,7 +12,6 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 
 @Tag("e2eTest")
-@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ExposeApiConfigTest(
     @LocalServerPort private val port: Int,

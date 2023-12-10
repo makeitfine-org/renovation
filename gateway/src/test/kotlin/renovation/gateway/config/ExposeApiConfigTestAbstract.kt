@@ -83,4 +83,14 @@ internal abstract class ExposeApiConfigTestAbstract(
                 )
             }
     }
+
+    @Test
+    fun `Assert admin controller`() {
+        given()
+            .When {
+                get("$portHost/admin")
+            }.Then {
+                statusCode(HttpStatus.SC_FORBIDDEN)
+            }
+    }
 }

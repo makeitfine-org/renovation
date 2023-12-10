@@ -28,8 +28,6 @@ logging:
 spring:
   application:
     name: ${info.app.name}
-#  main:
-    #web-application-type: none
 
   security:
     oauth2:
