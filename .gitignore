@@ -217,4 +217,5 @@ testem.log
 Thumbs.db
 
 # Ignore for tests
+/backend/src/test/resources/keycloak/renovation-realm-test.json
 /gateway/src/test/resources/keycloak/renovation-realm-test.json
