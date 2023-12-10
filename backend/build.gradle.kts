@@ -12,13 +12,9 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-    }
-}
-
 dependencies {
+    implementation(platform(libs.testcontainers.bom))
+
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
     implementation("org.springframework.boot:spring-boot-starter-web") {

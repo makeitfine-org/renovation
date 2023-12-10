@@ -12,6 +12,12 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
+            val springframeworkPluginVersion: String by settings
+            library(
+                "spring-boot-dependencies",
+                "org.springframework.boot:spring-boot-dependencies:$springframeworkPluginVersion"
+            )
+
             val springCloudDependenciesVersion: String by settings
             library(
                 "spring-cloud-dependencies",
@@ -31,6 +37,18 @@ dependencyResolutionManagement {
             library(
                 "testcontainers-keycloak",
                 "com.github.dasniko:testcontainers-keycloak:$testcontainersKeycloakVersion"
+            )
+
+            val quarkusJunit4MockVersion: String by settings
+            library(
+                "quarkus-junit4-mock",
+                "io.quarkus:quarkus-junit4-mock:$quarkusJunit4MockVersion"
+            )
+
+            val dgsPlatformDependenciesVersion: String by settings
+            library(
+                "netflix-graphql-dgs",
+                "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:$dgsPlatformDependenciesVersion"
             )
         }
     }

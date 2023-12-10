@@ -16,14 +16,10 @@ plugins {
     id("com.netflix.dgs.codegen")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-    }
-}
-
 dependencies {
-    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:${properties["dgsPlatformDependenciesVersion"]}"))
+    implementation(platform(libs.testcontainers.bom))
+    implementation(platform(libs.netflix.graphql.dgs))
+
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
     implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
     implementation("com.netflix.graphql.dgs:graphql-dgs-extended-validation")
@@ -44,7 +40,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mongodb")
     //needed for testcontainers
-    testImplementation("io.quarkus:quarkus-junit4-mock:${properties["quarkusJunit4MockVersion"]}")
+    testImplementation(libs.quarkus.junit4.mock)
 }
 
 tasks.generateJava {

@@ -10,13 +10,9 @@ plugins {
     id("org.springframework.boot")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.testcontainers:testcontainers-bom:${properties["testcontainersVersion"]}")
-    }
-}
-
 dependencies {
+    implementation(platform(libs.testcontainers.bom))
+
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-webflux") {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
@@ -38,5 +34,5 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
     testImplementation("org.testcontainers:r2dbc")
-    testImplementation("io.quarkus:quarkus-junit4-mock:${properties["quarkusJunit4MockVersion"]}")
+    testImplementation(libs.quarkus.junit4.mock)
 }

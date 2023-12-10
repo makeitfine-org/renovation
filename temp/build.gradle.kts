@@ -11,14 +11,10 @@ plugins {
     id("me.champeau.jmh")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${properties["springCloudDependenciesVersion"]}")
-    }
-}
-
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:${properties["springframeworkPluginVersion"]}"))
+    implementation(platform(libs.spring.cloud.dependencies))
+    implementation(platform(libs.spring.boot.dependencies))
+
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-web") {
