@@ -7,6 +7,7 @@
 package renovation.common.security.iam.impl
 
 import renovation.common.security.iam.GrantTypeAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken.TokenFetcher
 
 data class ClientCredentialsGrantTypeAccessToken(
     val clientId: String,
@@ -15,7 +16,10 @@ data class ClientCredentialsGrantTypeAccessToken(
 ) : GrantTypeAccessToken {
     override val grantType = "client_credentials"
 
-    override val token: String = super.obtainToken(
+    override val token: String = TokenFetcher.fetch(
+        grantType = grantType,
+        tokenEndpoint = tokenEndpoint,
+
         "client_id" to clientId,
         "client_secret" to clientSecret,
     )

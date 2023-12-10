@@ -19,41 +19,53 @@ interface GrantTypeAccessToken : Token {
     val tokenEndpoint: String
     override val token: String
 
-    fun bearerAuthorizationHeader() =
-        Header("Authorization", "Bearer $token")
-
-    fun obtainToken(vararg keyValues: Pair<String, String>) = LinkedMultiValueMap<String, String>().let {
-        keyValues.forEach { kv ->
-            it[kv.first] = kv.second
-        }
-
-        it["grant_type"] = grantType
-
-        RestTemplate().postForObject(
-            tokenEndpoint,
-            HttpEntity(
-                it,
-                HttpHeaders().also {
-                    it.contentType = MediaType.APPLICATION_FORM_URLENCODED
-                }
-            ),
-            AccessToken::class.java
-        )!!.accessToken
-    }
+    fun bearerAuthorizationHeader() = Header("Authorization", "Bearer $token")
 
     data class Header(
         val headerName: String,
         val headerValue: String
     )
 
-    class AccessToken {
+    /**
+     * Take grant type access token from server
+     */
+    class TokenFetcher {
+        companion object {
+            private val REST = RestTemplate()
 
-        @Suppress("MemberNameEqualsClassName")
-        val accessToken: String
+            @JvmStatic
+            fun fetch(
+                grantType: String,
+                tokenEndpoint: String,
+                vararg keyValues: Pair<String, String>
+            ) = LinkedMultiValueMap<String, String>().let {
+                keyValues.forEach { kv ->
+                    it[kv.first] = kv.second
+                }
 
-        @JsonCreator
-        constructor(@JsonProperty("access_token") accessToken: String) {
-            this.accessToken = accessToken
+                it["grant_type"] = grantType
+
+                REST.postForObject(
+                    tokenEndpoint,
+                    HttpEntity(
+                        it,
+                        HttpHeaders().also {
+                            it.contentType = MediaType.APPLICATION_FORM_URLENCODED
+                        }
+                    ),
+                    AccessToken::class.java
+                )!!.accessToken
+            }
+        }
+
+        private class AccessToken {
+            @Suppress("MemberNameEqualsClassName")
+            val accessToken: String
+
+            @JsonCreator
+            constructor(@JsonProperty("access_token") accessToken: String) {
+                this.accessToken = accessToken
+            }
         }
     }
 }

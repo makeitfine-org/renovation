@@ -7,6 +7,7 @@
 package renovation.common.security.iam.impl
 
 import renovation.common.security.iam.GrantTypeAccessToken
+import renovation.common.security.iam.GrantTypeAccessToken.TokenFetcher
 
 data class PasswordGrantTypeAccessToken(
     val clientId: String,
@@ -17,8 +18,11 @@ data class PasswordGrantTypeAccessToken(
 ) : GrantTypeAccessToken {
     override val grantType = "password"
 
-    // todo: it's write jwt token iss not null
-    override val token: String = super.obtainToken(
+    // todo: it's write jwt token is not null
+    override val token: String = TokenFetcher.fetch(
+        grantType = grantType,
+        tokenEndpoint = tokenEndpoint,
+
         "client_id" to clientId,
         "client_secret" to clientSecret,
         "username" to username,
