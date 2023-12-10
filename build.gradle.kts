@@ -184,13 +184,6 @@ subprojects {
             }
         }
 
-        tasks.check {
-            detekt
-            dependsOn(ktlintCheck)
-            dependsOn(integrationTest)
-            dependsOn(e2eTest)
-        }
-
         // Keycloak test modules
         if (arrayOf(
                 properties["backendModuleName"],
@@ -204,11 +197,20 @@ subprojects {
                     .rename("renovation-realm.json", "renovation-realm-test.json")
 
                 into("${rootProject.rootDir}/${project.name}/src/test/resources/keycloak")
+
+                finalizedBy(ktlintCheck)
             }
 
             tasks.processTestResources {
                 dependsOn("copyTestKeycloakFiles")
             }
+        }
+
+        tasks.check {
+            detekt
+            dependsOn(ktlintCheck)
+            dependsOn(integrationTest)
+            dependsOn(e2eTest)
         }
     }
 }
