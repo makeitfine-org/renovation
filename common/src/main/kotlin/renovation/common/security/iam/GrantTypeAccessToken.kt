@@ -12,7 +12,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.util.LinkedMultiValueMap
-import org.springframework.web.client.RestTemplate
+import renovation.common.web.Client.RestClient
 
 interface GrantTypeAccessToken : Token {
     val grantType: String
@@ -31,7 +31,6 @@ interface GrantTypeAccessToken : Token {
      */
     class TokenFetcher {
         companion object {
-            private val REST = RestTemplate()
 
             @JvmStatic
             fun fetch(
@@ -45,7 +44,7 @@ interface GrantTypeAccessToken : Token {
 
                 it["grant_type"] = grantType
 
-                REST.postForObject(
+                RestClient.postForObject(
                     tokenEndpoint,
                     HttpEntity(
                         it,

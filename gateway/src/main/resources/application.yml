@@ -32,7 +32,7 @@ management:
     enabled-by-default: true
     web:
       exposure:
-        include: info, health, env, metrics, prometheus
+        include: info, health, env, metrics, prometheus, keycloakhealth
     jmx:
       exposure:
         exclude: health
