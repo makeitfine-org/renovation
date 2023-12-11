@@ -18,6 +18,7 @@ class ContainersConfig {
     @Bean
     fun keycloakContainer(registry: DynamicPropertyRegistry): KeycloakContainer =
         KeycloakContainer("quay.io/keycloak/keycloak:18.0.2")
+            .withEnv("KC_HEALTH_ENABLED", "true")
             .withRealmImportFile("keycloak/renovation-realm-test.json")
             .also {
                 registry.add("spring.security.oauth2.client.provider.oauth-client.issuer-uri") {

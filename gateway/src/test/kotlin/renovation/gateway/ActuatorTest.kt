@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalManagementPort
 import org.springframework.test.context.ContextConfiguration
+import renovation.common.util.Json
 import renovation.common.util.Rest.given
 
 @Tag("integrationTest")
@@ -53,5 +54,31 @@ internal class ActuatorTest(
             body("components.livenessState.status", CoreMatchers.equalTo("UP"))
             body("components.ping.status", CoreMatchers.equalTo("UP"))
             body("components.readinessState.status", CoreMatchers.equalTo("UP"))
+        }.let {}
+
+    @Test
+    fun `actuator keycloakhealth`() = given(managementPort)
+        .When {
+            get("/actuator/keycloakhealth")
+        }.Then {
+            statusCode(SC_OK)
+
+            body(
+                CoreMatchers.equalTo(
+                    Json.rowJson(
+                        """
+                        {
+                          "status": "UP",
+                          "checks": [
+                            {
+                              "name": "Keycloak database connections health check",
+                              "status": "UP"
+                            }
+                          ]
+                        }
+                        """
+                    )
+                )
+            )
         }.let {}
 }

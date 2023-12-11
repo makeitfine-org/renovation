@@ -20,18 +20,17 @@ private val log = KotlinLogging.logger { }
 @Component
 @Endpoint(id = "keycloakhealth")
 class KeycloakHealthEndpoint(
-    @Value("\${KEYCLOAK_HOSTNAME:localhost}")
-    private val host: String,
-
-    @Value("\${KEYCLOAK_PORT2:18080}")
-    private val port: String,
+    @Value("\${spring.security.oauth2.client.provider.oauth-client.issuer-uri}")
+    issuerUri: String,
 ) {
+    val keycloakUrl = "(.*)[//]realms".toRegex().find(issuerUri)!!.groups[1]!!.value
+
     @ReadOperation
-    fun check(): String {
+    fun check(): Any {
         try {
             val response = Client.RestClient.getForObject(
-                "http://$host:$port/health",
-                String::class.java
+                "$keycloakUrl/health",
+                Any::class.java
             )
             return response!!
         } catch (e: RestClientException) {
