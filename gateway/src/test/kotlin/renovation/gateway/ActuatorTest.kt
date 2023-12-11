@@ -17,7 +17,7 @@ import org.junit.jupiter.api.parallel.ExecutionMode
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalManagementPort
 import org.springframework.test.context.ContextConfiguration
 import renovation.common.util.Rest.given
 
@@ -26,12 +26,12 @@ import renovation.common.util.Rest.given
 @ContextConfiguration(classes = [ContainersConfig::class])
 @Execution(ExecutionMode.CONCURRENT)
 internal class ActuatorTest(
-    @LocalServerPort val port: Int
+    @LocalManagementPort val managementPort: Int,
 ) {
 
     @ParameterizedTest
     @ValueSource(strings = ["/actuator", "/actuator/info", "/actuator/env", "/actuator/metrics"])
-    fun checkUrlStatus(url: String) = given(port)
+    fun checkUrlStatus(url: String) = given(managementPort)
         .When {
             get(url)
         }.Then {
@@ -39,7 +39,7 @@ internal class ActuatorTest(
         }.let { }
 
     @Test
-    fun `actuator health`() = given(port)
+    fun `actuator health`() = given(managementPort)
         .When {
             get("/actuator/health")
         }.Then {

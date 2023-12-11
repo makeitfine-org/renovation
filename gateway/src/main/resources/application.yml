@@ -26,6 +26,8 @@ logging:
       max-file-size: 5MB
 
 management:
+  server:
+    port: 8086
   endpoints:
     enabled-by-default: true
     web:

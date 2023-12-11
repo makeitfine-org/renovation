@@ -91,6 +91,7 @@ services:
 
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HEALTH_ENABLED: true
     networks:
       - renovation-network
 
@@ -212,6 +213,7 @@ services:
       - renovation-keycloak
     ports:
       - ${GATEWAY_SERVER_REDIRECT_PORT}:${GATEWAY_PORT}
+      - ${GATEWAY_SERVER_ACTUATOR_REDIRECT_PORT}:8086
     environment:
 
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
