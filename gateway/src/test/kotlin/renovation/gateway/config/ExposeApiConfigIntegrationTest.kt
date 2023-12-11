@@ -10,11 +10,9 @@ import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ContextConfiguration
-import org.testcontainers.junit.jupiter.Testcontainers
 import renovation.gateway.ContainersConfig
 
 @Tag("integrationTest")
-@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = [ContainersConfig::class])
 internal class ExposeApiConfigIntegrationTest(

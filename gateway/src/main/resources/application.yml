@@ -25,6 +25,31 @@ logging:
       max-history: 5
       max-file-size: 5MB
 
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: info, health, env, metrics, prometheus
+    jmx:
+      exposure:
+        exclude: health
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  info:
+    env:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  observations:
+    key-values:
+      application: backend
+
 spring:
   application:
     name: ${info.app.name}

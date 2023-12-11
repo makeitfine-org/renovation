@@ -51,6 +51,7 @@ class SecurityConfig(
         http.authorizeHttpRequests {
             it
                 .requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
+                .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/admin").hasAnyRole("admin")
                 .requestMatchers("/user").hasAnyRole("gateway", "admin")
                 .requestMatchers("/anonymous").anonymous()

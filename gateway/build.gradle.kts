@@ -19,6 +19,9 @@ dependencies {
         exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
         exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
     }
+    implementation("org.springframework.boot:spring-boot-starter-actuator") {
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+    }
     implementation("org.springframework.cloud:spring-cloud-starter-function-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
