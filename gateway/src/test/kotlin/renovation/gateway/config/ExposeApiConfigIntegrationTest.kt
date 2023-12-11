@@ -6,34 +6,17 @@
 
 package renovation.gateway.config
 
-import dasniko.testcontainers.keycloak.KeycloakContainer
 import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.junit.jupiter.Container
+import org.springframework.test.context.ContextConfiguration
 import org.testcontainers.junit.jupiter.Testcontainers
+import renovation.gateway.ContainersConfig
 
 @Tag("integrationTest")
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = [ContainersConfig::class])
 internal class ExposeApiConfigIntegrationTest(
     @LocalServerPort private val port: Int,
-) : ExposeApiConfigTestAbstract(port) {
-
-    companion object {
-
-        @Container
-        val keycloakContainer: KeycloakContainer = KeycloakContainer("quay.io/keycloak/keycloak:18.0.2")
-            .withRealmImportFile("keycloak/renovation-realm-test.json")
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.security.oauth2.client.provider.oauth-client.issuer-uri") {
-                "${keycloakContainer.authServerUrl}/realms/renovation-realm"
-            }
-        }
-    }
-}
+) : ExposeApiConfigTestAbstract(port)
