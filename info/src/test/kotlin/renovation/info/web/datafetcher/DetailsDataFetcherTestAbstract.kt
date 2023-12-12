@@ -129,9 +129,9 @@ internal abstract class DetailsDataFetcherTestAbstract(
         assertEquals(ErrorType.ValidationError, res.errors[0].errorType)
 
         assertEquals(
-            "Validation error of type WrongType: argument 'detailsInput.age' " +
+            "Validation error (WrongType@[details]) : argument 'detailsInput.age' " +
                 "with value 'StringValue{value='32a'}' is not a valid 'Age' - " +
-                "Expected AST type 'IntValue' but was 'StringValue'. @ 'details'",
+                "Expected an AST type of 'IntValue' but it was a 'StringValue'",
             res.errors[0].message
         )
         assertFalse { res.isDataPresent }
@@ -220,7 +220,7 @@ internal abstract class DetailsDataFetcherTestAbstract(
         assertEquals(1, res.errors.size)
 
         assertEquals(
-            "javax.validation.ConstraintViolationException: validate.validatedEntity.age: Age should be up to 90",
+            "jakarta.validation.ConstraintViolationException: validate.validatedEntity.age: Age should be up to 90",
             res.errors[0].message
         )
 
