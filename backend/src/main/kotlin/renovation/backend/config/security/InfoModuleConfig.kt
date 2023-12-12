@@ -33,18 +33,16 @@ class InfoModuleConfig {
         matchIfMissing = true
     )
     fun clientCredentialsGrantAccessToken(
-        @Value("\${keycloak.auth-server-url}")
-        authServerUrl: String,
-        @Value("\${keycloak.realm}")
-        realm: String,
-        @Value("\${keycloak.resource}")
+        @Value("\${spring.security.oauth2.client.provider.oauth-client.token-uri}")
+        tokenUri: String,
+        @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
         clientId: String,
-        @Value("\${keycloak.credentials.secret}")
+        @Value("\${spring.security.oauth2.client.registration.oauth-client.client-secret}")
         clientSecret: String,
     ) = ClientCredentialsGrantTypeAccessToken(
         clientId,
         clientSecret,
-        "$authServerUrl/realms/$realm/protocol/openid-connect/token",
+        tokenUri,
     ).also {
         log.debug { "clientCredentialsGrantAccessToken: $it" }
     }
@@ -53,13 +51,11 @@ class InfoModuleConfig {
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     @ConditionalOnProperty(name = ["info-service.iam.passwordGrantType"], havingValue = "true", matchIfMissing = false)
     fun passwordGrantAccessToken(
-        @Value("\${keycloak.auth-server-url}")
-        authServerUrl: String,
-        @Value("\${keycloak.realm}")
-        realm: String,
-        @Value("\${keycloak.resource}")
+        @Value("\${spring.security.oauth2.client.provider.oauth-client.token-uri}")
+        tokenUri: String,
+        @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
         clientId: String,
-        @Value("\${keycloak.credentials.secret}")
+        @Value("\${spring.security.oauth2.client.registration.oauth-client.client-secret}")
         clientSecret: String,
         @Autowired
         creds: InfoServiceIamCredentials,
@@ -68,7 +64,7 @@ class InfoModuleConfig {
         clientSecret,
         creds.username,
         creds.password,
-        "$authServerUrl/realms/$realm/protocol/openid-connect/token"
+        tokenUri
     ).also {
         log.debug { "passwordGrantAccessToken: $it" }
     }

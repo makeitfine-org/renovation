@@ -26,6 +26,8 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
+import org.testcontainers.containers.GenericContainer
+import org.testcontainers.containers.PostgreSQLContainer
 import renovation.backend.AppByContainersConfig
 import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 
@@ -41,6 +43,12 @@ internal abstract class WorkControllerAppByContainersConfig(
         private const val WORK_COUNT: Long = 5
         private const val COUNT_WORD = "count"
     }
+
+    @Autowired
+    private lateinit var postgresContainer: PostgreSQLContainer<*>
+
+    @Autowired
+    private lateinit var redisContainer: GenericContainer<*>
 
     @Autowired
     private lateinit var jdbcTemplate: JdbcTemplate

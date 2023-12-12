@@ -6,28 +6,29 @@
 
 package renovation.backend
 
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-import org.testcontainers.containers.GenericContainer
-import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
-import org.testcontainers.utility.DockerImageName
+import org.springframework.test.context.ContextConfiguration
 
-@Testcontainers
 @Suppress("UnnecessaryAbstractClass", "UtilityClassWithPublicConstructor")
+@ContextConfiguration(
+    classes = [
+        PostgresContainerConfig::class,
+        RedisContainerConfig::class,
+    ]
+)
 internal abstract class AppByContainersConfig {
 
-    companion object {
-
-        @Container
-        @ServiceConnection(name = "postgres")
-        val postgresContainer: PostgreSQLContainer<Nothing> =
-            PostgreSQLContainer<Nothing>("postgres:16.1-alpine")
-
-        @Container
-        @ServiceConnection(name = "redis")
-        val redisContainer: GenericContainer<Nothing> =
-            GenericContainer<Nothing>(DockerImageName.parse("redis:7.2.3-alpine"))
-                .withExposedPorts(6379)
-    }
+    // todo: change to ContainerConfig
+//    companion object {
+//
+//        @Container
+//        @ServiceConnection(name = "postgres")
+//        val postgresContainer: PostgreSQLContainer<Nothing> =
+//            PostgreSQLContainer<Nothing>("postgres:16.1-alpine")
+//
+//        @Container
+//        @ServiceConnection(name = "redis")
+//        val redisContainer: GenericContainer<Nothing> =
+//            GenericContainer<Nothing>(DockerImageName.parse("redis:7.2.3-alpine"))
+//                .withExposedPorts(6379)
+//    }
 }
