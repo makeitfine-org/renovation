@@ -11,7 +11,10 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
-@TestPropertySource(properties = ["spring.security.enabled=false"])
+@TestPropertySource(
+    properties = ["spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security" +
+            ".oauth2.client.servlet.OAuth2ClientAutoConfiguration"]
+)
 @WithMockUser(roles = ["WORK"])
 internal class WorkControllerWithSecurityTest : WorkControllerTestAbstract() {
 

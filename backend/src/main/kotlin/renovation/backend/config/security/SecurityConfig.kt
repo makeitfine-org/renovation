@@ -7,7 +7,6 @@
 package renovation.backend.config.security
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -32,7 +31,6 @@ import renovation.common.security.jwt.JwtUtils
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-@ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
     private val clientId: String,
