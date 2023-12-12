@@ -21,8 +21,8 @@ class ContainersConfig {
             .withEnv("KC_HEALTH_ENABLED", "true")
             .withRealmImportFile("keycloak/renovation-realm-test.json")
             .also {
-                registry.add("spring.security.oauth2.client.provider.oauth-client.issuer-uri") {
-                    "${it.authServerUrl}/realms/renovation-realm"
+                registry.add("keycloak.auth-server-url") {
+                    "${it.authServerUrl}"
                 }
             }
 }

@@ -52,6 +52,9 @@ management:
     key-values:
       application: backend
 
+keycloak:
+  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
+
 spring:
   application:
     name: ${info.app.name}
@@ -61,7 +64,7 @@ spring:
       client:
         provider:
           oauth-client:
-            issuer-uri: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}/realms/${KEYCLOAK_REALM:renovation-realm}
+            issuer-uri: ${keycloak.auth-server-url}/realms/${KEYCLOAK_REALM:renovation-realm}
         registration:
           oauth-client:
             client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-gateway-client}

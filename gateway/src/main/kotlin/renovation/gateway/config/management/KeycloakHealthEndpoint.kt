@@ -20,11 +20,9 @@ private val log = KotlinLogging.logger { }
 @Component
 @Endpoint(id = "keycloakhealth")
 class KeycloakHealthEndpoint(
-    @Value("\${spring.security.oauth2.client.provider.oauth-client.issuer-uri}")
-    issuerUri: String,
+    @Value("\${keycloak.auth-server-url}")
+    val keycloakUrl: String,
 ) {
-    val keycloakUrl = "(.*)[//]realms".toRegex().find(issuerUri)!!.groups[1]!!.value
-
     @ReadOperation
     fun check(): Any {
         try {
