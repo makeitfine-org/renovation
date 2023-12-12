@@ -48,6 +48,7 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation(libs.mockk)
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
 }
 

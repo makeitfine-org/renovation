@@ -83,9 +83,10 @@ spring:
     change-log: db/liquibase/changelog.xml
 
   redis: #todo: change
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6479}
-    password: ${REDIS_PASSWORD:redispass}
+    data:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6479}
+      password: ${REDIS_PASSWORD:redispass}
 
   cache:
     redis:
