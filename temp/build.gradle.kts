@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /*
  * Created under not commercial project "Renovation"
  *
@@ -9,6 +11,12 @@ plugins {
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("me.champeau.jmh")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        suppressWarnings = true
+    }
 }
 
 dependencies {

@@ -136,7 +136,6 @@ subprojects {
                 freeCompilerArgs = listOf("-Xjsr305=strict")
                 jvmTarget = java.targetCompatibility.toString()
             }
-            // dependsOn(ktlintCheck)
         }
 
         // --- test part
