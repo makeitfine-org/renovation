@@ -10,12 +10,12 @@ import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
 import org.apache.http.HttpStatus.SC_OK
+import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
-import renovation.backend.IntegrationTest
 
-@IntegrationTest
+@Tag("integrationTest")
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = ["management.health.redis.enabled=false"]
