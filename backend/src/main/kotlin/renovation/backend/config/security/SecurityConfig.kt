@@ -55,10 +55,10 @@ class SecurityConfig(
                     .disable()
             }
             .authorizeHttpRequests {
-                it.requestMatchers("/about", "/project", "/logout", ).permitAll()
+                it.requestMatchers("/about", "/project", "/logout").permitAll()
                     .requestMatchers("/api/work").hasAnyRole("work")
                     .requestMatchers("/api/worker").hasAnyRole("worker")
-                    .requestMatchers("/*").hasAnyRole("admin")
+                    .requestMatchers("/**").hasAnyRole("admin")
                     .anyRequest()
                     .authenticated()
             }.oauth2Login {

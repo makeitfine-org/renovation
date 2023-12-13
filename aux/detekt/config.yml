@@ -350,6 +350,7 @@ naming:
   MatchingDeclarationName:
     active: true
     mustBeFirst: true
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
   MemberNameEqualsClassName:
     active: true
     ignoreOverridden: true
