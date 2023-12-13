@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Set up Node
         uses: actions/setup-node@v3
@@ -51,5 +51,3 @@ jobs:
 #    with:
 #      command_line_task: "gradle :api-test:e2eTest"
 #      timeout-minutes: 12
-
-

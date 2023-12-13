@@ -61,8 +61,8 @@ https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
 and java plugin: `heroku plugins:install java`  
 1. login heroku:  
    `heroku login`
-2. Deploy backend module (with jdk 17 specified) to heroku:  
-   `heroku deploy:jar backend/build/libs/backend-0.0.1-SNAPSHOT.jar --jdk 17 --app newk7`
+2. Deploy backend module (with jdk 21 specified) to heroku:  
+   `heroku deploy:jar backend/build/libs/backend-0.0.1-SNAPSHOT.jar --jdk 21 --app newk7`
 3. See heroku logs:  
    `heroku logs --tail --app aqueous-woodland-63249`
 4. See heroku configs:  
