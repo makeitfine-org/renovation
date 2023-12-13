@@ -6,7 +6,6 @@
 
 package renovation.backend.web.controller.functional
 
-import io.restassured.module.kotlin.extensions.Given
 import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -20,16 +19,14 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
-import renovation.backend.KeycloakContainerConfig
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
-import renovation.common.util.Rest.given
 
 @Tag("integrationTest")
 @ActiveProfiles("secured-test")
 @ContextConfiguration(
     classes = [
-        KeycloakContainerConfig::class,
+//        KeycloakContainerConfig::class,
         WorkControllerWithSecurityTest.ControllerTestConfig::class
     ]
 )
@@ -63,11 +60,12 @@ internal class WorkControllerWithSecurityTest(
     @Qualifier("workControllerToken")
     private lateinit var token: GrantTypeAccessToken
 
-    override fun given() = Given {
+    override fun given() = super.given().let {
         val header = token.bearerAuthorizationHeader()
 
-        given(port)
-            .and()
+        println(header.headerValue)
+
+        it.and()
             .header(header.headerName, header.headerValue)
     }
 }
