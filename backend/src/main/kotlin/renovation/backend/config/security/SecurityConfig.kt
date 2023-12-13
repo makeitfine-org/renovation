@@ -57,8 +57,8 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it.requestMatchers("/about", "/project").permitAll()
-                    .requestMatchers("/api/work").hasAnyRole("work")
-                    .requestMatchers("/api/worker").hasAnyRole("worker")
+                    .requestMatchers("/api/work/**").hasAnyRole("work")
+                    .requestMatchers("/api/worker/**").hasAnyRole("worker")
                     .requestMatchers("/**").hasAnyRole("admin")
                     .anyRequest()
                     .authenticated()
