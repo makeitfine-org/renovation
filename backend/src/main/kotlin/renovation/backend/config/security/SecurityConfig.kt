@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import renovation.common.security.jwt.JwtUtils
 
 @Configuration
@@ -55,7 +56,7 @@ class SecurityConfig(
                     .disable()
             }
             .authorizeHttpRequests {
-                it.requestMatchers("/about", "/project", "/logout").permitAll()
+                it.requestMatchers("/about", "/project").permitAll()
                     .requestMatchers("/api/work").hasAnyRole("work")
                     .requestMatchers("/api/worker").hasAnyRole("worker")
                     .requestMatchers("/**").hasAnyRole("admin")
@@ -64,13 +65,23 @@ class SecurityConfig(
             }.oauth2Login {
                 it.userInfoEndpoint { userInfoEndpoint ->
                     userInfoEndpoint
-                        .oidcUserService(this.oidcUserService())
+                        .oidcUserService(oidcUserService())
                 }
-                it.authorizationEndpoint { it.authorizationRequestResolver(pkceResolver()) }
-            }.logout {
+                it.authorizationEndpoint {
+                    it.authorizationRequestResolver(pkceResolver())
+                }
+            }.oauth2ResourceServer { resourceServerConfigurer ->
+                resourceServerConfigurer
+                    .jwt { jwtConfigurer ->
+                        jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
+                    }
+            }
+            .logout {
                 it.invalidateHttpSession(true)
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/logout-redirect")
+                it.logoutSuccessHandler(oidcLogoutSuccessHandler())
+//                    .logoutUrl("/logout")
+                it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+                it.logoutSuccessUrl("/logout-redirect")
             }.build()
 
     @Bean
