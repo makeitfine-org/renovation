@@ -19,7 +19,7 @@ internal class KeycloakContainerConfig {
 
     @Bean
     fun keycloakContainer(registry: DynamicPropertyRegistry): KeycloakContainer =
-        KeycloakContainer("quay.io/keycloak/keycloak:18.0.2")
+        KeycloakContainer("quay.io/keycloak/keycloak:23.0.1")
             .withEnv("KC_HEALTH_ENABLED", "true")
             .withRealmImportFile("keycloak/renovation-realm-test.json")
             .also {
