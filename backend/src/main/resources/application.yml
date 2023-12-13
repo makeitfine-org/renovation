@@ -6,7 +6,7 @@
 info:
   app:
     name: "Renovation backend"
-    description: Renovation reporter for workers  and cutomers
+    description: Renovation reporter for workers  and customers
 
 server:
   host: ${BACKEND_SERVER_HOST:localhost}
@@ -29,14 +29,10 @@ management:
     enabled-by-default: true
     web:
       exposure:
-        include: info, health, env, metrics, prometheus
+        include: info, health, env, metrics, prometheus, keycloakhealth
     jmx:
       exposure:
         exclude: health
-  metrics:
-    tags:
-      #      application: ${spring.application.name}
-      application: backend
   endpoint:
     health:
       enabled: true
@@ -49,6 +45,9 @@ management:
       enabled: true
     readinessstate:
       enabled: true
+  observations:
+    key-values:
+      application: backend
 
 info-service:
   graphql-url: "${INFO_SERVICE_URL:http://localhost:9090/graphql}"
@@ -108,13 +107,3 @@ spring:
             client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
             client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
             scope: openid, profile, roles
-
-#keycloak:
-#  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080} #
-#  realm: ${KEYCLOAK_REALM:renovation-realm} #
-#  ssl-required: ${KEYCLOAK_SSL_REQUIRED:external} #
-#  resource: ${KEYCLOAK_CLIENT_ID:renovation-client} #
-#  use-resource-role-mappings: ${KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:true} #
-#  principal-attribute: ${KEYCLOAK_PRINCIPAL_ATTRIBUTE:preferred_username}
-#  credentials:
-#    secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
