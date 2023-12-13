@@ -1,9 +1,7 @@
 /*
+ * Created under not commercial project "Renovation"
  *
- *  * Created under project "Bina"
- *  *
- *  * Copyright 2022
- *
+ * Copyright 2021-2023
  */
 
 package renovation.gateway
