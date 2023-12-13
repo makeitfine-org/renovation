@@ -25,7 +25,7 @@ import renovation.common.util.Rest.given
 @Tag("integrationTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = [ContainersConfig::class])
-@Execution(ExecutionMode.CONCURRENT)
+@Execution(ExecutionMode.CONCURRENT) // todo: create autoconfig starter (and share for other projects)
 internal class ActuatorTest(
     @LocalManagementPort val managementPort: Int,
 ) {
