@@ -35,21 +35,19 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     // security
     implementation("org.springframework.boot:spring-boot-starter-security")
-    // implementation("org.keycloak.bom:keycloak-adapter-bom:${properties["keycloakVersion"]}")
-//    implementation("org.keycloak:keycloak-spring-boot-starter:${properties["keycloakVersion"]}")
 
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
-    testImplementation("com.h2database:h2:${properties["h2Version"]}")
+    testImplementation("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation(libs.mockk)
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("com.github.dasniko:testcontainers-keycloak:${properties["testcontainersKeycloakVersion"]}")
+    testImplementation(libs.testcontainers.keycloak)
 }
 
 tasks.koverVerify {

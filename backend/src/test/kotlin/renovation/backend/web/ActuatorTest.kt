@@ -21,7 +21,7 @@ import org.springframework.test.context.ActiveProfiles
     properties = ["management.health.redis.enabled=false"]
 )
 @ActiveProfiles("itest", "no-security")
-internal class ActuatorTest(
+internal class ActuatorTest( // todo: Change, add containers and check of db
     @LocalServerPort val port: Int
 ) {
     val portHost = "http://localhost:$port"
