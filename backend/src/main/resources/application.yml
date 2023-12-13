@@ -107,6 +107,7 @@ spring:
           oauth-client:
             client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
             client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
+            scope: openid, profile, roles
 
 #keycloak:
 #  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080} #
