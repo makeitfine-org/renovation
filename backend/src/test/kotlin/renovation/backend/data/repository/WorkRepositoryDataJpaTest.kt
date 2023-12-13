@@ -17,6 +17,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -25,12 +26,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.context.annotation.ComponentScan.Filter
 import org.springframework.context.annotation.FilterType
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import renovation.backend.IntegrationTest
 import renovation.backend.config.PersistenceConfig
 import renovation.backend.data.entity.WorkEntity
 
-@IntegrationTest
+@Tag("integrationTest")
+@ActiveProfiles("itest")
 @ExtendWith(SpringExtension::class)
 @DataJpaTest(
     includeFilters = [
@@ -59,9 +61,9 @@ internal class WorkRepositoryDataJpaTest(
         val findAll = workRepository.findAll()
         assertEquals(5, findAll.size)
         assertTrue {
-            findAll.stream().filter { w ->
-                w.title.equals("title sticker") &&
-                    w.price?.let { it == 33000.0 }
+            findAll.stream().filter {
+                it.title == "title sticker" &&
+                    it.price?.let { it == 33000.0 }
                         ?: false
             }
                 .findAny().isPresent

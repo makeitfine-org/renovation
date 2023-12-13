@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
+import renovation.backend.KeycloakContainerConfig
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
@@ -26,7 +27,7 @@ import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 @ActiveProfiles("secured-test")
 @ContextConfiguration(
     classes = [
-//        KeycloakContainerConfig::class,
+        KeycloakContainerConfig::class,
         WorkControllerWithSecurityTest.ControllerTestConfig::class
     ]
 )

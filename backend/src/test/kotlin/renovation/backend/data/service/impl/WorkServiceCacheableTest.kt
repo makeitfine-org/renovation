@@ -22,15 +22,25 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cache.CacheManager
-import renovation.backend.AppByContainersConfig
+import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
+import renovation.backend.PostgresContainerConfig
+import renovation.backend.RedisContainerConfig
 import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 
 @Tag("integrationTest")
+@ActiveProfiles("no-security")
 @SpringBootTest
+@ContextConfiguration(
+    classes = [
+        PostgresContainerConfig::class,
+        RedisContainerConfig::class,
+    ]
+)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-internal class WorkServiceCacheableTest : AppByContainersConfig() {
+internal class WorkServiceCacheableTest {
 
     companion object {
         private const val CACHE_NAME = "works"

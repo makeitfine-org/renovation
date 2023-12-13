@@ -7,7 +7,6 @@
 package renovation.backend.web.controller.functional
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import java.net.HttpURLConnection
@@ -25,18 +24,25 @@ import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.test.context.ContextConfiguration
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.PostgreSQLContainer
-import renovation.backend.AppByContainersConfig
+import renovation.backend.PostgresContainerConfig
+import renovation.backend.RedisContainerConfig
 import renovation.backend.web.interceptor.GlobalControllerExceptionHandler.Companion.INTERNAL_SERVER_ERROR
 import renovation.common.util.Rest
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
+@ContextConfiguration(
+    classes = [
+        PostgresContainerConfig::class,
+        RedisContainerConfig::class,
+    ]
+)
 internal abstract class WorkControllerAppByContainersConfig(
     private val port: Int,
-) : AppByContainersConfig() {
+) {
 
     companion object {
         @JvmStatic
@@ -46,63 +52,34 @@ internal abstract class WorkControllerAppByContainersConfig(
         private const val COUNT_WORD = "count"
     }
 
-//    @Autowired
-//    private lateinit var postgresContainer: PostgreSQLContainer<*>
-//
-//    @Autowired
-//    private lateinit var redisContainer: GenericContainer<*>
+    @Autowired
+    private lateinit var postgresContainer: PostgreSQLContainer<*>
+
+    @Autowired
+    private lateinit var redisContainer: GenericContainer<*>
 
     @Autowired
     private lateinit var jdbcTemplate: JdbcTemplate
 
-    @Value("\${spring.security.oauth2.client.provider.oauth-client.issuer-uri}")
-    private lateinit var issuerUri: String
+    @Order(0)
+    @Test
+    fun `container should be run`() {
+        jdbcTemplate.isIgnoreWarnings
+        assertTrue(postgresContainer.isRunning)
+        assertTrue(redisContainer.isRunning)
 
-    @Value("\${spring.security.oauth2.client.provider.oauth-client.token-uri}")
-    private lateinit var tokenUri: String
+        val url = URI("http://${postgresContainer.host}:${postgresContainer.firstMappedPort}").toURL()
 
-    @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
-    private lateinit var clientId: String
-
-    @Value("\${spring.security.oauth2.client.registration.oauth-client.client-secret}")
-    private lateinit var clientSecret: String
-
-    @Value("\${spring.security.oauth2.client.registration.oauth-client.scope}")
-    private lateinit var scope: String
-
-//    registration:
-//    oauth-client:
-//    client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
-//    client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
-//    scope: openid, profile, roles
-
-//    @Order(0)
-//    @Test
-//    fun `container should be run`() {
-//        jdbcTemplate.isIgnoreWarnings
-//        assertTrue(postgresContainer.isRunning)
-//        assertTrue(redisContainer.isRunning)
-//
-//        val url = URI("http://${postgresContainer.host}:${postgresContainer.firstMappedPort}").toURL()
-//
-//        url.openConnection() as HttpURLConnection
-//    }
+        url.openConnection() as HttpURLConnection
+    }
 
     @Order(1)
     @Test
     fun findAllWorks_Success() {
-        given().let {
-            it
-        }
+        given()
             .When {
                 get("/api/work")
             }.Then {
-                println("i>>> $issuerUri")
-                println("t>>> $tokenUri")
-                println("i>>> $clientId")
-                println("t>>> $clientSecret")
-                println("t>>> $scope")
-
                 statusCode(HttpStatus.SC_OK)
                 // todo: think of float with .0 is not reduce in restassured and reduce in spring mvc
                 body(
