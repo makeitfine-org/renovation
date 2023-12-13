@@ -50,7 +50,7 @@ management:
       enabled: true
   observations:
     key-values:
-      application: backend
+      application: gateway
 
 keycloak:
   auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
