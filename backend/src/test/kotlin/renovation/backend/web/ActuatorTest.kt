@@ -28,7 +28,6 @@ import renovation.common.util.Rest
 @Tag("integrationTest")
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    // properties = ["management.health.redis.enabled=false"] // todo: for docker compose redis is DOWN
 )
 @ContextConfiguration(
     classes = [
