@@ -1,5 +1,7 @@
 package renovation.webflux.server.web
 
+import java.time.Duration
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
@@ -43,6 +45,14 @@ class ControllerIntegrationTest(
 
     @Autowired
     private lateinit var webTestClient: WebTestClient
+
+    @BeforeTest
+    fun init() {
+        webTestClient = webTestClient
+            .mutate()
+            .responseTimeout(Duration.ofSeconds(15))
+            .build()
+    }
 
     @Test
     fun saveOrderTest() {
