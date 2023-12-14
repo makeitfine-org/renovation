@@ -118,7 +118,6 @@ class ControllerIntegrationTest(
                     """
                 )
             )
-            .returnResult()
     }
 
     @Test
