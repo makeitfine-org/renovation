@@ -25,7 +25,7 @@ class StartupController(
 ) {
 
     companion object {
-        private const val ABOUT_GE_URL_CALL_AMOUNT = "ABOUT_GE_URL_CALL_AMOUNT"
+        const val ABOUT_GE_URL_CALL_AMOUNT = "ABOUT_GE_URL_CALL_AMOUNT"
     }
 
     @GetMapping("/project")
@@ -41,6 +41,14 @@ class StartupController(
         httpSession.setAttribute(ABOUT_GE_URL_CALL_AMOUNT, ++counter)
 
         log.debug { "amoutn of \"/get\": $counter " }
+    }
+
+    @GetMapping("/counter")
+    fun counter(httpSession: HttpSession) = httpSession.getAttribute(ABOUT_GE_URL_CALL_AMOUNT).let {
+        var counter = it?.let { it as Int } ?: 0
+        httpSession.setAttribute(ABOUT_GE_URL_CALL_AMOUNT, ++counter)
+        log.debug { "amount of \"/get\": $counter " }
+        counter
     }
 
 //    @GetMapping(path = ["/logout"])
