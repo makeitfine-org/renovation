@@ -20,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import renovation.backend.PostgresContainerConfig
 import renovation.backend.RedisContainerConfig
+import renovation.common.util.Json
 
 @Tag("integrationTest")
 @ContextConfiguration(
@@ -45,7 +46,17 @@ internal class CounterStartupControllerTest(
             get("/counter")
         }.Then {
             statusCode(HttpStatus.SC_OK)
-            body(CoreMatchers.equalTo("1"))
+            body(
+                CoreMatchers.equalTo(
+                    Json.rowJson(
+                        """
+                        {
+                            "counter": 1
+                        }
+                        """
+                    )
+                )
+            )
         }
     }
 }

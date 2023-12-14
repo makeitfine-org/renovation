@@ -14,7 +14,9 @@ enum class BackendServerRoute(path: String) : Route {
 
     API_WORK("api/work"),
     API_WORKER("api/worker"),
-    API_WORK_ID("api/work/{id}");
+    API_WORK_ID("api/work/{id}"),
+
+    COUNTER("counter");
 
     override val baseUrlFromEnvironmentVariable = "BACKEND_SERVER_URL"
     override val baseUrlDefault = "http://localhost:8280"

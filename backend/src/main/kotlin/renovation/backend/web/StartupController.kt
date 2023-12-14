@@ -48,7 +48,10 @@ class StartupController(
         var counter = it?.let { it as Int } ?: 0
         httpSession.setAttribute(ABOUT_GE_URL_CALL_AMOUNT, ++counter)
         log.debug { "amount of \"/get\": $counter " }
-        counter
+
+        object {
+            val counter = counter
+        }
     }
 
 //    @GetMapping(path = ["/logout"])
