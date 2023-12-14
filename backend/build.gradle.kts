@@ -40,6 +40,8 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
 
+    implementation("org.springframework.session:spring-session-data-redis")
+
     testImplementation("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
