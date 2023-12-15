@@ -33,9 +33,13 @@ dependencies {
     implementation("com.google.guava:guava:${properties["guavaVersion"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation(libs.mockk)
 }
 
 jmh {

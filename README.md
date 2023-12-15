@@ -275,3 +275,14 @@ Enable editorconfig plugin in idea and enable editor config support for .editorc
 ### Performance:
 - https://httpd.apache.org/docs/2.4/programs/ab.html  
 `$> ab -n 1600 -c 40 localhost:8080/async_result`
+
+## Modules
+
+### Temp
+1) Run:  
+`$> docker compose up renovation-vault-prepopulate`  
+`$> ./gradlew :temp:bootRun`  
+2) Token:  
+`$> http POST :8080/token --auth test:test -v`
+3) Copy JWT token:
+4) 

@@ -16,6 +16,10 @@ logging:
     root: INFO
     renovation.temp: DEBUG
 
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
+
 server:
   port: ${PORT:8080}
 
@@ -32,7 +36,7 @@ spring:
   autoconfigure:
     exclude: >
       org.springframework.cloud.vault.config.VaultAutoConfiguration,
-      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 ---
 
