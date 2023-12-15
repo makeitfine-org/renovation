@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Tags
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.test.context.ActiveProfiles
 import renovation.common.util.Rest.given
 
 @Tags(
     Tag("integrationTest"),
     Tag("e2eTest")
 )
+@ActiveProfiles("no-security-no-vault")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class CoroutinesControllerTest(
     @LocalServerPort val port: Int

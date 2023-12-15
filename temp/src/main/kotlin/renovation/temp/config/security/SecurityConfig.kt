@@ -4,13 +4,14 @@
  * Copyright 2021-2023
  */
 
-package renovation.temp.config
+package renovation.temp.config.security
 
 import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
 import com.nimbusds.jose.proc.SecurityContext
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
@@ -37,6 +38,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
 class SecurityConfig(private val jwtConfigProperties: RsaKeyProperties) {
 
     @Bean

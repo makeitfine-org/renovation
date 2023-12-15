@@ -16,9 +16,10 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import renovation.temp.config.RsaKeyProperties
-import renovation.temp.config.SecurityConfig
-import renovation.temp.service.TokenService
+import renovation.temp.config.security.RsaKeyProperties
+import renovation.temp.config.security.SecurityConfig
+import renovation.temp.config.security.TokenController
+import renovation.temp.config.security.TokenService
 
 @WebMvcTest(StartupController::class, TokenController::class)
 @Import(SecurityConfig::class, TokenService::class, RsaKeyProperties::class)

@@ -7,9 +7,11 @@ import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.Tag
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.test.context.ActiveProfiles
 import renovation.common.util.Rest.given
 
 @Tag("integrationTest")
+@ActiveProfiles("no-security-no-vault")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class AsyncControllerTest(
     @LocalServerPort val port: Int

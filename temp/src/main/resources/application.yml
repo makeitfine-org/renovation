@@ -41,9 +41,9 @@ spring:
 
 spring:
   config:
-    import: vault://
     activate:
       on-profile: vault
+    import: vault://
   cloud:
     vault:
       host: ${VAULT_HOST:localhost}
@@ -51,10 +51,32 @@ spring:
       scheme: http
       token: ${VAULT_TOKEN:00000000-0000-0000-0000-000000000000}
       application-name: ${VAULT_APPLICATION_NAME:renovation_temp}
-  autoconfigure:
-    exclude: >
-      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 vaultValues:
   value1: ${value.value1:undef}
   value2: ${value.value2:undef}
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "no-security-no-vault"
+  security:
+    enabled: false
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,
+      org.springframework.cloud.vault.config.VaultAutoConfiguration,
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "no-security"
+  security:
+    enabled: false
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration,

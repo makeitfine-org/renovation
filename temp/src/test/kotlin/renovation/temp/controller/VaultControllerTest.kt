@@ -18,8 +18,10 @@ import renovation.common.util.Json
 import renovation.common.util.Rest.given
 
 @Tag("e2eTest")
-@ActiveProfiles("vault")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("vault", "no-security")
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+)
 internal class VaultControllerTest(
     @LocalServerPort private val port: Int,
 ) {
