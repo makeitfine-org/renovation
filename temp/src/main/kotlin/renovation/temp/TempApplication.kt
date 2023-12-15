@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync
 @EnableAsync
 class TempApplication
 
+// run before: docker-compose renovation-vault-prepopulate
 @Suppress("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<TempApplication>(*args) {
