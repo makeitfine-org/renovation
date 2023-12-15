@@ -31,7 +31,8 @@ spring:
       on-profile: "!vault"
   autoconfigure:
     exclude: >
-      org.springframework.cloud.vault.config.VaultAutoConfiguration
+      org.springframework.cloud.vault.config.VaultAutoConfiguration,
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 ---
 
@@ -47,6 +48,9 @@ spring:
       scheme: http
       token: ${VAULT_TOKEN:00000000-0000-0000-0000-000000000000}
       application-name: ${VAULT_APPLICATION_NAME:renovation_temp}
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 vaultValues:
   value1: ${value.value1:undef}
