@@ -36,7 +36,6 @@ spring:
   autoconfigure:
     exclude: >
       org.springframework.cloud.vault.config.VaultAutoConfiguration,
-#      org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 ---
 

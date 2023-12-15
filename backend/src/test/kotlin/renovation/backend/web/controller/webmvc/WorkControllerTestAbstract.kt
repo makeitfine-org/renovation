@@ -16,7 +16,6 @@ import java.time.LocalDate
 import java.util.UUID
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -24,7 +23,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Primary
 import org.springframework.http.MediaType
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -35,7 +33,6 @@ import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 import renovation.backend.web.controller.WorkController
 
-@ExtendWith(SpringExtension::class)
 @WebMvcTest(WorkController::class)
 @ContextConfiguration(classes = [WorkControllerTestAbstract.ControllerTestConfig::class])
 @Suppress("UnnecessaryAbstractClass")

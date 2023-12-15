@@ -10,13 +10,12 @@ import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet
-import com.nimbusds.jose.jwk.source.JWKSource
 import com.nimbusds.jose.proc.SecurityContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
-import org.springframework.security.config.Customizer
+import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -76,15 +75,12 @@ class SecurityConfig(private val jwtConfigProperties: RsaKeyProperties) {
      */
     @Order(Ordered.HIGHEST_PRECEDENCE)
     @Bean
-    @Throws(
-        Exception::class
-    )
     fun tokenSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .securityMatcher(AntPathRequestMatcher("/token"))
-            .authorizeHttpRequests(Customizer {
+            .authorizeHttpRequests {
                 it.anyRequest().authenticated()
-            })
+            }
             .sessionManagement {
                 it.sessionCreationPolicy(
                     SessionCreationPolicy.STATELESS
@@ -97,7 +93,7 @@ class SecurityConfig(private val jwtConfigProperties: RsaKeyProperties) {
                 it.authenticationEntryPoint(BearerTokenAuthenticationEntryPoint())
                 it.accessDeniedHandler(BearerTokenAccessDeniedHandler())
             }
-            .httpBasic(Customizer.withDefaults())
+            .httpBasic(withDefaults())
             .build()
     }
 
