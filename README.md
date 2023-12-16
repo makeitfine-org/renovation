@@ -276,6 +276,73 @@ Enable editorconfig plugin in idea and enable editor config support for .editorc
 - https://httpd.apache.org/docs/2.4/programs/ab.html  
 `$> ab -n 1600 -c 40 localhost:8080/async_result`
 
+## Reverse proxy nginx for to redirect docker keycloak via local machine:  
+- install and start nginx service  
+- see: /etc/nginx/conf.d/renovation-keycloak.conf
+```
+server {
+    listen      8080;
+    server_name renovation-keycloak;
+
+    location / {
+	proxy_redirect      off;
+	proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header    Host $http_host;
+	proxy_pass 	    http://127.0.0.1:18080/;
+    }
+}
+
+```
+(might be to add to /etc/hosts/ file such record: `#127.0.0.1	renovation-keycloak`)*
+
+## nginx useful:
+
+### for minikube
+
+/etc/host:
+```
+#127.0.0.1       r l
+192.168.49.2    mi k8s minikube mmii mmib
+#192.168.58.2   mmi mk8s mminikube mmii mmib
+192.168.55.3    mmi mk8s mminikube mmii mmib 
+192.168.55.3    www.my web1.my web2.my webx.my cat.my myapps
+```
+
+load balancing (/etc/nginx/conf.d/milb.conf):
+```
+upstream backend {
+#        least_conn;
+        server 192.168.55.2:30080 weight=3;
+        server 192.168.55.3:30082;
+    }
+
+    server {
+        listen      80;
+        server_name milb.com;
+
+        location / {
+	        proxy_redirect      off;
+	        proxy_set_header    X-Real-IP $remote_addr;
+	        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+	        proxy_set_header    Host $http_host;
+		proxy_pass http://backend;
+	}
+}
+```
+forwarding (/etc/nginx/conf.d/micro.conf):
+```
+server {
+    listen 8099;
+
+    server_name micro.com;
+
+    location / {
+        proxy_pass http://192.168.55.4:30080;
+    }
+}
+```
+
 ## Modules
 
 ### Temp
@@ -283,6 +350,6 @@ Enable editorconfig plugin in idea and enable editor config support for .editorc
 `$> docker compose up renovation-vault-prepopulate`  
 `$> ./gradlew :temp:bootRun`  
 2) Token:  
-`$> http POST :8080/token --auth test:test -v`
-3) Copy JWT token:
-4) 
+`$> http POST :8080/token --auth test:test -v`  
+3) Copy JWT token:  
+4) http :8080/about 'Authorization: Bearer <JWT_TOKEN_HERE>'  
