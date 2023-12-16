@@ -53,20 +53,20 @@ class SecurityConfig(
                 .requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/admin").hasAnyRole("admin")
-                .requestMatchers("/user").hasAnyRole("gateway", "admin")
+                .requestMatchers("/user").hasAnyAuthority("ROLE_gateway", "ROLE_admin")
                 .requestMatchers("/anonymous").anonymous()
                 .anyRequest().authenticated()
         }.oauth2Login {
-            it.userInfoEndpoint { userInfoEndpoint ->
-                userInfoEndpoint
-                    .oidcUserService(this.oidcUserService())
+            it.userInfoEndpoint {
+                it.oidcUserService(this.oidcUserService())
             }
-            it.authorizationEndpoint { it.authorizationRequestResolver(pkceResolver()) }
-        }.oauth2ResourceServer { resourceServerConfigurer ->
-            resourceServerConfigurer
-                .jwt { jwtConfigurer ->
-                    jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                }
+            it.authorizationEndpoint {
+                it.authorizationRequestResolver(pkceResolver())
+            }
+        }.oauth2ResourceServer {
+            it.jwt {
+                it.jwtAuthenticationConverter(jwtAuthenticationConverter())
+            }
         }.logout {
             it.logoutSuccessHandler(oidcLogoutSuccessHandler())
             it.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
