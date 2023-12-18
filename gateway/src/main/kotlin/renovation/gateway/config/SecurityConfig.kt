@@ -51,11 +51,17 @@ class SecurityConfig(
         http.authorizeHttpRequests {
             it
                 .requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
+                .requestMatchers("/scope/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/admin").hasAnyRole("admin")
                 .requestMatchers("/user").hasAnyAuthority("ROLE_gateway", "ROLE_admin")
                 .requestMatchers("/anonymous").anonymous()
                 .anyRequest().authenticated()
+        }.csrf {
+            it
+                .ignoringRequestMatchers("/scope/**")
+                .ignoringRequestMatchers("/scope/**")
+                .ignoringRequestMatchers("/scope/**")
         }.oauth2Login {
             it.userInfoEndpoint {
                 it.oidcUserService(this.oidcUserService())
