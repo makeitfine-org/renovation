@@ -6,7 +6,6 @@
 
 package renovation.gateway.config
 
-import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import kotlin.test.Test
@@ -19,14 +18,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.test.context.ContextConfiguration
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
+import renovation.common.util.Rest.given
 
 @Suppress("UnnecessaryAbstractClass")
 @ContextConfiguration(classes = [ExposeApiConfigTestAbstract.ControllerTestConfig::class])
 internal abstract class ExposeApiConfigTestAbstract(
     private val port: Int,
 ) {
-    val portHost = "http://localhost:$port"
-
     @TestConfiguration
     class ControllerTestConfig {
 
@@ -48,34 +46,27 @@ internal abstract class ExposeApiConfigTestAbstract(
     @Autowired
     private lateinit var token: GrantTypeAccessToken
 
-    fun given() = Given {
-        token.bearerAuthorizationHeader().let {
-            port(port)
-                .and()
-                .header(it.headerName, it.headerValue)
-        }
-    }
-
     @Test
     fun `Assert about controller`() {
-        When {
-            get("$portHost/about")
-        }.Then {
-            statusCode(HttpStatus.SC_OK)
-            body(
-                CoreMatchers.equalTo(
-                    """{"name":"renovation gateway module",""" +
-                        """"description":"Gateway for routing/gathering different request"}"""
+        given(port)
+            .When {
+                get("/about")
+            }.Then {
+                statusCode(HttpStatus.SC_OK)
+                body(
+                    CoreMatchers.equalTo(
+                        """{"name":"renovation gateway module",""" +
+                            """"description":"Gateway for routing/gathering different request"}"""
+                    )
                 )
-            )
-        }
+            }
     }
 
     @Test
     fun `Assert user controller`() {
-        given()
+        given(port, token)
             .When {
-                get("$portHost/user")
+                get("/user")
             }.Then {
                 statusCode(HttpStatus.SC_OK)
                 body(
@@ -86,9 +77,9 @@ internal abstract class ExposeApiConfigTestAbstract(
 
     @Test
     fun `Assert admin controller`() {
-        given()
+        given(port, token)
             .When {
-                get("$portHost/admin")
+                get("/admin")
             }.Then {
                 statusCode(HttpStatus.SC_FORBIDDEN)
             }
