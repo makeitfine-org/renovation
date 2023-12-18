@@ -215,8 +215,21 @@ For to autofix:
 
 ### Import users:  
 `$> docker exec renovation-keycloak /opt/keycloak/bin/kc.sh export --dir /tmp/export --users different_files`  
-`$> d exec -it renovation-keycloak sh`
+`$> d exec -it renovation-keycloak sh`  
+token with scopes (example):  
+curl -X POST http://localhost:18080/realms/renovation-realm/protocol/openid-connect/token  
+-H "Authorization: Bearer XXXX"  
+--data "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket"  
+--data "audience=renovation-gateway-client"
 
+https://www.keycloak.org/docs/latest/authorization_services/#_service_user_managed_access
+https://medium.com/@bcarunmail/securing-rest-api-using-keycloak-and-spring-oauth2-6ddf3a1efcc2
+https://docs.spring.io/spring-security/reference/reactive/oauth2/client/authorization-grants.html
+
+See:
+https://stackoverflow.com/questions/42186537/resources-scopes-permissions-and-policies-in-keycloak  
+https://keycloak.discourse.group/t/spring-boot-keycloak-permission-based-on-authorization-scope-spring-security/23144/3  
+https://www.keycloak.org/docs/latest/authorization_services/#_resource_overview
 
 ### Run modules:
 #### mockapi:  
