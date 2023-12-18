@@ -213,6 +213,11 @@ For to autofix:
 * http://localhost:8281/insecure/token/grant/password  
 * http://localhost:8281/insecure/token/grant/client  
 
+### Import users:  
+`$> docker exec renovation-keycloak /opt/keycloak/bin/kc.sh export --dir /tmp/export --users different_files`  
+`$> d exec -it renovation-keycloak sh`
+
+
 ### Run modules:
 #### mockapi:  
 1) $>`docker-compose up renovation-mockup`
