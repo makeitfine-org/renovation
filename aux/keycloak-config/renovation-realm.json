@@ -62,13 +62,39 @@
       "publicClient": false,
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
       "fullScopeAllowed": false,
       "redirectUris": [
         "*"
       ],
       "attributes": {
+        "saml.force.post.binding": "false",
+        "saml.multivalued.roles": "false",
+        "frontchannel.logout.session.required": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "use.refresh.tokens": "true",
+        "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
-        "pkce.code.challenge.method": "S256"
+        "client_credentials.use_refresh_token": "false",
+        "require.pushed.authorization.requests": "false",
+        "saml.client.signature": "false",
+        "pkce.code.challenge.method": "S256",
+        "saml.allow.ecp.flow": "false",
+        "id.token.as.detached.signature": "false",
+        "saml.assertion.signature": "false",
+        "saml.encrypt": "false",
+        "saml.server.signature": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml.artifact.binding": "false",
+        "saml_force_name_id_format": "false",
+        "acr.loa.map": "{}",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "token.response.type.bearer.lower-case": "false",
+        "saml.onetimeuse.condition": "false"
       },
       "protocolMappers": [
         {
@@ -102,10 +128,199 @@
         "phone",
         "offline_access",
         "microprofile-jwt"
-      ]
+      ],
+      "authorizationSettings": {
+        "allowRemoteResourceManagement": true,
+        "policyEnforcementMode": "ENFORCING",
+        "resources": [
+          {
+            "name": "Default Resource",
+            "type": "urn:renovation-gateway-client:resources:default",
+            "ownerManagedAccess": false,
+            "attributes": {},
+            "_id": "a8f8ccb9-44b5-4e33-98dd-ec401233b8c3",
+            "uris": [
+              "/*"
+            ]
+          },
+          {
+            "name": "res:account",
+            "ownerManagedAccess": false,
+            "attributes": {},
+            "_id": "3847d4c6-d0a0-4742-8834-98aa169c01e5",
+            "uris": [],
+            "scopes": [
+              {
+                "name": "scopes:view"
+              },
+              {
+                "name": "scopes:create"
+              }
+            ]
+          },
+          {
+            "name": "res:bot",
+            "ownerManagedAccess": false,
+            "attributes": {},
+            "_id": "67946ac2-98ce-4eac-8e9f-2dcbe4979252",
+            "uris": [],
+            "scopes": [
+              {
+                "name": "scopes:view"
+              },
+              {
+                "name": "scopes:create"
+              }
+            ]
+          },
+          {
+            "name": "res:report",
+            "ownerManagedAccess": false,
+            "attributes": {},
+            "_id": "efde43cc-784e-49ac-b420-4c599756ed3e",
+            "uris": [],
+            "scopes": [
+              {
+                "name": "scopes:view"
+              },
+              {
+                "name": "scopes:create"
+              }
+            ]
+          }
+        ],
+
+        "policies": [
+          {
+            "id": "21395f80-633b-4b8a-b69e-d060d351981a",
+            "name": "Agent",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"agent\",\"required\":false}]"
+            }
+          },
+          {
+            "id": "b2fd4271-99c6-4b89-a4d9-50e159de7108",
+            "name": "Super_admin",
+            "type": "role",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "roles": "[{\"id\":\"super_admin\",\"required\":false}]"
+            }
+          },
+          {
+            "id": "e5426c2a-0bdc-4c7d-936f-fbebac990b03",
+            "name": "Agent & Super_admin",
+            "type": "aggregate",
+            "logic": "POSITIVE",
+            "decisionStrategy": "AFFIRMATIVE",
+            "config": {
+              "applyPolicies": "[\"Agent\",\"Super_admin\"]"
+            }
+          },
+
+          {
+            "id": "225f7208-841a-4b32-a4a5-8e90d97205be",
+            "name": "account-create",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:account\"]",
+              "scopes": "[\"scopes:create\"]",
+              "applyPolicies": "[\"Super_admin\"]"
+            }
+          },
+          {
+            "id": "829c495e-883f-40f1-bbf4-2bb57d05cbcd",
+            "name": "account-view",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:account\"]",
+              "scopes": "[\"scopes:view\"]",
+              "applyPolicies": "[\"Agent & Super_admin\"]"
+            }
+          },
+          {
+            "id": "2485a451-8ba1-4562-8c7d-36430cd51076",
+            "name": "bot-create",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:bot\"]",
+              "scopes": "[\"scopes:create\"]",
+              "applyPolicies": "[\"Super_admin\"]"
+            }
+          },
+          {
+            "id": "c8a84b5a-63c9-46e5-bef1-5e378583ef72",
+            "name": "bot-view",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:bot\"]",
+              "scopes": "[\"scopes:view\"]",
+              "applyPolicies": "[\"Agent & Super_admin\"]"
+            }
+          },
+          {
+            "id": "f3401157-ed90-4dbc-bbf8-51e422d58783",
+            "name": "report-create",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:report\"]",
+              "scopes": "[\"scopes:create\"]",
+              "applyPolicies": "[\"Super_admin\"]"
+            }
+          },
+          {
+            "id": "d73dada1-0c02-4aca-b950-cdc77272c1c5",
+            "name": "report-view",
+            "type": "scope",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"res:report\"]",
+              "scopes": "[\"scopes:view\"]",
+              "applyPolicies": "[\"Agent & Super_admin\"]"
+            }
+          }
+        ],
+
+        "scopes": [
+          {
+            "name": "scopes:create"
+          },
+          {
+            "name": "scopes:view"
+          }
+        ],
+        "decisionStrategy": "UNANIMOUS"
+      }
     }
   ],
   "roles": {
+    "realm": [
+      {
+        "name": "agent",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "super_admin",
+        "composite": false,
+        "clientRole": false
+      }
+    ],
     "client": {
       "renovation-client": [
         {
@@ -138,6 +353,11 @@
         {
           "name": "gateway",
           "description": "gateway role",
+          "clientRole": true
+        },
+        {
+          "name": "uma_protection",
+          "composite": false,
           "clientRole": true
         }
       ]
@@ -285,6 +505,7 @@
       "requiredActions": [],
       "clientRoles": {
         "renovation-gateway-client": [
+          "uma_protection",
           "gateway"
         ]
       },

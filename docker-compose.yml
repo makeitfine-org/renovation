@@ -72,6 +72,7 @@ services:
       "-Dkeycloak.migration.provider=singleFile",
       "-Dkeycloak.migration.file=/opt/keycloak/data/import/renovation-realm.json",
       "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING",
+      "--verbose",
       "start-dev"
     ]
     volumes:
