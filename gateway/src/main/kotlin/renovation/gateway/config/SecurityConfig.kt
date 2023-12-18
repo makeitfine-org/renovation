@@ -58,10 +58,7 @@ class SecurityConfig(
                 .requestMatchers("/anonymous").anonymous()
                 .anyRequest().authenticated()
         }.csrf {
-            it
-                .ignoringRequestMatchers("/scope/**")
-                .ignoringRequestMatchers("/scope/**")
-                .ignoringRequestMatchers("/scope/**")
+            it.ignoringRequestMatchers("/scope/**")
         }.oauth2Login {
             it.userInfoEndpoint {
                 it.oidcUserService(this.oidcUserService())
