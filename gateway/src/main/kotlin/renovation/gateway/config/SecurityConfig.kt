@@ -114,6 +114,9 @@ class SecurityConfig(
 
     @Suppress("NestedBlockDepth")
     fun clientRolesAuthorities(jwt: Jwt) = JwtUtils.clientRolesAuthorities(clientId, jwt)
+    //    jwt.let {
+    //       RequestPartyToken(tokenUri, jwt.tokenValue, clientId)
+    //    }
 
     @Bean
     fun jwtAuthenticationConverter() = JwtAuthenticationConverter().also {

@@ -23,6 +23,8 @@ data class PasswordGrantTypeAccessToken(
         grantType = grantType,
         tokenEndpoint = tokenEndpoint,
 
+        null,
+
         "client_id" to clientId,
         "client_secret" to clientSecret,
         "username" to username,

@@ -38,8 +38,8 @@ object JwtUtils {
                     return grantedAuthorities
                 }
                 val roles = realmAccess["roles"] as JSonArr
-                val keycloakAuthorities = roles.filterNotNull().map { role: Any ->
-                    SimpleGrantedAuthority("ROLE_$role")
+                val keycloakAuthorities = roles.filterNotNull().map {
+                    SimpleGrantedAuthority("ROLE_$it")
                 }.toList()
                 grantedAuthorities!!.addAll(keycloakAuthorities)
 

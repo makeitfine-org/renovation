@@ -9,20 +9,20 @@ package renovation.common.security.iam.impl
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.GrantTypeAccessToken.TokenFetcher
 
-data class ClientCredentialsGrantTypeAccessToken(
-    val clientId: String,
-    val clientSecret: String,
+data class RequestPartyToken(
+    // RPT
     override val tokenEndpoint: String,
+    val jwtToken: String,
+    val audience: String,
 ) : GrantTypeAccessToken {
-    override val grantType = "client_credentials"
+    override val grantType = "urn:ietf:params:oauth:grant-type:uma-ticket"
 
     override val token: String = TokenFetcher.fetch(
         grantType = grantType,
         tokenEndpoint = tokenEndpoint,
 
-        null,
+        mapOf("Authorization" to "Bearer $jwtToken"),
 
-        "client_id" to clientId,
-        "client_secret" to clientSecret,
+        "audience" to audience,
     )
 }

@@ -36,6 +36,7 @@ interface GrantTypeAccessToken : Token {
             fun fetch(
                 grantType: String,
                 tokenEndpoint: String,
+                headers: Map<String, String>?,
                 vararg keyValues: Pair<String, String>
             ) = LinkedMultiValueMap<String, String>().let {
                 keyValues.forEach { kv ->
@@ -48,8 +49,11 @@ interface GrantTypeAccessToken : Token {
                     tokenEndpoint,
                     HttpEntity(
                         it,
-                        HttpHeaders().also {
-                            it.contentType = MediaType.APPLICATION_FORM_URLENCODED
+                        HttpHeaders().also { it0 ->
+                            it0.contentType = MediaType.APPLICATION_FORM_URLENCODED
+                            headers?.forEach {
+                                it0[it.key] = it.value
+                            }
                         }
                     ),
                     AccessToken::class.java
