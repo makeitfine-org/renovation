@@ -63,7 +63,7 @@
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "authorizationServicesEnabled": true,
-      "fullScopeAllowed": false,
+      "fullScopeAllowed": true,
       "redirectUris": [
         "*"
       ],
