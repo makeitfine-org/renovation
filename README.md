@@ -222,9 +222,12 @@ curl -X POST http://localhost:18080/realms/renovation-realm/protocol/openid-conn
 --data "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket"  
 --data "audience=renovation-gateway-client"
 
+todo: remove:  
 https://www.keycloak.org/docs/latest/authorization_services/#_service_user_managed_access
 https://medium.com/@bcarunmail/securing-rest-api-using-keycloak-and-spring-oauth2-6ddf3a1efcc2
 https://docs.spring.io/spring-security/reference/reactive/oauth2/client/authorization-grants.html
+https://wjw465150.gitbooks.io/keycloak-documentation/content/authorization_services/topics/service/authorization/authorization-api-aapi.html
+https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html/authorization_services_guide/service_overview
 
 See:
 https://stackoverflow.com/questions/42186537/resources-scopes-permissions-and-policies-in-keycloak  

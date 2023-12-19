@@ -43,33 +43,11 @@ object JwtUtils {
                 }.toList()
                 grantedAuthorities!!.addAll(keycloakAuthorities)
 
-                addClientRoles(jwt, grantedAuthorities)
+                grantedAuthorities.addAll(
+                    clientRolesAuthorities(clientId, jwt, rolesUppercase)
+                )
 
                 return grantedAuthorities
-            }
-
-            private fun addClientRoles(jwt: Jwt, grantedAuthorities: MutableCollection<GrantedAuthority>) {
-                jwt.getClaim<Any>("resource_access")?.let {
-                    (it as? JsonObj)?.let {
-                        (it[clientId] as? JsonObj)?.let {
-                            (it["roles"] as? JSonArr)?.let {
-                                val clientRoles = it.filterNotNull().map { r: Any ->
-                                    SimpleGrantedAuthority(
-                                        "ROLE_${
-                                            if (rolesUppercase == RoleCase.UPPERCASE) {
-                                                r.toString().uppercase()
-                                            } else {
-                                                r.toString().lowercase()
-                                            }
-                                        }"
-                                    )
-                                }.toList()
-
-                                grantedAuthorities.addAll(clientRoles)
-                            }
-                        }
-                    }
-                }
             }
         }
     }
