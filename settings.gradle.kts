@@ -56,6 +56,10 @@ dependencyResolutionManagement {
                 "spring-doc",
                 "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
             )
+            library(
+                "spring-doc-starter-common",
+                "org.springdoc:springdoc-openapi-starter-common:$springdocVersion"
+            )
         }
     }
 }

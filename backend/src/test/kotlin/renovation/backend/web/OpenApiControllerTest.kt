@@ -62,7 +62,7 @@ internal class OpenApiControllerTest(
     @Test
     fun `swagger_ui index_html`() {
         When {
-            get("/swagger-ui/index.html")
+            get("/swagger")
         }.Then {
             statusCode(SC_OK)
         }

@@ -7,11 +7,19 @@
 package renovation.backend.web.controller
 
 import io.micrometer.core.instrument.Counter
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jakarta.validation.Valid
 import java.util.UUID
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -34,7 +42,8 @@ import renovation.backend.data.validation.OnUpdate
 @RequestMapping("/api/work")
 @Validated
 class WorkController(
-    @Qualifier("workServiceCacheableImpl") private val workService: WorkService,
+    @Qualifier("workServiceCacheableImpl")
+    private val workService: WorkService,
     private val getAllWorksCounter: Counter,
 ) {
     companion object {
@@ -43,7 +52,25 @@ class WorkController(
     }
 
     @GetMapping
-    fun list(@RequestParam title: String?): List<Work> {
+    @Operation(summary = "Get all works")
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Found all works",
+                content = [
+                    (
+                        Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = (ArraySchema(schema = Schema(implementation = Work::class)))
+                        )
+                        )
+                ]
+            ),
+            ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
+            ApiResponse(responseCode = "401", description = "Not authenticate", content = [Content()])]
+    )
+    fun list(@Parameter(description = "title-like search") @RequestParam title: String?): List<Work> {
         LOG.info("find all works")
         return if (title.isNullOrBlank()) {
             getAllWorksCounter.increment()
