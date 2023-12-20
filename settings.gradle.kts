@@ -50,6 +50,12 @@ dependencyResolutionManagement {
                 "netflix-graphql-dgs",
                 "com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:$dgsPlatformDependenciesVersion"
             )
+
+            val springdocVersion: String by settings
+            library(
+                "spring-doc",
+                "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion"
+            )
         }
     }
 }

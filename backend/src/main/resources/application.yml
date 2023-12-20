@@ -108,3 +108,7 @@ spring:
             client-id: ${KEYCLOAK_CLIENT_ID:renovation-client}
             client-secret: ${KEYCLOAK_SECRET:341b3ff9-7af0-4854-b024-63a82e7174cd}
             scope: openid, profile, roles
+
+springdoc:
+  api-docs:
+    path: /openapi

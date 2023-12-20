@@ -14,6 +14,7 @@ plugins {
 
 dependencies {
     implementation(platform(libs.testcontainers.bom))
+    implementation(libs.spring.doc)
 
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
