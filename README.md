@@ -374,3 +374,7 @@ server {
 `$> http POST :8080/token --auth test:test -v`  
 3) Copy JWT token:  
 4) http :8080/about 'Authorization: Bearer <JWT_TOKEN_HERE>'  
+
+## Openapi (swagger) for backend module:  
+$> api url: http://localhost:8080
+$> Download open api yaml: http://localhost:8080/openapi.yaml

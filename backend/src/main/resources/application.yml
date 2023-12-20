@@ -112,5 +112,6 @@ spring:
 springdoc:
   api-docs:
     path: /openapi
+    # Download open api yaml: http://localhost:8080/openapi.yaml
   swagger-ui:
     path: /swagger
