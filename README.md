@@ -382,3 +382,11 @@ $> Download open api yaml: http://localhost:8080/openapi.yaml
 ## social login (social-login profile of gateway module):  
 env. vars `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`  
 are in github actions secrets and env. vars
+
+## certificates passwords (gateway > store):  
+rootCA > 1234567  
+localhost > 12345  
+keystore.jks > 12345  
+check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 1234567`  
+Run gateway with social-login & certificate (export oauth2 registration env. vars):  
+`gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
