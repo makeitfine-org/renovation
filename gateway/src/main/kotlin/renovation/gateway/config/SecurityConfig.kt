@@ -7,9 +7,9 @@
 package renovation.gateway.config
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest
@@ -32,7 +32,7 @@ import renovation.common.security.jwt.JwtUtils
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-@ConditionalOnProperty(name = ["spring.security.enabled"], havingValue = "true", matchIfMissing = true)
+@Profile("!social-login")
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
     private val clientId: String,

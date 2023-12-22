@@ -59,6 +59,12 @@ spring:
   application:
     name: ${info.app.name}
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "!social-login"
   security:
     oauth2:
       client:

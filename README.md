@@ -378,3 +378,7 @@ server {
 ## Openapi (swagger) for backend module:  
 $> api url: http://localhost:8080
 $> Download open api yaml: http://localhost:8080/openapi.yaml
+
+## social login (social-login profile of gateway module):  
+env. vars `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`  
+are in github actions secrets and env. vars
