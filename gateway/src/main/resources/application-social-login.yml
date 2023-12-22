@@ -9,7 +9,7 @@ spring:
     oauth2:
       client:
         registration:
-          github:
+          github: # koresmosto account
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
 
