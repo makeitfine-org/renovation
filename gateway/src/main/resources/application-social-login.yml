@@ -8,11 +8,11 @@ spring:
   security:
     oauth2:
       client:
-        registration:
-          github: # koresmosto account
-            client-id: ${GITHUB_CLIENT_ID}
-            client-secret: ${GITHUB_CLIENT_SECRET}
+        registration: # koresmosto account # https://www.youtube.com/watch?v=us0VjFiHogo&t=414s&ab_channel=DanVega
+          github:
+            client-id: ${SOCIAL_LOGIN_GITHUB_CLIENT_ID}
+            client-secret: ${SOCIAL_LOGIN_GITHUB_CLIENT_SECRET}
 
-#          google:
-#            client-id: ${GOOGLE_CLIENT_ID}
-#            client-secret: ${GOOGLE_CLIENT_SECRET}
+          google:
+            client-id: ${SOCIAL_LOGIN_GOOGLE_CLIENT_ID}
+            client-secret: ${SOCIAL_LOGIN_GOOGLE_CLIENT_SECRET}

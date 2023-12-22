@@ -69,8 +69,29 @@ internal class SocialLoginTest(
                 body(CoreMatchers.containsString("Sign in"))
 
                 body(CoreMatchers.containsString("Login with OAuth 2.0"))
+
                 body(CoreMatchers.containsString("GitHub"))
                 body(CoreMatchers.containsString("/oauth2/authorization/github"))
+
+                body(CoreMatchers.containsString("Google"))
+                body(CoreMatchers.containsString("/oauth2/authorization/google"))
+            }
+    }
+
+    @Test
+    fun `Assert logout page`() {
+        given(port)
+            .When {
+                get("/logout")
+            }.Then {
+                statusCode(HttpStatus.SC_OK)
+
+                body("$.size()", Matchers.greaterThan(0))
+
+                body(CoreMatchers.containsString("Confirm Log Out?"))
+                body(CoreMatchers.containsString("Are you sure you want to log out?"))
+
+                body(CoreMatchers.containsString("/logout"))
             }
     }
 }
