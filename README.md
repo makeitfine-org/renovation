@@ -387,6 +387,7 @@ are in github actions secrets and env. vars
 rootCA > 1234567  
 localhost > 12345  
 keystore.jks > 12345  
+truststore.jks > 1234567  
 check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 1234567`  
 Run gateway with social-login & certificate (export oauth2 registration env. vars):  
 `gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
