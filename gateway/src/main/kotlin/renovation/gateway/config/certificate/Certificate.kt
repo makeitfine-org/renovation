@@ -4,7 +4,7 @@
  * Copyright 2021-2023
  */
 
-package renovation.gateway.config
+package renovation.gateway.config.certificate
 
 import java.security.Principal
 import org.springframework.context.annotation.Profile
@@ -13,9 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
+@RestController
 @RequestMapping("/certificate")
-@Profile("cert")
+@Profile("certificate")
 class Certificate {
 
     @GetMapping

@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtDecoders
 
 @Configuration
-@Profile("!social-login")
+@Profile("!social-login & !certificate")
 class DecoderConfig(
     @Value("\${spring.security.oauth2.client.provider.oauth-client.issuer-uri}")
     private val issuerUri: String,

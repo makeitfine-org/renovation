@@ -32,7 +32,7 @@ import renovation.common.security.jwt.JwtUtils
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-@Profile("!social-login")
+@Profile("!social-login & !certificate")
 class SecurityConfig(
     @Value("\${spring.security.oauth2.client.registration.oauth-client.client-id}")
     private val clientId: String,

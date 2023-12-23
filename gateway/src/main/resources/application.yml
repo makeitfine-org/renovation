@@ -25,6 +25,33 @@ logging:
       max-history: 5
       max-file-size: 5MB
 
+spring:
+  application:
+    name: ${info.app.name}
+
+---
+
+keycloak:
+  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
+
+spring:
+  config:
+    activate:
+      on-profile: "!social-login & !certificate"
+  security:
+    oauth2:
+      client:
+        provider:
+          oauth-client:
+            issuer-uri: ${keycloak.auth-server-url}/realms/${KEYCLOAK_REALM:renovation-realm}
+        registration:
+          oauth-client:
+            client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-gateway-client}
+            client-secret: ${KEYCLOAK_GATEWAY_SECRET:02d5170a-053f-11ee-be56-0242ac120002}
+            scope: openid, profile, roles
+#            authorization-grant-type: authorization_code
+#            redirect-uri: {baseUrl}/login/oauth2/code/oauth2-demo-client #http://localhost:8085/login/oauth2/code/oauth-client
+
 management:
   server:
     port: 8086
@@ -51,30 +78,3 @@ management:
   observations:
     key-values:
       application: gateway
-
-keycloak:
-  auth-server-url: http://${KEYCLOAK_HOSTNAME:localhost}:${KEYCLOAK_PORT:18080}
-
-spring:
-  application:
-    name: ${info.app.name}
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "!social-login"
-  security:
-    oauth2:
-      client:
-        provider:
-          oauth-client:
-            issuer-uri: ${keycloak.auth-server-url}/realms/${KEYCLOAK_REALM:renovation-realm}
-        registration:
-          oauth-client:
-            client-id: ${KEYCLOAK_GATEWAY_CLIENT_ID:renovation-gateway-client}
-            client-secret: ${KEYCLOAK_GATEWAY_SECRET:02d5170a-053f-11ee-be56-0242ac120002}
-            scope: openid, profile, roles
-#            authorization-grant-type: authorization_code
-#            redirect-uri: {baseUrl}/login/oauth2/code/oauth2-demo-client #http://localhost:8085/login/oauth2/code/oauth-client
