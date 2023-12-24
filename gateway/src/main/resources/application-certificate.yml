@@ -28,3 +28,23 @@ server:
     key-password: 12345
     enabled: true
   port: 8443
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "truststore"
+
+server:
+  ssl:
+    key-store: src/main/resources/store/keystore.jks
+    key-store-password: 1234567
+    key-alias: localhost
+    key-password: 12345
+    enabled: true
+
+    trust-store: src/main/resources/store/truststore.jks
+    trust-store-password: 1234567
+    client-auth: need
+  port: 8443

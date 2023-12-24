@@ -384,11 +384,13 @@ env. vars `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGL
 are in github actions secrets and env. vars
 
 ## certificates passwords (gateway > store):  
-(check password: `$>keytool -list -keystore <keystorefile> -storepass <passwordtocheck>`)
-rootCA > 1234567  
-localhost > 12345  
-keystore.jks > 12345  
+(check password: `$>keytool -list -keystore <keystorefile> -storepass <passwordtocheck>`)  
+https://www.baeldung.com/x-509-authentication-in-spring-security  
+rootCA         > 1234567  
+localhost      > 12345  
+keystore.jks   > 12345  
 truststore.jks > 1234567  
+clientTom.p12  > 12345678  
 check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 1234567`  
 Run gateway with social-login & certificate (export oauth2 registration env. vars):  
 `gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
