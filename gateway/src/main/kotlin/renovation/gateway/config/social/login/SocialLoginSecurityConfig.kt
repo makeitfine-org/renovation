@@ -22,13 +22,13 @@ class SocialLoginSecurityConfig {
     @Bean
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        return http.authorizeHttpRequests(Customizer {
+        return http.authorizeHttpRequests {
             it.requestMatchers("/about", "/unauthorized", "/anonymous").permitAll()
                 .requestMatchers("/scope/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/anonymous").anonymous()
                 .anyRequest().authenticated()
-        })
+        }
             .oauth2Login(Customizer.withDefaults())
             .formLogin(Customizer.withDefaults())
             .build()
