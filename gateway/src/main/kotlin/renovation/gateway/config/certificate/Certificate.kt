@@ -23,8 +23,8 @@ class Certificate {
     @GetMapping("/user")
     fun user(model: Model, principal: Principal): String {
         val currentUser =
-            ((principal as Authentication).principal as DefaultOAuth2User).attributes["login"] ?: "NO USER!!!"
+            ((principal as Authentication).principal as DefaultOAuth2User).attributes["login"] ?: "<NO USER>"
         model.addAttribute("username", currentUser)
-        return currentUser.toString()
+        return "Hello, $currentUser!"
     }
 }
