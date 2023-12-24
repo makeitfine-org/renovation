@@ -34,9 +34,9 @@ internal class CertificateTest(
     }
 
     @Test
-    fun `Assert user page`() {
+    fun `Assert user page`() { // todo: e2e (ui test) with oauth2 login by github/google
         When {
-            get("/user")
+            get("/certificate/user")
         }.Then {
             statusCode(HttpStatus.SC_OK)
 

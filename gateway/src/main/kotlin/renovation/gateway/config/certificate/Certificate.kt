@@ -9,7 +9,7 @@ package renovation.gateway.config.certificate
 import java.security.Principal
 import org.springframework.context.annotation.Profile
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController
 @Profile("certificate")
 class Certificate {
 
-    @GetMapping
+    @GetMapping("/user")
     fun user(model: Model, principal: Principal): String {
-        val currentUser = (principal as Authentication).principal as UserDetails
+        val currentUser =
+            ((principal as Authentication).principal as DefaultOAuth2User).attributes["login"] ?: "NO USER!!!"
         model.addAttribute("username", currentUser)
-        return "user"
+        return currentUser.toString()
     }
 }
