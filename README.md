@@ -384,6 +384,7 @@ env. vars `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGL
 are in github actions secrets and env. vars
 
 ## certificates passwords (gateway > store):  
+(check password: `$>keytool -list -keystore <keystorefile> -storepass <passwordtocheck>`)
 rootCA > 1234567  
 localhost > 12345  
 keystore.jks > 12345  
