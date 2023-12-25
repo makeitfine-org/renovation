@@ -19,14 +19,8 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${properties["postgresqlVersion"]}")
-    implementation("org.springframework.boot:spring-boot-starter-web") {
-//        todo: remove jackson exlude
-        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
-    implementation("org.springframework.boot:spring-boot-starter-actuator") {
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") {

@@ -25,10 +25,7 @@ dependencies {
     implementation("com.netflix.graphql.dgs:graphql-dgs-extended-validation")
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.springframework.boot:spring-boot-starter-web") {
-        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-oauth2-resource-server")

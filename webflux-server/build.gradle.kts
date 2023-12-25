@@ -14,10 +14,7 @@ dependencies {
     implementation(platform(libs.testcontainers.bom))
 
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter-webflux") {
-        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     runtimeOnly("com.mysql:mysql-connector-j")
@@ -25,7 +22,6 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 

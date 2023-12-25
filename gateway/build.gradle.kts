@@ -15,13 +15,8 @@ dependencies {
     implementation(platform(libs.testcontainers.bom))
 
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.springframework.boot:spring-boot-starter") {
-        exclude(group = "com.fasterxml.jackson", module = "jackson-bom")
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
-    implementation("org.springframework.boot:spring-boot-starter-actuator") {
-        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
-    }
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-function-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")

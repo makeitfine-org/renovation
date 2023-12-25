@@ -35,7 +35,8 @@ subprojects {
         properties["gatewayModuleName"],
         properties["tempModuleName"],
         properties["webfluxServerModuleName"],
-        properties["ktorServerModuleName"]
+        properties["ktorServerModuleName"],
+        properties["kafkaServiceModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
@@ -81,10 +82,9 @@ subprojects {
             }
 
             implementation("commons-io:commons-io:${properties["commonsIoVersion"]}")
-            implementation("com.fasterxml.jackson:jackson-bom:${properties["jacksonVersion"]}")
-            implementation("com.fasterxml.jackson.core:jackson-databind:${properties["jacksonVersion"]}")
             implementation("io.github.microutils:kotlin-logging-jvm:${properties["kotlinLoggingVersion"]}")
             implementation("org.jetbrains.kotlin:kotlin-reflect")
+            implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${properties["jacksonKotlinVersion"]}")
 
             testImplementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
             testImplementation("org.assertj:assertj-core:${properties["assertjVersion"]}")
