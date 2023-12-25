@@ -394,3 +394,7 @@ clientTom.p12  > 12345678
 check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 1234567`  
 Run gateway with social-login & certificate (export oauth2 registration env. vars):  
 `gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
+
+## Usage kafka:
+`$> dc renovation-kafka-ui up`  
+`$> dc --profile kafka down`  

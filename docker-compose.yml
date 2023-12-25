@@ -250,5 +250,53 @@ services:
     networks:
       - renovation-network
 
+  renovation-zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.3
+    container_name: renovation-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - ${ZOOKEEPER_REDIRECT_PORT}:2181
+    networks:
+      - renovation-network
+    profiles:
+      - kafka
+
+  renovation-kafka:
+    image: confluentinc/cp-kafka:7.4.3
+    container_name: renovation-kafka
+    depends_on:
+      - renovation-zookeeper
+    ports:
+      - ${KAFKA_REDIRECT_PORT}:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: renovation-zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://renovation-kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - renovation-network
+    profiles:
+      - kafka
+
+  renovation-kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: renovation-kafka-ui
+    depends_on:
+      - renovation-kafka
+    ports:
+      - ${KAFKA_UI_REDIRECT_PORT}:8080
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: renovation-kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: renovation-zookeeper:2181
+    networks:
+      - renovation-network
+    profiles:
+      - kafka
+
 networks:
   renovation-network:
