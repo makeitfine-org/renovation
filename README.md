@@ -395,6 +395,6 @@ check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 12
 Run gateway with social-login & certificate (export oauth2 registration env. vars):  
 `gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
 
-## Usage kafka:
-`$> dc renovation-kafka-ui up`  
+## Usage kafka (dc - docker compose):
+`$> dcu renovation-kafka-ui`  
 `$> dc --profile kafka down`  
