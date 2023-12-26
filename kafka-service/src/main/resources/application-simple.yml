@@ -6,7 +6,7 @@
 
 spring:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:29092,localhost:29093
     consumer:
       auto-offset-reset: earliest
       group-id: simple_group_id
