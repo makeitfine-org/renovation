@@ -6,6 +6,7 @@
 
 package renovation.kafka.service.simple
 
+import mu.KotlinLogging
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
 import org.springframework.beans.factory.annotation.Value
@@ -16,6 +17,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 import org.springframework.stereotype.Component
+
+private val log = KotlinLogging.logger { }
 
 @Configuration
 @Profile("simple")
@@ -39,6 +42,8 @@ class KafkaProducerConfig {
 class MessageProducer(val kafkaTemplate: KafkaTemplate<String, String>) {
 
     fun sendMessage(topic: String, message: String?) {
-        kafkaTemplate.send(topic, message)
+        kafkaTemplate.send(topic, message).also {
+            log.info("sending payload='$message' to topic='$topic'")
+        }
     }
 }

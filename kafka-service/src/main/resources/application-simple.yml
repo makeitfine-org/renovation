@@ -8,6 +8,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:29092
     consumer:
+      auto-offset-reset: earliest
       group-id: simple_group_id
 
 topic:

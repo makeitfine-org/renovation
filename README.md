@@ -397,4 +397,3 @@ Run gateway with social-login & certificate (export oauth2 registration env. var
 
 ## Usage kafka (dc - docker compose):
 `$> dcu renovation-kafka-ui`  
-`$> dc --profile kafka down`  

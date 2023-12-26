@@ -8,10 +8,10 @@ package renovation.kafka.service.simple
 
 import mu.KotlinLogging
 import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component
 
 private val log = KotlinLogging.logger { }
 
-@Configuration
-@Profile("simple")
+// @Configuration
+// @Profile("simple")
 class KafkaConsumerConfig {
     @Bean
     fun consumerFactory(
@@ -49,9 +49,13 @@ class KafkaConsumerConfig {
 @Component
 @Profile("simple")
 class MessageConsumer {
+    final var lastObtainedMessage: String? = null
+        private set
 
     @KafkaListener(topics = ["\${topic.simple}"], groupId = "\${spring.kafka.consumer.group-id}")
-    fun listen(message: String) {
-        log.info("Received message: $message")
+    fun listen(consumerRecord: ConsumerRecord<*, String>) {
+        log.info("Received message: $consumerRecord")
+
+        lastObtainedMessage = consumerRecord.value()
     }
 }
