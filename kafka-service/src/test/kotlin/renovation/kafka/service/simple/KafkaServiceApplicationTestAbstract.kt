@@ -1,4 +1,10 @@
-package renovation.kafka.service
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2023
+ */
+
+package renovation.kafka.service.simple
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -6,19 +12,14 @@ import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
-import renovation.kafka.service.simple.MessageConsumer
-import renovation.kafka.service.simple.MessageProducer
 
 @Tag("integrationTest")
 @ActiveProfiles("simple")
-@SpringBootTest
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = ["listeners=PLAINTEXT://localhost:29192", "port=29192"])
-class KafkaServiceEmbeddedKafkaApplicationTest {
-
+@SpringBootTest
+abstract class KafkaServiceApplicationTestAbstract {
     @Autowired
     private lateinit var messageProducer: MessageProducer
 

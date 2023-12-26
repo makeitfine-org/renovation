@@ -20,5 +20,7 @@ dependencies{
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.springframework.kafka:spring-kafka-test")
-//    testImplementation("org.testcontainers:kafka")
+    testImplementation("org.testcontainers:kafka")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation(libs.quarkus.junit4.mock)
 }
