@@ -28,9 +28,8 @@ class CertificateSecurityConfig {
         http.authorizeHttpRequests {
             it.anyRequest()
                 .authenticated()
-                .and()
-                .x509()
-                .subjectPrincipalRegex("CN=(.*?)(?:,|$)")
+        }.x509 {
+            it.subjectPrincipalRegex("CN=(.*?)(?:,|$)")
                 .userDetailsService(userDetailsService())
         }.build()
 
