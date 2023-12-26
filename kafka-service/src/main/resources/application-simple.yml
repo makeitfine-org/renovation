@@ -1,3 +1,9 @@
+##
+# Created under not commercial project "Renovation"
+#
+# Copyright 2021-2023
+##
+
 spring:
   kafka:
     bootstrap-servers: localhost:29092
