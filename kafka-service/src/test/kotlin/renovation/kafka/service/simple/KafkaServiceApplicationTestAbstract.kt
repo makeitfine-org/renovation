@@ -6,8 +6,10 @@
 
 package renovation.kafka.service.simple
 
+import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -35,14 +37,16 @@ abstract class KafkaServiceApplicationTestAbstract {
     @Test
     fun sendMessageToTopicSimple() {
         messageProducer.sendMessage(simpleTopic, "payload to topic simple")
-        Thread.sleep(500)
+        assertWait()
         assertEquals("payload to topic simple", messageConsumer.lastObtainedMessage)
         assertEquals(0, messageConsumer.lastObtainedMessagePartition)
+        resetLatch()
 
         messageProducer.sendMessage(simpleTopic, "payload next to topic simple")
-        Thread.sleep(500)
+        assertWait()
         assertEquals("payload next to topic simple", messageConsumer.lastObtainedMessage)
         assertEquals(0, messageConsumer.lastObtainedMessagePartition)
+        resetLatch()
     }
 
     @Test
@@ -53,13 +57,18 @@ abstract class KafkaServiceApplicationTestAbstract {
 //        assertEquals(2, messageConsumer.lastObtainedMessagePartition)
 
         messageProducer.sendMessage(partitionedTopic, 0, "payload to topic partitioned 0")
-        Thread.sleep(500)
+        assertWait()
         assertEquals("payload to topic partitioned 0", messageConsumer.lastObtainedMessage)
         assertEquals(0, messageConsumer.lastObtainedMessagePartition)
+        messageConsumer.resetLatch()
 //
 //        messageProducer.sendMessage(partitionedTopic, 1, "payload to topic partitioned 1")
 //        Thread.sleep(500)
 //        assertEquals("payload to topic partitioned 1", messageConsumer.lastObtainedMessage)
 //        assertEquals(1, messageConsumer.lastObtainedMessagePartition)
     }
+
+    protected fun assertWait() = assertTrue(messageConsumer.latch.await(5, TimeUnit.SECONDS))
+
+    protected fun resetLatch() = messageConsumer.resetLatch()
 }

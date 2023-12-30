@@ -6,6 +6,7 @@
 
 package renovation.kafka.service.simple
 
+import java.util.concurrent.CountDownLatch
 import mu.KotlinLogging
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -39,7 +40,7 @@ class KafkaConsumerConfig {
 
     @Bean
     fun kafkaListenerContainerFactory(consumerFactory: ConsumerFactory<String, String>):
-        ConcurrentKafkaListenerContainerFactory<String, String> {
+            ConcurrentKafkaListenerContainerFactory<String, String> {
         val factory = ConcurrentKafkaListenerContainerFactory<String, String>()
         factory.consumerFactory = consumerFactory
         return factory
@@ -55,6 +56,9 @@ class MessageConsumer {
     final var lastObtainedMessagePartition: Int = 0
         private set
 
+    final var latch = CountDownLatch(1)
+        private set
+
     @KafkaListener(
         topics = ["\${topic.simple}", "\${topic.partitioned}"],
         groupId = "\${spring.kafka.consumer.group-id}"
@@ -64,5 +68,11 @@ class MessageConsumer {
 
         lastObtainedMessage = consumerRecord.value()
         lastObtainedMessagePartition = consumerRecord.partition()
+
+        latch.countDown()
+    }
+
+    fun resetLatch() {
+        latch = CountDownLatch(1)
     }
 }
