@@ -6,6 +6,7 @@
 
 package renovation.kafka.service.simple
 
+import org.junit.jupiter.api.Tag
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -14,6 +15,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 
+@Tag("integrationTest")
 @Testcontainers
 class KafkaServiceApplicationTest : KafkaServiceApplicationTestAbstract() {
 
