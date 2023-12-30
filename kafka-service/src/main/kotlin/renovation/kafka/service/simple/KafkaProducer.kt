@@ -6,6 +6,7 @@
 
 package renovation.kafka.service.simple
 
+import java.time.Instant
 import mu.KotlinLogging
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
@@ -43,6 +44,12 @@ class MessageProducer(val kafkaTemplate: KafkaTemplate<String, String>) {
 
     fun sendMessage(topic: String, message: String?) {
         kafkaTemplate.send(topic, message).also {
+            log.info("sending payload='$message' to topic='$topic'")
+        }
+    }
+
+    fun sendMessage(topic: String, partition: Int, message: String?) {
+        kafkaTemplate.send(topic, partition, Instant.now().toString(), message).also {
             log.info("sending payload='$message' to topic='$topic'")
         }
     }

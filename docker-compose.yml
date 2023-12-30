@@ -302,7 +302,7 @@ services:
       - renovation-network
 
   renovation-kafka-ui:
-    image: provectuslabs/kafka-ui:latest
+    image: provectuslabs/kafka-ui:53a6553765a806eda9905c43bfcfe09da6812035
     container_name: renovation-kafka-ui
     depends_on:
       - renovation-kafka-0
@@ -313,6 +313,23 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: renovation-kafka-0:9092,renovation-kafka-1:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: renovation-zookeeper:2181
+    networks:
+      - renovation-network
+
+  renovation-schema-registry:
+    image: confluentinc/cp-schema-registry:7.5.3
+    container_name: renovation-schema-registry
+    depends_on:
+      - renovation-kafka-0
+      - renovation-kafka-1
+    ports:
+      - ${SCHEMA_REGISTRY_REDIRECT_PORT}:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: renovation-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'renovation-zookeeper:2181'
+      SCHEMA_REGISTRY_LISTENERS: http://renovation-schema-registry:8081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://renovation-kafka-0:9092,PLAINTEXT_INTERNAL://localhost:29092
+      SCHEMA_REGISTRY_DEBUG: 'true'
     networks:
       - renovation-network
 

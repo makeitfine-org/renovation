@@ -52,10 +52,17 @@ class MessageConsumer {
     final var lastObtainedMessage: String? = null
         private set
 
-    @KafkaListener(topics = ["\${topic.simple}"], groupId = "\${spring.kafka.consumer.group-id}")
+    final var lastObtainedMessagePartition: Int = 0
+        private set
+
+    @KafkaListener(
+        topics = ["\${topic.simple}", "\${topic.partitioned}"],
+        groupId = "\${spring.kafka.consumer.group-id}"
+    )
     fun listen(consumerRecord: ConsumerRecord<*, String>) {
         log.info("Received message: $consumerRecord")
 
         lastObtainedMessage = consumerRecord.value()
+        lastObtainedMessagePartition = consumerRecord.partition()
     }
 }
