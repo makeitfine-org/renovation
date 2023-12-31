@@ -11,4 +11,4 @@ import org.springframework.kafka.test.context.EmbeddedKafka
 
 @Tag("integrationTest")
 @EmbeddedKafka(partitions = 1, brokerProperties = ["listeners=PLAINTEXT://localhost:29192", "port=29192"])
-class KafkaServiceEmbeddedKafkaApplicationTest : KafkaServiceApplicationTestAbstract()
+class KafkaServiceApplicationEmbeddedKafkaTest : KafkaServiceApplicationTestAbstract()

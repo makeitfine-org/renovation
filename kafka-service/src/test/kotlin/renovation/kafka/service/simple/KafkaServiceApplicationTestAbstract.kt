@@ -49,21 +49,11 @@ abstract class KafkaServiceApplicationTestAbstract {
 
     @Test
     fun sendMessageToTopicPartitioned() {
-//        messageProducer.sendMessage(partitionedTopic, 2, "payload to topic partitioned 2")
-//        Thread.sleep(500)
-//        assertEquals("payload to topic partitioned 2", messageConsumer.lastObtainedMessage)
-//        assertEquals(2, messageConsumer.lastObtainedMessagePartition)
-
         messageProducer.sendMessage(partitionedTopic, 0, "payload to topic partitioned 0")
         assertWait()
         assertEquals("payload to topic partitioned 0", messageConsumer.lastObtainedMessage)
         assertEquals(0, messageConsumer.lastObtainedMessagePartition)
         resetLatch()
-//
-//        messageProducer.sendMessage(partitionedTopic, 1, "payload to topic partitioned 1")
-//        Thread.sleep(500)
-//        assertEquals("payload to topic partitioned 1", messageConsumer.lastObtainedMessage)
-//        assertEquals(1, messageConsumer.lastObtainedMessagePartition)
     }
 
     protected fun assertWait() = assertTrue(messageConsumer.latch.await(5, TimeUnit.SECONDS))

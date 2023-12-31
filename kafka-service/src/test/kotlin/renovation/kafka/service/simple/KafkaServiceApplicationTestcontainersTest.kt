@@ -17,7 +17,7 @@ import org.testcontainers.utility.DockerImageName
 
 @Tag("integrationTest")
 @Testcontainers
-class KafkaServiceApplicationTest : KafkaServiceApplicationTestAbstract() {
+class KafkaServiceApplicationTestcontainersTest : KafkaServiceApplicationTestAbstract() {
 
     companion object {
 
