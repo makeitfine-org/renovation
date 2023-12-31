@@ -6,9 +6,12 @@
 
 package renovation.kafka.service.simple
 
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -26,11 +29,17 @@ abstract class KafkaServiceApplicationTestAbstract {
     @Autowired
     protected lateinit var messageConsumer: MessageConsumer
 
+    @Autowired
+    protected lateinit var messageOtherConsumer: MessageOtherConsumer
+
     @Value("\${topic.simple}")
     protected lateinit var simpleTopic: String
 
     @Value("\${topic.partitioned}")
     protected lateinit var partitionedTopic: String
+
+    @Value("\${topic.secret}")
+    protected lateinit var secretTopic: String
 
     @Test
     fun sendMessageToTopicSimple() {
@@ -59,4 +68,19 @@ abstract class KafkaServiceApplicationTestAbstract {
     protected fun assertWait() = assertTrue(messageConsumer.latch.await(5, TimeUnit.SECONDS))
 
     protected fun resetLatch() = messageConsumer.resetLatch()
+
+    @Test
+    fun sendMessageToTopicSecret() {
+        messageProducer.sendMessage(secretTopic, Instant.now().toString(), "payload to topic secret")
+        assertFalse(messageOtherConsumer.latch.await(5, TimeUnit.SECONDS))
+        assertNull(messageOtherConsumer.lastObtainedMessage)
+        assertTrue(arrayOf(0, 1).contains(messageOtherConsumer.lastObtainedMessagePartition))
+        messageOtherConsumer.resetLatch()
+
+        messageProducer.sendMessage(secretTopic, Instant.now().toString(), "payload to topic secret (confident)")
+        assertTrue(messageOtherConsumer.latch.await(5, TimeUnit.SECONDS))
+        assertEquals("payload to topic secret (confident)", messageOtherConsumer.lastObtainedMessage)
+        assertTrue(arrayOf(0, 1).contains(messageOtherConsumer.lastObtainedMessagePartition))
+        messageOtherConsumer.resetLatch()
+    }
 }
