@@ -76,3 +76,34 @@ class MessageConsumer {
         latch = CountDownLatch(1)
     }
 }
+
+@Component
+@Profile("simple")
+class MessageOtherConsumer {
+    final var lastObtainedMessage: String? = null
+        private set
+
+    final var lastObtainedMessagePartition: Int = 0
+        private set
+
+    final var latch = CountDownLatch(1)
+        private set
+
+    @KafkaListener(
+        topics = ["\${topic.secret}"],
+        groupId = "\${spring.kafka.consumer.group-id}",
+        containerFactory = "filterKafkaListenerContainerFactory"
+    )
+    fun listen(consumerRecord: ConsumerRecord<*, String>) {
+        log.info("Received message: $consumerRecord")
+
+        lastObtainedMessage = consumerRecord.value()
+        lastObtainedMessagePartition = consumerRecord.partition()
+
+        latch.countDown()
+    }
+
+    fun resetLatch() {
+        latch = CountDownLatch(1)
+    }
+}

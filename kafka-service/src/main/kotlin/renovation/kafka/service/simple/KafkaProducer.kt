@@ -53,4 +53,10 @@ class MessageProducer(val kafkaTemplate: KafkaTemplate<String, String>) {
             log.info("sending payload='$message' to topic='$topic'")
         }
     }
+
+    fun sendMessage(topic: String, key: String, message: String?) {
+        kafkaTemplate.send(topic, key, message).also {
+            log.info("sending payload='$message' to topic='$topic'")
+        }
+    }
 }

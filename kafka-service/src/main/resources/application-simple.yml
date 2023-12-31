@@ -14,3 +14,4 @@ spring:
 topic:
   simple: simple-topic
   partitioned: partitioned-topic
+  secret: secret-topic
