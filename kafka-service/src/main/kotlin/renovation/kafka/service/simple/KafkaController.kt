@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
@@ -24,6 +25,8 @@ class KafkaController(
     val partitionedTopic: String,
     @Value("\${topic.secret}")
     val secretTopic: String,
+    @Value("\${topic.note}")
+    val noteTopic: String,
 ) {
 
     @PostMapping("/send")
@@ -42,5 +45,11 @@ class KafkaController(
     fun sendMessageToSecretTopic(@RequestParam("message") message: String): String {
         messageProducer.sendMessage(secretTopic, Instant.now().toString(), message)
         return "Message sent: $message to $secretTopic topic"
+    }
+
+    @PostMapping("/send/note")
+    fun sendMessageToSecretTopic(@RequestBody note: Note): String {
+        messageProducer.sendMessage(noteTopic, Instant.now().toString(), note)
+        return "Message sent: $note to $secretTopic topic"
     }
 }

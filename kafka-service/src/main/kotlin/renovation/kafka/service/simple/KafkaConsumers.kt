@@ -14,6 +14,7 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Profile
+import org.springframework.kafka.annotation.KafkaHandler
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
 import org.springframework.kafka.core.ConsumerFactory
@@ -99,6 +100,36 @@ class MessageOtherConsumer {
 
         lastObtainedMessage = consumerRecord.value()
         lastObtainedMessagePartition = consumerRecord.partition()
+
+        latch.countDown()
+    }
+
+    fun resetLatch() {
+        latch = CountDownLatch(1)
+    }
+}
+
+@Profile("simple")
+@Component
+@KafkaListener(
+    topics = ["\${topic.note}"],
+    groupId = "\${spring.kafka.consumer.group-id}",
+)
+class NoteConsumer {
+    final var lastObtainedMessage: String? = null
+        private set
+
+    final var lastObtainedMessagePartition: Int = 0
+        private set
+
+    final var latch = CountDownLatch(1)
+        private set
+
+    @KafkaHandler
+    fun listen(note: Note) {
+        log.info("Received message: $note")
+
+        lastObtainedMessage = note.toString()
 
         latch.countDown()
     }
