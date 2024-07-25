@@ -23,6 +23,6 @@ private val LOG = KotlinLogging.logger { }
 class ServiceController {
 
     @GetMapping("/redis/work/evict")
-    @CacheEvict(value = ["works"], allEntries = true)
+    @CacheEvict(value = ["works", "ai"], allEntries = true)
     fun evictWork() = LOG.info("evict/remove 'works' keys redis entities")
 }

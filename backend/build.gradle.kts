@@ -38,6 +38,8 @@ dependencies {
 
     implementation("org.springframework.session:spring-session-data-redis")
 
+    implementation("org.springframework.experimental.ai:spring-ai-openai-spring-boot-starter:0.7.1-SNAPSHOT")
+
     testImplementation("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:junit-jupiter")

@@ -8,6 +8,9 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         mavenLocal() // todo: think of deletion
+        maven {
+            url = uri("https://repo.spring.io/snapshot")
+        }
     }
 
     versionCatalogs {
