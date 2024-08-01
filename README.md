@@ -395,5 +395,12 @@ check keystore.jks password: `keytool -list -keystore keystore.jks -storepass 12
 Run gateway with social-login & certificate (export oauth2 registration env. vars):  
 `gr clean :gateway:bootRun -Psocial-login --args="--spring.profiles.active=social-login,cert"`  
 
-## Usage kafka (dc - docker compose):
+## Usage
+
+### Usage kafka (dc - docker compose):
 `$> dcu renovation-kafka-ui`  
+
+### Usage in Intellij idea
+to run in intellij idea with `gradle buildAll` do so:  
+1. set env. var JAVA_HOME in console to java 21: `export JAVA_HOME=<path>/jdk21`  
+2. run IDEA in console `/bin/bash -l -c <path_to_idea>/bin/idea.sh`
