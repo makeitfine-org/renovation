@@ -45,6 +45,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
 
+## todo: left as example of using flow
 #  api_test_e2eTest:
 #    needs: [ build ]
 #    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
