@@ -404,3 +404,29 @@ Run gateway with social-login & certificate (export oauth2 registration env. var
 to run in intellij idea with `gradle buildAll` do so:  
 1. set env. var JAVA_HOME in console to java 21: `export JAVA_HOME=<path>/jdk21`  
 2. run IDEA in console `/bin/bash -l -c <path_to_idea>/bin/idea.sh`
+
+[backend-service](aux/readme/backend-service.md)
+
+### Add wiki submodule:  
+g clone https://github.com/makeitfine-org/renovation.wiki.git wiki  
+git submodule add https://github.com/makeitfine-org/renovation.wiki.git wiki  
+git submodule update --init --recursive
+status: git submodule status  
+(help about submodules:  
+https://www.youtube.com/watch?v=wTGIDDg0tK8&ab_channel=AntonPutra,  
+https://www.freecodecamp.org/news/how-to-use-git-submodules/)  
+
+### Remove submodule:  
+$ git submodule deinit -f <submodule-name>
+$ rm -rf <submodule-dir>
+$ rm -rf .git/modules/<submodule-name>
+$ git config -f .gitmodules --remove-section submodule.<submodule-name>
+$ git config -f .git/config --remove-section submodule.<submodule-name>
+$ git rm --cached <submodule-name>
+$ git commit -m 'rm submodule: <submodule-name>'
+
+generate access token in github Developer Settings (Personal access tokens (classic))
+(ATTENTION: TAKEN CAN EXPIRE)
+
+clone repo with submodules:  
+`$ git clone --recurse-submodules git@github.com:makeitfine-org/renovation.git`
