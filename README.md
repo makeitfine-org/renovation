@@ -34,7 +34,7 @@ Technical configs
 2. make: `$>docker-compose up`
    or to start in debug mode:
    `$>docker-compose -f docker-compose.yml -f docker-compose-debug.yml up` 
-3. open application in browser on port 8180
+3. open application in browser on port 8280
 
 ### Starting work:
 1. First after cloning repo config githook for project:  
@@ -198,7 +198,7 @@ For to autofix:
 ### Frontend-info
 * Run locally:  
   `$> npm run build`  
-  `$> export VUE_APP_BACKEND_API_URL=http://localhost:8180/api`  
+  `$> export VUE_APP_BACKEND_API_URL=http://localhost:8280/api`  
   `$> export VUE_APP_INFO_GRAPHQL_URL=http://localhost:9190`  
   `$> node docker.js`  
 * Refresh with clearing cache short-cut: `Cntr+Shift+R`
