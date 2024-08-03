@@ -129,7 +129,7 @@ For to autofix:
    With ingress:  
    `$> gradle k8sIngressApiTest`
 4.1 Instead of 5 - 9 belove steps execute script:   
-   `$> sh aux/minikube/mn-cluster-create.sh`
+   `$> sh aux/minikube/mn-cluster-creation.sh`
 5. Upload backend image and redeploy backend service:  
    `$> gradle k8sUploadBackendImage`  
 6. Upload info image and redeploy backend service:  
@@ -143,7 +143,7 @@ For to autofix:
    `/mnt/pg-ha/data-1` (make `sudo chown -R 1001:1001 data-1`),  
    `/mnt/pg-ha/data-2` (make `sudo chown -R 1001:1001 data-2`),
    
-   Or just copy `create-mnt-content.sh` to minikube `/mnt` and execute to create folders  
+   Or just copy `mn-cluster-content-creation.sh` to minikube `/mnt` and execute to create folders  
    7.1 Copy files to minikube: 
        `https://stackoverflow.com/questions/46086303/how-to-transfer-files-between-local-machine-and-minikube`  
    7.2 if to create multinode cluster create folders on each node:  
