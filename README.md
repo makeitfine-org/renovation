@@ -1,3 +1,7 @@
+> [!WARNING]
+>
+> Manual is DEPRECATED
+
 # renovation
 Renovation reporter
 
