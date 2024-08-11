@@ -142,6 +142,7 @@ subprojects {
 
         tasks.withType<Test> {
             jvmArgs = mutableListOf("--enable-preview")
+
             maxParallelForks = Runtime.getRuntime().availableProcessors()
 
             testLogging {

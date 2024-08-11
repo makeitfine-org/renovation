@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 import {EventType} from "@main/ws-app/event/EventType"

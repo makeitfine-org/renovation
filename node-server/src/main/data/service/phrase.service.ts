@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 import {defaultPhrases, Phrase} from "@main/data/model/phrase.model"

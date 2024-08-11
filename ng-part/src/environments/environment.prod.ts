@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 export const baseUrl = "http://192.168.0.113:9190"

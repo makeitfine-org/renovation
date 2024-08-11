@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 plugins {

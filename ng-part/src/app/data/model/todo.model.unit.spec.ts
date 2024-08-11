@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 import {Rating} from "./rating.model"
@@ -41,4 +41,3 @@ describe("rating.modal.spec.ts", () => {
     }
   )
 })
-

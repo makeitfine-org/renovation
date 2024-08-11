@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 package renovation.backend.data.service.impl
@@ -22,7 +22,7 @@ class WorkerServiceImpl(
                 name
                 surname
                 age
-              }  
+              }
             }
         """.trimIndent()
     )

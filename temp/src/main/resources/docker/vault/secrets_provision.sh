@@ -2,7 +2,7 @@
 #
 # Created under not commercial project "Renovation"
 #
-# Copyright 2021-2023
+# Copyright 2021-2024
 #
 echo "=== Add secrets ==="
 #vault kv put secret/renovation_temp value.value1="Alles" value.value2="Hoppvault kv list -mount secret!"

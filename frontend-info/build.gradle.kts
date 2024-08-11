@@ -1,7 +1,7 @@
 /*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2023
+ * Copyright 2021-2024
  */
 
 import com.github.gradle.node.npm.task.NpmTask
@@ -13,4 +13,3 @@ plugins {
 tasks.register<NpmTask>("npmBuild") {
     args.set(listOf("run", "build"))
 }
-
