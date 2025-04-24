@@ -1,8 +1,7 @@
 /*
- *  Created under not commercial project "Make it fine"
+ * Created under not commercial project "Renovation"
  *
- *  Copyright 2017-2021
- *  @author stingion
+ * Copyright 2021-2024
  */
 
 db.createUser(
