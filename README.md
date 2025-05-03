@@ -321,7 +321,7 @@ server {
 }
 
 ```
-(might be to add to /etc/hosts/ file such record: `#127.0.0.1	renovation-keycloak`)*
+(might be to add to /etc/hosts/ file such record: `127.0.0.1	renovation-keycloak`)*
 
 ## nginx useful:
 
