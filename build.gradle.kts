@@ -292,6 +292,10 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":node-server:npmTest")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":event-service:mci")
+        }
 
         exec {
             workingDir("${rootProject.rootDir}")

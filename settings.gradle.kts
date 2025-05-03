@@ -126,6 +126,7 @@ val nodeServerModuleName: String by settings
 val webfluxServerModuleName: String by settings
 val ktorServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
+val eventServiceModuleName: String by settings
 
 include(backendModuleName)
 include(frontendModuleName)
@@ -140,4 +141,4 @@ include(ngPartModuleName)
 include(nodeServerModuleName)
 include(webfluxServerModuleName)
 include(ktorServerModuleName)
-include(kafkaServiceModuleName)
+include(eventServiceModuleName)
