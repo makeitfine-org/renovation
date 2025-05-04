@@ -15,13 +15,16 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import renovation.event.service.web.Route;
 
 import static io.restassured.RestAssured.given;
 import static renovation.event.service.TestUtil.simplify;
 
-@Tag("integrationTest")
+@Tag("componentTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//todo: change to testcontainers kafka or remove
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:29192", "port=29192"})
 class StartupControllerTest {
 
     private Integer port;

@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "WorkerEventKey",
+  "namespace": "renovation.event.service.kafka.avro.record.worker",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Unique identifier for the event (e.g. UUID)"
+    }
+  ]
+}

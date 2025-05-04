@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "WorkEvent",
+  "namespace": "renovation.event.service.kafka.avro.record.work",
+  "fields": [
+      {"name": "id", "type": "string"},
+      {"name": "title", "type": "string"},
+      {"name": "description", "type": "string"},
+      {"name": "endDate", "type": "string"},
+      {"name": "price", "type": "double"},
+      {"name": "payDate", "type": "string"}
+  ]
+}
