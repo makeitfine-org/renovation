@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /*
- * "Renovation": Renovation reporter
+ * Created under not commercial project "Renovation"
  *
- * Copyright 2021 - 2022
+ * Copyright 2021 - 2025
  */
 
 plugins {

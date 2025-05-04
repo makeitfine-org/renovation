@@ -1,12 +1,7 @@
 /*
- * "Renovation": Renovation reporter
- *
- * Copyright 2021 - 2022
- */
-/*
  * Created under not commercial project "Renovation"
  *
- * Copyright 2021-2024
+ * Copyright 2021-2025
  */
 
 plugins {

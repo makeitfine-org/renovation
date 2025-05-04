@@ -1,0 +1,9 @@
+info:
+  app:
+    name: event-service
+    description: Event service module
+
+
+spring:
+  application:
+    name: ${info.app.name}

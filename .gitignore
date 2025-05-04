@@ -213,6 +213,9 @@ out/
 testem.log
 /typings
 
+# Ignore for event-serice module (maven)
+target
+
 # System files
 Thumbs.db
 
