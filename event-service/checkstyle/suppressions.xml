@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <suppress checks="TypeName" files="Checked_Unchecked.java" lines="3"/>
+    <suppress checks="TypeName" files="Checked_Unchecked_Error.java" lines="3"/>
+    <suppress checks="VisibilityModifier" files="StatisticsCountDTO.java" lines="7-9"/>
+    <suppress checks="VisibilityModifier" files="[\\/]entity[\\/]"/>
+    <suppress checks="VisibilityModifier" files="EntityServiceImpl.java" lines="14"/>
+    <suppress checks=".*" files="[/\\]target[/\\]"/>
+</suppressions>

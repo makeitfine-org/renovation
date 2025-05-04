@@ -4,11 +4,6 @@
  * Copyright 2021-2024
  */
 
-/*
- * Created under not commercial project "Renovation"
- *
- * Copyright 2021-2024
- */
 package renovation.temp.githubplay
 
 import java.util.concurrent.CompletableFuture
