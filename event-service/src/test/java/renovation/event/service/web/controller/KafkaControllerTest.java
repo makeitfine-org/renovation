@@ -1,0 +1,94 @@
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2025
+ */
+
+package renovation.event.service.web.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import renovation.event.service.service.consumer.WorkEventKafkaConsumer;
+import renovation.event.service.service.mapper.WorkEventRequestMapper;
+import renovation.event.service.web.Route;
+import renovation.event.service.web.controller.base.KafkaTestcontainersInit;
+import renovation.event.service.web.dto.WorkEventRequest;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import static io.restassured.RestAssured.given;
+import static renovation.event.service.util.Helper.OBJECT_MAPPER;
+import static renovation.event.service.util.Helper.readFileContentFromProjectRoot;
+
+@Tag("componentTest")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class KafkaControllerTest extends KafkaTestcontainersInit {
+
+    @LocalServerPort
+    protected Integer port;
+    protected RequestSpecification request;
+
+    @Autowired
+    private WorkEventKafkaConsumer consumer;
+
+    @Autowired
+    private WorkEventRequestMapper workEventRequestMapper;
+
+    @BeforeEach
+    void init() {
+        RestAssured.port = port;
+        this.request = given().header("Content-Type", "application/json")
+                .basePath(Route.KAFKA);
+    }
+
+    @Test
+    void when_publish_expect_Success() throws InterruptedException, JsonProcessingException {
+        // assert last saved record is null
+        Assertions.assertNull(consumer.getLastWorkEventKeyValue());
+
+        var body = jsonFileContentFromSrcTestResources(
+                "KafkaControllerComponentTest.when_publish_expect_Success.json"
+        );
+
+        request
+                .body(body)
+                .when()
+                .post("/publish")
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+
+        waitForSleepConsumption();
+
+        var workEventKeyValue = consumer.getLastWorkEventKeyValue();
+        Assertions.assertNotNull(
+                UUID.fromString(
+                        String.valueOf(workEventKeyValue.getKey().getId())
+                )
+        );
+        Assertions.assertNotNull(workEventKeyValue.getValue());
+        Assertions.assertEquals(
+                OBJECT_MAPPER.readValue(body, WorkEventRequest.class),
+                workEventRequestMapper.toWorkEventRequest(
+                        workEventKeyValue.getValue()
+                )
+        );
+    }
+
+    private void waitForSleepConsumption() throws InterruptedException {
+        TimeUnit.MILLISECONDS.sleep(500); // todo: think of decreasing (future task)
+    }
+
+    protected String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
+        return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
+    }
+}
