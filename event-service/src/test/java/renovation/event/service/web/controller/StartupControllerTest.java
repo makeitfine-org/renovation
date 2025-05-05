@@ -6,40 +6,23 @@
 
 package renovation.event.service.web.controller;
 
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import renovation.event.service.web.Route;
+import renovation.event.service.web.controller.base.RestTestInit;
 
-import static io.restassured.RestAssured.given;
 import static renovation.event.service.TestUtil.simplify;
 
 @Tag("componentTest")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //todo: change to testcontainers kafka or remove
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:29192", "port=29192"})
-class StartupControllerTest {
+class StartupControllerTest extends RestTestInit {
 
-    private Integer port;
-    private RequestSpecification request;
-
-    public StartupControllerTest(@LocalServerPort Integer port) {
-        this.port = port;
-    }
-
-    @BeforeEach
-    void init() {
-        RestAssured.port = port;
-        this.request = given()
-                .header("Content-Type", "application/json")
-                .basePath(Route.STARTUP);
+    public StartupControllerTest() {
+        super(Route.STARTUP);
     }
 
     @Test
