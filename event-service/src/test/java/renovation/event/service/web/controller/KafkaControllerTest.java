@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.service.consumer.WorkEventKafkaConsumer;
 import renovation.event.service.service.mapper.WorkEventRequestMapper;
 import renovation.event.service.web.Route;
@@ -32,7 +33,8 @@ import static renovation.event.service.util.Helper.readFileContentFromProjectRoo
 
 @Tag("componentTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class KafkaControllerTest extends KafkaTestcontainersInit {
+@ContextConfiguration(classes = KafkaTestcontainersInit.class)
+class KafkaControllerTest {
 
     @LocalServerPort
     protected Integer port;
