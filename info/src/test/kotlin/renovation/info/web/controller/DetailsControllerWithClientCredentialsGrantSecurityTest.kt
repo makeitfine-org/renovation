@@ -17,7 +17,6 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import renovation.common.security.iam.GrantTypeAccessToken
 import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
-import renovation.common.util.Rest.given
 
 @Tag("e2eTest")
 @SpringBootTest(webEnvironment = RANDOM_PORT)

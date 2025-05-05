@@ -3,7 +3,6 @@
 #
 #     Copyright 2021-2024
 #
-version: '3.7'
 
 services:
   renovation-postgres:
@@ -283,6 +282,7 @@ services:
     networks:
       - renovation-network
 
+  #todo: extend with https://github.com/confluentinc/demo-scene/blob/master/twitter-streams/docker-compose.yml
   renovation-kafka-0:
     image: confluentinc/cp-kafka:7.9.0
     restart: always
@@ -290,11 +290,11 @@ services:
     depends_on:
       - renovation-zookeeper
     ports:
-      - ${KAFKA_0_REDIRECT_PORT}:9092
+      - ${KAFKA_0_REDIRECT_PORT}:29092
     environment:
       KAFKA_BROKER_ID: 100
       KAFKA_ZOOKEEPER_CONNECT: renovation-zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://renovation-kafka-0:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://renovation-kafka-0:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
@@ -309,11 +309,11 @@ services:
     depends_on:
       - renovation-zookeeper
     ports:
-      - ${KAFKA_1_REDIRECT_PORT}:9093
+      - ${KAFKA_1_REDIRECT_PORT}:29093
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_ZOOKEEPER_CONNECT: renovation-zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://renovation-kafka-1:29092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://renovation-kafka-1:9093,PLAINTEXT_HOST://localhost:29093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
@@ -332,7 +332,7 @@ services:
       - ${SCHEMA_REGISTRY_REDIRECT_PORT}:8081
     environment:
       SCHEMA_REGISTRY_HOST_NAME: renovation-schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: renovation-kafka-0:29092 #todo: add other instanse of kafka
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: renovation-kafka-0:9092,renovation-kafka-1:9093
 #      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'renovation-zookeeper:2181'
 #      SCHEMA_REGISTRY_LISTENERS: http://renovation-schema-registry:8081
     networks:
@@ -343,14 +343,12 @@ services:
     restart: always
     container_name: renovation-kafka-ui
     depends_on:
-      - renovation-kafka-0
-      - renovation-kafka-1
       - renovation-schema-registry
     ports:
       - ${KAFKA_UI_REDIRECT_PORT}:8080
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: renovation-kafka-0:29092,renovation-kafka-1:29092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: renovation-kafka-0:9092,renovation-kafka-1:9093
       KAFKA_CLUSTERS_0_ZOOKEEPER: renovation-zookeeper:2181
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://renovation-schema-registry:8081
     networks:
@@ -363,18 +361,24 @@ services:
     ports:
       - ${CONTROL_CENTER_REDIRECT_PORT}:9021
     depends_on:
-      - renovation-kafka-0
-      - renovation-kafka-1
       - renovation-schema-registry
     environment:
-      CONTROL_CENTER_BOOTSTRAP_SERVERS: renovation-kafka-0:29092 # todo: kafka broker info
+      CONTROL_CENTER_BOOTSTRAP_SERVERS: renovation-kafka-0:9092,renovation-kafka-1:9093
       CONTROL_CENTER_ZOOKEEPER_CONNECT: renovation-zookeeper:2181
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: http://renovation-schema-registry:8081
-      CONTROL_CENTER_REPLICATION_FACTOR: 1
+      CONTROL_CENTER_REPLICATION_FACTOR: 2
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
+
+      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_REPLICATION: 2
+      CONTROL_CENTER_INTERNAL_TOPICS_REPLICATION: 2
+      CONTROL_CENTER_COMMAND_TOPIC_REPLICATION: 2
+      CONTROL_CENTER_METRICS_TOPIC_REPLICATION: 2
+      CONTROL_CENTER_STREAMS_NUM_STREAM_THREADS: 2
+      CONTROL_CENTER_STREAMS_CONSUMER_REQUEST_TIMEOUT_MS: "960032"
+      CONTROL_CENTER_ID: "C3"
     networks:
       - renovation-network
 
