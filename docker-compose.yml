@@ -384,5 +384,57 @@ services:
     networks:
       - renovation-network
 
+  renovation-prometheus:
+    image: prom/prometheus:v3.3.0
+    restart: always
+    container_name: renovation-prometheus
+    depends_on:
+      - renovation-event-service
+    ports:
+      - ${PROMETHEUS_REGISTRY_PORT}:9090
+    volumes:
+      - "./event-service/src/main/resources/docker/prometheus:/etc/prometheus"
+    networks:
+      - renovation-network
+
+  renovation-grafana:
+    image: grafana/grafana:11.6.0
+    restart: unless-stopped
+    container_name: renovation-grafana
+    depends_on:
+      - renovation-prometheus
+    ports:
+      - ${GRAFANA_REGISTRY_PORT}:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=user
+      - GF_SECURITY_ADMIN_PASSWORD=userp
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - "./event-service/src/main/resources/docker/grafana/grafana.ini:/etc/grafana/grafana.ini"
+      - "./event-service/src/main/resources/docker/grafana/datasources:/etc/grafana/provisioning/datasources"
+      - "./event-service/src/main/resources/docker/grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/main.yaml"
+      - "./event-service/src/main/resources/docker/grafana/dashboards:/var/lib/grafana/dashboards"
+    networks:
+      - renovation-network
+
+  renovation-alertmanager:
+    image: koresmosto/renovation-alertmanager
+    build:
+      context: ./event-service/src/main/resources/docker/alertmanager
+      dockerfile: Dockerfile
+    restart: always
+    container_name: renovation-alertmanager
+    depends_on:
+      - renovation-event-service
+    ports:
+      - ${ALERTMANAGER_REGISTRY_PORT}:9093
+    env_file:
+      - .env
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+    networks:
+      - renovation-network
+
 networks:
   renovation-network:

@@ -403,6 +403,7 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
         removeImageLocallyIfExists("koresmosto/renovation-ktor-server:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
     }
 }
 

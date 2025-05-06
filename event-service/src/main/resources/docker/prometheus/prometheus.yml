@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'spring-boot-prometheus'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['renovation-event-service:8080']
+        labels:
+          application: 'renovation-event-service'
+
+rule_files:
+  - 'alert-rules.yml'
+
+alerting:
+  alertmanagers:
+    - scheme: http
+    - static_configs:
+        - targets: ['renovation-alertmanager:9093']
