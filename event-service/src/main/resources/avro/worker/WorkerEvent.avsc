@@ -1,11 +1,11 @@
 {
-  "type": "record",
-  "name": "WorkerEvent",
-  "namespace": "renovation.event.service.kafka.avro.record.worker",
-  "fields": [
-      {"name": "id", "type": "string"},
-      {"name": "name", "type": "string"},
-      {"name": "surname", "type": "string"},
-      {"name": "age", "type": "int"}
-  ]
+    "type": "record",
+    "name": "WorkerEvent",
+    "namespace": "renovation.event.service.kafka.avro.record.worker",
+    "fields": [
+        {"name": "id", "type": "string"},
+        {"name": "name", "type": "string"},
+        {"name": "surname", "type": "string"},
+        {"name": "age", "type": "int"}
+    ]
 }

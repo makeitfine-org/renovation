@@ -28,15 +28,14 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class KafkaControllerTest extends RestTestInit {
 
+    @Autowired
+    private WorkEventKafkaConsumer consumer;
+    @Autowired
+    private WorkEventRequestMapper workEventRequestMapper;
+
     public KafkaControllerTest() {
         super(Route.KAFKA);
     }
-
-    @Autowired
-    private WorkEventKafkaConsumer consumer;
-
-    @Autowired
-    private WorkEventRequestMapper workEventRequestMapper;
 
     @Test
     void when_publish_expect_Success() throws InterruptedException, JsonProcessingException {

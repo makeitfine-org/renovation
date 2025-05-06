@@ -7,7 +7,7 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: ['renovation-event-service:8080']
+      - targets: [ 'renovation-event-service:8080' ]
         labels:
           application: 'renovation-event-service'
 
@@ -18,4 +18,4 @@ alerting:
   alertmanagers:
     - scheme: http
     - static_configs:
-        - targets: ['renovation-alertmanager:9093']
+        - targets: [ 'renovation-alertmanager:9093' ]

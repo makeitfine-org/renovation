@@ -1,7 +1,5 @@
 package renovation.event.service.config;
 
-import renovation.event.service.kafka.avro.record.work.WorkEvent;
-import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +8,8 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import renovation.event.service.kafka.avro.record.work.WorkEvent;
+import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 import renovation.event.service.kafka.avro.record.worker.WorkerEvent;
 import renovation.event.service.kafka.avro.record.worker.WorkerEventKey;
 

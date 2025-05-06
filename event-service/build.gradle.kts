@@ -4,8 +4,6 @@
  * Copyright 2021-2024
  */
 
-import org.gradle.api.tasks.Exec
-
 tasks.register<Exec>("mci") {
     description = "maven clean install"
     println(description)
