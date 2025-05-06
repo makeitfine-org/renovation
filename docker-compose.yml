@@ -263,8 +263,10 @@ services:
     ports:
       - ${MONITOR_SERVER_REDIRECT_PORT}:8080
     environment:
-      KAFKA_BOOSTRAP_SERVER: ${KAFKA_BOOSTRAP_SERVER}
-      KAFKA_BOOSTRAP_SERVER_PORT: ${KAFKA_BOOSTRAP_SERVER_PORT}
+      KAFKA_0_BOOSTRAP_SERVER: ${KAFKA_0_BOOSTRAP_SERVER}
+      KAFKA_0_BOOSTRAP_SERVER_PORT: ${KAFKA_0_BOOSTRAP_SERVER_PORT}
+      KAFKA_1_BOOSTRAP_SERVER: ${KAFKA_1_BOOSTRAP_SERVER}
+      KAFKA_1_BOOSTRAP_SERVER_PORT: ${KAFKA_1_BOOSTRAP_SERVER_PORT}
       SCHEMA_REGISTRY_HOST: ${SCHEMA_REGISTRY_HOST}
       SCHEMA_REGISTRY_PORT: ${SCHEMA_REGISTRY_PORT}
     networks:
@@ -333,8 +335,8 @@ services:
     environment:
       SCHEMA_REGISTRY_HOST_NAME: renovation-schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: renovation-kafka-0:9092,renovation-kafka-1:9093
-#      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'renovation-zookeeper:2181'
-#      SCHEMA_REGISTRY_LISTENERS: http://renovation-schema-registry:8081
+    #      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'renovation-zookeeper:2181'
+    #      SCHEMA_REGISTRY_LISTENERS: http://renovation-schema-registry:8081
     networks:
       - renovation-network
 
