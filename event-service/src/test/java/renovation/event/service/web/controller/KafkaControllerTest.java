@@ -21,7 +21,6 @@ import renovation.event.service.web.controller.base.RestTestInit;
 import renovation.event.service.web.dto.WorkEventRequest;
 
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
@@ -41,9 +40,6 @@ class KafkaControllerTest extends RestTestInit {
 
     @Test
     void when_publish_expect_Success() throws InterruptedException, JsonProcessingException {
-        // assert last saved record is null
-        Assertions.assertNull(consumer.getLastWorkEventKeyValue());
-
         var body = jsonFileContentFromSrcTestResources(
                 "KafkaControllerComponentTest.when_publish_expect_Success.json"
         );
@@ -55,9 +51,7 @@ class KafkaControllerTest extends RestTestInit {
                 .then()
                 .statusCode(HttpStatus.SC_OK);
 
-        waitForSleepConsumption();
-
-        var workEventKeyValue = consumer.getLastWorkEventKeyValue();
+        var workEventKeyValue = consumer.pollLastWorkEventKeyValue();
         Assertions.assertNotNull(
                 UUID.fromString(
                         String.valueOf(workEventKeyValue.getKey().getId())
@@ -70,9 +64,5 @@ class KafkaControllerTest extends RestTestInit {
                         workEventKeyValue.getValue()
                 )
         );
-    }
-
-    private void waitForSleepConsumption() throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(500); // todo: think of decreasing (future task)
     }
 }

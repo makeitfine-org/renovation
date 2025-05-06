@@ -22,5 +22,4 @@ public abstract class KafkaProducerImpl<K, V> implements KafkaProducer<K, V> {
     public void send(K key, V data) {
         kafkaTemplate.send(topicName, key, data);
     }
-
 }

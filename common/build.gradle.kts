@@ -17,4 +17,6 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-jose")
     implementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
     implementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinVersion"]}")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
