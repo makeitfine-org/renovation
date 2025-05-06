@@ -19,7 +19,7 @@ import org.testcontainers.utility.DockerImageName;
 import java.time.Duration;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class KafkaTestcontainersInit {
+public class KafkaTestcontainersConfigs {
     public static final String KAFKA_IMAGE = "confluentinc/cp-kafka";
     public static final String SCHEMA_REGISTRY_IMAGE = "confluentinc/cp-schema-registry";
     public static final String KAFKA_VERSION = "7.8.0";

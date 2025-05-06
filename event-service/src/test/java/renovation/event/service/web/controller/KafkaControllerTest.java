@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.service.consumer.WorkEventKafkaConsumer;
 import renovation.event.service.service.mapper.WorkEventRequestMapper;
 import renovation.event.service.web.Route;
-import renovation.event.service.web.controller.base.KafkaTestcontainersInit;
+import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.controller.base.RestTestInit;
 import renovation.event.service.web.dto.WorkEventRequest;
 
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
 @Tag("componentTest")
-@ContextConfiguration(classes = KafkaTestcontainersInit.class)
+@ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class KafkaControllerTest extends RestTestInit {
 
     public KafkaControllerTest() {
