@@ -43,12 +43,7 @@ class KafkaControllerTest extends RestTestInit {
                 "KafkaControllerComponentTest.when_publish_expect_Success.json"
         );
 
-        request
-                .body(body)
-                .when()
-                .post("/publish")
-                .then()
-                .statusCode(HttpStatus.SC_OK);
+        postRequest("/publish", body, HttpStatus.SC_OK);
 
         var workEventKeyValue = consumer.pollLastWorkEventKeyValue();
         Assertions.assertNotNull(

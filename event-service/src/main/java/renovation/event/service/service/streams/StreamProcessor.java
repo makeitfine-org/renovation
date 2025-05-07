@@ -6,6 +6,7 @@
 
 package renovation.event.service.service.streams;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.kafka.common.serialization.Serde;
@@ -18,11 +19,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
 public class StreamProcessor {
-    public static final int CAPACITY = 10;
+    public static final int CAPACITY = 1;
+
+    @Getter
     private OverwritingQueue<ImmutablePair<String, String>> queue = new OverwritingQueue<>(CAPACITY);
 
     @Autowired
@@ -57,9 +61,12 @@ public class StreamProcessor {
             return queue.poll();
         }
 
+        public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+            return queue.poll(timeout, unit);
+        }
+
         public int size() {
             return queue.size();
         }
     }
-
 }
