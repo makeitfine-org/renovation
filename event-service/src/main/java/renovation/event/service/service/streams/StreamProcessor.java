@@ -9,14 +9,16 @@ package renovation.event.service.service.streams;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.Consumed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import renovation.event.service.kafka.avro.record.work.WorkEvent;
+import renovation.event.service.kafka.avro.record.work.WorkEventKey;
+import renovation.event.service.service.mapper.WorkEventRequestMapper;
+import renovation.event.service.web.dto.WorkEventRequest;
 
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -26,21 +28,36 @@ import java.util.concurrent.TimeUnit;
 public class StreamProcessor {
     public static final int CAPACITY = 1;
 
+    private WorkEventRequestMapper workEventRequestMapper;
+
     @Getter
-    private OverwritingQueue<ImmutablePair<String, String>> queue = new OverwritingQueue<>(CAPACITY);
+    private OverwritingQueue<ImmutablePair<UUID, WorkEventRequest>> queue = new OverwritingQueue<>(CAPACITY);
+
+    public StreamProcessor(WorkEventRequestMapper workEventRequestMapper) {
+        this.workEventRequestMapper = workEventRequestMapper;
+    }
 
     @Autowired
     public void process(@Value("${spring.kafka.topic.name}") String topicName,
                         StreamsBuilder builder) {
-        Serde<String> keySerde = Serdes.String();
-        Serde<String> valueSerde = Serdes.String();
 
-        var stream = builder.stream(topicName, Consumed.with(keySerde, valueSerde));
-        stream.foreach((key, value) -> {
-            var keyValue = ImmutablePair.of(key, value);
-            queue.offer(keyValue);
-            log.info("key -> value: {}", keyValue);
-        });
+        builder.<WorkEventKey, WorkEvent>stream(topicName)
+                .foreach(this::extractKeyValueAndPushThemToQueue);
+    }
+
+    private void extractKeyValueAndPushThemToQueue(WorkEventKey key, WorkEvent value) {
+
+        var keyOut = UUID.fromString(
+                String.valueOf(key.getId())
+        );
+        var valueOut = workEventRequestMapper.toWorkEventRequest(value);
+        var keyValueOut = ImmutablePair.of(
+                keyOut,
+                valueOut
+        );
+        queue.offer(keyValueOut);
+
+        log.info("key -> value: {}", keyValueOut);
     }
 
     public static class OverwritingQueue<E> {

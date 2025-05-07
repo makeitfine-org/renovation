@@ -59,6 +59,15 @@ spring:
       lifecycle-management: start_and_stop
       file: docker-compose.yml
 
+  json:
+    add:
+      type:
+        headers: false
+    value:
+      default:
+        type: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+
+
   kafka:
     topic:
       name: "event-topic"
@@ -82,3 +91,13 @@ spring:
         schema.registry.url: ${spring.kafka.schema.registry.url}
         auto.register.schemas: true
         use.latest.version: true
+#    streams: #todo: remove
+      #      application-id: ${spring.application.name} # by default it's ${spring.application.name}
+#      properties:
+#        default.key.serde: org.springframework.kafka.support.serializer.JsonSerde
+#        default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+
+#        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#        default.key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+#        default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde

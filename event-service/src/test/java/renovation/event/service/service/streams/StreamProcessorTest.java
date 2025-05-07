@@ -6,6 +6,7 @@
 
 package renovation.event.service.service.streams;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
@@ -15,8 +16,12 @@ import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.web.Route;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.controller.base.RestTestInit;
+import renovation.event.service.web.dto.WorkEventRequest;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
 @Tag("componentTest")
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
@@ -30,7 +35,7 @@ class StreamProcessorTest extends RestTestInit {
     }
 
     @Test
-    void process() throws InterruptedException {
+    void process() throws InterruptedException, JsonProcessingException {
         var body = jsonFileContentFromSrcTestResources(
                 "KafkaControllerComponentTest.when_publish_expect_Success.json"
         );
@@ -39,13 +44,14 @@ class StreamProcessorTest extends RestTestInit {
 
         var keyValue = streamProcessor.getQueue().poll(5, TimeUnit.SECONDS);
 
-        Assertions.assertNotNull(keyValue.getKey());
+        Assertions.assertNotNull(
+                UUID.fromString(
+                        String.valueOf(keyValue.getKey())
+                )
+        );
         Assertions.assertEquals(
-                "\u0000\u0000\u0000\u0000\u0002\u00021\u000E" +
-                        "title 1\f" +
-                        "desc 1" +
-                        "\u00142023-11-27\u0000\u0000\u0000\u0000\u00000n@\u00142023-11-25",
-                keyValue.getValue().toString()
+                OBJECT_MAPPER.readValue(body, WorkEventRequest.class),
+                keyValue.getValue()
         );
     }
 }
