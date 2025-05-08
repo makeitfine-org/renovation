@@ -20,7 +20,7 @@ public abstract class KafkaConsumer<K, V> {
     protected static final int DEFAULT_RETRY_DELAY = 1000;
     protected static final int DEFAULT_RETRY_MAX_DELAY = 3000;
 
-    private final String listenerPrefixMessage;
+    private final String topicName;
 
     /**
      * One element blocking queue.
@@ -29,8 +29,8 @@ public abstract class KafkaConsumer<K, V> {
     private BlockingQueue<ImmutablePair<K, V>> q =
             new LinkedBlockingQueue<>(LAST_ELEMENT_SAVING_QUEUE_CAPACITY);
 
-    public KafkaConsumer(String listenerPrefixMessage) {
-        this.listenerPrefixMessage = listenerPrefixMessage;
+    public KafkaConsumer(String topicName) {
+        this.topicName = topicName;
     }
 
     /**
@@ -41,7 +41,7 @@ public abstract class KafkaConsumer<K, V> {
     // todo: consider "Scaling Event-Driven Microservices"
     // https://medium.com/@bubu.tripathy/event-driven-architecture-adb658a1dc9c
     protected void kafkaListener(ConsumerRecord<K, V> consumerRecord) {
-        log.info("{} {}", listenerPrefixMessage, consumerRecord);
+        log.info("topic: {} message: {}", topicName, consumerRecord);
 
         q.clear();
         q.offer(ImmutablePair.of(consumerRecord.key(), consumerRecord.value()));

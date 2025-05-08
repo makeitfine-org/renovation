@@ -13,7 +13,7 @@ import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 public class PriceTopicWorkEventKafkaConsumer extends KafkaConsumer<WorkEventKey, WorkEvent> {
 
     public PriceTopicWorkEventKafkaConsumer(@Value("${spring.kafka.topic.price.name}") String topicName) {
-        super(String.format("topic {} received: ", topicName));
+        super(topicName);
     }
 
     @Retryable(

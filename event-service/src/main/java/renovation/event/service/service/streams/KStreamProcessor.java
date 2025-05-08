@@ -6,6 +6,7 @@
 
 package renovation.event.service.service.streams;
 
+import jakarta.annotation.PostConstruct;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,10 @@ public class KStreamProcessor {
     @Value("${spring.kafka.topic.price.number}")
     private double priceNumber;
 
-    private final ComparisonUtil comparisonUtil;
+    private ComparisonUtil comparisonUtil;
 
-    public KStreamProcessor() {
+    @PostConstruct
+    public void init() {
         this.comparisonUtil = new ComparisonUtil(comparison, priceNumber);
     }
 
@@ -37,6 +39,6 @@ public class KStreamProcessor {
     }
 
     private boolean comparison(WorkEvent workEvent) {
-        return comparison.equalsIgnoreCase("<") && comparisonUtil.compare(workEvent.getPrice());
+        return comparisonUtil.compare(workEvent.getPrice());
     }
 }

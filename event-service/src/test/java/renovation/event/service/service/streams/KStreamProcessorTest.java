@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.TestUtil;
@@ -27,19 +26,16 @@ class KStreamProcessorTest {
 
     private final WorkEventMapper workEventMapper;
     private final WorkEventKafkaProducer workEventProducer;
-    private final String topicName;
-    private final PriceTopicWorkEventKafkaConsumer consumer;
+    private final PriceTopicWorkEventKafkaConsumer priceConsumer;
 
     public KStreamProcessorTest(
             @Autowired WorkEventMapper workEventMapper,
             @Autowired WorkEventKafkaProducer workEventProducer,
-            @Value("${spring.kafka.topic.price.name}") String topicName,
-            @Autowired PriceTopicWorkEventKafkaConsumer consumer
+            @Autowired PriceTopicWorkEventKafkaConsumer priceConsumer
     ) {
         this.workEventMapper = workEventMapper;
         this.workEventProducer = workEventProducer;
-        this.topicName = topicName;
-        this.consumer = consumer;
+        this.priceConsumer = priceConsumer;
     }
 
     @Test
@@ -51,17 +47,17 @@ class KStreamProcessorTest {
                 "KafkaControllerComponentTest.when_publish_expect_Success.json"
         );
         workEventProducer.send(keyValueAvro.getKey(), keyValueAvro.getValue());
-        var keyValue = consumer.pollLastKeyValue();
+        var keyValue = priceConsumer.pollLastKeyValue();
         Assertions.assertNull(keyValue);
 
         //send price lower
-//        keyValueAvro = TestUtil.keyValueFromJsonFileContentFromSrcTestResources(
-//                workEventMapper,
-//                "KafkaControllerComponentTest.when_publish_price_is_77_expect_Success.json"
-//        );
-//        workEventProducer.send(keyValueAvro.getKey(), keyValueAvro.getValue());
-//        keyValue = consumer.pollLastKeyValue();
-//        Assertions.assertEquals(keyValueAvro.getKey(), keyValue.getKey());
-//        Assertions.assertEquals(keyValueAvro.getValue(), keyValue.getValue());
+        keyValueAvro = TestUtil.keyValueFromJsonFileContentFromSrcTestResources(
+                workEventMapper,
+                "KafkaControllerComponentTest.when_publish_price_is_77_expect_Success.json"
+        );
+        workEventProducer.send(keyValueAvro.getKey(), keyValueAvro.getValue());
+        keyValue = priceConsumer.pollLastKeyValue();
+        Assertions.assertEquals(keyValueAvro.getKey(), keyValue.getKey());
+        Assertions.assertEquals(keyValueAvro.getValue(), keyValue.getValue());
     }
 }
