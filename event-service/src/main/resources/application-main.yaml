@@ -97,6 +97,8 @@ spring:
         auto.register.schemas: true
         use.latest.version: true
     streams:
+      store:
+        name: comparison-work-by-id
       properties:
         schema.registry.url: ${spring.kafka.schema.registry.url}
         default.key.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde

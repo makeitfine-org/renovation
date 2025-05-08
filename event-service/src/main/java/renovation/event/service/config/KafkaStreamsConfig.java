@@ -18,6 +18,7 @@ import org.springframework.kafka.config.TopicBuilder;
 import renovation.event.service.kafka.avro.record.work.WorkEvent;
 import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 import renovation.event.service.service.streams.KStreamProcessor;
+import renovation.event.service.service.streams.KTableProcessor;
 
 @Configuration
 @EnableKafkaStreams
@@ -33,8 +34,11 @@ public class KafkaStreamsConfig {
 
     private final KStreamProcessor kStreamProcessor;
 
-    public KafkaStreamsConfig(KStreamProcessor kStreamProcessor) {
+    private final KTableProcessor kTableProcessor;
+
+    public KafkaStreamsConfig(KStreamProcessor kStreamProcessor, KTableProcessor kTableProcessor) {
         this.kStreamProcessor = kStreamProcessor;
+        this.kTableProcessor = kTableProcessor;
     }
 
     @Bean
@@ -45,6 +49,8 @@ public class KafkaStreamsConfig {
         KStream<WorkEventKey, WorkEvent> stream = kStreamBuilder.stream(inputTopic);
 
         kStreamProcessor.process(stream);
+
+//        kTableProcessor.process(stream); // todo: uncomment
 
         return stream;
     }
