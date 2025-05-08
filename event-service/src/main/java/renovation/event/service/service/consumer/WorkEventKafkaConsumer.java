@@ -36,7 +36,7 @@ public class WorkEventKafkaConsumer {
             backoff = @Backoff(delay = RETRY_DELAY, maxDelay = RETRY_MAX_DELAY)
     )
     @KafkaListener(
-            topics = "${spring.kafka.topic.name}",
+            topics = "${spring.kafka.topic.event.name}",
             groupId = "${spring.kafka.consumer.group-id}"
     )
     public void consume(ConsumerRecord<WorkEventKey, WorkEvent> consumerRecord) {

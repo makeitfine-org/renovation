@@ -38,7 +38,7 @@ public class StreamProcessor {
     }
 
     @Autowired
-    public void process(@Value("${spring.kafka.topic.name}") String topicName,
+    public void process(@Value("${spring.kafka.topic.event.name}") String topicName,
                         StreamsBuilder builder) {
 
         builder.<WorkEventKey, WorkEvent>stream(topicName)

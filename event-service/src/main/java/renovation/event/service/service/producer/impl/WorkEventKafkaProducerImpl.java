@@ -13,7 +13,7 @@ public class WorkEventKafkaProducerImpl extends KafkaProducerImpl<WorkEventKey, 
 
     public WorkEventKafkaProducerImpl(
             KafkaTemplate<WorkEventKey, WorkEvent> kafkaTemplate,
-            @Value("${spring.kafka.topic.name}") String topicName
+            @Value("${spring.kafka.topic.event.name}") String topicName
     ) {
         super(kafkaTemplate, topicName);
     }
