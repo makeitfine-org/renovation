@@ -46,7 +46,7 @@ class KafkaControllerTest extends RestTestInit {
 
         postRequest("/publish", body, HttpStatus.SC_OK);
 
-        var workEventKeyValue = consumer.pollLastWorkEventKeyValue();
+        var workEventKeyValue = consumer.pollLastKeyValue();
         Assertions.assertNotNull(
                 UUID.fromString(
                         String.valueOf(workEventKeyValue.getKey().getId())
