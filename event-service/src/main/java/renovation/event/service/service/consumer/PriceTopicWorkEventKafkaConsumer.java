@@ -1,6 +1,5 @@
 package renovation.event.service.service.consumer;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -11,10 +10,9 @@ import renovation.event.service.kafka.avro.record.work.WorkEvent;
 import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 
 @Component
-@Slf4j
-public class WorkEventKafkaConsumer extends KafkaConsumer<WorkEventKey, WorkEvent> {
+public class PriceTopicWorkEventKafkaConsumer extends KafkaConsumer<WorkEventKey, WorkEvent> {
 
-    public WorkEventKafkaConsumer(@Value("${spring.kafka.topic.event.name}") String topicName) {
+    public PriceTopicWorkEventKafkaConsumer(@Value("${spring.kafka.topic.price.name}") String topicName) {
         super(topicName);
     }
 
@@ -24,7 +22,7 @@ public class WorkEventKafkaConsumer extends KafkaConsumer<WorkEventKey, WorkEven
             backoff = @Backoff(delay = DEFAULT_RETRY_DELAY, maxDelay = DEFAULT_RETRY_MAX_DELAY)
     )
     @KafkaListener(
-            topics = "${spring.kafka.topic.event.name}",
+            topics = "${spring.kafka.topic.price.name}",
             groupId = "${spring.kafka.consumer.group-id}"
     )
     public void consume(ConsumerRecord<WorkEventKey, WorkEvent> consumerRecord) {

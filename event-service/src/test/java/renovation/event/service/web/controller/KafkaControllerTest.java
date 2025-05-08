@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import renovation.event.service.service.consumer.WorkEventKafkaConsumer;
+import renovation.event.service.service.consumer.EventTopicWorkEventKafkaConsumer;
 import renovation.event.service.service.mapper.WorkEventRequestMapper;
 import renovation.event.service.web.Route;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
@@ -30,7 +30,7 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 class KafkaControllerTest extends RestTestInit {
 
     @Autowired
-    private WorkEventKafkaConsumer consumer;
+    private EventTopicWorkEventKafkaConsumer consumer;
     @Autowired
     private WorkEventRequestMapper workEventRequestMapper;
 
