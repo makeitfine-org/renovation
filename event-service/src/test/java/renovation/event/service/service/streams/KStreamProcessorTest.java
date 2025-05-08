@@ -8,8 +8,8 @@ package renovation.event.service.service.streams;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,7 +38,7 @@ class KStreamProcessorTest {
         this.priceConsumer = priceConsumer;
     }
 
-    @Test
+    @RepeatedTest(3)
     void process() throws InterruptedException, JsonProcessingException {
 
         //send price higher

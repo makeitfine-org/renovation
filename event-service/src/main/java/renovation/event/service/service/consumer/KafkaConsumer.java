@@ -41,7 +41,7 @@ public abstract class KafkaConsumer<K, V> {
     // todo: consider "Scaling Event-Driven Microservices"
     // https://medium.com/@bubu.tripathy/event-driven-architecture-adb658a1dc9c
     protected void kafkaListener(ConsumerRecord<K, V> consumerRecord) {
-        log.info("topic: {} message: {}", topicName, consumerRecord);
+        log.info("topic [{}] message [{}]", topicName, consumerRecord);
 
         q.clear();
         q.offer(ImmutablePair.of(consumerRecord.key(), consumerRecord.value()));
