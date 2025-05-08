@@ -68,6 +68,6 @@ public abstract class KafkaConsumer<K, V> {
      * @throws InterruptedException
      */
     public ImmutablePair<K, V> pollLastKeyValue(int millis) throws InterruptedException {
-        return q.poll(millis, TimeUnit.SECONDS);
+        return q.poll(millis, TimeUnit.MILLISECONDS);
     }
 }

@@ -6,13 +6,20 @@
 
 package renovation.event.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.testcontainers.shaded.org.apache.commons.lang3.tuple.ImmutablePair;
+import renovation.event.service.kafka.avro.record.work.WorkEvent;
+import renovation.event.service.kafka.avro.record.work.WorkEventKey;
+import renovation.event.service.service.mapper.WorkEventMapper;
+import renovation.event.service.web.dto.WorkEventRequest;
 
+import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 import static renovation.event.service.util.Helper.readFileContentFromProjectRoot;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -39,5 +46,21 @@ public class TestUtil {
      */
     public static String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
         return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
+    }
+
+    //todo: change everywhere
+    public static ImmutablePair<WorkEventKey, WorkEvent> keyValueFromJsonFileContentFromSrcTestResources(
+            WorkEventMapper mapper,
+            String path
+    ) throws JsonProcessingException {
+        var body = jsonFileContentFromSrcTestResources(
+                path
+        );
+        var request = OBJECT_MAPPER.readValue(body, WorkEventRequest.class);
+
+        var key = mapper.toAvroWorkEventKey(null);
+        var data = mapper.toAvroWorkEvent(request);
+
+        return ImmutablePair.of(key, data);
     }
 }
