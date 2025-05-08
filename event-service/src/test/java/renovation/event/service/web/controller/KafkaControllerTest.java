@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.service.consumer.EventTopicWorkEventKafkaConsumer;
+import renovation.event.service.service.consumer.PriceTopicWorkEventKafkaConsumer;
 import renovation.event.service.service.mapper.WorkEventRequestMapper;
 import renovation.event.service.web.Route;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
@@ -30,7 +31,9 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 class KafkaControllerTest extends RestTestInit {
 
     @Autowired
-    private EventTopicWorkEventKafkaConsumer consumer;
+    private EventTopicWorkEventKafkaConsumer eventConsumer;
+    @Autowired
+    private PriceTopicWorkEventKafkaConsumer priceConsumer;
     @Autowired
     private WorkEventRequestMapper workEventRequestMapper;
 
@@ -46,7 +49,30 @@ class KafkaControllerTest extends RestTestInit {
 
         postRequest("/publish", body, HttpStatus.SC_OK);
 
-        var workEventKeyValue = consumer.pollLastKeyValue();
+        var workEventKeyValue = eventConsumer.pollLastKeyValue();
+        Assertions.assertNotNull(
+                UUID.fromString(
+                        String.valueOf(workEventKeyValue.getKey().getId())
+                )
+        );
+        Assertions.assertNotNull(workEventKeyValue.getValue());
+        Assertions.assertEquals(
+                OBJECT_MAPPER.readValue(body, WorkEventRequest.class),
+                workEventRequestMapper.toWorkEventRequest(
+                        workEventKeyValue.getValue()
+                )
+        );
+    }
+
+    @Test
+    void when_publish_price_expect_Success() throws InterruptedException, JsonProcessingException {
+        var body = jsonFileContentFromSrcTestResources(
+                "KafkaControllerComponentTest.when_publish_expect_Success.json"
+        );
+
+        postRequest("/publish/price", body, HttpStatus.SC_OK);
+
+        var workEventKeyValue = priceConsumer.pollLastKeyValue();
         Assertions.assertNotNull(
                 UUID.fromString(
                         String.valueOf(workEventKeyValue.getKey().getId())

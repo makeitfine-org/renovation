@@ -1,6 +1,7 @@
 package renovation.event.service.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,16 @@ public class KafkaController {
         var data = workEventMapper.toAvroWorkEvent(request);
 
         workEventProducer.send(key, data);
+    }
+
+    @PostMapping("/publish/price")
+    @ResponseStatus(HttpStatus.OK)
+    public void publishPriceMessage(
+            @RequestBody WorkEventRequest request,
+            @Value("${spring.kafka.topic.price.name}") String topicName) {
+        var key = workEventMapper.toAvroWorkEventKey(request);
+        var data = workEventMapper.toAvroWorkEvent(request);
+
+        workEventProducer.send(key, data, topicName);
     }
 }
