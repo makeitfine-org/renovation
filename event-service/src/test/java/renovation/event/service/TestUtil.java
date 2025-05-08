@@ -13,6 +13,8 @@ import com.google.gson.JsonParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import static renovation.event.service.util.Helper.readFileContentFromProjectRoot;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestUtil {
 
@@ -27,5 +29,15 @@ public class TestUtil {
     public static String simplify(String json) {
         JsonElement el = JsonParser.parseString(json);
         return GSON.toJson(el);
+    }
+
+    /**
+     * Read file content from src/test/resources/json/
+     *
+     * @param pathInSrcTestResources relative path
+     * @return spaceless json raw
+     */
+    public static String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
+        return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
     }
 }

@@ -31,10 +31,6 @@ public abstract class RestTestInit {
                 .basePath(basePath);
     }
 
-    protected String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
-        return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
-    }
-
     protected void postRequest(String relatedPath, String body, int expectedCode) {
         request
                 .body(body)

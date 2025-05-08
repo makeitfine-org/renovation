@@ -16,5 +16,4 @@ public interface KafkaProducer<K, V> {
      * @param data data for to be sent in Kafka
      */
     void send(K key, V data);
-
 }

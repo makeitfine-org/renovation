@@ -46,11 +46,11 @@ public class StreamProcessor {
     }
 
     private void extractKeyValueAndPushThemToQueue(WorkEventKey key, WorkEvent value) {
-
         var keyOut = UUID.fromString(
                 String.valueOf(key.getId())
         );
         var valueOut = workEventRequestMapper.toWorkEventRequest(value);
+
         var keyValueOut = ImmutablePair.of(
                 keyOut,
                 valueOut
