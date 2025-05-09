@@ -6,6 +6,7 @@
 
 package renovation.event.service.service.streams;
 
+import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
@@ -13,11 +14,16 @@ import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KGroupedStream;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.Materialized;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import renovation.event.service.kafka.avro.record.work.WorkEvent;
 import renovation.event.service.kafka.avro.record.work.WorkEventKey;
+import renovation.event.service.kafka.avro.record.work.aggregate.WorkAggregateEvent;
+
+import java.util.Collections;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -57,6 +63,23 @@ public class KTableProcessor {
         workByIdTotalPrice.toStream().foreach((k, v) -> {
             log.info("id -> total price : {} -> {} ", k, v);
         });
+
+        Map<String, String> serdeConfig = Collections.singletonMap("schema.registry.url", schemaRegistry);
+        SpecificAvroSerde<WorkAggregateEvent> aggregateSerde = new SpecificAvroSerde<>();
+        aggregateSerde.configure(serdeConfig, false);
+        KTable<String, WorkAggregateEvent> workByIdAggregate = worksById.aggregate(
+                // Initializer
+                () -> new WorkAggregateEvent(0, 0.0),
+                // Aggregator
+                (key, newPrice, aggregate) ->
+                        new WorkAggregateEvent(
+                                aggregate.getCount() + 1,
+                                aggregate.getPriceSum() + newPrice
+                        ),
+                // Materialized with Serdes
+                Materialized.with(Serdes.String(), aggregateSerde)
+        );
+
 
 //        KGroupedStream<String, Double> worksById = stream
 //                .map((key, work) -> new KeyValue(work.getId().toString(), work.getPrice()))
