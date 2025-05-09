@@ -47,9 +47,15 @@ public class KTableProcessor {
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.Double()));
 
         KTable<String, Long> workByIdCount = worksById.count();
-
         workByIdCount.toStream().foreach((k, v) -> {
-            log.info("STR_K -> STR_V : {} -> {} ", k, v);
+            log.info("id -> count : {} -> {} ", k, v);
+        });
+
+        KTable<String, Double> workByIdTotalPrice = worksById.reduce(
+                Double::sum
+        );
+        workByIdTotalPrice.toStream().foreach((k, v) -> {
+            log.info("id -> total price : {} -> {} ", k, v);
         });
 
 //        KGroupedStream<String, Double> worksById = stream
