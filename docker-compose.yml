@@ -353,6 +353,8 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: renovation-kafka-0:9092,renovation-kafka-1:9093
       KAFKA_CLUSTERS_0_ZOOKEEPER: renovation-zookeeper:2181
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://renovation-schema-registry:8081
+      KAFKA_CLUSTERS_0_DEFAULTKEYSERDE: SchemaRegistry
+      KAFKA_CLUSTERS_0_DEFAULTVALUESERDE: SchemaRegistry
     networks:
       - renovation-network
 

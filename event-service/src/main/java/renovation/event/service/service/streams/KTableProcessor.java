@@ -7,11 +7,12 @@
 package renovation.event.service.service.streams;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KGroupedStream;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
-import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
-import org.apache.kafka.streams.state.Stores;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -35,11 +36,17 @@ public class KTableProcessor {
 
     public void process(KStream<WorkEventKey, WorkEvent> stream) {
         //Create a new KeyValue Store
-        KeyValueBytesStoreSupplier worksByIdPriceStore = Stores.persistentKeyValueStore(storeName);
+//        KeyValueBytesStoreSupplier worksByIdPriceStore = Stores.persistentKeyValueStore(storeName);
 
-        KGroupedStream<WorkEventKey, WorkEvent> worksById = stream.groupByKey();
+//        KGroupedStream<WorkEventKey, WorkEvent> worksById = stream.groupByKey();
+//
+//        KTable<WorkEventKey, Long> workByIdCount = worksById.count();
 
-        KTable<WorkEventKey, Long> workByIdCount = worksById.count();
+        KGroupedStream<String, Double> worksById = stream
+                .map((key, work) -> new KeyValue<>(String.valueOf(work.getId()), work.getPrice()))
+                .groupByKey(Grouped.with(Serdes.String(), Serdes.Double()));
+
+        KTable<String, Long> workByIdCount = worksById.count();
 
         workByIdCount.toStream().foreach((k, v) -> {
             log.info("STR_K -> STR_V : {} -> {} ", k, v);
