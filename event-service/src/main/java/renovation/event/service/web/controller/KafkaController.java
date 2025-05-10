@@ -20,6 +20,7 @@ import renovation.event.service.service.mapper.WorkEventMapper;
 import renovation.event.service.service.producer.WorkEventKafkaProducer;
 import renovation.event.service.web.Route;
 import renovation.event.service.web.dto.WorkEventRequest;
+import renovation.event.service.web.dto.WorkIdPriceSumResponse;
 
 @RestController
 @RequestMapping(value = Route.KAFKA, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,11 +67,11 @@ public class KafkaController {
 
     @GetMapping("/work/{workId}")
     @ResponseStatus(HttpStatus.OK)
-    public String getPriceSumByWorkId(@PathVariable String workId) {
+    public WorkIdPriceSumResponse getPriceSumByWorkId(@PathVariable String workId) {
         KafkaStreams kafkaStreams = factoryBean.getKafkaStreams();
-        ReadOnlyKeyValueStore<String, Long> priceSumStore = kafkaStreams
+        ReadOnlyKeyValueStore<String, Double> priceSumStore = kafkaStreams
                 .store(StoreQueryParameters.fromNameAndType(storeName, QueryableStoreTypes.keyValueStore()));
 
-        return String.format("Price sum by work id %s is %s", workId, priceSumStore.get(workId));
+        return new WorkIdPriceSumResponse(workId, priceSumStore.get(workId));
     }
 }

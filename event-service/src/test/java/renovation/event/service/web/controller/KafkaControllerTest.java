@@ -30,15 +30,19 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class KafkaControllerTest extends RestTestInit {
 
-    @Autowired
-    private EventTopicWorkEventKafkaConsumer eventConsumer;
-    @Autowired
-    private PriceTopicWorkEventKafkaConsumer priceConsumer;
-    @Autowired
-    private WorkEventRequestMapper workEventRequestMapper;
+    private final EventTopicWorkEventKafkaConsumer eventConsumer;
+    private final PriceTopicWorkEventKafkaConsumer priceConsumer;
+    private final WorkEventRequestMapper workEventRequestMapper;
 
-    public KafkaControllerTest() {
+    public KafkaControllerTest(
+            @Autowired EventTopicWorkEventKafkaConsumer eventConsumer,
+            @Autowired PriceTopicWorkEventKafkaConsumer priceConsumer,
+            @Autowired WorkEventRequestMapper workEventRequestMapper
+    ) {
         super(Route.KAFKA);
+        this.eventConsumer = eventConsumer;
+        this.priceConsumer = priceConsumer;
+        this.workEventRequestMapper = workEventRequestMapper;
     }
 
     @Test

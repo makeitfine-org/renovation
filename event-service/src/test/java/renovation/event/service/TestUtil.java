@@ -25,6 +25,8 @@ import static renovation.event.service.util.Helper.readFileContentFromProjectRoo
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestUtil {
 
+    public static final int STREAMS_INIT_TIME_WAIT = 45;
+
     private static final Gson GSON = new GsonBuilder().serializeNulls().create();
 
     /**

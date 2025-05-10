@@ -436,3 +436,7 @@ generate access token in github Developer Settings (Personal access tokens (clas
 
 clone repo with submodules:  
 `$ git clone --recurse-submodules git@github.com:makeitfine-org/renovation.git`
+
+### Work with stream in event-service
+Clear test streams locally:  
+$ rm -rf /tmp/kafka-streams/*  
