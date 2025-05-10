@@ -1,9 +1,16 @@
 package renovation.event.service.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StoreQueryParameters;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +28,20 @@ public class KafkaController {
 
     private final WorkEventMapper workEventMapper;
     private final WorkEventKafkaProducer workEventProducer;
+    private final String storeName;
+    private final StreamsBuilderFactoryBean factoryBean;
 
     public KafkaController(
             WorkEventMapper workEventMapper,
-            WorkEventKafkaProducer workEventProducer
+            WorkEventKafkaProducer workEventProducer,
+            @Value("${spring.kafka.streams.store.name}")
+            String storeName,
+            StreamsBuilderFactoryBean factoryBean
     ) {
         this.workEventMapper = workEventMapper;
         this.workEventProducer = workEventProducer;
+        this.storeName = storeName;
+        this.factoryBean = factoryBean;
     }
 
     @PostMapping("/publish")
@@ -48,5 +62,15 @@ public class KafkaController {
         var data = workEventMapper.toAvroWorkEvent(request);
 
         workEventProducer.send(key, data, topicName);
+    }
+
+    @GetMapping("/work/{workId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String getPriceSumByWorkId(@PathVariable String workId) {
+        KafkaStreams kafkaStreams = factoryBean.getKafkaStreams();
+        ReadOnlyKeyValueStore<String, Long> priceSumStore = kafkaStreams
+                .store(StoreQueryParameters.fromNameAndType(storeName, QueryableStoreTypes.keyValueStore()));
+
+        return String.format("Price sum by work id %s is %s", workId, priceSumStore.get(workId));
     }
 }

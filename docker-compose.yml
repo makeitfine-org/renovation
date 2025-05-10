@@ -355,6 +355,7 @@ services:
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://renovation-schema-registry:8081
       KAFKA_CLUSTERS_0_DEFAULTKEYSERDE: SchemaRegistry
       KAFKA_CLUSTERS_0_DEFAULTVALUESERDE: SchemaRegistry
+      LOGGING_LEVEL_ROOT: WARN
     networks:
       - renovation-network
 

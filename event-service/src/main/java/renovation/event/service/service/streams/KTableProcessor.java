@@ -16,7 +16,9 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
+import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.apache.kafka.streams.state.Stores;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import renovation.event.service.kafka.avro.record.work.WorkEvent;
@@ -26,15 +28,13 @@ import renovation.event.service.kafka.avro.record.work.aggregate.WorkAggregateEv
 @Slf4j
 @Component
 public class KTableProcessor {
-
-    @Value("${spring.kafka.streams.store.name}")
     private String storeName;
 
-    @Value("${spring.kafka.schema.registry.url}")
-    private String schemaRegistry;
+    public KTableProcessor(@Value("${spring.kafka.streams.store.name}") String storeName) {
+        this.storeName = storeName;
+    }
 
     public void process(KStream<WorkEventKey, WorkEvent> stream) {
-
         KGroupedStream<String, Double> priceByWorkIdGroupedStream = stream
                 .map((key, work) -> new KeyValue<>(String.valueOf(work.getId()), work.getPrice()))
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.Double()));
@@ -75,5 +75,14 @@ public class KTableProcessor {
                         log.info("AGG: work-id={} => count={}, sum={}",
                                 key, aggregate.getCount(), aggregate.getPriceSum()))
                 .to("work-aggregate-avro-topic");
+
+        // Fork #2 — Map to priceSum and store it in a different state store
+        KeyValueBytesStoreSupplier priceSumStore = Stores.persistentKeyValueStore(storeName);
+
+        workAggregateByIdTable.mapValues(
+                WorkAggregateEvent::getPriceSum,
+                Materialized.<String, Double>as(priceSumStore)
+                        .withKeySerde(Serdes.String())
+                        .withValueSerde(Serdes.Double()));
     }
 }
