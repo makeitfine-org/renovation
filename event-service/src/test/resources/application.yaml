@@ -1,3 +1,7 @@
 spring:
   profiles:
     include: "main,test"
+
+  kafka:
+    streams:
+      application-id: ${random.value:event-service}-${random.uuid}

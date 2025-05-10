@@ -10,15 +10,15 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.web.Route;
+import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.controller.base.RestTestInit;
 
 import static renovation.event.service.TestUtil.simplify;
 
 @Tag("componentTest")
-//todo: change to testcontainers kafka or remove
-@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:29192", "port=29192"})
+@ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class StartupControllerTest extends RestTestInit {
 
     public StartupControllerTest() {
