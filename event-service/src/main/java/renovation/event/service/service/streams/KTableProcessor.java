@@ -6,7 +6,6 @@
 
 package renovation.event.service.service.streams;
 
-import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
@@ -25,9 +24,6 @@ import renovation.event.service.kafka.avro.record.work.WorkEvent;
 import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 import renovation.event.service.kafka.avro.record.work.aggregate.WorkAggregateEvent;
 
-import java.util.Collections;
-import java.util.Map;
-
 @Slf4j
 @Component
 public class KTableProcessor {
@@ -44,8 +40,6 @@ public class KTableProcessor {
     }
 
     public void process(KStream<WorkEventKey, WorkEvent> stream) {
-        //Create a new KeyValue Store
-        //KeyValueBytesStoreSupplier worksByIdPriceStore = Stores.persistentKeyValueStore(storeName);
 
         KGroupedStream<String, Double> worksById = stream
                 .map((key, work) -> new KeyValue<>(String.valueOf(work.getId()), work.getPrice()))
@@ -53,8 +47,6 @@ public class KTableProcessor {
 
         KTable<String, Long> workByIdCount = worksById.count(
                 Materialized.<String, Long, KeyValueStore<org.apache.kafka.common.utils.Bytes, byte[]>>as("count-store")
-                        .withKeySerde(Serdes.String())
-                        .withValueSerde(Serdes.Long())
                         .withLoggingDisabled()
         );
         workByIdCount.toStream().peek((k, v) -> {
@@ -64,17 +56,12 @@ public class KTableProcessor {
         KTable<String, Double> workByIdTotalPrice = worksById.reduce(
                 Double::sum,
                 Materialized.<String, Double, KeyValueStore<Bytes, byte[]>>as("total-price-store")
-                        .withKeySerde(Serdes.String())
-                        .withValueSerde(Serdes.Double())
                         .withLoggingDisabled()
                 );
         workByIdTotalPrice.toStream().peek((k, v) -> {
             log.info("id -> total price : {} -> {} ", k, v);
         }).to("totalPrice", Produced.with(Serdes.String(), Serdes.Double()));
 
-        Map<String, String> serdeConfig = Collections.singletonMap("schema.registry.url", schemaRegistry);
-        SpecificAvroSerde<WorkAggregateEvent> aggregateSerde = new SpecificAvroSerde<>();
-        aggregateSerde.configure(serdeConfig, false);
         KTable<String, WorkAggregateEvent> workByIdAggregate = worksById.aggregate(
                 // Initializer
                 () -> new WorkAggregateEvent(0, 0.0),
@@ -85,14 +72,13 @@ public class KTableProcessor {
                                 aggregate.getPriceSum() + newPrice
                         ),
                 // Materialized with Serdes
-                Materialized.<String, WorkAggregateEvent, KeyValueStore<org.apache.kafka.common.utils.Bytes, byte[]>>as("avro-agg-store")
-                        .withKeySerde(Serdes.String())
-                        .withValueSerde(aggregateSerde)
+                Materialized.<String, WorkAggregateEvent, KeyValueStore<org.apache.kafka.common.utils.Bytes, byte[]>>
+                                as("avro-agg-store")
                         .withLoggingDisabled()
         );
 
         workByIdAggregate.toStream().peek((k, v) ->
                 log.info("AGG: id={} => count={}, sum={}", k, v.getCount(), v.getPriceSum())
-        ).to("avroTotalPrice", Produced.with(Serdes.String(), aggregateSerde));
+        ).to("avroTotalPrice");
     }
 }

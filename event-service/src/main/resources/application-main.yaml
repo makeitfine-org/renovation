@@ -67,7 +67,6 @@ spring:
       default:
         type: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
 
-
   kafka:
     properties:
       key.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy

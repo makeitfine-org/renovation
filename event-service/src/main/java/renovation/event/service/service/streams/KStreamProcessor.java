@@ -7,6 +7,7 @@
 package renovation.event.service.service.streams;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import renovation.event.service.kafka.avro.record.work.WorkEvent;
 import renovation.event.service.kafka.avro.record.work.WorkEventKey;
 import renovation.event.service.service.streams.util.ComparisonUtil;
 
+@Slf4j
 @Component
 public class KStreamProcessor {
     @Value("${spring.kafka.topic.price.name}")
@@ -33,7 +35,9 @@ public class KStreamProcessor {
     }
 
     public void process(KStream<WorkEventKey, WorkEvent> stream) {
-        stream.filter(
+        stream
+                .peek((k, v) -> log.debug("before filtering: {}", v))
+                .filter(
                 (key, value) -> value != null && comparison(value)
         ).to(outputTopic);
     }

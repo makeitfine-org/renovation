@@ -8,6 +8,7 @@ package renovation.event.service.config;
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.Schema;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,8 +22,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Component
 public class SchemaAutoRegistrar {
+    public static final int CACHE_CAPACITY = 100;
 
     @Value("${spring.kafka.schema.registry.url}")
     private String schemaRegistryUrl;
@@ -32,7 +35,7 @@ public class SchemaAutoRegistrar {
 
     @PostConstruct
     public void registerAllSchemas() throws Exception {
-        SchemaRegistryClient client = new CachedSchemaRegistryClient(schemaRegistryUrl, 100);
+        SchemaRegistryClient client = new CachedSchemaRegistryClient(schemaRegistryUrl, CACHE_CAPACITY);
 
         List<Path> schemaPaths = findAllAvscFiles(avroLocationInResources);
         for (Path path : schemaPaths) {
@@ -40,10 +43,10 @@ public class SchemaAutoRegistrar {
             Schema avroSchema = new Schema.Parser().parse(schemaStr);
 
             // Subject = namespace.name
-            String subject = avroSchema.getNamespace() + "." + avroSchema.getName();
+            String subject = avroSchema.getFullName();
 
             int id = client.register(subject, avroSchema);
-            System.out.println("✅ Registered " + subject + " as ID: " + id);
+            log.info("✅ Registered {} as ID: {}", subject, id);
         }
     }
 
