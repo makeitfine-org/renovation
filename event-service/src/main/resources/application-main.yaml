@@ -69,6 +69,9 @@ spring:
 
 
   kafka:
+    properties:
+      key.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
     topic:
       event:
         name: "event-topic"
@@ -80,6 +83,8 @@ spring:
     schema:
       registry:
         url: http://${SCHEMA_REGISTRY_HOST:localhost}:${SCHEMA_REGISTRY_PORT:8081}
+      avro:
+        location: avro
     consumer:
       auto-offset-reset: earliest
       group-id: event_group

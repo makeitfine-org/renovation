@@ -50,7 +50,7 @@ public class KafkaStreamsConfig {
 
         kStreamProcessor.process(stream);
 
-        kTableProcessor.process(stream); // todo: uncomment
+        kTableProcessor.process(stream);
 
         return stream;
     }
