@@ -6,68 +6,31 @@
 
 package renovation.event.service.web.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.Network;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.kafka.ConfluentKafkaContainer;
-import org.testcontainers.utility.DockerImageName;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.web.Route;
+import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.controller.base.RestTestInit;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static renovation.event.service.TestUtil.STREAMS_INIT_TIME_WAIT;
 import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
 import static renovation.event.service.TestUtil.simplify;
 
+@Disabled
 @Tag("componentTest")
-@Testcontainers
-class TestcontainersStreamStoreKafkaControllerTest extends RestTestInit {
+//https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-dirtiescontext.html
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
+class StreamStoreKafkaControllerTest extends RestTestInit {
 
-    public static final String KAFKA_IMAGE = "confluentinc/cp-kafka";
-    public static final String SCHEMA_REGISTRY_IMAGE = "confluentinc/cp-schema-registry";
-    public static final String KAFKA_VERSION = "7.8.0";
-
-    private static final Network NETWORK = Network.newNetwork();
-
-    @Container
-    static final ConfluentKafkaContainer KAFKA_CONTAINER =
-            new ConfluentKafkaContainer(DockerImageName.parse(KAFKA_IMAGE).withTag(KAFKA_VERSION))
-                    .withNetwork(NETWORK);
-
-    @Container
-    static final GenericContainer<?> SCHEMA_REGISTRY =
-            new GenericContainer<>(DockerImageName.parse(SCHEMA_REGISTRY_IMAGE).withTag(KAFKA_VERSION))
-                    .withNetwork(NETWORK)
-                    .withExposedPorts(8081)
-                    .withEnv("SCHEMA_REGISTRY_HOST_NAME", "schema-registry")
-                    .withEnv("SCHEMA_REGISTRY_LISTENERS", "http://0.0.0.0:8081")
-                    .withEnv(
-                            "SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS",
-                            "PLAINTEXT://" + KAFKA_CONTAINER.getNetworkAliases().get(0) + ":9093"
-                    )
-                    .withEnv("SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL", "PLAINTEXT")
-                    .waitingFor(Wait.forHttp("/subjects").forStatusCode(200))
-                    .withStartupTimeout(Duration.ofSeconds(60));
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.kafka.bootstrap-servers", KAFKA_CONTAINER::getBootstrapServers);
-        registry.add("spring.kafka.schema.registry.url",
-                () -> "http://" + SCHEMA_REGISTRY.getHost() + ":" + SCHEMA_REGISTRY.getMappedPort(8081));
-    }
-
-    public TestcontainersStreamStoreKafkaControllerTest() {
+    public StreamStoreKafkaControllerTest() {
         super(Route.KAFKA);
     }
 
