@@ -32,8 +32,7 @@ import static renovation.event.service.TestUtil.simplify;
 
 @Tag("componentTest")
 @Testcontainers
-class StreamStoreKafkaControllerTest extends RestTestInit {
-
+class TestcontainersStreamStoreKafkaControllerTest extends RestTestInit {
 
     public static final String KAFKA_IMAGE = "confluentinc/cp-kafka";
     public static final String SCHEMA_REGISTRY_IMAGE = "confluentinc/cp-schema-registry";
@@ -68,7 +67,7 @@ class StreamStoreKafkaControllerTest extends RestTestInit {
                 () -> "http://" + SCHEMA_REGISTRY.getHost() + ":" + SCHEMA_REGISTRY.getMappedPort(8081));
     }
 
-    public StreamStoreKafkaControllerTest() {
+    public TestcontainersStreamStoreKafkaControllerTest() {
         super(Route.KAFKA);
     }
 
