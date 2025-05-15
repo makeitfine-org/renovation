@@ -224,6 +224,10 @@ tasks.register<GradleBuild>(buildAll) {
     doLast {
         exec {
             workingDir("${rootProject.rootDir}")
+            commandLine("sh", "-c", "rm -rf /tmp/kafka-streams/*")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", "clean")
         }
         exec {
