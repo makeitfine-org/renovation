@@ -8,7 +8,6 @@ package renovation.event.service.web.controller;
 
 import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,7 +22,6 @@ import static renovation.event.service.TestUtil.STREAMS_INIT_TIME_WAIT;
 import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
 import static renovation.event.service.TestUtil.simplify;
 
-@Disabled
 @Tag("componentTest")
 //https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-dirtiescontext.html
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
