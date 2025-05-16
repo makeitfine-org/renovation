@@ -65,7 +65,7 @@ subprojects {
         }
 
         detekt {
-            config = files("${rootProject.rootDir}/aux/detekt/config.yml")
+            config = files("${rootProject.rootDir}/auxillary/detekt/config.yml")
         }
 
         configurations {
@@ -193,7 +193,7 @@ subprojects {
             tasks.register<Copy>("copyTestKeycloakFiles") {
                 description = "Copy renovation-realm.json to renovation-realm-test.json"
 
-                from("${rootProject.rootDir}/aux/keycloak-config/renovation-realm.json")
+                from("${rootProject.rootDir}/auxillary/keycloak-config/renovation-realm.json")
                     .rename("renovation-realm.json", "renovation-realm-test.json")
 
                 into("${rootProject.rootDir}/${project.name}/src/test/resources/keycloak")
@@ -299,6 +299,10 @@ tasks.register<GradleBuild>(buildAll) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":event-service:mci")
+        }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":neo4j-service:mci")
         }
 
         exec {
@@ -407,6 +411,7 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
         removeImageLocallyIfExists("koresmosto/renovation-ktor-server:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-neo4j-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
     }
 }
@@ -532,7 +537,7 @@ tasks.register<Copy>("installGitHooks") {
     description = "copy git hooks to .git/hook folder"
     println(description)
     from(
-        fileTree("${rootProject.rootDir}/aux/githooks/")
+        fileTree("${rootProject.rootDir}/auxillary/githooks/")
             .matching {
                 include(*githookFiles)
             }

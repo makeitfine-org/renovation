@@ -135,7 +135,7 @@ For to autofix:
    With ingress:  
    `$> gradle k8sIngressApiTest`
 4.1 Instead of 5 - 9 belove steps execute script:   
-   `$> sh aux/minikube/mn-cluster-creation.sh`
+   `$> sh auxillary/minikube/mn-cluster-creation.sh`
 5. Upload backend image and redeploy backend service:  
    `$> gradle k8sUploadBackendImage`  
 6. Upload info image and redeploy backend service:  
@@ -158,12 +158,12 @@ For to autofix:
        upload images to multi-nodes: `mi image load <image> -p mn`  
 8. Deploy/Undeploy all k8s entities scripts:  
    5.1.0 Create `renovation` namespace and make it current:   
-   `$> kubectl apply -f aux/k8s/yaml/renovation-namespace.yaml`  
+   `$> kubectl apply -f auxillary/k8s/yaml/renovation-namespace.yaml`  
    `$> kubectl config set-context --current --namespace=renovation`
    5.1.1 deploy:  
-   `$> sh aux/k8s/scripts/deploy-all.sh`  
+   `$> sh auxillary/k8s/scripts/deploy-all.sh`  
    5.2 un-deploy:  
-   `$> sh aux/k8s/scripts/delete-all.sh`  
+   `$> sh auxillary/k8s/scripts/delete-all.sh`  
    (all necessary scripts and `kubectl` command can be read from above `sh` scripts)  
    8.1: work with postgres-ha:  
       https://devopscube.com/deploy-postgresql-statefulset/  
@@ -411,7 +411,7 @@ to run in intellij idea with `gradle buildAll` do so:
 1. set env. var JAVA_HOME in console to java 21: `export JAVA_HOME=<path>/jdk21`  
 2. run IDEA in console `/bin/bash -l -c <path_to_idea>/bin/idea.sh`
 
-[backend-service](aux/readme/backend-service.md)
+[backend-service](auxillary/readme/backend-service.md)
 
 ### Add wiki submodule:  
 g clone https://github.com/makeitfine-org/renovation.wiki.git wiki  

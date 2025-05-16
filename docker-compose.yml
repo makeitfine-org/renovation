@@ -75,7 +75,7 @@ services:
       "start-dev"
     ]
     volumes:
-      - ./aux/keycloak-config:/opt/keycloak/data/import
+      - ./auxillary/keycloak-config:/opt/keycloak/data/import
     ports:
       - ${KEYCLOAK_LOCALHOST_REDIRECT_PORT}:8080
     environment:
@@ -249,6 +249,17 @@ services:
     networks:
       - renovation-network
 
+  renovation-neo4j-service:
+    image: koresmosto/renovation-neo4j-service
+    build:
+      context: ./neo4j-service
+    restart: always
+    container_name: renovation-neo4j-service
+    ports:
+      - ${NEO_SERVICE_REDIRECT_PORT}:8080
+    networks:
+      - renovation-network
+
   renovation-event-service:
     image: koresmosto/renovation-event-service
     build:
@@ -261,7 +272,7 @@ services:
       - renovation-kafka-1
       - renovation-schema-registry
     ports:
-      - ${MONITOR_SERVER_REDIRECT_PORT}:8080
+      - ${EVENT_SERVICE_REDIRECT_PORT}:8080
     environment:
       KAFKA_0_BOOSTRAP_SERVER: ${KAFKA_0_BOOSTRAP_SERVER}
       KAFKA_0_BOOSTRAP_SERVER_PORT: ${KAFKA_0_BOOSTRAP_SERVER_PORT}

@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 
+<!--
+  ~ Created under not commercial project "Renovation"
+  ~
+  ~ Copyright 2021-2025
+  -->
+
 <!DOCTYPE suppressions PUBLIC
         "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
