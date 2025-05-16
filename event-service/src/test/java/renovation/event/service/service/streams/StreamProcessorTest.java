@@ -8,11 +8,11 @@ package renovation.event.service.service.streams;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.service.mapper.WorkEventMapper;
 import renovation.event.service.service.producer.WorkEventKafkaProducer;
@@ -27,6 +27,7 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
 @Tag("componentTest")
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class StreamProcessorTest {
 
@@ -44,7 +45,6 @@ class StreamProcessorTest {
         this.streamProcessor = streamProcessor;
     }
 
-    @Disabled //todo: working locally/fix for github actions
     @Test
     void process() throws InterruptedException, JsonProcessingException {
         var body = jsonFileContentFromSrcTestResources(
