@@ -23,7 +23,7 @@ import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 import static renovation.event.service.util.Helper.readFileContentFromProjectRoot;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TestUtil {
+public class TestUtil { //todo: refactoring/move to common module
 
     public static final int STREAMS_INIT_TIME_WAIT = 45;
 

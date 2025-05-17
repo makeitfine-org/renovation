@@ -1,4 +1,4 @@
-package renovation.event.service.web.controller.base;
+package renovation.neo4j.service.web.controller.base;
 
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
@@ -28,14 +28,5 @@ public abstract class RestTestInit { //todo: refactoring/move to common module
         this.request = given()
                 .header("Content-Type", "application/json")
                 .basePath(basePath);
-    }
-
-    protected void postRequest(String relatedPath, String body, int expectedCode) {
-        request
-                .body(body)
-                .when()
-                .post(relatedPath)
-                .then()
-                .statusCode(expectedCode);
     }
 }

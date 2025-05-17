@@ -450,5 +450,25 @@ services:
     networks:
       - renovation-network
 
+  renovation-neo4j:
+    image: neo4j:2025.04.0-community
+    restart: unless-stopped
+    container_name: renovation-neo4j
+    ports:
+      - ${NEO4J74}:7474
+      - ${NEO4J87}:7687
+    environment:
+      NEO4J_AUTH: ${NEO4J_AUTH}
+    volumes:
+      - neo4j_data:/data
+      - ./db/conf:/conf
+      - ./db/logs:/logs
+      - ./db/plugins:/plugins
+    networks:
+      - renovation-network
+
 networks:
   renovation-network:
+
+volumes:
+  neo4j_data:
