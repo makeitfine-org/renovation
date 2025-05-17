@@ -23,8 +23,8 @@ import renovation.event.service.web.dto.WorkEventRequest;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
-import static renovation.event.service.util.Helper.OBJECT_MAPPER;
+import static renovation.common.util.MapperUtil.OBJECT_MAPPER;
+import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
 @Tag("componentTest")
 @SpringBootTest

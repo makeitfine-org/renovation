@@ -1,4 +1,4 @@
-package renovation.event.service.util;
+package renovation.common.util;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class Helper {
+public final class MapperUtil {
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
@@ -37,9 +36,8 @@ public final class Helper {
     public static class InstantDeserializer extends JsonDeserializer<Instant> {
         private final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
 
-        @SneakyThrows
         @Override
-        public Instant deserialize(JsonParser p, DeserializationContext ctxt) {
+        public Instant deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
             JsonNode value = p.getCodec().readTree(p);
             var creationDate = value.asText();
 
@@ -57,5 +55,9 @@ public final class Helper {
         } catch (IOException e) {
             throw new IllegalArgumentException(pathInProjectRoot);
         }
+    }
+
+    public static String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
+        return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
     }
 }

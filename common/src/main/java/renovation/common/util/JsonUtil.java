@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.common;
+package renovation.common.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  * Util class for different test purpose
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TestUtil {
+public class JsonUtil {
 
     private static final Gson GSON = new GsonBuilder().serializeNulls().create();
 

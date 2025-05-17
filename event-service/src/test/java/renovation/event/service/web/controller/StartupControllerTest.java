@@ -15,7 +15,7 @@ import renovation.event.service.web.Route;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.controller.base.RestTestInit;
 
-import static renovation.event.service.TestUtil.simplify;
+import static renovation.common.util.JsonUtil.simplify;
 
 @Tag("componentTest")
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)

@@ -6,7 +6,6 @@
 
 package renovation.event.service.web.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
@@ -26,9 +25,9 @@ import renovation.event.service.web.controller.base.RestTestInit;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-import static renovation.event.service.TestUtil.STREAMS_INIT_TIME_WAIT;
-import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
-import static renovation.event.service.TestUtil.simplify;
+import static renovation.common.util.JsonUtil.simplify;
+import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
+import static renovation.event.service.KafkaUtil.STREAMS_INIT_TIME_WAIT;
 
 @Tag("componentTest")
 @Testcontainers

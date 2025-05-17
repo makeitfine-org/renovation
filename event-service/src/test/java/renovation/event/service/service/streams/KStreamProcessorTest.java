@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import renovation.event.service.TestUtil;
+import renovation.event.service.KafkaUtil;
 import renovation.event.service.service.consumer.PriceTopicWorkEventKafkaConsumer;
 import renovation.event.service.service.mapper.WorkEventMapper;
 import renovation.event.service.service.producer.WorkEventKafkaProducer;
@@ -44,7 +44,7 @@ class KStreamProcessorTest {
     void process() throws InterruptedException, JsonProcessingException {
 
         //send price higher
-        var keyValueAvro = TestUtil.keyValueFromJsonFileContentFromSrcTestResources(
+        var keyValueAvro = KafkaUtil.keyValueFromJsonFileContentFromSrcTestResources(
                 workEventMapper,
                 "KafkaControllerComponentTest.when_publish_expect_Success.json"
         );
@@ -53,7 +53,7 @@ class KStreamProcessorTest {
         Assertions.assertNull(keyValue);
 
         //send price lower
-        keyValueAvro = TestUtil.keyValueFromJsonFileContentFromSrcTestResources(
+        keyValueAvro = KafkaUtil.keyValueFromJsonFileContentFromSrcTestResources(
                 workEventMapper,
                 "KafkaControllerComponentTest.when_publish_price_is_77_expect_Success.json"
         );

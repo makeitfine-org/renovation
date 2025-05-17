@@ -20,8 +20,8 @@ import renovation.event.service.service.producer.WorkEventKafkaProducer;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 import renovation.event.service.web.dto.WorkEventRequest;
 
-import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
-import static renovation.event.service.util.Helper.OBJECT_MAPPER;
+import static renovation.common.util.MapperUtil.OBJECT_MAPPER;
+import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
 @Tag("componentTest")
 @SpringBootTest

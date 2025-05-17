@@ -26,6 +26,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinVersion"]}")
     implementation("org.projectlombok:lombok")
     implementation("com.google.code.gson:gson:${properties["googleGsonVersion"]}");
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${properties["jacksonDatatypeJsr310Version"]}");
 }
 
 publishing {

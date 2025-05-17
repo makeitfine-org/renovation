@@ -18,9 +18,9 @@ import renovation.event.service.web.controller.base.RestTestInit;
 
 import java.util.concurrent.TimeUnit;
 
-import static renovation.event.service.TestUtil.STREAMS_INIT_TIME_WAIT;
-import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResources;
-import static renovation.event.service.TestUtil.simplify;
+import static renovation.common.util.JsonUtil.simplify;
+import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
+import static renovation.event.service.KafkaUtil.STREAMS_INIT_TIME_WAIT;
 
 @Tag("componentTest")
 //https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-dirtiescontext.html
