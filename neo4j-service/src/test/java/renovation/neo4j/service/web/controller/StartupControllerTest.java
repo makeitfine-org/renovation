@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import renovation.neo4j.service.web.Route;
 import renovation.neo4j.service.web.controller.base.RestTestInit;
 
-import static renovation.neo4j.service.TestUtil.simplify;
+import static renovation.common.TestUtil.simplify;
 
 @Tag("componentTest")
 class StartupControllerTest extends RestTestInit {

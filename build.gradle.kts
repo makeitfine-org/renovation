@@ -250,6 +250,10 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", "assemble")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":common:publishToMavenLocal")
+        }
 
         exec {
             workingDir("${rootProject.rootDir}")

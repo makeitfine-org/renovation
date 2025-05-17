@@ -6,17 +6,35 @@
 
 plugins {
     kotlin("plugin.spring")
+    `maven-publish`
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 dependencies {
     implementation(platform(libs.spring.boot.dependencies))
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-oauth2-resource-server")
     implementation("org.springframework.security:spring-security-oauth2-jose")
     implementation("io.rest-assured:kotlin-extensions:${properties["restAssuredVersion"]}")
     implementation("org.jetbrains.kotlin:kotlin-test:${properties["kotlinVersion"]}")
+    implementation("org.projectlombok:lombok")
+    implementation("com.google.code.gson:gson:${properties["googleGsonVersion"]}");
+}
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
+    repositories {
+        mavenLocal() // Will publish to ~/.m2/repository
+    }
 }

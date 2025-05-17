@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.neo4j.service;
+package renovation.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,10 +13,11 @@ import com.google.gson.JsonParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Util class for different test purpose
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TestUtil { //todo: refactoring/move to common module
-
-    public static final int STREAMS_INIT_TIME_WAIT = 45;
+public class TestUtil {
 
     private static final Gson GSON = new GsonBuilder().serializeNulls().create();
 
