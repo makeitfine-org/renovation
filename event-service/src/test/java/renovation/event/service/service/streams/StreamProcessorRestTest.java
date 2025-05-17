@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.web.Route;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
@@ -25,6 +26,7 @@ import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResour
 import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
 @Tag("componentTest")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class StreamProcessorRestTest extends RestTestInit {
 

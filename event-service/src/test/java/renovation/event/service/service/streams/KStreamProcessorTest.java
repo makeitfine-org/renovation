@@ -12,6 +12,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.TestUtil;
 import renovation.event.service.service.consumer.PriceTopicWorkEventKafkaConsumer;
@@ -21,6 +22,7 @@ import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 
 @Tag("componentTest")
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class KStreamProcessorTest {
 

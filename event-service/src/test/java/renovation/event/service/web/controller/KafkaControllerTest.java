@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import renovation.event.service.service.consumer.EventTopicWorkEventKafkaConsumer;
 import renovation.event.service.service.consumer.PriceTopicWorkEventKafkaConsumer;
@@ -28,6 +29,7 @@ import static renovation.event.service.TestUtil.jsonFileContentFromSrcTestResour
 import static renovation.event.service.util.Helper.OBJECT_MAPPER;
 
 @Tag("componentTest")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class KafkaControllerTest extends RestTestInit {
 
