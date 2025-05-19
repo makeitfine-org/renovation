@@ -10,16 +10,18 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import renovation.common.web.RestTestInit;
 import renovation.neo4j.service.web.Route;
 import renovation.neo4j.service.web.controller.base.Neo4jTestcontainers;
-import renovation.neo4j.service.web.controller.base.RestTestInit;
 
 import static renovation.common.util.JsonUtil.simplify;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
 @Tag("componentTest")
 @ContextConfiguration(classes = Neo4jTestcontainers.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthorControllerTest extends RestTestInit {
 
     public AuthorControllerTest() {
@@ -29,7 +31,7 @@ class AuthorControllerTest extends RestTestInit {
     @Test
     void when_Save_expect_Success() {
 
-        request.body("""
+        getRequest().body("""
                         {
                             "id"          : 12,
                             "firstName"   : "Igor",
@@ -42,7 +44,7 @@ class AuthorControllerTest extends RestTestInit {
                 .post()
                 .then()
                 .statusCode(HttpStatus.SC_CREATED);
-        request.body("""
+        getRequest().body("""
                         {
                             "firstName"   : "Petro",
                             "lastName"    : "Lomiv",
@@ -56,7 +58,7 @@ class AuthorControllerTest extends RestTestInit {
                 .statusCode(HttpStatus.SC_CREATED);
 
         // Then
-        request.get()
+        getRequest().get()
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(CoreMatchers.equalTo(
