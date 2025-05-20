@@ -8,4 +8,6 @@ public class Route {
     public static final String STARTUP = "/startup";
 
     public static final String AUTHOR = "/author";
+
+    public static final String BOOK = "/book";
 }

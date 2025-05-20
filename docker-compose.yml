@@ -463,7 +463,8 @@ services:
       NEO4J_AUTH: ${NEO4J_AUTH}
     volumes:
       #      - neo4j_data:/data
-      - ./neo4j-service/src/main/resources/docker/neo4j/init:/init
+#      - ./neo4j-service/src/main/resources/docker/neo4j/init:/init # temp. is not used (uncom. and com. below)
+      - ./neo4j-service/src/test/resources/test.cypher:/init/test.cypher
       - ./neo4j-service/src/main/resources/docker/neo4j/init/entrypoint.sh:/init/entrypoint.sh
     entrypoint: [ "/init/entrypoint.sh" ]
     networks:

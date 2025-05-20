@@ -76,7 +76,7 @@ class AuthorControllerTest extends Neo4jRestTestInit {
                         simplify(
                                 """
                                         {
-                                            "id"          : 2,
+                                            "id"          : 6,
                                             "firstName"   : "Igor",
                                             "lastName"    : "Fainiv",
                                             "middleName"  : "Matov",

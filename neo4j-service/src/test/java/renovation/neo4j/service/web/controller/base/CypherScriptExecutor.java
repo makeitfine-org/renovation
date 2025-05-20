@@ -11,6 +11,8 @@ import org.neo4j.driver.Driver;
 import org.neo4j.driver.Session;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class CypherScriptExecutor {
@@ -18,7 +20,12 @@ public class CypherScriptExecutor {
     private final Driver driver;
 
     public void executeScript(String script) {
-        String[] statements = script.split(";");
+
+        String[] statements = script
+                .lines()
+                .filter(l->!l.startsWith("//"))
+                .collect(Collectors.joining(System.getProperty("line.separator")))
+                .split(";");
 
         try (Session session = driver.session()) {
             session.writeTransaction(tx -> {

@@ -16,8 +16,11 @@ import lombok.ToString;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,6 +42,11 @@ public class Author {
 
     private LocalDate birthDate;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @Relationship(type = "WRITTEN_BY", direction = Relationship.Direction.INCOMING)
+    private List<Book> books;
+
     public Author(LocalDate birthDate, String middleName, String lastName, String firstName) {
         this.birthDate = birthDate;
         this.middleName = middleName;
@@ -50,5 +58,13 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+    }
+
+    public Author(LocalDate birthDate, String middleName, String lastName, String firstName, List<Book> books) {
+        this.birthDate = birthDate;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.books = new ArrayList<>(books);
     }
 }
