@@ -30,7 +30,7 @@ import java.time.LocalDate;
 public class Author {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue // todo: the number in db is ignored and set by application (remove @generate?)
     private Long id;
 
     private String firstName;

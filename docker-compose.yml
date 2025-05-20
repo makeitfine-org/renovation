@@ -458,17 +458,19 @@ services:
       - ${NEO4J74}:7474
       - ${NEO4J87}:7687
     environment:
+      noe4juser: ${noe4juser}
+      noe4jpass: ${noe4jpass}
       NEO4J_AUTH: ${NEO4J_AUTH}
     volumes:
-      - neo4j_data:/data
-      - ./db/conf:/conf
-      - ./db/logs:/logs
-      - ./db/plugins:/plugins
+      #      - neo4j_data:/data
+      - ./neo4j-service/src/main/resources/docker/neo4j/init:/init
+      - ./neo4j-service/src/main/resources/docker/neo4j/init/entrypoint.sh:/init/entrypoint.sh
+    entrypoint: [ "/init/entrypoint.sh" ]
     networks:
       - renovation-network
 
 networks:
   renovation-network:
 
-volumes:
-  neo4j_data:
+#volumes:
+#  neo4j_data:
