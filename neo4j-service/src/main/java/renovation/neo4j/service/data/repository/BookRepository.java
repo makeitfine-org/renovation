@@ -7,8 +7,6 @@
 package renovation.neo4j.service.data.repository;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
-import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import renovation.neo4j.service.data.node.Book;
 
@@ -21,6 +19,5 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
 
     List<Book> findAllByYearOrderByYearDesc(Integer year);
 
-    @Query("MATCH (b:Book)-[:WRITTEN_BY]->(a:Author) WHERE b.year > $year RETURN b, a")
-    List<Book> findBooksAfterYear(@Param("year") Integer year);
+    List<Book> findByYearGreaterThan(Integer year);
 }

@@ -10,7 +10,6 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.DirtiesContext;
 import renovation.neo4j.service.web.Route;
 import renovation.neo4j.service.web.controller.base.Neo4jRestTestInit;
 
@@ -18,7 +17,6 @@ import static renovation.common.util.JsonUtil.simplify;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
 @Tag("componentTest")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) //todo: remove after rem. author autogen.
 class AuthorControllerTest extends Neo4jRestTestInit {
 
     public AuthorControllerTest() {
@@ -41,14 +39,14 @@ class AuthorControllerTest extends Neo4jRestTestInit {
 
     @Test
     void when_GetById_expect_Success() {
-        getRequest().get("/1")
+        getRequest().get("/5")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(CoreMatchers.equalTo(
                         simplify(
                                 """
                                         {
-                                            "id": 1,
+                                            "id": 5,
                                             "firstName": "Petro",
                                             "lastName": "Lomiv",
                                             "middleName": "Kindratovych",
@@ -62,6 +60,7 @@ class AuthorControllerTest extends Neo4jRestTestInit {
     void when_Create_expect_Success() {
         getRequest().body("""
                         {
+                            "id": 2,
                             "firstName"   : "Igor",
                             "lastName"    : "Fainiv",
                             "middleName"  : "Matov",
@@ -76,7 +75,7 @@ class AuthorControllerTest extends Neo4jRestTestInit {
                         simplify(
                                 """
                                         {
-                                            "id"          : 6,
+                                            "id"          : 2,
                                             "firstName"   : "Igor",
                                             "lastName"    : "Fainiv",
                                             "middleName"  : "Matov",
@@ -101,7 +100,7 @@ class AuthorControllerTest extends Neo4jRestTestInit {
 
     @Test
     void when_Delete_expect_Success() {
-        getRequest().delete("/0")
+        getRequest().delete("/1")
                 .then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
 
@@ -114,7 +113,7 @@ class AuthorControllerTest extends Neo4jRestTestInit {
                                 """
                                         [
                                            {
-                                                "id": 1,
+                                                "id": 5,
                                                 "firstName": "Petro",
                                                 "lastName": "Lomiv",
                                                 "middleName": "Kindratovych",

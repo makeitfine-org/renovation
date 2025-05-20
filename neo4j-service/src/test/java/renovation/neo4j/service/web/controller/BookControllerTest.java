@@ -10,7 +10,6 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.DirtiesContext;
 import renovation.neo4j.service.web.Route;
 import renovation.neo4j.service.web.controller.base.Neo4jRestTestInit;
 
@@ -18,7 +17,6 @@ import static renovation.common.util.JsonUtil.simplify;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
 @Tag("componentTest")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) //todo: remove after rem. author autogen.
 class BookControllerTest extends Neo4jRestTestInit {
 
     public BookControllerTest() {
@@ -51,7 +49,7 @@ class BookControllerTest extends Neo4jRestTestInit {
                                              "id": 1,
                                              "title": "Spring in Action",
                                              "year": 2021,
-                                             "authorId": 0
+                                             "authorId": 1
                                            }
                                         """.trim()
                         )

@@ -3,12 +3,12 @@
     "id": 2,
     "title": "Neo4j Graph Magic",
     "year": 2022,
-    "authorId": 0
+    "authorId": 1
   },
   {
     "id": 3,
     "title": "Effective Java Graphs",
     "year": 2022,
-    "authorId": 1
+    "authorId": 5
   }
 ]

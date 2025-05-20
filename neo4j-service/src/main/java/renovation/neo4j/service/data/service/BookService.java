@@ -29,6 +29,6 @@ public class BookService {
     }
 
     public List<Book> findBooksAfterYear(Integer year) {
-        return repository.findBooksAfterYear(year);
+        return repository.findByYearGreaterThan(year);
     }
 }

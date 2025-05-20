@@ -1,23 +1,23 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "firstName": "Igor",
     "lastName": "Fainiv",
     "middleName": "Kindratovych",
     "birthDate": "1971-11-25"
   },
   {
-    "id": 1,
-    "firstName": "Petro",
-    "lastName": "Lomiv",
-    "middleName": "Kindratovych",
-    "birthDate": "1979-03-02"
-  },
-  {
-    "id": 6,
+    "id": 2,
     "firstName": "Igor",
     "lastName": "Fainiv",
     "middleName": "Matov",
     "birthDate": "1975-11-25"
+  },
+  {
+    "id": 5,
+    "firstName": "Petro",
+    "lastName": "Lomiv",
+    "middleName": "Kindratovych",
+    "birthDate": "1979-03-02"
   }
 ]
