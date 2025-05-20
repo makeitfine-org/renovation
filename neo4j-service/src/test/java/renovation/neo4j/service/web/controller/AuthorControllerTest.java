@@ -124,4 +124,26 @@ class AuthorControllerTest extends Neo4jRestTestInit {
                         )
                 ));
     }
+
+    @Test
+    void when_FindBooksAfterYear_expect_Success() {
+        getRequest().get("/find/before/year/2022")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(CoreMatchers.equalTo(
+                        simplify(
+                                """
+                                        [
+                                           {
+                                                "id"        : 1,
+                                                "firstName" : "Igor",
+                                                "lastName"  : "Fainiv",
+                                                "middleName": "Kindratovych",
+                                                "birthDate" : "1971-11-25"
+                                            }
+                                        ]
+                                        """.trim()
+                        )
+                ));
+    }
 }

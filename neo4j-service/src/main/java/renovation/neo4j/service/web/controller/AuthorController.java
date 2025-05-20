@@ -60,4 +60,12 @@ public class AuthorController {
     public void delete(@PathVariable Long id) {
         service.deleteById(id);
     }
+
+    @GetMapping("/find/before/year/{year}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AuthorGetResponse> findAuthorsWithBooksBeforeYear(@PathVariable Integer year) {
+        return service.findAuthorsWithBooksBeforeYear(year).stream()
+                .map(mapper::toAuthorGetResponseMapper)
+                .toList();
+    }
 }
