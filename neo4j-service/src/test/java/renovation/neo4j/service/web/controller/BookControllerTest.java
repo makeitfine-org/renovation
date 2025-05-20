@@ -57,4 +57,18 @@ class BookControllerTest extends Neo4jRestTestInit {
                         )
                 ));
     }
+
+    @Test
+    void when_FindBooksAfterYear_expect_Success() {
+        getRequest().get("/find/after/year/2022")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(CoreMatchers.equalTo(
+                        simplify(
+                                jsonFileContentFromSrcTestResources(
+                                        "BookControllerTest.when_FindBooksAfterYear_expect_Success.json"
+                                )
+                        )
+                ));
+    }
 }

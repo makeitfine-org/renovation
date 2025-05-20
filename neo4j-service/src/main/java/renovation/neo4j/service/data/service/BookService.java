@@ -27,4 +27,8 @@ public class BookService {
     public Optional<Book> findOneByTitle(String title) {
         return repository.findOneByTitle(title);
     }
+
+    public List<Book> findBooksAfterYear(Integer year) {
+        return repository.findBooksAfterYear(year);
+    }
 }

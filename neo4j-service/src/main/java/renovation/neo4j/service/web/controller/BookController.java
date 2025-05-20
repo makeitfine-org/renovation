@@ -43,4 +43,12 @@ public class BookController {
     public Optional<BookGetResponse> findOneByTitle(@PathVariable String title) {
         return service.findOneByTitle(title).map(mapper::toBookGetResponseMapper);
     }
+
+    @GetMapping("/find/after/year/{year}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookGetResponse> findBooksAfterYear(@PathVariable Integer year) {
+        return service.findBooksAfterYear(year).stream()
+                .map(mapper::toBookGetResponseMapper)
+                .toList();
+    }
 }
