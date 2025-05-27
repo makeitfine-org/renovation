@@ -19,3 +19,9 @@ spring:
     compose:
       lifecycle-management: start_and_stop
       file: docker-compose.yml
+
+influx:
+  url: http://${INFLUX_HOST:localhost}:${INFLUX_PORT:8186}
+  database: ${INFLUXDB_DB:influxdb}
+  username: ${INFLUXDB_USER:influxuser}
+  password: ${INFLUXDB_PASSWORD:influxpass}

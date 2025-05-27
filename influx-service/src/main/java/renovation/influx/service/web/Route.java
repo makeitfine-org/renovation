@@ -13,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class Route {
 
     public static final String STARTUP = "/startup";
+
+    public static final String TEMPERATURE = "/temperature";
 }
