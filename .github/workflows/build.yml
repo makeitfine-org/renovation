@@ -9,7 +9,7 @@ name: CI build, test
 
 on:
   push:
-    branches: [ "develop", "neo4j" ]
+    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
   schedule:
