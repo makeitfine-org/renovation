@@ -53,4 +53,16 @@ public abstract class RestTestInit {
     public RequestSpecification getRequest() {
         return request;
     }
+
+    /**
+     * Prevent caching.
+     *
+     * @return
+     */
+    public RequestSpecification getRequestNew() {
+        return given()
+                .port(getPort())
+                .header("Content-Type", "application/json")
+                .basePath(basePath);
+    }
 }

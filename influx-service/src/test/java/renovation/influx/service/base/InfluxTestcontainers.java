@@ -7,7 +7,6 @@
 package renovation.influx.service.base;
 
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistrar;
 import org.testcontainers.containers.InfluxDBContainer;
@@ -19,9 +18,11 @@ public class InfluxTestcontainers {
     public static final DockerImageName INFLUX_IMAGE = DockerImageName.parse("influxdb:1.11");
 
     @Bean
-    @ServiceConnection(name = "influx")
     public InfluxDBContainer influxContainer() {
-        return new InfluxDBContainer(INFLUX_IMAGE);
+        return new InfluxDBContainer(INFLUX_IMAGE)
+                .withDatabase("testdb")
+                .withUsername("testuser")
+                .withPassword("testpass");
     }
 
     @Bean
