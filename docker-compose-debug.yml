@@ -34,3 +34,8 @@ services:
     ports:
       - "5010:5010"
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5010 -jar /app.jar
+
+  renovation-influx-service:
+    ports:
+      - "5011:5011"
+    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5011 -jar /app.jar

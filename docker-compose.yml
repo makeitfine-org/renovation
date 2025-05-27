@@ -260,6 +260,17 @@ services:
     networks:
       - renovation-network
 
+  renovation-influx-service:
+    image: koresmosto/renovation-influx-service
+    build:
+      context: ./influx-service
+    restart: always
+    container_name: renovation-influx-service
+    #    ports:
+    #      - ${NEO_SERVICE_REDIRECT_PORT}:8080
+    networks:
+      - renovation-network
+
   renovation-event-service:
     image: koresmosto/renovation-event-service
     build:
@@ -455,18 +466,30 @@ services:
     restart: unless-stopped
     container_name: renovation-neo4j
     ports:
-      - ${NEO4J74}:7474
-      - ${NEO4J87}:7687
+      - ${NEO4J74_PORT}:7474
+      - ${NEO4J87_PORT}:7687
     environment:
       noe4juser: ${noe4juser}
       noe4jpass: ${noe4jpass}
       NEO4J_AUTH: ${NEO4J_AUTH}
     volumes:
-      #      - neo4j_data:/data
-#      - ./neo4j-service/src/main/resources/docker/neo4j/init:/init # temp. is not used (uncom. and com. below)
+      # - neo4j_data:/data
+      # - ./neo4j-service/src/main/resources/docker/neo4j/init:/init # temp. is not used (uncom. and com. below)
       - ./neo4j-service/src/test/resources/test.cypher:/init/test.cypher
       - ./neo4j-service/src/main/resources/docker/neo4j/init/entrypoint.sh:/init/entrypoint.sh
     entrypoint: [ "/init/entrypoint.sh" ]
+    networks:
+      - renovation-network
+
+  renovation-influxdb:
+    image: influxdb:1.11
+    container_name: renovation-influxdb
+    ports:
+      - ${INFLUX_PORT}:8086
+    environment:
+      INFLUXDB_DB: ${INFLUXDB_DB}
+      INFLUXDB_ADMIN_USER: ${INFLUXDB_ADMIN_USER}
+      INFLUXDB_ADMIN_PASSWORD: ${INFLUXDB_ADMIN_PASSWORD}
     networks:
       - renovation-network
 

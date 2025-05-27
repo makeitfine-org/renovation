@@ -128,6 +128,7 @@ val ktorServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
 val eventServiceModuleName: String by settings
 val neo4jServiceModuleName: String by settings
+val influxServiceModuleName: String by settings
 
 include(backendModuleName)
 include(frontendModuleName)
@@ -145,3 +146,4 @@ include(ktorServerModuleName)
 include(kafkaServiceModuleName)
 include(eventServiceModuleName)
 include(neo4jServiceModuleName)
+include(influxServiceModuleName)

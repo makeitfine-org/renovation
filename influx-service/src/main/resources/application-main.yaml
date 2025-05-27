@@ -1,0 +1,21 @@
+info:
+  app:
+    name: influx-service
+    description: Influx service module
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    renovation.influx.service: DEBUG
+
+spring:
+  application:
+    name: ${info.app.name}
+
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
+      file: docker-compose.yml

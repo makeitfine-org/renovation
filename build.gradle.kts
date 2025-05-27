@@ -308,6 +308,11 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":neo4j-service:mci")
         }
+        exec {
+            workingDir("${rootProject.rootDir}")
+            commandLine("./gradlew", ":influx-service:mci")
+        }
+
 
         exec {
             workingDir("${rootProject.rootDir}")
@@ -416,6 +421,7 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-ktor-server:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-neo4j-service:latest")
+        removeImageLocallyIfExists("koresmosto/renovation-influx-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
     }
 }
