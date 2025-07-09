@@ -410,6 +410,7 @@ Run gateway with social-login & certificate (export oauth2 registration env. var
 to run in intellij idea with `gradle buildAll` do so:  
 1. set env. var JAVA_HOME in console to java 21: `export JAVA_HOME=<path>/jdk21`  
 2. run IDEA in console `/bin/bash -l -c <path_to_idea>/bin/idea.sh`
+3. Import maven project in IDEA: Project Structure -> Import module -> choose folder with maven module 
 
 [backend-service](auxillary/readme/backend-service.md)
 

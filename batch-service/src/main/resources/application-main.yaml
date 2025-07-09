@@ -1,0 +1,48 @@
+info:
+  app:
+    name: batch-service
+    description: Batch service module
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    enabled-by-default: true #todo: fix
+    web:
+      exposure:
+        include: info, health, env, metrics
+    jmx:
+      exposure:
+        exclude: health
+  endpoint:
+    health:
+      enabled: true #todo: fix
+      show-details: always
+    metrics:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+  health:
+    livenessstate: #todo: fix
+      enabled: true
+    readinessstate:
+      enabled: true
+  observations:
+    key-values:
+      application: ${info.app.name}
+
+logging:
+  level:
+    root: INFO
+    renovation.batch.service: DEBUG
+
+spring:
+  application:
+    name: ${info.app.name}
+
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
+      file: docker-compose.yml
