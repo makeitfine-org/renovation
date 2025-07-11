@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dipResponse xmlns="http://itzbund.de/ozg/bzst/post/dip/v1/">
+    <responseTransferticketId>3961f902-3ff0-4ed6-920b-214aebf148c4</responseTransferticketId>
+    <dipProtocol>
+        <consignment>
+            <customerIdentifier>
+                <identityProvider>ELSTER</identityProvider>
+                <identifier>4562315</identifier>
+            </customerIdentifier>
+            <creationTime>2025-06-11T13:01:15.838</creationTime>
+            <transferticketId>502859e3-a906-4596-ad83-00000ac2a003</transferticketId>
+        </consignment>
+        <processStatus>ERROR</processStatus>
+        <dipResult>
+            <code>E0801</code>
+            <message>Der Ã bermittler des Dip-XML entspricht nicht dem Erzeuger</message>
+        </dipResult>
+    </dipProtocol>
+</dipResponse>

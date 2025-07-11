@@ -11,12 +11,15 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import renovation.common.web.RestTestInit;
+import org.springframework.test.context.ContextConfiguration;
+import renovation.batch.service.configs.PostgresSQLContainerConfigs;
 import renovation.batch.service.web.Route;
+import renovation.common.web.RestTestInit;
 
 import static renovation.common.util.JsonUtil.simplify;
 
 @Tag("componentTest")
+@ContextConfiguration(classes = PostgresSQLContainerConfigs.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StartupControllerTest extends RestTestInit {
 
