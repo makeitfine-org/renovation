@@ -37,17 +37,18 @@ public class Person extends Audible {
     @Serial
     private static final long serialVersionUID = 1115276553230693709L;
 
+    @EqualsAndHashCode.Exclude
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
     private String middleName;
 
     @Column(nullable = false)
-    private String surname;
+    private String lastName;
 
     @Column(nullable = false)
     private String address;
