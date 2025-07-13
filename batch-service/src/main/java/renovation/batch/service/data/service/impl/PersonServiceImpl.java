@@ -12,9 +12,9 @@ import renovation.batch.service.data.entity.Person;
 import renovation.batch.service.data.service.PersonService;
 
 @Service
-public class PersonServiceImpl extends AbstractServiceImpl<Person, Integer> implements PersonService {
+public class PersonServiceImpl extends AbstractServiceImpl<Person, Long> implements PersonService {
 
-    public PersonServiceImpl(JpaRepository<Person, Integer> repository) {
+    public PersonServiceImpl(JpaRepository<Person, Long> repository) {
         super(repository);
     }
 }

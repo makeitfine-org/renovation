@@ -6,7 +6,7 @@
 
 create table if not exists person
 (
-    id                     serial primary key,
+    id                     bigserial primary key,
     first_name             varchar(255) not null,
     middle_name            varchar(255),
     last_name              varchar(255) not null,

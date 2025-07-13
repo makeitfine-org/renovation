@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import renovation.batch.service.data.entity.Person;
 
 @Repository
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 }

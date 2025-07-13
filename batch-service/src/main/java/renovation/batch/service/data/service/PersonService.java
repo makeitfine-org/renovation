@@ -8,5 +8,5 @@ package renovation.batch.service.data.service;
 
 import renovation.batch.service.data.entity.Person;
 
-public interface PersonService extends AbstractService<Person, Integer> {
+public interface PersonService extends AbstractService<Person, Long> {
 }
