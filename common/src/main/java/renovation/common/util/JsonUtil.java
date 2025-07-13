@@ -13,6 +13,10 @@ import com.google.gson.JsonParser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 /**
  * Util class for different test purpose
  */
@@ -30,5 +34,17 @@ public class JsonUtil {
     public static String simplify(String json) {
         JsonElement el = JsonParser.parseString(json);
         return GSON.toJson(el);
+    }
+
+    public static String readFileContentFromProjectRoot(String pathInProjectRoot) {
+        try {
+            return Files.readString(Path.of(pathInProjectRoot)).trim();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(pathInProjectRoot);
+        }
+    }
+
+    public static String jsonFileContentFromSrcTestResources(String pathInSrcTestResources) {
+        return readFileContentFromProjectRoot("src/test/resources/json/" + pathInSrcTestResources);
     }
 }
