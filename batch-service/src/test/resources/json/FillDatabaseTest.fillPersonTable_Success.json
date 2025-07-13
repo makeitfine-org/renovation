@@ -1,0 +1,29 @@
+[
+  {
+    "rowCreatedDate": "2024-06-06T10:11:05.555",
+    "rowLastModifiedDate": "2024-07-06T10:11:05.555",
+    "id": 1,
+    "firstName": "Irniv",
+    "middleName": null,
+    "lastName": "Rem",
+    "address": "Germany, Berlin, Topo str. 7/1"
+  },
+  {
+    "rowCreatedDate": "2024-06-10T08:45:00",
+    "rowLastModifiedDate": "2024-07-01T14:20:00",
+    "id": 2,
+    "firstName": "Anna",
+    "middleName": "Maria",
+    "lastName": "Keller",
+    "address": "Austria, Vienna, Hauptstr. 12/3"
+  },
+  {
+    "rowCreatedDate": "2024-06-15T13:30:15.123",
+    "rowLastModifiedDate": "2024-07-05T17:10:45.789",
+    "id": 3,
+    "firstName": "Lukas",
+    "middleName": "Lytvin-Gauss",
+    "lastName": "Schmidt",
+    "address": "Germany, Munich, Blumenweg 9"
+  }
+]
