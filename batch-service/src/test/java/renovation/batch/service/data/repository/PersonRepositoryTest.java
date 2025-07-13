@@ -7,7 +7,6 @@
 package renovation.batch.service.data.repository;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @ContextConfiguration(classes = PostgresSQLContainerConfigs.class)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@Slf4j
 @AllArgsConstructor
 class PersonRepositoryTest {
 

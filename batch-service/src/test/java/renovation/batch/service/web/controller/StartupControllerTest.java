@@ -18,7 +18,7 @@ import renovation.common.web.RestTestInit;
 
 import static renovation.common.util.JsonUtil.simplify;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @ContextConfiguration(classes = PostgresSQLContainerConfigs.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StartupControllerTest extends RestTestInit {

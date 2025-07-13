@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CheckBlockingQueue {
+class CheckBlockingQueueTest {
 
     private BlockingQueue<Integer> q = new LinkedBlockingQueue<>(1);
 
