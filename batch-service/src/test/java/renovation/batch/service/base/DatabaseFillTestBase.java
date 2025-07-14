@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
-import renovation.batch.service.configs.PostgresSQLContainerConfigs;
 import renovation.common.util.MapperUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

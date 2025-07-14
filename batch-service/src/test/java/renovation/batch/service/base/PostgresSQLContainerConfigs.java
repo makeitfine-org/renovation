@@ -1,4 +1,10 @@
-package renovation.batch.service.configs;
+/*
+ * Created under not commercial project "Renovation"
+ *
+ * Copyright 2021-2025
+ */
+
+package renovation.batch.service.base;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

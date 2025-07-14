@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import renovation.batch.service.configs.PostgresSQLContainerConfigs;
+import renovation.batch.service.base.PostgresSQLContainerConfigs;
 import renovation.batch.service.web.Route;
 import renovation.common.web.RestTestInit;
 

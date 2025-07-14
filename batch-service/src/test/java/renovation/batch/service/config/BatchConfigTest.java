@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestConstructor;
-import renovation.batch.service.configs.PostgresSQLContainerConfigs;
+import renovation.batch.service.base.PostgresSQLContainerConfigs;
+import renovation.batch.service.config.model.UserModel;
 import renovation.batch.service.data.repository.BatchRepository;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,7 +33,9 @@ class BatchConfigTest {
 
     @Test
     void testBatchJobRunsSuccessfully() throws Exception {
-        // should be 2
-        assertEquals(0, batchRepository.getResults().size());
+        assertEquals(
+                Set.of(new UserModel("John", "Doe"), new UserModel("Jane", "Smith")),
+                batchRepository.getResults()
+        );
     }
 }

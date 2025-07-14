@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.batch.service.base;
+package renovation.batch.service.data.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestConstructor;
-import renovation.batch.service.data.service.PersonService;
+import renovation.batch.service.base.DatabaseFillTestBase;
 import renovation.common.util.JsonUtil;
 import renovation.common.util.MapperUtil;
 
