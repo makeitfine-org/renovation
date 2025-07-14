@@ -68,3 +68,7 @@ spring:
   flyway:
     connect-retries: 5
     connect-retries-interval: 3s
+
+  batch:
+    jdbc:
+      initialize-schema: always
