@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 interface ITemp {
 
-    default String method() {
+    default String method() throws IllegalArgumentException {
         return "default method";
     }
 }

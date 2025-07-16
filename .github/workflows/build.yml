@@ -9,9 +9,9 @@ name: CI build, test
 
 on:
   push:
-    branches: [ "develop", "issue_116" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "develop", "issue_116" ]
+    branches: [ "develop" ]
   schedule:
     - cron: "45 23 * * 4"
 
