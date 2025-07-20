@@ -302,6 +302,24 @@ services:
     networks:
       - renovation-network
 
+  renovation-batch-service:
+    image: koresmosto/renovation-batch-service
+    build:
+      context: ./batch-service
+    restart: always
+    container_name: renovation-batch-service
+    depends_on:
+      - renovation-postgres
+    ports:
+      - ${BATCH_SERVICE_REDIRECT_PORT}:8080
+    environment:
+      # extract 5432 port into variable
+      POSTGRES_DB_URL: "jdbc:postgresql://renovation-postgres:5432/${POSTGRES_DB}?currentSchema=renovation-batch"
+      POSTGRES_USERNAME: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - renovation-network
+
   renovation-zookeeper:
     image: confluentinc/cp-zookeeper:7.9.0
     restart: on-failure
