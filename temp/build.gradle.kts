@@ -37,6 +37,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation(libs.mockk)
+    testCompileOnly("org.projectlombok:lombok:${properties["lombokVersion"]}")
+    testAnnotationProcessor("org.projectlombok:lombok:${properties["lombokVersion"]}")
 }
 
 jmh {
