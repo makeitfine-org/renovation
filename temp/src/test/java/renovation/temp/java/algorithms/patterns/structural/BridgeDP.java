@@ -129,6 +129,6 @@ public class BridgeDP {
         verify((ProRemoteControl) remoteControl, times(1)).mute();
         verify(lgTV, times(1)).turnOn();
         verify(lgTV, times(1)).turnOff();
-        verify(lgTV, times(1)).getClass().getSimpleName();
+        // verify(lgTV, times(1)).getClass().getSimpleName(); // getClass is final - better not to verify
     }
 }
