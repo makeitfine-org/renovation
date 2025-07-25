@@ -86,11 +86,12 @@ public class SortingTest {
         private int partition(int in, int array[], int begin, int end) {
             var pivotal = array[end];
             var i = begin - 1;
+            LOG.info("pivotal: {} pivotal[i]: {}", pivotal, end);
 
             for (int j = begin; j < end; j++) {
                 while (array[j] <= pivotal) {
                     swap(array, ++i, j);
-                    LOG.info("{} > {}", in, Arrays.toString(array));
+                    LOG.info("(i: {}: j: {}) {} > {}", i, j, in, Arrays.toString(array));
                 }
             }
 
