@@ -79,9 +79,6 @@ public class VisitorDP {
         }
     }
 
-    public static void main(String[] args) {
-    }
-
     @Test
     public void test() {
 
