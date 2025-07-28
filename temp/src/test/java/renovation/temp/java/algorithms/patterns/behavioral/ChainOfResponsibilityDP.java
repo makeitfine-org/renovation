@@ -7,6 +7,7 @@
 package renovation.temp.java.algorithms.patterns.behavioral;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -17,6 +18,8 @@ import static org.mockito.Mockito.verify;
 public class ChainOfResponsibilityDP {
 
     static abstract class Logger {
+        private static org.slf4j.Logger LOG = LoggerFactory.getLogger(Logger.class);
+
         public static final int ERROR = 1;
         public static final int NOTICE = 2;
         public static final int DEBUG = 3;
@@ -43,7 +46,7 @@ public class ChainOfResponsibilityDP {
         }
 
         public void message(String message) {
-            System.out.println(mask + ": " + message);
+            LOG.info("{}: {}", mask, message);
         }
     }
 
