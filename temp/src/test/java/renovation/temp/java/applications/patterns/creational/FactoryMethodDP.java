@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.temp.java.algorithms.patterns.creational;
+package renovation.temp.java.applications.patterns.creational;
 
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;

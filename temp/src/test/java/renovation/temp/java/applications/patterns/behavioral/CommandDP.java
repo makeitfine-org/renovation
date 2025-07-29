@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.temp.java.algorithms.patterns.behavioral;
+package renovation.temp.java.applications.patterns.behavioral;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -105,7 +105,7 @@ public class CommandDP {
                 }
         );
         assertEquals(
-                "Cannot invoke \"renovation.temp.java.algorithms.patterns.behavioral" +
+                "Cannot invoke \"renovation.temp.java.applications.patterns.behavioral" +
                         ".CommandDP$Command.execute()\" because \"<local2>.command\" is null",
                 e.getMessage()
         );

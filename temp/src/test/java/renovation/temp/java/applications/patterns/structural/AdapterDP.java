@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.temp.java.algorithms.patterns.structural;
+package renovation.temp.java.applications.patterns.structural;
 
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;

@@ -4,7 +4,7 @@
  * Copyright 2021-2025
  */
 
-package renovation.temp.java.algorithms.patterns.behavioral;
+package renovation.temp.java.applications.patterns.behavioral;
 
 import lombok.NonNull;
 import org.junit.jupiter.api.Test;
