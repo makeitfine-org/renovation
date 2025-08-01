@@ -1,0 +1,21 @@
+info:
+  app:
+    name: reacty-service
+    description: Reacty service module
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    root: INFO
+    renovation.reacty.service: DEBUG
+
+spring:
+  application:
+    name: ${info.app.name}
+
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
+      file: docker-compose.yml
