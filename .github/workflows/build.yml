@@ -9,7 +9,7 @@ name: CI build, test
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "reacty" ]
   pull_request:
     branches: [ "develop" ]
   schedule:

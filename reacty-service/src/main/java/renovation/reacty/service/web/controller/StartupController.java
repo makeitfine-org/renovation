@@ -9,11 +9,11 @@ package renovation.reacty.service.web.controller;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 import renovation.reacty.service.web.Route;
 
 import java.util.Collections;
@@ -37,18 +37,14 @@ public class StartupController {
 
     @GetMapping("/about")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, String> about() {
-        return Collections.unmodifiableMap(
-                new LinkedHashMap<>() {{
-                    put("name", applicationName);
-                    put("description", applicationDescription);
-                }}
+    public Mono<Map<String, String>> about() {
+        return Mono.just(
+                Collections.unmodifiableMap(
+                        new LinkedHashMap<>() {{
+                            put("name", applicationName);
+                            put("description", applicationDescription);
+                        }}
+                )
         );
-    }
-
-    @GetMapping("/module")
-    @ResponseStatus(HttpStatus.OK)
-    public String index() {
-        return "Hi, it's \"" + StringUtils.capitalize(applicationName) + "\" module";
     }
 }
