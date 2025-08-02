@@ -7,9 +7,9 @@
 package renovation.backend.data.service.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.beans.factory.ObjectProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Lazy
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
@@ -31,8 +31,7 @@ class GraphQlServiceImpl(
     }
 
     @Autowired
-    @Lazy
-    private lateinit var accessToken: GrantTypeAccessToken
+    private lateinit var accessTokenProvider: ObjectProvider<GrantTypeAccessToken>
 
     override fun getDetails(graphQlBody: String): List<Worker> {
         val detailsRow = requestData(graphQlBody)["details"]
@@ -49,7 +48,7 @@ class GraphQlServiceImpl(
             it.add("Content-Type", "application/json")
         }
 
-        accessToken.bearerAuthorizationHeader().also {
+        accessTokenProvider.ifAvailable?.bearerAuthorizationHeader()?.also {
             httpHeaders.add(it.headerName, it.headerValue)
         }
 
