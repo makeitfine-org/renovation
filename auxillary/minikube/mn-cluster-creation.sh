@@ -25,22 +25,14 @@ minikube -p mn image load koresmosto/renovation-info
 
 ### create folders inside minikube ssh
 minikube -p mn cp "${MINIKUBE_PATH}/mn-cluster-content-creation.sh" mn:/home/docker/mn-cluster-content-creation.sh
-minikube -p mn ssh <<'ENDSSH'
-sudo apt update -y
+minikube -p mn ssh -- "sudo apt update -y"
+minikube -p mn ssh -- "sudo sh /home/docker/mn-cluster-content-creation.sh"
 #sudo apt install -y net-tools
 
-sudo sh /home/docker/mn-cluster-content-creation.sh
-exit
-ENDSSH
-
 minikube -p mn cp "${MINIKUBE_PATH}/mn-cluster-content-creation.sh" mn-m02:/home/docker/mn-cluster-content-creation.sh
-minikube -p mn -n mn-m02 ssh <<'ENDSSH'
-sudo apt update -y
+minikube -p mn -n mn-m02 ssh -- "sudo apt update -y"
+minikube -p mn -n mn-m02 ssh -- "sudo sh /home/docker/mn-cluster-content-creation.sh"
 #sudo apt install net-tools -y
-
-sudo sh /home/docker/mn-cluster-content-creation.sh
-exit
-ENDSSH
 
 kubectl apply -f "${K8S_PATH}/yaml/renovation-namespace.yaml"
 
