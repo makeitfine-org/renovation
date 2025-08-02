@@ -83,10 +83,6 @@ server {
 3. (Import maven project in IDEA: Project Structure -> Import module -> choose folder with maven module) [Idea]  
 4. Install and set node v16.14.0/npm 8.3.1  
 4.4 With `nvm`: `$>nvm use v16.14.0`
-5. Open in browser: `localhost:8280`
-6. To run services as RenovationApplication set env. vars in Idea:  
-   POSTGRES_PASSWORD=postgres1;    
-   POSTGRES_DB_URL=jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation  
 
 ### Working with project code
 
@@ -95,15 +91,19 @@ Run gradle task from base module `renovation`:
 `$> gradle installGitHooks`  
 
 #### Build
-Build project: `$> gradle buildAll` or `$> gradle ba`  
+* Build project: `$> gradle buildAll` or `$> gradle ba`  
+* Build with all checks: `$> gradle all`
 
 #### Run project in docker locally
 1. Run locally: `$> docker-compose up`  
 1.1. Run debug mode: `$> docker-compose -f docker-compose.yml -f docker-compose-debug.yml up`  
 1.2. Run `sudo service nginx start` (it's needed for renovation-keycloak from docker works locally)  
-[see: "Config reverse nginx proxy for to redirect docker keycloak via local machine"]  
-2. Build with all checks: `$> gradle all`  
-3. Stop docker compose cluster and destroy `$> docker down`
+[see: "Config reverse nginx proxy for to redirect docker keycloak via local machine"]
+1.3. Open in browser: `localhost:8280`
+---
+(3 main services: backend, info, gateway with configured security)  
+1. To run `RenovationApplication` without keycloak (no-security) set`no-security` profile
+1.1. To run `InfoApplication` without keycloak (no-security) set`no-security` profile
 
 * To run `RenovationApplication` in [Idea] previously: `dcu renovation-postgres, renovation-redis, renovation-keycloak` 
 

@@ -15,15 +15,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
+import org.springframework.context.annotation.Profile
 import org.springframework.context.annotation.Scope
 import renovation.common.security.iam.impl.ClientCredentialsGrantTypeAccessToken
 import renovation.common.security.iam.impl.PasswordGrantTypeAccessToken
 
 private val log = KotlinLogging.logger { }
 
+@Profile("!no-security")
 @Configuration
 @Lazy
-class InfoModuleConfig {
+class InfoModuleSecurityConfig {
 
     @Bean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
