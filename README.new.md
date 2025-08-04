@@ -108,6 +108,13 @@ Run gradle task from base module `renovation`:
 
 * To run `RenovationApplication` in [Idea] previously: `dcu renovation-postgres, renovation-redis, renovation-keycloak` 
 
+#### Run 'no-security' profile Dockerfile(s):  
+backend module: `$> docker build -f backend/no-security.Dockerfile -t koresmosto/renovation-backend:no-security backend`  
+info module: `$> docker build -f info/no-security.Dockerfile -t koresmosto/renovation-info:no-security info`  
+
+up docker in no-security for `backend` and `info`:  
+`$> dc -f docker-compose-no-security.yml up renovation-postgres renovation-redis renovation-mongo renovation-backend renovation-info`
+
 #### Run project with kubernetes
 Install `kubectl`, `minikube`  
 
