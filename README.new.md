@@ -88,7 +88,8 @@ server {
 
 #### First after cloning repo config githook for project
 Run gradle task from base module `renovation`:  
-`$> gradle installGitHooks`  
+1. `$> gradle installGitHooks`  
+2. Apply "Idea codestyle.xml" style in IDEA  
 
 #### Build
 * Build project: `$> gradle buildAll` or `$> gradle ba`  
