@@ -100,8 +100,8 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle-maven-plugin.version}</version>
                 <configuration>
-                    <configLocation>../auxillary/checkstyle/checkstyle.xml</configLocation>
-                    <suppressionsLocation>../auxillary/checkstyle/suppressions.xml</suppressionsLocation>
+                    <configLocation>../auxillary/code/checkstyle/checkstyle.xml</configLocation>
+                    <suppressionsLocation>../auxillary/code/checkstyle/suppressions.xml</suppressionsLocation>
                 </configuration>
                 <executions>
                     <execution>
