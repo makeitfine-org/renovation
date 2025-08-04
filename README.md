@@ -161,9 +161,9 @@ For to autofix:
    `$> kubectl apply -f auxiliary/deployment/k8s/yaml/renovation-namespace.yaml`  
    `$> kubectl config set-context --current --namespace=renovation`
    5.1.1 deploy:  
-   `$> sh auxiliary/k8s/scripts/deploy-all.sh`  
+   `$> sh auxiliary/deployment/k8s/scripts/deploy-all.sh`  
    5.2 un-deploy:  
-   `$> sh auxiliary/k8s/scripts/delete-all.sh`  
+   `$> sh auxiliary/deployment/k8s/scripts/delete-all.sh`  
    (all necessary scripts and `kubectl` command can be read from above `sh` scripts)  
    8.1: work with postgres-ha:  
       https://devopscube.com/deploy-postgresql-statefulset/  
