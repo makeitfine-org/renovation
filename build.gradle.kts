@@ -65,7 +65,7 @@ subprojects {
         }
 
         detekt {
-            config = files("${rootProject.rootDir}/auxillary/detekt/config.yml")
+            config = files("${rootProject.rootDir}/auxillary/code/detekt/config.yml")
         }
 
         configurations {
@@ -193,7 +193,7 @@ subprojects {
             tasks.register<Copy>("copyTestKeycloakFiles") {
                 description = "Copy renovation-realm.json to renovation-realm-test.json"
 
-                from("${rootProject.rootDir}/auxillary/keycloak-config/renovation-realm.json")
+                from("${rootProject.rootDir}/auxillary/keycloak/renovation-realm.json")
                     .rename("renovation-realm.json", "renovation-realm-test.json")
 
                 into("${rootProject.rootDir}/${project.name}/src/test/resources/keycloak")
@@ -557,7 +557,7 @@ tasks.register<Copy>("installGitHooks") {
     description = "copy git hooks to .git/hook folder"
     println(description)
     from(
-        fileTree("${rootProject.rootDir}/auxillary/githooks/")
+        fileTree("${rootProject.rootDir}/auxillary/code/githooks/")
             .matching {
                 include(*githookFiles)
             }
