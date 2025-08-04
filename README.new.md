@@ -8,10 +8,10 @@ Renovation reporter
 ## Using ##
 
 ### Config reverse nginx proxy for to redirect docker keycloak via local machine
-(it's needed for `docker compose` env. services works with security)  
+(it's necessary for `docker compose` env. services works with security)  
 
 - install and start nginx service  
-- create file /etc/nginx/conf.d/renovation-keycloak.conf  
+- create a file /etc/nginx/conf.d/renovation-keycloak.conf  
 ```
 server {
     listen      8080;
@@ -80,45 +80,74 @@ server {
 1. Install `docker`, `docker compose`  
 1.1. Install `minikube`  
 2. Install `JDK 21`  
-3. (Import maven project in IDEA: Project Structure -> Import module -> choose folder with maven module) [Idea]  
+3. (Import a maven project in IDEA: Project Structure -> Import module -> choose the folder with maven module) [Idea]  
 4. Install and set node v16.14.0/npm 8.3.1  
 4.4 With `nvm`: `$>nvm use v16.14.0`
 
 ### Working with project code
 
-#### First after cloning repo config githook for project
-Run gradle task from base module `renovation`:  
+#### First after cloning repo config the githook for the project
+Run a Gradle task from base module `renovation`:  
 1. `$> gradle installGitHooks`  
 2. Apply "Idea codestyle.xml" style in IDEA  
 
 #### Build
-* Build project: `$> gradle buildAll` or `$> gradle ba`  
+* Build the project: `$> gradle buildAll` or `$> gradle ba`  
 * Build with all checks: `$> gradle all`
 
-#### Run project in docker locally
+#### Run the project in docker locally
 1. Run locally: `$> docker-compose up`  
 1.1. Run debug mode: `$> docker-compose -f docker-compose.yml -f docker-compose-debug.yml up`  
 1.2. Run `sudo service nginx start` (it's needed for renovation-keycloak from docker works locally)  
 [see: "Config reverse nginx proxy for to redirect docker keycloak via local machine"]
 1.3. Open in browser: `localhost:8280`
 ---
-(3 main services: backend, info, gateway with configured security)  
+(main services: backend, info, gateway with configured security)  
 1. To run `RenovationApplication` without keycloak (no-security) set`no-security` profile
 1.1. To run `InfoApplication` without keycloak (no-security) set`no-security` profile
 
 * To run `RenovationApplication` in [Idea] previously: `dcu renovation-postgres, renovation-redis, renovation-keycloak` 
 
-#### Run 'no-security' profile Dockerfile(s):  
+#### Run the 'no-security' profile Dockerfile(s):  
 backend module: `$> docker build -f backend/no-security.Dockerfile -t koresmosto/renovation-backend:no-security backend`  
 info module: `$> docker build -f info/no-security.Dockerfile -t koresmosto/renovation-info:no-security info`  
 
 up docker in no-security for `backend` and `info`:  
 `$> dc -f docker-compose-no-security.yml up renovation-postgres renovation-redis renovation-mongo renovation-backend renovation-info`
 
-#### Run project with kubernetes
+#### Run a project with kubernetes
 Install `kubectl`, `minikube`  
 
-1.
+1. Run minikube a single-node cluster and deploy an app (backend, info) there:    
+1.1. `$> sh auxiliary/deployment/minikube/single/1_single-cluster-creation.sh`  
+2. Open service in browser:
+backend: `localhost:30080`  
+info: `localhost:30090`  
+graphiql: http://192.168.58.2:30090/graphiql check (192.168.58.2 - cluster-ip on host)  
+```
+query{
+      details{
+        id
+        name
+        surname
+        age
+      }
+    }
+```
+you can check a path: http://192.168.58.2:30090/api/v1/info
+you can check a path: http://192.168.58.2:30090/api/v1/info/todo
+
+connect postgres [user/pass: postgres/postgres1]: jdbc:postgresql://192.168.58.2:32000/postgres  
+connect mongo:
+![img.png](auxiliary/code/readme/img.png)  
+
+to make work `renovation-ingress` on mmib and mmii write in /etc/hosts:  
+192.168.58.2    mmii mmib  
+
+Grafana http://192.168.58.2:31300  
+user: admin  
+pass: [see in logs of cluster (+ kubectl get secret ... -o jsonpath={.data.GF_SECURITY_ADMIN_PASSWORD})] 
+
 
 
 ===>
@@ -198,14 +227,14 @@ For to autofix:
 1. Install docker-machine:  
    https://github.com/docker/machine/releases
 2. Switch between "minikube" cluster (eval $(minikube docker-env)) and local env (eval $(docker-machine env -u))
-3. Upload docker image from local machine to minikube cluster:  
-   add minikube addon to upload docker images from local env to cluster:
+3. Upload docker image from the local machine to the minikube cluster:  
+   add minikube addon to upload docker images from local env to the cluster:
    `$> minikube addons enable registry`  
     Upload image to `minikube` cluster:  
    `$> minikube image load <IMAGE_NAME>`  
    Install helm:  
    https://helm.sh/docs/intro/install/  
-4. Run api tests on k8s cluster:  
+4. Run api tests on the k8s cluster:  
    `$> gradle k8sApiTest`  
    (in gradle/scripts/k8sApiTest.sh BACKEND_SERVER_URL can be other, so change)  
    With ingress:  
