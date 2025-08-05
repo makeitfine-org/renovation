@@ -146,7 +146,13 @@ to make work `renovation-ingress` on mmib and mmii write in /etc/hosts:
 
 Grafana http://192.168.58.2:31300  
 user: admin  
-pass: [see in logs of cluster (+ kubectl get secret ... -o jsonpath={.data.GF_SECURITY_ADMIN_PASSWORD})] 
+pass: [see in logs of cluster (+ kubectl get secret ... -o jsonpath={.data.GF_SECURITY_ADMIN_PASSWORD})]  
+
+Switch between HA postgress and simple:  
+in `backend-deployment.yaml` for simple db use `key: POSTGRES_DB_URL` commend `key: POSTGRES_HA_DB_URL`
+in `backend-deployment.yaml` for HA db use `key: POSTGRES_HA_DB_URL` commend `key: POSTGRES_DB_URL` 
+
+and in `deploy-all.sh` comment/uncomment `../postgres-deploy.sh` and `../postgres-ha-deploy.sh`
 
 
 
