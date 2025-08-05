@@ -8,8 +8,8 @@
 K8S_SCRIPTS_PATH="`dirname \"$0\"`"
 
 sh "${K8S_SCRIPTS_PATH}/config/config-deploy.sh"
-#sh "${K8S_SCRIPTS_PATH}/postgres/postgres-deploy.sh"
-sh "${K8S_SCRIPTS_PATH}/postgres-ha/postgres-ha-deploy.sh"
+sh "${K8S_SCRIPTS_PATH}/postgres/postgres-deploy.sh"
+#sh "${K8S_SCRIPTS_PATH}/postgres-ha/postgres-ha-deploy.sh"
 sleep 20;
 sh "${K8S_SCRIPTS_PATH}/mongo/mongo-deploy.sh"
 sh "${K8S_SCRIPTS_PATH}/redis/redis-deploy.sh"

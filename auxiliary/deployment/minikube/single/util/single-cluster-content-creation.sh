@@ -5,6 +5,7 @@
 # Copyright 2021-2025
 #
 
+### Configs for HA Postgress DB
 sudo mkdir /mnt/mongo
 sudo mkdir /mnt/mongo/data
 sudo mkdir /mnt/mongo/init
@@ -31,17 +32,19 @@ sudo mkdir /mnt/pg-ha/init
 
 sudo touch /mnt/pg-ha/init/init.sql
 
-### Add content
+### Add content for postgress (ha and simple)
 cat <<EOT >> /mnt/pg/init/init.sql
 create schema renovation;
 
 EOT
 
+### Add content for postgress-ha only
 cat <<EOT >> /mnt/pg-ha/init/init.sql
 create schema renovation;
 
 EOT
 
+### Content for Mongo
 cat <<EOT >> /mnt/mongo/init/v1_0__create_introuser.js
 db.createUser(
     {
