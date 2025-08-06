@@ -154,11 +154,21 @@ in `backend-deployment.yaml` for HA db use `key: POSTGRES_HA_DB_URL` commend `ke
 
 and in `deploy-all.sh` comment/uncomment `../postgres-deploy.sh` and `../postgres-ha-deploy.sh`
 
+#### Chart Releaser Action to Automate GitHub Page Charts
+configured pushes automatically to `https://makeitfine-org.github.io/renovation/` 
+as a helm chart version renewed (branch gh-pages)
+
+Add helm repo:  
+h repo add renovation_repo https://makeitfine-org.github.io/renovation/
+
+https://makeitfine-org.github.io/renovation/
+(https://helm.sh/docs/howto/chart_releaser_action/)  
+(https://medium.com/@blackhorseya/step-by-step-guide-to-hosting-your-own-helm-chart-registry-on-github-pages-c37809a1d93f)
 
 
-===>
-===>
-===>
+===>  
+===>  
+===>  
 
 
 
