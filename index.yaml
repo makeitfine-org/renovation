@@ -1,2 +1,19 @@
 apiVersion: v1
-entries: {}
+entries:
+  myapp:
+  - apiVersion: v2
+    created: "2025-08-06T16:37:49.845250994Z"
+    digest: 0d3d9ff127c654a6975a14fbf5a9a67fed961f175521ef3193e79632c766e622
+    name: myapp
+    urls:
+    - https://github.com/makeitfine-org/renovation/releases/download/myapp-0.0.1/myapp-0.0.1.tgz
+    version: 0.0.1
+  otherapp:
+  - apiVersion: v2
+    created: "2025-08-06T16:37:49.969494664Z"
+    digest: 34cfc8cf1af6b99544dca1509a6a9189d4e0fea61f33f5f7968ab8521bf60231
+    name: otherapp
+    urls:
+    - https://github.com/makeitfine-org/renovation/releases/download/otherapp-0.0.1/otherapp-0.0.1.tgz
+    version: 0.0.1
+generated: "2025-08-06T16:37:49.969501056Z"
