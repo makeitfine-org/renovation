@@ -1,3 +1,3 @@
 apiVersion: v2
 name: otherapp
-version: 0.1.1    # <== Important for releases
+version: 0.0.1    # <== Important for releases
