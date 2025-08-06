@@ -159,7 +159,7 @@ configured pushes automatically to `https://makeitfine-org.github.io/renovation/
 as a helm chart version renewed (branch gh-pages)
 
 Add helm repo:  
-h repo add renovation_repo https://makeitfine-org.github.io/renovation/
+h repo add renovation_repo https://makeitfine-org.github.io/renovation
 
 https://makeitfine-org.github.io/renovation/
 (https://helm.sh/docs/howto/chart_releaser_action/)  
