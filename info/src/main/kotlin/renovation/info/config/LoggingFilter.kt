@@ -17,6 +17,11 @@ import org.springframework.security.core.context.SecurityContextHolder
 
 private val log = KotlinLogging.logger { }
 
+// todo: fix issue with disable security
+// info-6dd76885f6-lgxt2 info 2025-08-07T16:00:07.724Z DEBUG 1 --- [renovation info] [nio-9090-exec-4]
+// renovation.info.config.LoggingFilter     : Log message invocation failed: java.lang.NullPointerException:
+// Cannot invoke "org.springframework.security.core.Authentication.getPrincipal()" because the return value
+// of "org.springframework.security.core.context.SecurityContext.getAuthentication()" is null
 @WebFilter(urlPatterns = ["/*"])
 class LoggingFilter : HttpFilter() {
 

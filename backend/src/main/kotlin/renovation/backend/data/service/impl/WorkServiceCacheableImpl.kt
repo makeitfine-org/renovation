@@ -17,6 +17,7 @@ import renovation.backend.data.domain.Work
 import renovation.backend.data.exception.WorkNotFoundException
 import renovation.backend.data.service.WorkService
 
+// todo: impl. cacheable for other methods
 @Service
 class WorkServiceCacheableImpl(@Autowired @Qualifier("workServiceImpl") val workService: WorkService) :
     WorkService by workService {
