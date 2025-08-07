@@ -161,9 +161,10 @@ as a helm chart version renewed (branch gh-pages)
 Add helm repo:  
 h repo add renovation_repo https://makeitfine-org.github.io/renovation
 
-https://makeitfine-org.github.io/renovation/
+(https://makeitfine-org.github.io/renovation/)  
 (https://helm.sh/docs/howto/chart_releaser_action/)  
-(https://medium.com/@blackhorseya/step-by-step-guide-to-hosting-your-own-helm-chart-registry-on-github-pages-c37809a1d93f)
+(https://medium.com/@blackhorseya/step-by-step-guide-to-hosting-your-own-helm-chart-registry-on-github-pages-c37809a1d93f)  
+(https://www.youtube.com/watch?v=x4IF7yyWw9g&ab_channel=DevOps4Solutions)  
 
 
 ===>  
