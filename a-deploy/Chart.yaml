@@ -28,6 +28,12 @@ dependencies:
   - name: postgres
     version: 0.1.0
     repository: "file://charts/postgres"
+    condition: postgres.enabled
   - name: redis
     version: 0.1.0
     repository: "file://charts/redis"
+    condition: redis.enabled
+  - name: backend
+    version: 0.1.0
+    repository: "file://charts/backend"
+    condition: backend.enabled

@@ -3,7 +3,7 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-service:
+backend:
   type: NodePort
   port: 8080
   nodePort: 30080
@@ -11,7 +11,8 @@ service:
 postgres:
   host: postgres
   port: 5432
-  db: mydb
+  db: renovation
+  schema: backend
   user: postgres
   password: postgres
   service:

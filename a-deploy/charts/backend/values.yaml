@@ -11,11 +11,11 @@ image:
 #  type: NodePort
 #  nodePort: 30432
 
-db: ""
-user: ""
-password: ""
+postgres:
+  db: ""
+  user: ""
+  password: ""
 
-service:
-  type: ""
-  nodePort: ""
-
+  service:
+    type: ""
+    nodePort: ""

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: backend
+version: 0.1.0
+description: PostgreSQL subchart
+icon: https://www.shareicon.net/data/256x256/2015/09/05/96525_file_512x512.png

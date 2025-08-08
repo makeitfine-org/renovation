@@ -174,8 +174,14 @@ autocompletion:
 3. source ~/.bashrc
 
 examples:  
-1. `stern .` # watch log of all app  
-2. `stern backend` # watch log of backend   
+1. `stern .` # watch log of the entire app  
+2. `stern backend` # watch log of backend
+
+- Work with the single module:  
+deploy from `a-deploy` only postgres:  
+`$>yq eval '.postgres' values.yaml | helm install my-postgres ./charts/postgres -f - --dry-run`
+- Deploy only postgres:  
+`$>helm install my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
 
 ===>  
 ===>  
