@@ -18,13 +18,18 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: {{ .Values.db }}
-            - name: POSTGRES_USER
-              value: {{ .Values.user }}
-            - name: POSTGRES_PASSWORD
-              value: {{ .Values.password }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.global.parentChartName }}-configmap
+            - secretRef:
+                name: {{ .Values.global.parentChartName }}-secret
+{{/*          env:*/}}
+{{/*            - name: POSTGRES_DB*/}}
+{{/*              value: {{ .Values.db }}*/}}
+{{/*            - name: POSTGRES_USER*/}}
+{{/*              value: {{ .Values.user }}*/}}
+{{/*            - name: POSTGRES_PASSWORD*/}}
+{{/*              value: {{ .Values.password }}*/}}
           volumeMounts:
             - name: initdb-scripts
               mountPath: /docker-entrypoint-initdb.d

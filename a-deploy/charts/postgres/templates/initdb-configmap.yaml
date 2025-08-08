@@ -4,4 +4,4 @@ metadata:
   name: postgres-initdb-scripts
 data:
   init-renovation-schema.sql: |
-    CREATE SCHEMA IF NOT EXISTS renovation AUTHORIZATION postgres;
+    CREATE SCHEMA IF NOT EXISTS {{ .Values.schema }} AUTHORIZATION postgres;

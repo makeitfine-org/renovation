@@ -3,19 +3,10 @@ image:
   tag: 16-alpine
   pullPolicy: IfNotPresent
 
-#db: mydb # todo: could be deleted
-#user: postgres
-#password: postgres
-#
-#service:
-#  type: NodePort
-#  nodePort: 30432
-
 db: ""
+schema: ""
 user: ""
 password: ""
-
 service:
   type: ""
   nodePort: ""
-
