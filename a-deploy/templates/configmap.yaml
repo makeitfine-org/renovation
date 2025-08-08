@@ -4,5 +4,5 @@ metadata:
   name: {{ .Chart.Name }}-config
 data:
   SPRING_DATASOURCE_URL: jdbc:postgresql://{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}
-  SPRING_REDIS_HOST: {{ .Values.redis.host }}
+  SPRING_REDIS_HOST: {{ .Values.redis.host | quote }}
   SPRING_REDIS_PORT: "{{ .Values.redis.port }}"

@@ -1,5 +1,5 @@
 image:
-  repository: springboot-postgres-redis-cache
+  repository: koresmosto/renovation-backend
   tag: latest
   pullPolicy: IfNotPresent
 

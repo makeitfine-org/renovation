@@ -25,3 +25,12 @@ spec:
               value: {{ .Values.user }}
             - name: POSTGRES_PASSWORD
               value: {{ .Values.password }}
+          volumeMounts:
+            - name: initdb-scripts
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+
+      volumes:
+        - name: initdb-scripts
+          configMap:
+            name: postgres-initdb-scripts
