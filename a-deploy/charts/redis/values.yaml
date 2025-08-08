@@ -1,0 +1,8 @@
+image:
+  repository: redis
+  tag: 7-alpine
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  nodePort: 30379

@@ -1,0 +1,26 @@
+image:
+  repository: springboot-postgres-redis-cache
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30080
+
+postgres:
+  host: postgres
+  port: 5432
+  db: mydb
+  user: postgres
+  password: postgres
+  service:
+    type: NodePort
+    nodePort: 30432
+
+redis:
+  host: redis
+  port: 6379
+  service:
+    type: NodePort
+    nodePort: 30379

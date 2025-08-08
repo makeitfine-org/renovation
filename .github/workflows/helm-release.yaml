@@ -30,6 +30,6 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
-          charts_dir: auxiliary/deployment/charts
+          charts_dir: auxiliary/deployment/charts # change it after deployment config completion
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

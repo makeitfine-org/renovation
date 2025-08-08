@@ -166,6 +166,16 @@ h repo add renovation_repo https://makeitfine-org.github.io/renovation
 (https://medium.com/@blackhorseya/step-by-step-guide-to-hosting-your-own-helm-chart-registry-on-github-pages-c37809a1d93f)  
 (https://www.youtube.com/watch?v=x4IF7yyWw9g&ab_channel=DevOps4Solutions)  
 
+#### Work with the cluster
+- Install `stern` application of logs watching (https://docs.wakemeops.com/packages/stern/)  
+autocompletion:
+1. stern --completion bash > stern_completion.sh
+2. sudo mv stern_completion.sh /etc/bash_completion.d/stern
+3. source ~/.bashrc
+
+examples:  
+1. `stern .` # watch log of all app  
+2. `stern backend` # watch log of backend   
 
 ===>  
 ===>  

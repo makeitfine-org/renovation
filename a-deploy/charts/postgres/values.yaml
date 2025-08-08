@@ -1,0 +1,12 @@
+image:
+  repository: postgres
+  tag: 16-alpine
+  pullPolicy: IfNotPresent
+
+db: mydb
+user: postgres
+password: postgres
+
+service:
+  type: NodePort
+  nodePort: 30432
