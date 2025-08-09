@@ -6,6 +6,11 @@ data:
   POSTGRES_DB: {{ .Values.postgres.db | quote }}
 
   POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgres.name }}:{{ .Values.postgres.service.port }}/renovation?currentSchema=backend"
+
   INFO_SERVICE_URL: "http://info:9090/graphql"
+
   REDIS_HOST: {{ .Values.redis.name | quote}}
   REDIS_PORT: {{ .Values.redis.service.port | quote }}
+
+  MONGO_INITDB_DATABASE: {{ .Values.mongo.initdb.database | quote}}
+  MONGO_INITDB_ROOT_USERNAME: {{ .Values.mongo.initdb.username | quote}}

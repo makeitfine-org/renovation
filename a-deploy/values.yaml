@@ -24,14 +24,27 @@ redis:
     repository: redis
     tag: 7.2.3-alpine
     pullPolicy: IfNotPresent
-
-  host: redis # todo: not used
-  port: 6379  # todo: not used
   password: redispass
   service:
     type: NodePort
     port: 6379
     nodePort: 30379
+
+mongo:
+  enabled: true
+  name: mongo
+  image:
+    repository: mongo
+    tag: 5.0.6
+    pullPolicy: IfNotPresent
+  initdb:
+    database: infodb
+    username: root
+    password: rootpass
+  service:
+    type: NodePort
+    port: 27017
+    nodePort: 30017
 
 backend:
   enabled: true
