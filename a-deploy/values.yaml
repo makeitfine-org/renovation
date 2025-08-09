@@ -19,7 +19,7 @@ postgres:
 
 redis:
   enabled: true
-  name: redis-service
+  name: redis
   image:
     repository: redis
     tag: 7.2.3-alpine
@@ -35,7 +35,7 @@ redis:
 
 backend:
   enabled: true
-  name: backend-service
+  name: backend
   image:
     repository: koresmosto/renovation-backend
     tag: latest
