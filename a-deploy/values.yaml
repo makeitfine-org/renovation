@@ -20,6 +20,7 @@ postgres:
 redis:
   host: redis
   port: 6379
+  password: redispass
   service:
     type: NodePort
     nodePort: 30379

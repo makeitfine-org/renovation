@@ -1,4 +1,5 @@
 apiVersion: v2
+appVersion: 0.1.0
 name: postgres
 version: 0.1.0
 description: PostgreSQL subchart

@@ -178,10 +178,16 @@ examples:
 2. `stern backend` # watch log of backend
 
 - Work with the single module:  
-deploy from `a-deploy` only postgres:  
+deploy from `a-deploy` only postgres in release:  
 `$>yq eval '.postgres' values.yaml | helm install my-postgres ./charts/postgres -f - --dry-run`
 - Deploy only postgres:  
 `$>helm install my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
+`$>helm upgrade my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
+
+In this `helm` deployment you can only release all the app entirely (one name)
+`helm upgrade --install my-db .   --set backend.enabled=false   --set redis.enabled=true   --set postgres.enabled=true --dry-run `
+
+Useful commands: https://trello.com/c/pyHZmtQN/333-up-helm-k8s-in-minikube-with-terraform-renovation
 
 ===>  
 ===>  

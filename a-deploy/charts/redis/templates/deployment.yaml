@@ -18,3 +18,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 6379
+          envFrom:
+            - configMapRef: # todo: think of using only needed keys
+                name: {{ .Values.global.parentChartName }}-configmap
+            - secretRef:
+                name: {{ .Values.global.parentChartName }}-secret
