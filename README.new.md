@@ -184,6 +184,10 @@ deploy from `a-deploy` only postgres in release:
 `$>helm install my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
 `$>helm upgrade my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
 
+*redis connect:  
+`$> kubectl exec -it <redis_pod_name> -- redis-cli`  
+`$> kubectl exec -it <redis_pod_name> -- redis-cli -a <password>`  
+
 In this `helm` deployment you can only release all the app entirely (one name)
 `helm upgrade --install my-db .   --set backend.enabled=false   --set redis.enabled=true   --set postgres.enabled=true --dry-run `
 
