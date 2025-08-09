@@ -6,7 +6,7 @@ spec:
   selector:
     app: redis
   ports:
-    - port: 6379
+    - port: {{ .Values.service.port }}
       targetPort: 6379
       nodePort: {{ .Values.service.nodePort }}
   type: {{ .Values.service.type }}

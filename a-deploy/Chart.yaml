@@ -21,8 +21,8 @@ version: 0.1.0
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.1.0"
 icon: https://files.softicons.com/download/android-icons/flat-icons-by-martz90/png/256x256/gallery.png
+appVersion: "0.1.0"
 
 dependencies:
   - name: postgres

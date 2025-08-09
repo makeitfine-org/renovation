@@ -24,13 +24,14 @@ redis:
     tag: 7.2.3-alpine
     pullPolicy: IfNotPresent
 
-  host: redis
-  port: 6379
+  host: redis # todo: not used
+  port: 6379  # todo: not used
   password: redispass
   service:
     type: NodePort
     port: 6379
     nodePort: 30379
+
 
 backend:
   enabled: true
