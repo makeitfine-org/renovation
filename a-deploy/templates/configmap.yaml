@@ -7,10 +7,15 @@ data:
 
   POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgres.name }}:{{ .Values.postgres.service.port }}/renovation?currentSchema=backend"
 
-  INFO_SERVICE_URL: "http://info:9090/graphql"
+  INFO_SERVICE_URL: "http://{{ .Values.info.name }}:{{ .Values.info.service.port }}/graphql" # parametrize protocol (http)
 
   REDIS_HOST: {{ .Values.redis.name | quote}}
   REDIS_PORT: {{ .Values.redis.service.port | quote }}
 
   MONGO_INITDB_DATABASE: {{ .Values.mongo.initdb.database | quote}}
-  MONGO_INITDB_ROOT_USERNAME: {{ .Values.mongo.initdb.username | quote}}
+  MONGO_INITDB_ROOT_USERNAME: {{ .Values.mongo.initdb.rootuser.username | quote}}
+
+  MONGO_USERNAME: {{ .Values.info.mongo.username | quote}}
+  MONGO_DB: {{ .Values.mongo.initdb.database | quote}}
+  MONGO_HOST: {{ .Values.mongo.name | quote }}
+  MONGO_PORT: {{ .Values.mongo.service.port | quote}}

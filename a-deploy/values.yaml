@@ -39,8 +39,9 @@ mongo:
     pullPolicy: IfNotPresent
   initdb:
     database: infodb
-    username: root
-    password: rootpass
+    rootuser:
+      username: root
+      password: rootpass
   service:
     type: NodePort
     port: 27017
@@ -53,8 +54,22 @@ backend:
     repository: koresmosto/renovation-backend
     tag: latest
     pullPolicy: IfNotPresent
-
   service:
     type: NodePort
     port: 8080
     nodePort: 30080
+
+info:
+  enabled: true
+  name: info
+  image:
+    repository: koresmosto/renovation-info
+    tag: latest
+    pullPolicy: IfNotPresent
+  mongo:
+    username: infouser
+    password: infopassword
+  service:
+    type: NodePort
+    port: 9090
+    nodePort: 30090

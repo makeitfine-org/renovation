@@ -42,3 +42,7 @@ dependencies:
     version: 0.1.0
     repository: "file://charts/backend"
     condition: backend.enabled
+  - name: info
+    version: 0.1.0
+    repository: "file://charts/info"
+    condition: info.enabled

@@ -1,6 +1,6 @@
 apiVersion: v2
-name: backend
-description: Backend subchart
+name: info
+description: Info subchart
 icon: https://upload.wikimedia.org/wikipedia/commons/f/f6/Icon_Arrow_Right_256x256.png
 appVersion: 0.1.0
 version: 0.1.0
