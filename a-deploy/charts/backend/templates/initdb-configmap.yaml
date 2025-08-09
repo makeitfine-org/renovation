@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-initdb-scripts
-data:
-  init-renovation-schema.sql: |
-    CREATE SCHEMA IF NOT EXISTS renovation AUTHORIZATION postgres;

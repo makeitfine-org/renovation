@@ -1,11 +1,6 @@
 global:
   parentChartName: renovation
 
-image:
-  repository: koresmosto/renovation-backend
-  tag: latest
-  pullPolicy: IfNotPresent
-
 postgres:
 #  host: postgres
 #  port: 5432
@@ -26,6 +21,6 @@ redis:
     nodePort: 30379
 
 backend:
-  type: NodePort
-  port: 8080
-  nodePort: 30080
+  service:
+    type: NodePort
+    nodePort: 30080

@@ -4,3 +4,8 @@ metadata:
   name: {{ .Chart.Name }}-configmap
 data:
   POSTGRES_DB: {{ .Values.postgres.db | quote }}
+
+  POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/postgres?currentSchema=renovation"
+  INFO_SERVICE_URL: "http://info:9090/graphql"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"

@@ -6,7 +6,7 @@ spec:
   selector:
     app: {{ .Chart.Name }}
   ports:
-    - port: {{ .Values.postgres.service.port }}
+    - port: 8080
       targetPort: 8080
-      nodePort: {{ .Values.postgres.service.nodePort }}
-  type: {{ .Values.postgres.service.type }}
+      nodePort: {{ .Values.service.nodePort }}
+  type: {{ .Values.service.type }}
