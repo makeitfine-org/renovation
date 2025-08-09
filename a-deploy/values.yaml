@@ -3,6 +3,7 @@ global:
 
 postgres:
   enabled: true
+  name: postgres
   image:
     repository: postgres
     tag: 16-alpine
@@ -16,9 +17,9 @@ postgres:
     port: 5432
     nodePort: 30432
 
-
 redis:
   enabled: true
+  name: redis
   image:
     repository: redis
     tag: 7.2.3-alpine
@@ -32,9 +33,9 @@ redis:
     port: 6379
     nodePort: 30379
 
-
 backend:
   enabled: true
+  name: backend-service
   image:
     repository: koresmosto/renovation-backend
     tag: latest
