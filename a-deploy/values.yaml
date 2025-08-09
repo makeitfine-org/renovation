@@ -19,7 +19,7 @@ postgres:
 
 redis:
   enabled: true
-  name: redis
+  name: redis-service
   image:
     repository: redis
     tag: 7.2.3-alpine
