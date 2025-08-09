@@ -23,13 +23,6 @@ spec:
                 name: {{ .Values.global.parentChartName }}-configmap
             - secretRef:
                 name: {{ .Values.global.parentChartName }}-secret
-{{/*          env:*/}}
-{{/*            - name: POSTGRES_DB*/}}
-{{/*              value: {{ .Values.db }}*/}}
-{{/*            - name: POSTGRES_USER*/}}
-{{/*              value: {{ .Values.user }}*/}}
-{{/*            - name: POSTGRES_PASSWORD*/}}
-{{/*              value: {{ .Values.password }}*/}}
           volumeMounts:
             - name: initdb-scripts
               mountPath: /docker-entrypoint-initdb.d

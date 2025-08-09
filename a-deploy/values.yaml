@@ -7,7 +7,6 @@ postgres:
     repository: postgres
     tag: 16-alpine
     pullPolicy: IfNotPresent
-
   db: renovation
   schema: backend
   user: postgres # todo: secret
@@ -16,6 +15,7 @@ postgres:
     type: NodePort
     port: 5432
     nodePort: 30432
+
 
 redis:
   enabled: true
