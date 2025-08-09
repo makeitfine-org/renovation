@@ -29,6 +29,3 @@ spec:
                 name: {{ .Values.global.parentChartName }}-configmap
             - secretRef:
                 name: {{ .Values.global.parentChartName }}-secret
-{{/*          command: ["/bin/sh","-c"]*/}}
-{{/*          args:*/}}
-{{/*            - "redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb"*/}}

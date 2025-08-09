@@ -3,7 +3,6 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-
 service:
   type: ""
   nodePort: ""

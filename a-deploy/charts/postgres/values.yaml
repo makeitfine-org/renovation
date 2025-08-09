@@ -3,6 +3,7 @@ image:
   tag: 16-alpine
   pullPolicy: IfNotPresent
 
+#todo: delete belove (all are read from configmap and secret)
 db: ""
 schema: ""
 user: ""

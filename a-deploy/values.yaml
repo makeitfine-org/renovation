@@ -2,25 +2,44 @@ global:
   parentChartName: renovation
 
 postgres:
-#  host: postgres
-#  port: 5432
+  enabled: true
+  image:
+    repository: postgres
+    tag: 16-alpine
+    pullPolicy: IfNotPresent
+
   db: renovation
   schema: backend
   user: postgres # todo: secret
   password: postgres1 # todo: secret
   service:
     type: NodePort
+    port: 5432
     nodePort: 30432
 
 redis:
+  enabled: true
+  image:
+    repository: redis
+    tag: 7.2.3-alpine
+    pullPolicy: IfNotPresent
+
   host: redis
   port: 6379
   password: redispass
   service:
     type: NodePort
+    port: 6379
     nodePort: 30379
 
 backend:
+  enabled: true
+  image:
+    repository: koresmosto/renovation-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+
   service:
     type: NodePort
+    port: 8080
     nodePort: 30080
