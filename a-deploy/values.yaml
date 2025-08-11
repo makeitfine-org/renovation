@@ -1,8 +1,14 @@
 global:
   parentChartName: renovation
+  namespace:
+    platform: platform # ingress, service-mesh control plane, monitoring, cert-manager
+    infra: infra # databases (Postgres StatefulSets, MongoDB), shared infra (RabbitMQ/Redis)
+    apps: apps #your Spring Boot microservices (backend services)
+    security: security # keycloak (OAuth2 proxy, WAF, etc.)
 
 postgres:
   enabled: true
+  namespaceOverride: infra
   name: postgres
   image:
     repository: postgres
@@ -19,6 +25,7 @@ postgres:
 
 redis:
   enabled: true
+#  namespaceOverride: infra
   name: redis
   image:
     repository: redis
@@ -32,6 +39,7 @@ redis:
 
 mongo:
   enabled: true
+#  namespaceOverride: infra
   name: mongo
   image:
     repository: mongo
@@ -49,6 +57,7 @@ mongo:
 
 backend:
   enabled: true
+#  namespaceOverride: apps
   name: backend
   image:
     repository: koresmosto/renovation-backend
@@ -61,6 +70,7 @@ backend:
 
 info:
   enabled: true
+#  namespaceOverride: apps
   name: info
   image:
     repository: koresmosto/renovation-info

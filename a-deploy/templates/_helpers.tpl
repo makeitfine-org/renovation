@@ -1,8 +1,42 @@
+{{- define "ca.name" -}}
+{{ .Values.name }}
+{{- end }}
+
+
+{{- define "ca.metadata" -}}
+metadata:
+  name: {{ include "ca.name" . }}
+  namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
+{{- end }}
+
+
+{{- define "ca.fullImage" -}}
+{{ .Values.image.repository }}:{{ .Values.image.tag }}
+{{- end }}
+
+
+{{- define "ca.imageAndEnv" -}}
+- name: {{ include "ca.name" . | quote }}
+  image: {{ include "ca.fullImage" . | quote }}
+  imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+  envFrom:
+    - configMapRef:
+        name: {{ .Values.global.parentChartName }}-configmap
+    - secretRef:
+        name: {{ .Values.global.parentChartName }}-secret
+{{- end }}
+
+
 {{/*metadata:*/}}
 {{/*  name: {{ include "mychart.fullname" . }}*/}}
 
-{{- define "mychart.fullname" -}}
+{{ define "mychart.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "mychart.fullImage" -}}
+{{ .Values.image.repository }}:{{ .Values.image.tag }}
 {{- end -}}
 
 
