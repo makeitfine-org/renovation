@@ -10,7 +10,7 @@
 			"name": "backend",
 			"item": [
 				{
-					"name": "1. BE api/work",
+					"name": "1.1. BE api/work",
 					"event": [
 						{
 							"listen": "test",
@@ -88,7 +88,7 @@
 					"response": []
 				},
 				{
-					"name": "2. BE api/work/{id}",
+					"name": "1.2. BE api/work/{id}",
 					"event": [
 						{
 							"listen": "test",
@@ -127,6 +127,44 @@
 								"api",
 								"work",
 								"22222222-a845-45d7-aea9-ab624172d1c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1.3. BE api/work/{no-id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expected = \"Internal server error (500)\";",
+									"",
+									"pm.test(\"Status code is 500\", function () {",
+									"    pm.response.to.have.status(500);",
+									"    pm.expect(pm.response.text()).to.eql(expected);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{host}}:{{backendPort}}/api/work/noId",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{backendPort}}",
+							"path": [
+								"api",
+								"work",
+								"noId"
 							]
 						}
 					},

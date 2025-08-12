@@ -183,7 +183,7 @@ deploy from `a-deploy` only postgres in release:
 - Deploy only postgres:  
 `$>helm install my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
 `$>helm upgrade my-db .   --set backend.enabled=false   --set redis.enabled=false   --set postgres.enabled=true`
-
+$
 *redis connect:  
 `$> kubectl exec -it <redis_pod_name> -- redis-cli`  
 `$> kubectl exec -it <redis_pod_name> -- redis-cli -a <password>`  
