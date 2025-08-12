@@ -15,18 +15,7 @@ metadata:
 {{- end }}
 
 
-{{- define "ca.imageAndEnv" -}}
-- name: {{ include "ca.name" . | quote }}
-  image: {{ include "ca.fullImage" . | quote }}
-  imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-  envFrom:
-    - configMapRef:
-        name: {{ .Values.global.parentChartName }}-configmap
-    - secretRef:
-        name: {{ .Values.global.parentChartName }}-secret
-{{- end }}
-
-
+{{/*define template for deployment*/}}
 {{- define "ca.deployment" -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -42,12 +31,20 @@ spec:
         app: {{ include "ca.name" . }}
     spec:
       containers:
-        {{- include "ca.imageAndEnv" . | nindent 8 }}
+        - name: {{ include "ca.name" . | quote }}
+          image: {{ include "ca.fullImage" . | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.global.parentChartName }}-configmap
+            - secretRef:
+                name: {{ .Values.global.parentChartName }}-secret
           ports:
             - containerPort: {{ .containerPort }}
 {{- end }}
 
 
+{{/*define template for service*/}}
 {{- define "ca.service" -}}
 apiVersion: v1
 kind: Service
