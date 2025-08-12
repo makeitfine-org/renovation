@@ -19,7 +19,7 @@ data:
 
   INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Release.Namespace }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
 
-  REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Release.Namespace }}.svc.cluster.local"
+  REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Values.global.namespace.infra }}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.service.port | quote }}
 
   MONGO_INITDB_DATABASE: {{ $root.Values.mongo.initdb.database | quote }}
@@ -27,7 +27,7 @@ data:
 
   MONGO_USERNAME: {{ $root.Values.info.mongo.username | quote }}
   MONGO_DB: {{ $root.Values.mongo.initdb.database | quote }}
-  MONGO_HOST: "{{ $root.Values.mongo.name }}.{{ $root.Release.Namespace }}.svc.cluster.local"
+  MONGO_HOST: "{{ $root.Values.mongo.name }}.{{ $root.Values.global.namespace.infra }}.svc.cluster.local"
   MONGO_PORT: {{ $root.Values.mongo.service.port | quote }}
 ---
 {{- end }}

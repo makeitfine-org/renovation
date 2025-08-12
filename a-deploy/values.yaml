@@ -25,7 +25,7 @@ postgres:
 
 redis:
   enabled: true
-#  namespaceOverride: infra
+  namespaceOverride: infra
   name: redis
   image:
     repository: redis
@@ -39,7 +39,7 @@ redis:
 
 mongo:
   enabled: true
-#  namespaceOverride: infra
+  namespaceOverride: infra
   name: mongo
   image:
     repository: mongo
