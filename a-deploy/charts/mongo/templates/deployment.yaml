@@ -1,28 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Values.name }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .Values.name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.name }}
-    spec:
-      containers:
-        - name: {{ .Values.name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - containerPort: 27017
-          envFrom:
-            - configMapRef:
-                name: {{ .Values.global.parentChartName }}-configmap
-            - secretRef:
-                name: {{ .Values.global.parentChartName }}-secret
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 27017 }}
+{{ include "ca.deployment" $ctx }}
           volumeMounts:
             - name: {{ .Values.name }}-initdb-scripts
               mountPath: /docker-entrypoint-initdb.d
