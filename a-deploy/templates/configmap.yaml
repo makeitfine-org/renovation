@@ -17,7 +17,7 @@ data:
 
   POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgres.name }}.{{ $root.Values.global.namespace.infra }}.svc.cluster.local:{{ $root.Values.postgres.service.port }}/renovation?currentSchema=backend"
 
-  INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Release.Namespace }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
+  INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.global.namespace.apps }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
 
   REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Values.global.namespace.infra }}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.service.port | quote }}

@@ -57,7 +57,7 @@ mongo:
 
 backend:
   enabled: true
-#  namespaceOverride: apps
+  namespaceOverride: apps
   name: backend
   image:
     repository: koresmosto/renovation-backend
@@ -70,7 +70,7 @@ backend:
 
 info:
   enabled: true
-#  namespaceOverride: apps
+  namespaceOverride: apps
   name: info
   image:
     repository: koresmosto/renovation-info
