@@ -196,8 +196,8 @@ In this `helm` deployment you can only release all the app entirely (one name)
 
 Useful commands: https://trello.com/c/pyHZmtQN/333-up-helm-k8s-in-minikube-with-terraform-renovation
 
-Smoke tests for the cluster work after each redeployment (inside a-deploy/test):  
-`$>newman run renovation-minikube.postman_collection.json -e renovation-minikube-env.postman_environment.json`
+Smoke tests for the cluster work after each deployment/redeployment (inside a-deploy/test):  
+`$>./test.sh`
 
 ===>  
 ===>  
