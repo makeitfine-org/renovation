@@ -5,11 +5,11 @@ metadata:
 data:
   POSTGRES_DB: {{ .Values.postgres.db | quote }}
 
-  POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgres.name }}:{{ .Values.postgres.service.port }}/renovation?currentSchema=backend"
+  POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgres.name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgres.service.port }}/renovation?currentSchema=backend"
 
-  INFO_SERVICE_URL: "http://{{ .Values.info.name }}:{{ .Values.info.service.port }}/graphql" # parametrize protocol (http)
+  INFO_SERVICE_URL: "http://{{ .Values.info.name }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.info.service.port }}/graphql" # parametrize protocol (http)
 
-  REDIS_HOST: {{ .Values.redis.name | quote}}
+  REDIS_HOST: "{{ .Values.redis.name }}.{{ .Release.Namespace }}.svc.cluster.local"
   REDIS_PORT: {{ .Values.redis.service.port | quote }}
 
   MONGO_INITDB_DATABASE: {{ .Values.mongo.initdb.database | quote}}
@@ -17,5 +17,5 @@ data:
 
   MONGO_USERNAME: {{ .Values.info.mongo.username | quote}}
   MONGO_DB: {{ .Values.mongo.initdb.database | quote}}
-  MONGO_HOST: {{ .Values.mongo.name | quote }}
+  MONGO_HOST: "{{ .Values.mongo.name }}.{{ .Release.Namespace }}.svc.cluster.local"
   MONGO_PORT: {{ .Values.mongo.service.port | quote}}
