@@ -5,7 +5,7 @@
 
 {{- define "ca.metadata" -}}
 metadata:
-  name: {{ include "ca.name" . }}
+  name: {{ include "ca.name" . }}{{- if .nameSuffix }}-{{ .nameSuffix }}{{- end }}
   namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
 {{- end }}
 

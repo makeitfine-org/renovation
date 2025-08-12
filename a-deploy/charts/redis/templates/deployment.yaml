@@ -6,4 +6,3 @@
             - "$(REDIS_PASSWORD)"
             - "--maxmemory"
             - "256mb"
-
