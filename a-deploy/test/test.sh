@@ -24,12 +24,12 @@ export pg_db='renovation';
 export pg_schema='backend';
 
 #redis:
-redis_password='redispass'
+redis_password='redispass';
 
 #mongo:
-#user: infouser
-#pass: infopassword
-#url: mongodb://192.168.49.2:30017/infodb
+mongo_db='infodb'
+mongo_user='infouser';
+mongo_pass='infopassword'
 
 # test postgres
 if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
@@ -41,11 +41,11 @@ if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; the
       echo "✅✅ Query succeeded"
     else
       echo "❌❌ Query failed or returned no data"
-      exit;
+      exit 1;
     fi
 else
   echo "❌ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) failed"
-  exit;
+  exit 1;
 fi
 
 # test redis
@@ -64,21 +64,35 @@ if nc -zv "$CLUSTER_IP" "$REDIS_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
     fi
   else
     echo "❌ Redis AUTH failed or no connection"
-    exit;
+    exit 1;
   fi
 else
   echo "❌ Connection to Redis ($CLUSTER_IP:$REDIS_CLUSTER_PORT) failed"
-  exit;
+  exit 1;
 fi
 
 # test mongo
 if nc -zv "$CLUSTER_IP" "$MONGO_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to Mongo ($CLUSTER_IP:$MONGO_CLUSTER_PORT) succeeded"
 
-  #todo: query to mongo
+  # install mongosh
+  count=$(mongosh --quiet \
+      --host "$CLUSTER_IP" \
+      --port "$MONGO_CLUSTER_PORT" \
+      -u "$mongo_user" \
+      -p "$mongo_pass" \
+      --authenticationDatabase "$mongo_db" \
+      --eval "db.getSiblingDB('$mongo_db').details.countDocuments({})")
+
+    if [ "$count" -ge 1 ] 2>/dev/null; then
+      echo "✅✅ MongoDB 'details' collection has at least one record (count=$count)"
+    else
+      echo "❌❌ MongoDB 'details' collection is empty or query failed (count=$count)"
+      exit 1
+    fi
 else
   echo "❌ Connection to Mongo ($CLUSTER_IP:$MONGO_CLUSTER_PORT) failed"
-  exit;
+  exit 1;
 fi
 
 # test apps:
