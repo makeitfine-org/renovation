@@ -1,31 +1,9 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Values.name }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .Values.name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.name }}
-    spec:
-      containers:
-        - name: {{ .Values.name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 6379 }}
+{{ include "ca.deployment" $ctx }}
           command:
             - redis-server
             - "--requirepass"
             - "$(REDIS_PASSWORD)"
             - "--maxmemory"
             - "256mb"
-          ports:
-            - containerPort: 6379
-          envFrom:
-            - configMapRef: # todo: think of using only needed keys
-                name: {{ .Values.global.parentChartName }}-configmap
-            - secretRef:
-                name: {{ .Values.global.parentChartName }}-secret
+
