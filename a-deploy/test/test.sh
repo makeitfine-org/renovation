@@ -34,28 +34,24 @@ export pg_schema='backend';
 # test postgres
 if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) succeeded"
+
+  result=$(PGPASSWORD="$pg_password" psql -h "$CLUSTER_IP" -p "$POSTGRES_CLUSTER_PORT" -U "$pg_username" -d "$pg_db" -c "SET search_path TO $pg_schema; SELECT * FROM work LIMIT 1;")
+    if [ $? -eq 0 ] && [ -n "$result" ]; then
+      echo "✅✅ Query succeeded"
+    else
+      echo "❌❌ Query failed or returned no data"
+      exit;
+    fi
 else
   echo "❌ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) failed"
-  exit;
-fi
-
-if PGPASSWORD="$pg_password" psql -h "$CLUSTER_IP" -p "$POSTGRES_CLUSTER_PORT" -U "$pg_username" -d "$pg_db" -c '\q' 2>/dev/null; then
-  echo "✅ PostgreSQL connection successful"
-  result=$(PGPASSWORD="$pg_password" psql -h "$CLUSTER_IP" -p "$POSTGRES_CLUSTER_PORT" -U "$pg_username" -d "$pg_db" -c "SET search_path TO $pg_schema; SELECT * FROM work LIMIT 1;")
-  if [ $? -eq 0 ] && [ -n "$result" ]; then
-    echo "✅ Query succeeded and returned data:"
-  else
-    echo "❌ Query failed or returned no data"
-    exit;
-  fi
-else
-  echo "❌ PostgreSQL connection failed"
   exit;
 fi
 
 # test redis
 if nc -zv "$CLUSTER_IP" "$REDIS_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to Redis ($CLUSTER_IP:$REDIS_CLUSTER_PORT) succeeded"
+
+  #todo: query to redis
 else
   echo "❌ Connection to Redis ($CLUSTER_IP:$REDIS_CLUSTER_PORT) failed"
   exit;
@@ -64,6 +60,8 @@ fi
 # test mongo
 if nc -zv "$CLUSTER_IP" "$MONGO_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to Mongo ($CLUSTER_IP:$MONGO_CLUSTER_PORT) succeeded"
+
+  #todo: query to mongo
 else
   echo "❌ Connection to Mongo ($CLUSTER_IP:$MONGO_CLUSTER_PORT) failed"
   exit;
