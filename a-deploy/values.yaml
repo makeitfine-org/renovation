@@ -8,7 +8,7 @@ global:
 
 postgres:
   enabled: true
-  namespaceOverride: infra
+#  namespaceOverride: infra
   name: postgres
   image:
     repository: postgres
