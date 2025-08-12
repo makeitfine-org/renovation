@@ -31,6 +31,15 @@ mongo_db='infodb'
 mongo_user='infouser';
 mongo_pass='infopassword'
 
+
+# test cluster reachable
+if ping -c 1 "$CLUSTER_IP" >/dev/null 2>&1; then
+    echo "✅ Cluster Host ($CLUSTER_NAME -> $CLUSTER_IP) is reachable"
+else
+    echo "❌ Cluster Host ($CLUSTER_NAME -> $CLUSTER_IP) is not reachable"
+    exit 1;
+fi
+
 # test postgres
 if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) succeeded"
