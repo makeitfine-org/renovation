@@ -1,17 +1,2 @@
-apiVersion: apps/v1
-kind: Deployment
-{{ include "ca.metadata" . | nindent 0 }}
-spec:
-  replicas: 1 # todo: up to 3 and check
-  selector:
-    matchLabels:
-      app: {{ include "ca.name" . }}
-  template:
-    metadata:
-      labels:
-        app: {{ include "ca.name" . }}
-    spec:
-      containers:
-        {{- include "ca.imageAndEnv" . | nindent 8 }}
-          ports:
-            - containerPort: 8080
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 8080 }}
+{{ include "ca.deployment" $ctx }}

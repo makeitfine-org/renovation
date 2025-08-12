@@ -1,12 +1,2 @@
-apiVersion: v1
-kind: Service
-{{ include "ca.metadata" . | nindent 0 }}
-spec:
-  selector:
-    app: {{ .Values.name }}
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: 8080
-      nodePort: {{ .Values.service.nodePort }}
-
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "targetPort" 8080 }}
+{{ include "ca.service" $ctx }}

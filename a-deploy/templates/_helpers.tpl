@@ -27,6 +27,43 @@ metadata:
 {{- end }}
 
 
+{{- define "ca.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+{{ include "ca.metadata" . | nindent 0 }}
+spec:
+  replicas: 1 # todo: up to 3 and check
+  selector:
+    matchLabels:
+      app: {{ include "ca.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "ca.name" . }}
+    spec:
+      containers:
+        {{- include "ca.imageAndEnv" . | nindent 8 }}
+          ports:
+            - containerPort: {{ .containerPort }}
+{{- end }}
+
+
+{{- define "ca.service" -}}
+apiVersion: v1
+kind: Service
+{{ include "ca.metadata" . | nindent 0 }}
+spec:
+  selector:
+    app: {{ .Values.name }}
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .targetPort }}
+      nodePort: {{ .Values.service.nodePort }}
+{{- end }}
+
+
+
 {{/*metadata:*/}}
 {{/*  name: {{ include "mychart.fullname" . }}*/}}
 
