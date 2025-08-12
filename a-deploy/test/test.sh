@@ -14,18 +14,18 @@ export REDIS_CLUSTER_PORT=30379;
 
 export MONGO_CLUSTER_PORT=30017;
 
-#postgres:
+# postgres:
 export pg_username='postgres';
 export pg_password='postgres1';
-export pg_url='jdbc:postgresql://192.168.49.2:30432/renovation';
+
+# shellcheck disable=SC2016
+export pg_url='jdbc:postgresql://$CLUSTER_IP:$POSTGRES_CLUSTER_PORT/renovation';
 export pg_db='renovation';
 export pg_schema='backend';
 
-#
 #redis:
-#password: redispass
-#url: jdbc:redis://192.168.49.2:30379/
-#
+redis_password='redispass'
+
 #mongo:
 #user: infouser
 #pass: infopassword
@@ -35,6 +35,7 @@ export pg_schema='backend';
 if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) succeeded"
 
+  # install `psql` if no
   result=$(PGPASSWORD="$pg_password" psql -h "$CLUSTER_IP" -p "$POSTGRES_CLUSTER_PORT" -U "$pg_username" -d "$pg_db" -c "SET search_path TO $pg_schema; SELECT * FROM work LIMIT 1;")
     if [ $? -eq 0 ] && [ -n "$result" ]; then
       echo "✅✅ Query succeeded"
@@ -51,7 +52,20 @@ fi
 if nc -zv "$CLUSTER_IP" "$REDIS_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to Redis ($CLUSTER_IP:$REDIS_CLUSTER_PORT) succeeded"
 
-  #todo: query to redis
+  # install redis-cli
+  if [ "$(redis-cli -h "$CLUSTER_IP" -p "$REDIS_CLUSTER_PORT" -a "$redis_password" PING 2>/dev/null)" = "PONG" ]; then
+    echo "✅✅ Redis AUTH successful"
+
+    result=$(redis-cli -h "$CLUSTER_IP" -p "$REDIS_CLUSTER_PORT" -a "$redis_password" keys '*' 2>/dev/null)
+    if [ -n "$result" ]; then
+      echo "✅✅ Keys found"
+    else
+      echo "✅✅ No keys found in Redis"
+    fi
+  else
+    echo "❌ Redis AUTH failed or no connection"
+    exit;
+  fi
 else
   echo "❌ Connection to Redis ($CLUSTER_IP:$REDIS_CLUSTER_PORT) failed"
   exit;
