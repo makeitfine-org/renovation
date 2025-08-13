@@ -199,6 +199,10 @@ Useful commands: https://trello.com/c/pyHZmtQN/333-up-helm-k8s-in-minikube-with-
 Smoke tests for the cluster work after each deployment/redeployment (inside a-deploy/test):  
 `$>./test.sh`
 
+Partial install/upgrade:  
+`$>helm install renovation . --set info.enabled=false` # no info module
+`$> helm install renovation . --set info.enabled=`
+
 ===>  
 ===>  
 ===>  
