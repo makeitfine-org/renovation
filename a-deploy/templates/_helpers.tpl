@@ -58,6 +58,8 @@ spec:
             {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.healthCheck.livenessProbe.failureThreshold }}
           {{- end -}}
 
           {{ if and .Values.healthCheck .Values.healthCheck.readinessProbe }}
@@ -76,6 +78,8 @@ spec:
             {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.healthCheck.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.healthCheck.readinessProbe.failureThreshold }}
           {{- end }}
 {{- end }}
 
