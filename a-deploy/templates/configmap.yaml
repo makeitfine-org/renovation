@@ -1,6 +1,8 @@
 {{- $root := . }}
 
 {{- $nsList := list }}
+{{- $ns_default := $root.Release.Namespace }}
+
 {{- range $key, $ns := $root.Values.global.namespace }}
   {{- $nsList = append $nsList $ns }}
 {{- end }}
@@ -15,11 +17,11 @@ metadata:
 data:
   POSTGRES_DB: {{ $root.Values.postgres.db | quote }}
 
-  POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgres.name }}.{{ $root.Values.postgres.namespaceOverride | default $root.Release.Namespace }}.svc.cluster.local:{{ $root.Values.postgres.service.port }}/renovation?currentSchema=backend"
+  POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgres.name }}.{{ $root.Values.postgres.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgres.service.port }}/renovation?currentSchema=backend"
 
-  INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.info.namespaceOverride | default $root.Release.Namespace }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
+  INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.info.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
 
-  REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Values.redis.namespaceOverride | default $root.Release.Namespace }}.svc.cluster.local"
+  REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.service.port | quote }}
 
   MONGO_INITDB_DATABASE: {{ $root.Values.mongo.initdb.database | quote }}
@@ -27,7 +29,7 @@ data:
 
   MONGO_USERNAME: {{ $root.Values.info.mongo.username | quote }}
   MONGO_DB: {{ $root.Values.mongo.initdb.database | quote }}
-  MONGO_HOST: "{{ $root.Values.mongo.name }}.{{ $root.Values.mongo.namespaceOverride | default $root.Release.Namespace }}.svc.cluster.local"
+  MONGO_HOST: "{{ $root.Values.mongo.name }}.{{ $root.Values.mongo.namespaceOverride | default $ns_default }}.svc.cluster.local"
   MONGO_PORT: {{ $root.Values.mongo.service.port | quote }}
 ---
 {{- end }}
