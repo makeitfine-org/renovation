@@ -16,23 +16,26 @@ postgres:
     pullPolicy: IfNotPresent
   db: renovation
   schema: backend
-  user: postgres # todo: secret
+  user: postgres # todo: secret # change also in healthCheck !!!
   password: postgres1 # todo: secret
   service:
     type: NodePort
     port: 5432
     nodePort: 30432
-  healthCheck:
-    livenessProbe:
-      exec:
-        command: '["pg_isready", "-U", "{{ .Values.postgres.user }}"]'
-      initialDelaySeconds: 30
-      periodSeconds: 10
-    readinessProbe:
-      exec:
-        command: '["pg_isready", "-U", "{{ .Values.postgres.user }}"]'
-      initialDelaySeconds: 5
-      periodSeconds: 5
+#  healthCheck:
+#    livenessProbe:
+#      exec:
+#        command: '["/usr/bin/pg_isready", "-U", "postgres"]'
+#      initialDelaySeconds: 30
+#      periodSeconds: 10
+#    readinessProbe:
+#      exec:
+#        command:
+#          - pg_isready
+#          - -U
+#          - postgres # depend on postgres.user !!!
+#      initialDelaySeconds: 5
+#      periodSeconds: 5
 
 redis:
   enabled: true
@@ -65,6 +68,23 @@ mongo:
     type: NodePort
     port: 27017
     nodePort: 30017
+#  healthCheck:
+#    livenessProbe:
+#      exec:
+#        command:
+#          - mongo
+#          - --eval
+#          - db.adminCommand("ping")
+#      initialDelaySeconds: 30
+#      periodSeconds: 10
+#    readinessProbe:
+#      exec:
+#        command:
+#          - mongo
+#          - --eval
+#          - db.adminCommand("ping")
+#      initialDelaySeconds: 5
+#      periodSeconds: 5
 
 backend:
   enabled: true

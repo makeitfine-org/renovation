@@ -1,5 +1,13 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 8080 }}
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 5432 }}
 {{ include "ca.deployment" $ctx }}
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+            initialDelaySeconds: 30
+            periodSeconds: 10
           volumeMounts:
             - name: initdb-scripts
               mountPath: /docker-entrypoint-initdb.d
