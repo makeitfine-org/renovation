@@ -22,6 +22,17 @@ postgres:
     type: NodePort
     port: 5432
     nodePort: 30432
+  healthCheck:
+    livenessProbe:
+      exec:
+        command: '["pg_isready", "-U", "{{ .Values.postgres.user }}"]'
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      exec:
+        command: '["pg_isready", "-U", "{{ .Values.postgres.user }}"]'
+      initialDelaySeconds: 5
+      periodSeconds: 5
 
 redis:
   enabled: true

@@ -49,6 +49,10 @@ spec:
               path: {{ .Values.healthCheck.livenessProbe.http.path }}
               port: {{ .Values.service.port }}
             {{- end }}
+            {{- if .Values.healthCheck.livenessProbe.exec  }}
+            exec:
+              command: {{ .Values.healthCheck.livenessProbe.exec.command }}
+            {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.livenessProbe.periodSeconds }}
           {{- end -}}
@@ -59,6 +63,10 @@ spec:
             httpGet:
               path: {{ .Values.healthCheck.livenessProbe.http.path }}
               port: {{ .Values.service.port }}
+            {{- end }}
+            {{- if .Values.healthCheck.readinessProbe.exec  }}
+            exec:
+              command: {{ .Values.healthCheck.readinessProbe.exec.command }}
             {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
