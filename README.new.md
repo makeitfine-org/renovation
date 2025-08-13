@@ -110,8 +110,8 @@ Run a Gradle task from base module `renovation`:
 * To run `RenovationApplication` in [Idea] previously: `dcu renovation-postgres, renovation-redis, renovation-keycloak` 
 
 #### Run the 'no-security' profile Dockerfile(s):  
-backend module: `$> docker build -f backend/no-security.Dockerfile -t koresmosto/renovation-backend:no-security backend`  
-info module: `$> docker build -f info/no-security.Dockerfile -t koresmosto/renovation-info:no-security info`  
+backend module (in /backend): `$> docker build -f no-security.Dockerfile -t koresmosto/renovation-backend:no-security .`  
+info module (in /info): `$> docker build -f no-security.Dockerfile -t koresmosto/renovation-info:no-security .`  
 
 up docker in no-security for `backend` and `info`:  
 `$> dc -f docker-compose-no-security.yml up renovation-postgres renovation-redis renovation-mongo renovation-backend renovation-info`
@@ -203,6 +203,11 @@ Smoke tests for the cluster work after each deployment/redeployment (inside a-de
 Partial install/upgrade:  
 `$>helm install renovation . --set info.enabled=false` # no info module
 `$> helm install renovation . --set info.enabled=`
+
+1. build backend jar (skip any kind of test):  
+`$> gr :backend:bootJar -x test -x integrationTest -x e2eTest`
+2. build/upload images:  
+`$> ./a-deploy/util/creat_upload_images.sh`
 
 ===>  
 ===>  
