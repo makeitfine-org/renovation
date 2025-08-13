@@ -44,18 +44,22 @@ spec:
 
           {{ if and .Values.healthCheck .Values.healthCheck.livenessProbe  }}
           livenessProbe:
+            {{- if .Values.healthCheck.livenessProbe.http  }}
             httpGet:
-              path: {{ .Values.healthCheck.livenessProbe.path }}
+              path: {{ .Values.healthCheck.livenessProbe.http.path }}
               port: {{ .Values.service.port }}
+            {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.livenessProbe.periodSeconds }}
           {{- end -}}
 
           {{ if and .Values.healthCheck .Values.healthCheck.readinessProbe }}
           readinessProbe:
+            {{- if .Values.healthCheck.readinessProbe.http  }}
             httpGet:
-              path: {{ .Values.healthCheck.readinessProbe.path }}
+              path: {{ .Values.healthCheck.livenessProbe.http.path }}
               port: {{ .Values.service.port }}
+            {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
           {{- end }}

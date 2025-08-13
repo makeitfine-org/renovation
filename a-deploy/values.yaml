@@ -69,11 +69,13 @@ backend:
     nodePort: 30080
   healthCheck:
     livenessProbe:
-      path: /actuator/health/liveness
+      http:
+        path: /actuator/health/liveness
       initialDelaySeconds: 30
       periodSeconds: 10
     readinessProbe:
-      path: /actuator/health/readiness
+      http:
+        path: /actuator/health/readiness
       initialDelaySeconds: 10
       periodSeconds: 5
 
@@ -94,10 +96,12 @@ info:
     nodePort: 30090
   healthCheck:
     livenessProbe:
-      path: /actuator/health/liveness
+      http:
+        path: /actuator/health/liveness
       initialDelaySeconds: 30
       periodSeconds: 10
     readinessProbe:
-      path: /actuator/health/readiness
+      http:
+        path: /actuator/health/readiness
       initialDelaySeconds: 10
       periodSeconds: 5
