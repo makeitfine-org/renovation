@@ -84,7 +84,7 @@ fi
 if nc -zv "$CLUSTER_IP" "$MONGO_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to Mongo ($CLUSTER_IP:$MONGO_CLUSTER_PORT) succeeded"
 
-  # install mongosh
+  # install mongosh (https://www.mongodb.com/docs/mongodb-shell/install/)
   count=$(mongosh --quiet \
       --host "$CLUSTER_IP" \
       --port "$MONGO_CLUSTER_PORT" \
@@ -104,5 +104,5 @@ else
   exit 1;
 fi
 
-# test apps:
+# test apps: (npm install -g newman)
 newman run renovation-minikube.postman_collection.json -e renovation-minikube-env.postman_environment.json
