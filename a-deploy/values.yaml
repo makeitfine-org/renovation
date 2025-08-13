@@ -67,14 +67,15 @@ backend:
     type: NodePort
     port: 8080
     nodePort: 30080
-  livenessProbe:
-    path: /actuator/health/liveness
-    initialDelaySeconds: 30
-    periodSeconds: 10
-  readinessProbe:
-    path: /actuator/health/readiness
-    initialDelaySeconds: 10
-    periodSeconds: 5
+  healthCheck:
+    livenessProbe:
+      path: /actuator/health/liveness
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      path: /actuator/health/readiness
+      initialDelaySeconds: 10
+      periodSeconds: 5
 
 info:
   enabled: true

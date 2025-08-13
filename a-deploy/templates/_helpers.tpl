@@ -40,7 +40,25 @@ spec:
             - secretRef:
                 name: {{ .Values.global.parentChartName }}-secret
           ports:
-            - containerPort: {{ .containerPort }}
+            - containerPort: {{ .containerPort -}}
+
+          {{ if and .Values.healthCheck .Values.healthCheck.livenessProbe  }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.healthCheck.livenessProbe.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: {{ .Values.healthCheck.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.livenessProbe.periodSeconds }}
+          {{- end -}}
+
+          {{ if and .Values.healthCheck .Values.healthCheck.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.healthCheck.readinessProbe.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: {{ .Values.healthCheck.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
+          {{- end }}
 {{- end }}
 
 
