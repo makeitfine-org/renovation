@@ -22,7 +22,7 @@ describe("AboutPageComponent", () => {
 
   it("module", (done: DoneFn) => {
     infoService.getModule().subscribe((value) => {
-      expect(value).toEqual("Hi, it's \"Renovation info\" module")
+      expect("Hi, it's \"Renovation/info\" module").toEqual(value)
       done()
     })
   })

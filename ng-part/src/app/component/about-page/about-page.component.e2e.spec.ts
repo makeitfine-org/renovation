@@ -32,6 +32,6 @@ describe("AboutPageComponent ts", () => {
       description: "Module work as additional info directory",
     })
 
-    expect(component.module).toEqual("Hi, it's \"Renovation info\" module")
+    expect("Hi, it's \"Renovation/info\" module").toEqual(component.module)
   })
 })
