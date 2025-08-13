@@ -63,7 +63,7 @@ mongo:
     tag: 5.0.6
     pullPolicy: IfNotPresent
   initdb:
-    database: infodb
+    database: infodb # todo: secret # change also in healthCheck !!!
     rootuser:
       username: root
       password: rootpass
@@ -71,23 +71,25 @@ mongo:
     type: NodePort
     port: 27017
     nodePort: 30017
-#  healthCheck:
-#    livenessProbe:
-#      exec:
-#        command:
-#          - mongo
-#          - --eval
-#          - db.adminCommand("ping")
-#      initialDelaySeconds: 30
-#      periodSeconds: 10
-#    readinessProbe:
-#      exec:
-#        command:
-#          - mongo
-#          - --eval
-#          - db.adminCommand("ping")
-#      initialDelaySeconds: 5
-#      periodSeconds: 5
+  healthCheck:
+    livenessProbe:
+      exec:
+        command:
+          - mongo
+          - infodb
+          - --eval
+          - db.runCommand({ping:1})  # depend on mongo.initdb.database !!!
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      exec:
+        command:
+          - mongo
+          - infodb
+          - --eval
+          - db.runCommand({ping:1})  # depend on mongo.initdb.database !!!
+      initialDelaySeconds: 5
+      periodSeconds: 5
 
 backend:
   enabled: true
