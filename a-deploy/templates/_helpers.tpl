@@ -51,7 +51,10 @@ spec:
             {{- end }}
             {{- if .Values.healthCheck.livenessProbe.exec  }}
             exec:
-              command: {{ .Values.healthCheck.livenessProbe.exec.command }}
+              command:
+                {{- range .Values.healthCheck.livenessProbe.exec.command }}
+                - {{ . | quote }}
+                {{- end }}
             {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.livenessProbe.periodSeconds }}
@@ -66,7 +69,10 @@ spec:
             {{- end }}
             {{- if .Values.healthCheck.readinessProbe.exec  }}
             exec:
-              command: {{ .Values.healthCheck.readinessProbe.exec.command }}
+              command:
+                {{- range .Values.healthCheck.readinessProbe.exec.command }}
+                - {{ . | quote }}
+                {{- end }}
             {{- end }}
             initialDelaySeconds: {{ .Values.healthCheck.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
