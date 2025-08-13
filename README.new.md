@@ -78,7 +78,8 @@ server {
 
 ### Config project locally
 1. Install `docker`, `docker compose`  
-1.1. Install `minikube`  
+1.1. Install `minikube`  (last version)
+1.2. Install `kubectl` (last version): https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 2. Install `JDK 21`  
 3. (Import a maven project in IDEA: Project Structure -> Import module -> choose the folder with maven module) [Idea]  
 4. Install and set node v16.14.0/npm 8.3.1  

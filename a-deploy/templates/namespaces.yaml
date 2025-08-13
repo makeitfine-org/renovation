@@ -1,23 +1,7 @@
+{{- range $key, $ns := .Values.global.namespace }}
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.global.namespace.platform }}
+  name: {{ $ns }}
 ---
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.global.namespace.infra }}
----
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.global.namespace.apps }}
----
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: {{ .Values.global.namespace.security }}
----
+{{- end }}

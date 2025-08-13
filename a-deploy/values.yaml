@@ -3,8 +3,8 @@ global:
   namespace:
     platform: platform # ingress, service-mesh control plane, monitoring, cert-manager
     infra: infra # databases (Postgres StatefulSets, MongoDB), shared infra (RabbitMQ/Redis)
-    apps: apps #your Spring Boot microservices (backend services)
     security: security # keycloak (OAuth2 proxy, WAF, etc.)
+    apps: apps #your Spring Boot microservices (backend services)
 
 postgres:
   enabled: true
