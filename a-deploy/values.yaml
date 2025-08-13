@@ -92,3 +92,12 @@ info:
     type: NodePort
     port: 9090
     nodePort: 30090
+  healthCheck:
+    livenessProbe:
+      path: /actuator/health/liveness
+      initialDelaySeconds: 30
+      periodSeconds: 10
+    readinessProbe:
+      path: /actuator/health/readiness
+      initialDelaySeconds: 10
+      periodSeconds: 5
