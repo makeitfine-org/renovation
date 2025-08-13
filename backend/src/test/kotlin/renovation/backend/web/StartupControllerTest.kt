@@ -44,7 +44,7 @@ internal class StartupControllerTest(
             get("/project")
         }.Then {
             statusCode(SC_OK)
-            body(CoreMatchers.equalTo("Hi, it's \"Renovation backend\" project"))
+            body(CoreMatchers.equalTo("Hi, it's \"Renovation/backend\" project"))
         }
     }
 

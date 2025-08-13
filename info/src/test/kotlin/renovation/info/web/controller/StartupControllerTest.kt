@@ -29,7 +29,7 @@ internal class StartupControllerTest(
         }.Then {
             statusCode(HttpStatus.SC_OK)
             body(
-                CoreMatchers.equalTo("Hi, it's \"Renovation info\" module")
+                CoreMatchers.equalTo("Hi, it's \"Renovation/info\" module")
             )
         }
     }

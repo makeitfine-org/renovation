@@ -5,8 +5,8 @@
 ##
 info:
   app:
-    name: "Renovation backend"
-    description: Renovation reporter for workers  and customers
+    name: "renovation/backend"
+    description: "Renovation reporter for workers  and customers (backend module)"
 
 server:
   host: ${BACKEND_SERVER_HOST:localhost}
@@ -47,7 +47,7 @@ management:
       enabled: true
   observations:
     key-values:
-      application: backend
+      application: ${info.app.name}
 
 info-service:
   graphql-url: "${INFO_SERVICE_URL:http://localhost:9090/graphql}"
@@ -63,7 +63,7 @@ keycloak:
 
 spring:
   application:
-    name: "renovation backend"
+    name: ${info.app.name}
 
   jpa:
     hibernate:

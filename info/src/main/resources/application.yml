@@ -1,9 +1,14 @@
+info:
+  app:
+    name: "renovation/info"
+    description: "Renovation info module"
+
 server:
   port: ${PORT:9090}
 
 spring:
   application:
-    name: "renovation info"
+    name: ${info.app.name}
 
   data:
     mongodb:
@@ -31,3 +36,28 @@ logging:
     root: INFO
     renovation.info: DEBUG
     org.springframework.security: DEBUG
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: info, health, env
+    jmx:
+      exposure:
+        exclude: health
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  info:
+    env:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  observations:
+    key-values:
+      application: ${info.app.name}
