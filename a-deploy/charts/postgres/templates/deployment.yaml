@@ -4,8 +4,19 @@
             - name: initdb-scripts
               mountPath: /docker-entrypoint-initdb.d
               readOnly: true
+{{/*            - name: {{ .Values.service }}-data*/}}
+{{/*              mountPath: /var/lib/postgresql/data*/}}
 
       volumes:
         - name: initdb-scripts
           configMap:
             name: postgres-initdb-scripts
+
+{{/*volumeClaimTemplates:*/}}
+{{/*  - metadata:*/}}
+{{/*      name: postgres-data*/}}
+{{/*    spec:*/}}
+{{/*      accessModes: ["ReadWriteOnce"]*/}}
+{{/*      resources:*/}}
+{{/*        requests:*/}}
+{{/*          storage: {{ .Values.persistence.size }}*/}}

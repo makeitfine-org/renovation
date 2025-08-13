@@ -10,6 +10,8 @@ postgres:
   enabled: true
   namespaceOverride: infra
   name: postgres
+  deployment: StatefulSet
+  replicas: 1
   image:
     repository: postgres
     tag: 16-alpine
@@ -22,6 +24,8 @@ postgres:
     type: NodePort
     port: 5432
     nodePort: 30432
+  persistence:
+    size: 1Gi
   healthCheck:
     livenessProbe:
       exec:
@@ -48,6 +52,8 @@ redis:
   enabled: true
   namespaceOverride: infra
   name: redis
+  deployment: StatefulSet
+  replicas: 1
   image:
     repository: redis
     tag: 7.2.3-alpine
@@ -81,6 +87,8 @@ mongo:
   enabled: true
   namespaceOverride: infra
   name: mongo
+  deployment: StatefulSet
+  replicas: 1
   image:
     repository: mongo
     tag: 5.0.6
@@ -122,6 +130,7 @@ backend:
   enabled: true
   namespaceOverride: apps
   name: backend
+  replicas: 2
   image:
     repository: koresmosto/renovation-backend
     tag: latest
@@ -150,6 +159,7 @@ info:
   enabled: true
   namespaceOverride: apps
   name: info
+  replicas: 2
   image:
     repository: koresmosto/renovation-info
     tag: latest
