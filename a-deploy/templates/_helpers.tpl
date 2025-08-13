@@ -18,10 +18,10 @@ metadata:
 {{/*define template for deployment*/}}
 {{- define "ca.deployment" -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ default "Deployment" .Values.deployment }}
 {{ include "ca.metadata" . | nindent 0 }}
 spec:
-  replicas: 1 # todo: up to 3 and check
+  replicas: {{ default 1 .Values.replicas }}
   selector:
     matchLabels:
       app: {{ include "ca.name" . }}
