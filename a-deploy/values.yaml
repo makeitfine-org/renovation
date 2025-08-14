@@ -17,14 +17,12 @@ postgresql: #bitnami
       nodePorts:
         postgresql: 30432
     initdb:
-      scripts:
-        01-create-schema.sql: |
-          CREATE SCHEMA IF NOT EXISTS backend AUTHORIZATION postgres;
-          GRANT ALL PRIVILEGES ON SCHEMA backend TO postgres;
+      scriptsConfigMap: postgresql-init-configmap
   auth:
     username: postgres
     password: postgres1
     database: renovation
+  schema: backend
 #  primary:
 #    persistence:
 #      enabled: false
