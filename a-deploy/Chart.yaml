@@ -35,10 +35,11 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
 #    alias: cache
-  - name: mongo
-    version: 0.1.0
-    repository: "file://charts/mongo"
-    condition: mongo.enabled
+  - name: mongodb
+    version: 16.5.40
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+#    alias: mongo
   - name: backend
     version: 0.1.0
     repository: "file://charts/backend"

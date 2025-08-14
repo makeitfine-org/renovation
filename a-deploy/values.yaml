@@ -45,48 +45,27 @@ redis: #bitnami
       enabled: false
       size: 1Gi
 
-mongo:
+mongodb: #bitnami
   enabled: true
+  architecture: standalone
+  global:
+    namespaceOverride: db # only this rewrites namespace
   namespaceOverride: db
-  name: mongo
-  deployment: StatefulSet
-  replicas: 1
-  image:
-    repository: mongo
-    tag: 5.0.6
-    pullPolicy: IfNotPresent
-  initdb:
-    database: infodb # todo: secret # change also in healthCheck !!!
-    rootuser:
-      username: root
-      password: rootpass
+  fullnameOverride: mongodb
+  auth:
+    rootUser: root
+    rootPassword: rootpass
+    username: infouser
+    password: infopassword
+    database: infodb
   service:
     type: NodePort
-    port: 27017
-    nodePort: 30017
-  healthCheck:
-    livenessProbe:
-      exec:
-        command:
-          - mongo
-          - infodb
-          - --eval
-          - db.runCommand({ping:1})  # depend on mongo.initdb.database !!!
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-    readinessProbe:
-      exec:
-        command:
-          - mongo
-          - infodb
-          - --eval
-          - db.runCommand({ping:1})  # depend on mongo.initdb.database !!!
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 3
-      failureThreshold: 3
+    nodePorts:
+      mongodb: 30017
+  persistence:
+    enabled: false
+    size: 1Gi
+  initdbScriptsConfigMap: mongo-init-configmap
 
 backend:
   enabled: true

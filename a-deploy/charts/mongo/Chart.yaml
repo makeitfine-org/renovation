@@ -1,6 +1,0 @@
-apiVersion: v2
-name: mongo
-description: Mongo subchart
-icon: https://cdn.iconscout.com/icon/free/png-512/free-mongodb-5-1175140.png?f=webp&w=256
-appVersion: 0.1.0
-version: 0.1.0

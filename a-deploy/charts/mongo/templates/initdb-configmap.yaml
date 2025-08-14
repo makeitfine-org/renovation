@@ -1,7 +1,0 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "nameSuffix" "initdb-scripts" }}
-{{ include "ca.metadata" $ctx }}
-apiVersion: v1
-kind: ConfigMap
-{{ include "ca.metadata" $ctx }}
-data:
-{{ (.Files.Glob "files/init/*").AsConfig | indent 2 }}

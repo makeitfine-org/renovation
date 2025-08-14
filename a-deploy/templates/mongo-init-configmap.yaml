@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-init-configmap
+  namespace: {{ .Values.mongodb.namespaceOverride }}
+data:
+{{ (.Files.Glob "resource/mongodb/init/*").AsConfig | indent 2 }}
