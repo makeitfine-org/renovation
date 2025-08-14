@@ -1,14 +1,14 @@
 global:
   parentChartName: renovation
   namespace:
-    platform: platform # ingress, service-mesh control plane, monitoring, cert-manager
-    infra: infra # databases (Postgres StatefulSets, MongoDB), shared infra (RabbitMQ/Redis)
-    security: security # keycloak (OAuth2 proxy, WAF, etc.)
-    apps: apps #your Spring Boot microservices (backend services)
+    infra: infra       # ingress, service-mesh control plane, monitoring, cert-manager, logging
+    db: db             # databases, message brokers, caches
+    apps: apps         # application workloads
+    security: security # Keycloak, Vault, etc.
 
 postgres:
   enabled: true
-  namespaceOverride: infra
+  namespaceOverride: db
   name: postgres
   deployment: StatefulSet
   replicas: 1
@@ -50,7 +50,7 @@ postgres:
 
 redis:
   enabled: true
-  namespaceOverride: infra
+  namespaceOverride: db
   name: redis
   deployment: StatefulSet
   replicas: 1
@@ -85,7 +85,7 @@ redis:
 
 mongo:
   enabled: true
-  namespaceOverride: infra
+  namespaceOverride: db
   name: mongo
   deployment: StatefulSet
   replicas: 1
