@@ -21,8 +21,8 @@ data:
 
   INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.info.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
 
-  REDIS_HOST: "{{ $root.Values.redis.name }}.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
-  REDIS_PORT: {{ $root.Values.redis.service.port | quote }}
+  REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
+  REDIS_PORT: {{ $root.Values.redis.master.service.ports.redis | quote }}
 
   MONGO_INITDB_DATABASE: {{ $root.Values.mongo.initdb.database | quote }}
   MONGO_INITDB_ROOT_USERNAME: {{ $root.Values.mongo.initdb.rootuser.username | quote }}

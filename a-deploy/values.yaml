@@ -8,9 +8,14 @@ global:
 
 postgresql: #bitnami
   enabled: true
-  fullnameOverride: postgresql
   architecture: standalone
   namespaceOverride: db
+  fullnameOverride: postgresql
+  auth:
+    username: postgres
+    password: postgres1
+    database: renovation
+  schema: backend
   primary:
     service:
       type: NodePort
@@ -18,91 +23,27 @@ postgresql: #bitnami
         postgresql: 30432
     initdb:
       scriptsConfigMap: postgresql-init-configmap
-  auth:
-    username: postgres
-    password: postgres1
-    database: renovation
-  schema: backend
-#  primary:
-#    persistence:
-#      enabled: false
+    persistence:
+      enabled: false
 
-postgres: # disabled / bitnami postgres using instead
-  enabled: false
-  namespaceOverride: db
-  name: postgres
-  deployment: StatefulSet
-  replicas: 1
-  image:
-    repository: postgres
-    tag: 16-alpine
-    pullPolicy: IfNotPresent
-  db: renovation
-  schema: backend
-  user: postgres # todo: secret # change also in healthCheck !!!
-  password: postgres1 # todo: secret
-  service:
-    type: NodePort
-    port: 5432
-    nodePort: 30432
-  persistence:
-    size: 1Gi
-  healthCheck:
-    livenessProbe:
-      exec:
-        command:
-          - pg_isready
-          - -U
-          - postgres  # depend on postgres.user !!!
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-    readinessProbe:
-      exec:
-        command:
-          - pg_isready
-          - -U
-          - postgres # depend on postgres.user !!!
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 3
-      failureThreshold: 3
-
-redis:
+redis: #bitnami
   enabled: true
+  architecture: standalone
   namespaceOverride: db
-  name: redis
-  deployment: StatefulSet
-  replicas: 1
-  image:
-    repository: redis
-    tag: 7.2.3-alpine
-    pullPolicy: IfNotPresent
-  password: redispass
-  service:
-    type: NodePort
-    port: 6379
-    nodePort: 30379
-  healthCheck:
-    livenessProbe:
-      exec:
-        command:
-          - redis-cli
-          - ping
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-    readinessProbe:
-      exec:
-        command:
-          - redis-cli
-          - ping
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 3
-      failureThreshold: 3
+  fullnameOverride: redis
+  auth:
+    enabled: true
+    password: redispass
+  replica:
+    replicaCount: 0  # standalone
+  master:
+    service:
+      type: NodePort
+      nodePorts:
+        redis: "30379"
+    persistence:
+      enabled: false
+      size: 1Gi
 
 mongo:
   enabled: true

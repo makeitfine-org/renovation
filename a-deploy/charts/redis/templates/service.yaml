@@ -1,2 +1,0 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "targetPort" 6379 }}
-{{ include "ca.service" $ctx }}

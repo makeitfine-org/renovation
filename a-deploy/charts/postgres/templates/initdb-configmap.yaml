@@ -1,8 +1,0 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "nameSuffix" "initdb-scripts" }}
-{{ include "ca.metadata" $ctx }}
-apiVersion: v1
-kind: ConfigMap
-{{ include "ca.metadata" $ctx }}
-data:
-  init-renovation-schema.sql: |
-    CREATE SCHEMA IF NOT EXISTS {{ .Values.schema }} AUTHORIZATION postgres;
