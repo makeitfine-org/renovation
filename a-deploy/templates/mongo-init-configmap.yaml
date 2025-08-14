@@ -4,4 +4,6 @@ metadata:
   name: mongo-init-configmap
   namespace: {{ .Values.mongodb.namespaceOverride }}
 data:
+  use_auth_database.js: |
+    use infodb;
 {{ (.Files.Glob "resource/mongodb/init/*").AsConfig | indent 2 }}

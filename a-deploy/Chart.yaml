@@ -36,7 +36,7 @@ dependencies:
     condition: redis.enabled
 #    alias: cache
   - name: mongodb
-    version: 16.5.40
+    version: 16.5.43
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
 #    alias: mongo

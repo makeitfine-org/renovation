@@ -210,7 +210,10 @@ Partial install/upgrade:
 `$> ./a-deploy/util/creat_upload_images.sh`
 3. Remove unused charts 
 `$>rm -rf charts/*.tgz Chart.lock`
-`h dependency update && h install renovation .`
+`h dependency update && h install renovation .
+4. Mongo:  
+`$>mongosh -u infouser -p infopassword --authenticationDatabase infodb`
+
 ===>  
 ===>  
 ===>  
