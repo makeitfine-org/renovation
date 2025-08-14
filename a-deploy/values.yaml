@@ -6,8 +6,31 @@ global:
     apps: apps         # application workloads
     security: security # Keycloak, Vault, etc.
 
-postgres:
+postgresql: #bitnami
   enabled: true
+  fullnameOverride: postgresql
+  architecture: standalone
+  namespaceOverride: db
+  primary:
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: 30432
+    initdb:
+      scripts:
+        01-create-schema.sql: |
+          CREATE SCHEMA IF NOT EXISTS backend AUTHORIZATION postgres;
+          GRANT ALL PRIVILEGES ON SCHEMA backend TO postgres;
+  auth:
+    username: postgres
+    password: postgres1
+    database: renovation
+#  primary:
+#    persistence:
+#      enabled: false
+
+postgres: # disabled / bitnami postgres using instead
+  enabled: false
   namespaceOverride: db
   name: postgres
   deployment: StatefulSet

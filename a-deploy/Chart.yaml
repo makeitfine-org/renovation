@@ -25,6 +25,11 @@ icon: https://files.softicons.com/download/android-icons/flat-icons-by-martz90/p
 appVersion: "0.1.0"
 
 dependencies:
+  - name: postgresql
+    version: 16.7.24
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+#    alias: db
   - name: postgres
     version: 0.1.0
     repository: "file://charts/postgres"

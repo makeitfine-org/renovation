@@ -208,6 +208,8 @@ Partial install/upgrade:
 `$> gr :backend:bootJar -x test -x integrationTest -x e2eTest`
 2. build/upload images:  
 `$> ./a-deploy/util/creat_upload_images.sh`
+3. Remove unused charts 
+`$>rm -rf charts/*.tgz Chart.lock`
 
 ===>  
 ===>  
