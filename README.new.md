@@ -213,6 +213,7 @@ Partial install/upgrade:
 `h dependency update && h install renovation .
 4. Mongo:  
 `$>mongosh -u infouser -p infopassword --authenticationDatabase infodb`
+5. Activate in `a-deploy` dir > `a-deploy/util/helper/aliases.sh` to use some shortcuts
 
 ===>  
 ===>  
