@@ -28,19 +28,26 @@ postgresql: #bitnami
 
 redis: #bitnami
   enabled: true
-  architecture: standalone
+  architecture: replication
   namespaceOverride: db
   fullnameOverride: redis
   auth:
     enabled: true
     password: redispass
-  replica:
-    replicaCount: 0  # standalone
   master:
     service:
       type: NodePort
       nodePorts:
         redis: "30379"
+    persistence:
+      enabled: false
+      size: 1Gi
+  replica:
+    replicaCount: 1
+    service:
+      type: NodePort
+      nodePorts:
+        redis: "30380"
     persistence:
       enabled: false
       size: 1Gi
