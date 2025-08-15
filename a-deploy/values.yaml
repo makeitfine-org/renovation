@@ -68,19 +68,7 @@ mongodb: #bitnami
   persistence:
     enabled: false
     size: 1Gi
-#  initdbScriptsConfigMap: mongo-init-configmap
-  initdbScripts:
-    v1_1__create_details_collection.js: |
-      use infodb;
-      db.createCollection("details");
-      db.details.insertOne({
-          "_id": ObjectId('62571572b85c114c70d2c102'),
-          "name": "Sam",
-          "surname": "Berbik",
-          "age": 45,
-          "gender": "Male"
-      });
-
+  initdbScriptsConfigMap: mongo-init-configmap
 
 backend:
   enabled: true
