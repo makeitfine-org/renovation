@@ -8,7 +8,7 @@ global:
 
 postgresql: #bitnami
   enabled: true
-  architecture: standalone
+  architecture: replication
   namespaceOverride: db
   fullnameOverride: postgresql
   auth:
@@ -21,10 +21,20 @@ postgresql: #bitnami
       type: NodePort
       nodePorts:
         postgresql: 30432
-    initdb:
-      scriptsConfigMap: postgresql-init-configmap
     persistence:
       enabled: false
+      size: 1Gi
+    initdb:
+      scriptsConfigMap: postgresql-init-configmap
+  readReplicas:
+    replicaCount: 1
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: 30433
+    persistence:
+      enabled: false
+      size: 1Gi
 
 redis: #bitnami
   enabled: true
