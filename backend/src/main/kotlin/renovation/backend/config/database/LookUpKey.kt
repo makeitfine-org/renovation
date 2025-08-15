@@ -7,5 +7,6 @@
 package renovation.backend.config.database
 
 enum class LookUpKey {
-    READER, WRITER
+    READER,
+    WRITER
 }
