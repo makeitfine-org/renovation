@@ -81,6 +81,14 @@ spring:
       connection-timeout: 5000
       validation-timeout: 1000
       maximum-pool-size: 12
+    writer:
+      url: "${POSTGRES_RW_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
+      username: "${POSTGRES_USERNAME:postgres}"
+      password: "${POSTGRES_PASSWORD:postgres1}"
+    reader:
+      url: "${POSTGRES_RO_DB_URL:jdbc:postgresql://localhost:5532/postgres?currentSchema=renovation}"
+      username: "${POSTGRES_USERNAME:postgres}"
+      password: "${POSTGRES_PASSWORD:postgres1}"
 
   liquibase:
     change-log: db/liquibase/changelog.xml
