@@ -7,7 +7,7 @@
 set -x // verbose commands
 
 CURRENT_PATH="$(realpath "$(dirname "$0")")"
-PROJECT_PATH="${CURRENT_PATH}/../.."
+PROJECT_PATH="${CURRENT_PATH}/../../.."
 
 ### build and upload
 # backend
