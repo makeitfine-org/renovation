@@ -11,4 +11,4 @@ VOLUME /tmp
 
 COPY build/libs/backend-0.0.1-SNAPSHOT.jar /app.jar
 
-CMD ["java", "-Dspring.profiles.active=no-security", "-jar", "/app.jar"]
+CMD ["java", "-Dspring.profiles.active=no-security,postgres-replication", "-jar", "/app.jar"]

@@ -19,6 +19,9 @@ data:
 
   POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema=backend"
 
+  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema=backend"
+  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema=backend"
+
   INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.info.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
 
   REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
