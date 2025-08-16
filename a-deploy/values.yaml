@@ -115,6 +115,13 @@ backend:
       periodSeconds: 5
       timeoutSeconds: 3
       failureThreshold: 3
+  resources:
+    limits:
+      cpu: "1Gi"
+      memory: "1Gi"
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
 
 info:
   enabled: true
@@ -147,3 +154,10 @@ info:
       periodSeconds: 5
       timeoutSeconds: 3
       failureThreshold: 3
+  resources:
+    limits:
+      cpu: "1Gi"
+      memory: "1Gi"
+    requests:
+      cpu: "500m"
+      memory: "512Mi"

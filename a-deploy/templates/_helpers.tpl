@@ -80,6 +80,16 @@ spec:
             periodSeconds: {{ .Values.healthCheck.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.healthCheck.readinessProbe.timeoutSeconds }}
             failureThreshold: {{ .Values.healthCheck.readinessProbe.failureThreshold }}
+          {{- end -}}
+
+          {{ if .Values.resources }}
+          resources:
+            limits:
+                cpu: {{ .Values.resources.limits.cpu }}
+                memory: {{ .Values.resources.limits.memory }}
+            requests:
+                cpu: {{ .Values.resources.requests.cpu }}
+                memory: {{ .Values.resources.requests.memory }}
           {{- end }}
 {{- end }}
 
