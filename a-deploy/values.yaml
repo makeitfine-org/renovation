@@ -117,7 +117,7 @@ backend:
       failureThreshold: 3
   resources:
     limits:
-      cpu: "1Gi"
+      cpu: "1000m"
       memory: "1Gi"
     requests:
       cpu: "500m"
@@ -156,7 +156,7 @@ info:
       failureThreshold: 3
   resources:
     limits:
-      cpu: "1Gi"
+      cpu: "1000m"
       memory: "1Gi"
     requests:
       cpu: "500m"
