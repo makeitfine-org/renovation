@@ -6,7 +6,7 @@
 
 package renovation.backend.data.service.impl
 
-import java.util.*
+import java.util.UUID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.annotation.CacheEvict
@@ -22,16 +22,19 @@ import renovation.backend.data.service.WorkService
 class WorkServiceCacheableImpl(@Autowired @Qualifier("workServiceImpl") val workService: WorkService) :
     WorkService by workService {
 
+    companion object {
+        const val MAX_PRICE_TO_CACHE = 10_000
+    }
+
     @Throws(WorkNotFoundException::class)
-    @Cacheable(value = ["works"], key = "#id", unless = "#result.price > 10000")
+    @Cacheable(value = ["works"], key = "#id", unless = "#result.price > $MAX_PRICE_TO_CACHE")
     override fun findById(id: UUID) = workService.findById(id)
 
-    @CachePut(value = ["works"], key = "#result.id", unless = "#result.price > 10000")
+    @CachePut(value = ["works"], key = "#result.id", unless = "#result.price > $MAX_PRICE_TO_CACHE")
     override fun save(work: Work) = workService.save(work)
 
     @Throws(WorkNotFoundException::class)
-    @CacheEvict(value = ["works"], key = "#id", condition = "#result.price > 10000")
-    @CachePut(value = ["works"], key = "#id", unless = "#result.price > 10000")
+    @CachePut(value = ["works"], key = "#id", unless = "#result.price > $MAX_PRICE_TO_CACHE")
     override fun update(id: UUID, work: Work) = workService.update(id, work)
 
     @Throws(WorkNotFoundException::class)

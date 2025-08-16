@@ -98,7 +98,7 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6479}
       password: ${REDIS_PASSWORD:redispass}
-      timeout: 1000
+      timeout: 10000
 
   cache:
     redis:
