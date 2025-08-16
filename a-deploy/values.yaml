@@ -22,7 +22,7 @@ postgresql: #bitnami
       nodePorts:
         postgresql: 30432
     persistence:
-      enabled: false
+      enabled: true
       size: 1Gi
     initdb:
       scriptsConfigMap: postgresql-init-configmap
@@ -33,7 +33,7 @@ postgresql: #bitnami
       nodePorts:
         postgresql: 30433
     persistence:
-      enabled: false
+      enabled: true
       size: 1Gi
 
 redis: #bitnami

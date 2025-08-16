@@ -15,6 +15,10 @@ on:
   schedule:
     - cron: "45 23 * * 4"
 
+concurrency:
+  group: "ci-build-test"
+  cancel-in-progress: true # tempo
+
 permissions:
   contents: read
 
@@ -44,11 +48,3 @@ jobs:
           notify_when: 'failure'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
-
-## todo: left as example of using flow
-#  api_test_e2eTest:
-#    needs: [ build ]
-#    uses: makeitfine-org/renovation/.github/workflows/reusable_project_assemble.yaml@develop
-#    with:
-#      command_line_task: "gradle :api-test:e2eTest"
-#      timeout-minutes: 12
