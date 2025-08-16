@@ -167,7 +167,7 @@ internal class WorkServiceCacheableTest {
 
         assertNotEquals(workForUpdate.title, get(uuid)?.title)
         workService.update(uuid, workForUpdate)
-        assertNull(get(uuid))
+        assertNotNull(get(uuid))
     }
 
     @Test

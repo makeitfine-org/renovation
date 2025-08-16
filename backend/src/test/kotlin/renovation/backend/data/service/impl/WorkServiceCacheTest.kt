@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.SpyBean
 import org.springframework.cache.CacheManager
-import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.Transactional
@@ -65,9 +64,6 @@ internal class WorkServiceCacheTest {
         cacheManager.getCache(CACHE_NAME)?.clear()
     }
 
-    @Autowired
-    private lateinit var redisTemplate: RedisTemplate<Any, Any>
-
     @Test
     fun `get work by id twice with suitable criteria caching fine`() {
         val uuid = UUID.fromString("11111111-a845-45d7-aea9-ab624172d1c1")
@@ -76,7 +72,7 @@ internal class WorkServiceCacheTest {
 
         var foundById = workService.findById(uuid)
         verify(workRepository, only()).findById(uuid)
-        assertNotNull(foundById);
+        assertNotNull(foundById)
 
         assertEquals(workService.findById(uuid), foundById)
         verify(workRepository, only()).findById(uuid)
@@ -88,7 +84,7 @@ internal class WorkServiceCacheTest {
 
         var foundById = workService.findById(uuid)
         verify(workRepository, only()).findById(uuid)
-        assertNotNull(foundById);
+        assertNotNull(foundById)
 
         assertEquals(workService.findById(uuid), foundById)
         verify(workRepository, times(2)).findById(uuid)
@@ -107,6 +103,8 @@ internal class WorkServiceCacheTest {
         ).id.let { UUID.fromString(it) }
 
         workService.findById(savedId)
+        workService.findById(savedId) // double call
+
         verify(workRepository, never()).findById(savedId)
     }
 
@@ -118,14 +116,18 @@ internal class WorkServiceCacheTest {
         workService.findById(uuid)
         verify(workRepository, only()).findById(uuid)
 
-        workService.update(uuid, work.copy(title = "newk title"))
-        var updatedWork = workService.findById(uuid)
-        assertEquals("newk title", updatedWork.title)
+        var updatedWork = workService.update(uuid, work.copy(title = "updated title"))
+        verify(workRepository, times(2)).findById(uuid) // was inside call
+        assertEquals("updated title", updatedWork.title)
+        workService.findById(uuid) // double call
+        workService.findById(uuid) // triple call
+        verify(workRepository, times(2)).findById(uuid)
 
-        workService.update(uuid, work.copy(title = "newk title 2"))
-        updatedWork = workService.findById(uuid)
-        assertEquals("newk title 2", updatedWork.title, )
-
+        updatedWork = workService.update(uuid, work.copy(title = "updated title 2"))
+        verify(workRepository, times(3)).findById(uuid)
+        assertEquals("updated title 2", updatedWork.title)
+        workService.findById(uuid) // double call
+        workService.findById(uuid) // triple call
         verify(workRepository, times(3)).findById(uuid)
     }
 
@@ -133,11 +135,11 @@ internal class WorkServiceCacheTest {
     fun `delete work by id`() {
         val uuid = UUID.fromString("44444444-a845-45d7-aea9-ab624172d1c1")
 
-        workService.delete(uuid);
+        workService.delete(uuid)
         verify(workRepository, never()).findById(uuid)
 
         assertFailsWith<WorkNotFoundException> {
-            workService.findById(uuid);
+            workService.findById(uuid)
         }
         verify(workRepository, times(1)).findById(uuid)
     }
