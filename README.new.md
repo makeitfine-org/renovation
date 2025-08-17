@@ -215,6 +215,15 @@ Partial install/upgrade:
 `$>mongosh -u infouser -p infopassword --authenticationDatabase infodb`
 5. Activate in `a-deploy` dir > `a-deploy/util/helper/aliases.sh` to use some shortcuts
 6. if [issue] db see `kg pv`, `kg pvc` (to clean content, clean cluster `/mnt/data/postgres/(master/replica)`)
+7. To reuse pvc:  
+`$>kubectl patch pv postgres-primary-0-pv -p '{"spec":{"claimRef": null}}'`  
+`$>kubectl patch pv postgres-replica-0-pv -p '{"spec":{"claimRef": null}}'`
+
+(https://chatgpt.com/s/t_68a1d41c6e908191b03890a03546498a)  
+(https://chatgpt.com/s/t_68a1d472f61481919a6c413633c9c7e4)  
+
+
+
 ===>  
 ===>  
 ===>  
