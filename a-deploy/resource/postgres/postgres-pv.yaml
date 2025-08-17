@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
-    path: /mnt/data/master
+    path: /mnt/data/postgres/master
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -25,4 +25,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
-    path: /mnt/data/replica
+    path: /mnt/data/postgres/replica

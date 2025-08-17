@@ -214,7 +214,7 @@ Partial install/upgrade:
 4. Mongo:  
 `$>mongosh -u infouser -p infopassword --authenticationDatabase infodb`
 5. Activate in `a-deploy` dir > `a-deploy/util/helper/aliases.sh` to use some shortcuts
-
+6. if [issue] db see `kg pv`, `kg pvc` (to clean content, clean cluster `/mnt/data/postgres/(master/replica)`)
 ===>  
 ===>  
 ===>  

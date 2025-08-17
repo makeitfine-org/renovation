@@ -33,10 +33,10 @@ minikube -p ${CLUSTER_NAME} image load koresmosto/renovation-info:no-security
 minikube -p ${CLUSTER_NAME} ssh -- "docker tag koresmosto/renovation-backend:no-security koresmosto/renovation-backend:latest"
 minikube -p ${CLUSTER_NAME} ssh -- "docker tag koresmosto/renovation-info:no-security koresmosto/renovation-info:latest"
 
-minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/master"
-minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/master"
-minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/replica"
-minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/replica"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres/replica"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/replica"
 
 minikube -p ${CLUSTER_NAME} ssh -- "docker images | grep koresmosto"
 
