@@ -1,0 +1,28 @@
+# Create a cluster-scoped PersistentVolume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-primary-0-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: /mnt/data/master
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-replica-0-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: /mnt/data/replica

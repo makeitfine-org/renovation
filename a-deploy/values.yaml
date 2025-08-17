@@ -21,11 +21,10 @@ postgresql: #bitnami
       type: NodePort
       nodePorts:
         postgresql: 30432
-    persistence:
-      enabled: true
-      size: 1Gi
     initdb:
       scriptsConfigMap: postgresql-init-configmap
+    persistence:
+      existingClaim: postgres-primary-0-pvc # !!! should be created in k8s
   readReplicas:
     replicaCount: 1
     service:
@@ -33,8 +32,7 @@ postgresql: #bitnami
       nodePorts:
         postgresql: 30433
     persistence:
-      enabled: true
-      size: 1Gi
+      existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
 redis: #bitnami
   enabled: true
