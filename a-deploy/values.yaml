@@ -34,6 +34,24 @@ postgresql: #bitnami
     persistence:
       existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
+# dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
+vault:
+  global:
+    namespace: "security"
+  ui:
+    enabled: true
+    serviceType: NodePort
+    serviceNodePort: 30820
+  server:
+    dev:
+      enabled: true
+    dataStorage:
+      enabled: false
+    authDelegator:
+      enabled: true
+    extraEnvironmentVars:
+      VAULT_DEV_ROOT_TOKEN_ID: "root1"
+
 redis: #bitnami
   enabled: true
   architecture: replication

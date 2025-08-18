@@ -40,6 +40,11 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
 #    alias: mongo
+  - name: vault
+    version: 0.30.1
+    repository: https://helm.releases.hashicorp.com
+    condition: vault.enabled
+#    alias: vault
   - name: backend
     version: 0.1.0
     repository: "file://charts/backend"
