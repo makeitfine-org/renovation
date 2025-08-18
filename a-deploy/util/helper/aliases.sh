@@ -31,4 +31,6 @@ alias kdb="kubectl get -n db all"
 alias kapps="kubectl get -n apps all"
 alias kpp="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+            && kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+            && kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"

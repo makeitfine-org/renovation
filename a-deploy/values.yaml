@@ -48,8 +48,7 @@ redis: #bitnami
       nodePorts:
         redis: "30379"
     persistence:
-      enabled: false
-      size: 1Gi
+      existingClaim: redis-master-0-pvc # !!! should be created in k8s
   replica:
     replicaCount: 1
     service:
@@ -57,8 +56,7 @@ redis: #bitnami
       nodePorts:
         redis: "30380"
     persistence:
-      enabled: false
-      size: 1Gi
+      existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
 mongodb: #bitnami
   enabled: true

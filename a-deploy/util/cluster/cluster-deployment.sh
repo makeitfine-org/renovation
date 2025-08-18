@@ -45,6 +45,13 @@ minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/mongodb"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/mongodb/master"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/mongodb/master"
 
+# redis
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/redis"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/redis/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/redis/replica"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/replica"
+
 
 minikube -p ${CLUSTER_NAME} ssh -- "docker images | grep koresmosto"
 
@@ -54,6 +61,7 @@ minikube profile ${CLUSTER_NAME}
 # create storages
 kubectl apply -f "../../resource/postgres/postgres-pv.yaml"
 kubectl apply -f "../../resource/mongodb/mongodb-pv.yaml"
+kubectl apply -f "../../resource/redis/redis-pv.yaml"
 
 # install all
 helm install app .
