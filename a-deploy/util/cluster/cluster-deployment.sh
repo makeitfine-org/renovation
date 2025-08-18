@@ -33,11 +33,18 @@ minikube -p ${CLUSTER_NAME} image load koresmosto/renovation-info:no-security
 minikube -p ${CLUSTER_NAME} ssh -- "docker tag koresmosto/renovation-backend:no-security koresmosto/renovation-backend:latest"
 minikube -p ${CLUSTER_NAME} ssh -- "docker tag koresmosto/renovation-info:no-security koresmosto/renovation-info:latest"
 
+# postgres
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres/master"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/master"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres/replica"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/replica"
+
+# mongodb
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/mongodb"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/mongodb/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/mongodb/master"
+
 
 minikube -p ${CLUSTER_NAME} ssh -- "docker images | grep koresmosto"
 
@@ -46,6 +53,7 @@ minikube profile ${CLUSTER_NAME}
 
 # create storages
 kubectl apply -f "../../resource/postgres/postgres-pv.yaml"
+kubectl apply -f "../../resource/mongodb/mongodb-pv.yaml"
 
 # install all
 helm install app .

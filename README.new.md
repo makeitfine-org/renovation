@@ -222,6 +222,8 @@ Partial install/upgrade:
 (https://chatgpt.com/s/t_68a1d41c6e908191b03890a03546498a)  
 (https://chatgpt.com/s/t_68a1d472f61481919a6c413633c9c7e4)  
 
+8. faster helm `re-install`:
+`$>hun && sleep 30 && kpp && hi`
 
 
 ===>  
