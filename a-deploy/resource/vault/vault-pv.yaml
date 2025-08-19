@@ -1,0 +1,14 @@
+# Create a cluster-scoped PersistentVolume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vault-master-0-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: vault-retain
+  hostPath:
+    path: /mnt/data/vault/master

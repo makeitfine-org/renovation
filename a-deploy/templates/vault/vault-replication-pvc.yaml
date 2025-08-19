@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.vault.server.dataStorage.mountPath }}
+  namespace: {{ .Values.vault.global.namespace }}
+  annotations: # unnecessary here !!!
+    helm.sh/resource-policy: keep
+spec:
+  storageClassName: vault-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: vault-master-0-pv

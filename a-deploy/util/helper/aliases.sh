@@ -33,4 +33,5 @@ alias kpp="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": n
             && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+            && kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"

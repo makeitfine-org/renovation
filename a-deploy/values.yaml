@@ -36,6 +36,7 @@ postgresql: #bitnami
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
 vault:
+  enabled: true
   global:
     namespace: "security"
   ui:
@@ -44,13 +45,18 @@ vault:
     serviceNodePort: 30820
   server:
     dev:
-      enabled: true
-    dataStorage:
       enabled: false
-    authDelegator:
+    dataStorage:
       enabled: true
+      size: 1Gi
+      storageClass: vault-retain
+#      storageClass: standard
+      # mountPath: vault-pvc
+#    authDelegator:
+#      enabled: true
     extraEnvironmentVars:
-      VAULT_DEV_ROOT_TOKEN_ID: "root1"
+#      VAULT_DEV_ROOT_TOKEN_ID: "root1"
+      VAULT_LOG_LEVEL: "debug"
 
 redis: #bitnami
   enabled: true
