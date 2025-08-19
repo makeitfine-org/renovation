@@ -225,6 +225,7 @@ Partial install/upgrade:
 8. faster helm `re-install`:
 `$>hun && sleep 30 && kpp && hi`
 
+9. Unsealed vault in helm keys in file: `vault-cluster-vault-2025-08-19T18_44_54.481Z.json`
 
 ===>  
 ===>  

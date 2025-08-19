@@ -55,7 +55,8 @@ minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/repl
 # mongodb
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault/master"
-minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/vault/master"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault"
+minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault/master"
 
 minikube -p ${CLUSTER_NAME} ssh -- "docker images | grep koresmosto"
 

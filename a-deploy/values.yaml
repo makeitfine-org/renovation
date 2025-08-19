@@ -51,7 +51,6 @@ vault:
       size: 1Gi
       storageClass: vault-retain
 #      storageClass: standard
-      # mountPath: vault-pvc
 #    authDelegator:
 #      enabled: true
     extraEnvironmentVars:
