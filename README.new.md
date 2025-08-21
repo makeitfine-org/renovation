@@ -227,6 +227,16 @@ Partial install/upgrade:
 
 9. Unsealed vault in helm keys in file: `vault-cluster-vault-2025-08-19T18_44_54.481Z.json`
 
+10. delete secret engine:
+`kubectl exec -it -n security renovation-vault-0 -- sh`
+inside:
+`export VAULT_ADDR=http://127.0.0.1:8200`
+`vault operator unseal 5553ed3b62cd99cb7a03b627d0bb0a1c351bfd1e135690138a2e859eef619c89`
+`export VAULT_TOKEN=hvs.ELzor4mGdxJemZlqcep7glRn`  
+`vault kv delete secret/myapp`  
+
+
+
 ===>  
 ===>  
 ===>  

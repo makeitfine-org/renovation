@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.vault.name }}-seed-kv
+  namespace: {{ .Values.vault.global.namespace }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: seed
+          image: hashicorp/vault:1.20.1
+          env:
+            - name: VAULT_ADDR
+              value: http://renovation-vault.security.svc.cluster.local:8200
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              echo "Waiting for Vault..."
+              until vault status -address=${VAULT_ADDR} >/dev/null 2>&1; do
+                sleep 2
+              done
+
+              export VAULT_TOKEN=$(cat /vault/token/token)
+
+              echo "Enabling KV v2..."
+              vault secrets enable -path=secret kv-v2 || true
+
+              echo "Seeding KV secret..."
+              echo "Seeding config2..."
+              if ! vault kv get secret/renovation/config >/dev/null 2>&1; then
+                vault kv put secret/renovation/config \
+                  username=admin \
+                  password=secret123 \
+                  password2=secret123
+              else
+                echo "secret/renovation/config already exists → skipping"
+              fi
+          volumeMounts:
+            - name: vault-token
+              mountPath: /vault/token
+              readOnly: true
+      volumes:
+        - name: vault-token
+          secret:
+            secretName: {{ .Values.vault.name }}-root-token
