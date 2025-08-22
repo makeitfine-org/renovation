@@ -37,6 +37,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Values.global.parentChartName }}-configmap
+            - configMapRef:
+                name: {{ .Values.global.parentChartName }}-configmap-vault
             - secretRef:
                 name: {{ .Values.global.parentChartName }}-secret
           ports:
