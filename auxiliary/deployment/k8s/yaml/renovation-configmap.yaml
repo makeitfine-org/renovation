@@ -8,19 +8,19 @@ kind: ConfigMap
 metadata:
   name: renovation-configmap
 data:
-  POSTGRES_DB: postgres
-  POSTGRES_USER: postgres
+  POSTGRES_DB: "postgres"
+  POSTGRES_USER: "postgres"
   POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/postgres?currentSchema=renovation"
   INFO_SERVICE_URL: "http://info:9090/graphql"
 
-  MONGO_INITDB_DATABASE: infodb
-  MONGO_INITDB_ROOT_USERNAME: root
-  MONGO_USERNAME: infouser
-  MONGO_DB: infodb
-  MONGO_HOST: mongo
+  MONGO_INITDB_DATABASE: "infodb"
+  MONGO_INITDB_ROOT_USERNAME: "root"
+  MONGO_USERNAME: "infouser"
+  MONGO_DB: "infodb"
+  MONGO_HOST: "mongo"
   MONGO_PORT: "27017"
 
-  REDIS_HOST: redis
+  REDIS_HOST: "redis"
   REDIS_PORT: "6379"
 
   VUE_APP_BACKEND_API_URL: "http://backend:8080/api"
