@@ -19,7 +19,7 @@ metadata:
     vault.hashicorp.com/role: "k8s-backend-role"
     vault.hashicorp.com/agent-inject-secret: "secret/renovation/config"
     vault.hashicorp.com/agent-inject-template: |
-{{/*      MONGO_INITDB_DATABASE={{ "{{ with secret \"secret/renovation/config\" }}{{ .Data.data.MONGO_INITDB_DATABASE }}{{ end }}" }}*/}}
+      MONGO_INITDB_DATABASE={{ "{{ with secret \"secret/renovation/config\" }}{{ .Data.data.MONGO_INITDB_DATABASE }}{{ end }}" }}
 {{/*      MONGO_INITDB_ROOT_USERNAME={{ "{{ with secret \"secret/renovation/config\" }}{{ .Data.data.MONGO_INITDB_ROOT_USERNAME }}{{ end }}" }}*/}}
 {{/*      MONGO_USERNAME={{ "{{ with secret \"secret/renovation/config\" }}{{ .Data.data.MONGO_USERNAME }}{{ end }}" }}*/}}
 {{/*      MONGO_DB={{ "{{ with secret \"secret/renovation/config\" }}{{ .Data.data.MONGO_DB }}{{ end }}" }}*/}}
