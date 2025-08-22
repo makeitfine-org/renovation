@@ -235,6 +235,14 @@ inside:
 `export VAULT_TOKEN=hvs.ELzor4mGdxJemZlqcep7glRn`  
 `vault kv delete secret/myapp`  
 
+11. Copy vault folder from minikube to host (backup):
+
+- `go into \mnt\data` inside minikube  
+- `sudo tar -czf /tmp/vault.backup.tar.gz vault`  
+- `$>scp -o IdentitiesOnly=yes -i $(minikube ssh-key) docker@$(minikube ip):/tmp/vault.backup.tar.gz \
+ /tmp/vault.backup.tar.gz vault.backup.tar.gz`
+
+12. Restore `vault` folder on minikube use `a-deploy/resource/vault/vault.backup.tar.gz_1` (rename to `gz_1` to `gz`)  
 
 
 ===>  
