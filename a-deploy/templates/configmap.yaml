@@ -27,7 +27,7 @@ data:
   REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.master.service.ports.redis | quote }}
 
-{{/*  MONGO_INITDB_DATABASE: {{ index $root.Values.mongodb.auth.databases 0 | quote }}*/}}
+  MONGO_INITDB_DATABASE: {{ index $root.Values.mongodb.auth.databases 0 | quote }}
   MONGO_INITDB_ROOT_USERNAME: {{ $root.Values.mongodb.auth.rootUser | quote }}
 
   MONGO_USERNAME: {{ index $root.Values.mongodb.auth.usernames 0 | quote }}
