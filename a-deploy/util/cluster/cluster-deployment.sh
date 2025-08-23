@@ -52,7 +52,7 @@ minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/mast
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/redis/replica"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/replica"
 
-# mongodb
+# vault
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault/master"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault"
@@ -73,7 +73,7 @@ kubectl apply -f "../../resource/redis/redis-pv.yaml"
 kubectl apply -f "../../resource/vault/vault-pv.yaml"
 
 # install all
-helm install app .
+helm install renovation .
 
 #some check in a while in browser:
 # http://192.168.49.2:30080/fe/work

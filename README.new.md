@@ -239,8 +239,8 @@ inside:
 
 - `go into \mnt\data` inside minikube  
 - `sudo tar -czf /tmp/vault.backup.tar.gz vault`  
-- `$>scp -o IdentitiesOnly=yes -i $(minikube ssh-key) docker@$(minikube ip):/tmp/vault.backup.tar.gz \
- /tmp/vault.backup.tar.gz vault.backup.tar.gz`
+- `$>scp -o IdentitiesOnly=yes -i $(minikube ssh-key) docker@$(minikube ip):/tmp/vault.backup.tar.gz_1 \
+ /tmp/vault.backup.tar.gz_1 vault.backup.tar.gz_1`
 
 12. Restore `vault` folder on minikube use `a-deploy/resource/vault/vault.backup.tar.gz_1` (rename to `gz_1` to `gz`)  
 
