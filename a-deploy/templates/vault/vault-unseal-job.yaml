@@ -4,6 +4,12 @@ metadata:
   name: {{ .Values.vault.name }}-unseal-sa
   namespace: {{ .Values.vault.global.namespace }}
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: internal-app
+  namespace: {{ .Values.vault.global.namespace }}
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -49,10 +55,39 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.vault.name }}-secret
                   key: unsealKey
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.vault.name }}-secret
+                  key: token
           command: [ "/bin/sh", "-c" ]
           args:
             - |
               alias COM="kubectl exec -n {{ .Values.vault.global.namespace }} {{ .Release.Name }}-{{ .Values.vault.name }}-0 -- sh -c"
-              COM "export VAULT_ADDR=http://127.0.0.1:8200"
               COM "vault operator unseal $VAULT_UNSEAL_KEY"
+              COM "\
+                      ABC_MOST=a2421; \
+                      echo \$ABC_MOST > /tmp/abc.txt \
+                  "
+{{/*              COM "export ABC_MOST=242"*/}}
+{{/*              COM "echo $ABC_MOST > abc.txt"*/}}
+
+              {{/* # Config k8s injection*/}}
+{{/*              COM "export VAULT_TOKEN=$VAULT_TOKEN"*/}}
+{{/*              COM "vault auth enable kubernetes"*/}}
+{{/*              COM "vault write auth/kubernetes/config kubernetes_host=\"https://$KUBERNETES_PORT_443_TCP_ADDR:443\""*/}}
+{{/*              COM "\*/}}
+{{/*                    vault policy write internal-app - <<EOF \*/}}
+{{/*                    path \"secret/renovation/config\" { \*/}}
+{{/*                      capabilities = [\"read\"] \*/}}
+{{/*                    } \*/}}
+{{/*                    EOF \*/}}
+{{/*                  "*/}}
+{{/*              COM "export TESTA=134"*/}}
+{{/*              COM "vault write auth/kubernetes/role/internal-app \*/}}
+{{/*                                  bound_service_account_names=internal-app \*/}}
+{{/*                                  bound_service_account_namespaces=apps \*/}}
+{{/*                                  policies=internal-app \*/}}
+{{/*                                  ttl=24h"*/}}
+
       restartPolicy: Never

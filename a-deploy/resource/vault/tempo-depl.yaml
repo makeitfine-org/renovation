@@ -1,0 +1,29 @@
+# Source: renovation/charts/backend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo
+  namespace: security
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempo
+  template:
+    metadata:
+      labels:
+        app: tempo
+    spec:
+      serviceAccountName: internal-app
+      containers:
+        - name: "tempo"
+          image: "koresmosto/renovation-backend"
+          imagePullPolicy: "IfNotPresent"
+          envFrom:
+            - configMapRef:
+                name: renovation-configmap
+            - secretRef:
+                name: renovation-secret
+          ports:
+            - containerPort: 8080
+---
