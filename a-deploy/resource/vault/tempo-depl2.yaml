@@ -1,0 +1,53 @@
+# Source: renovation/charts/backend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo3
+  namespace: security
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempo3
+  template:
+    metadata:
+      labels:
+        app: tempo3
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/role: "internal-app"
+        vault.hashicorp.com/agent-inject-secret-fconfig.txt: "secret/renovation/config"
+        vault.hashicorp.com/agent-inject-secret-fconfig2.txt: "secret/data/renovation/config"
+        vault.hashicorp.com/agent-inject-secret-ABC_V2: "secret/data/renovation/config"
+        vault.hashicorp.com/agent-inject-secret-ABC_V: "secret/renovation/config"
+        vault.hashicorp.com/agent-inject-template-config: |
+          {{- with secret "secret/renovation/config" -}}
+            export ENV_VV="{{ .Data.data.ABC_V }}"
+            export DRED="{{ .Data.data.ABC_V2 }}"
+          {{- end }}
+    spec:
+      serviceAccountName: internal-app
+      containers:
+        - name: "tempo3"
+          image: "koresmosto/renovation-backend"
+          imagePullPolicy: "IfNotPresent"
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              echo "source..."
+              source /vault/secrets/config
+              echo $ABC_V2
+              echo $ENV_VV
+
+              echo "app..."
+              java -Dspring.profiles.active=no-security,postgres-replication -jar /app.jar
+          envFrom:
+            - configMapRef:
+                name: renovation-configmap
+            - secretRef:
+                name: renovation-secret
+          ports:
+            - containerPort: 8080
+---
