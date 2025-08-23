@@ -52,8 +52,7 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - |
-              kubectl exec -n {{ .Values.vault.global.namespace }} {{ .Release.Name }}-{{ .Values.vault.name }}-0 \
-                -- sh -c "export VAULT_ADDR=http://127.0.0.1:8200"
-              kubectl exec -n {{ .Values.vault.global.namespace }} {{ .Release.Name }}-{{ .Values.vault.name }}-0 \
-                -- sh -c "vault operator unseal $VAULT_UNSEAL_KEY"
+              alias COM="kubectl exec -n {{ .Values.vault.global.namespace }} {{ .Release.Name }}-{{ .Values.vault.name }}-0 -- sh -c"
+              COM "export VAULT_ADDR=http://127.0.0.1:8200"
+              COM "vault operator unseal $VAULT_UNSEAL_KEY"
       restartPolicy: Never
