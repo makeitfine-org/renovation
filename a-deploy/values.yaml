@@ -161,7 +161,7 @@ info:
 vault:
   enabled: true
   name: vault
-  secretPath: "secret/renovation/config"
+  secretPath: "secret/renovation/secrets"
   global:
     namespace: "security"
   ui:

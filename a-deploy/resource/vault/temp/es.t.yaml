@@ -13,4 +13,4 @@ spec:
     creationPolicy: Owner
   dataFrom:
     - extract:
-        key: secret/data/renovation/config
+        key: secret/data/renovation/secrets
