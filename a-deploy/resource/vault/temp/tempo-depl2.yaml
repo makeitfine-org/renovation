@@ -47,6 +47,12 @@ spec:
               echo $MONGO_USERNAME
               echo $POSTGRES_DB
 
+              echo $MONGO_INITDB_ROOT_PASSWORD
+              echo $MONGO_PASSWORD
+              echo $POSTGRES_PASSWORD
+              echo $POSTGRES_USER
+              echo $REDIS_PASSWORD
+
               echo "app..."
               java -Dspring.profiles.active=no-security,postgres-replication -jar /app.jar
           envFrom:
