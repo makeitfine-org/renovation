@@ -179,6 +179,7 @@ vault:
   #   enabled: true
 
 external-secrets:
-  namespaceOverride: security
   enabled: true
+  name: extsecrets
+  namespaceOverride: security
   installCRDs: true
