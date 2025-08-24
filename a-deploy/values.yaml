@@ -177,3 +177,8 @@ vault:
       storageClass: vault-retain
   #authDelegator:
   #   enabled: true
+
+external-secrets:
+  namespaceOverride: security
+  enabled: true
+  installCRDs: true
