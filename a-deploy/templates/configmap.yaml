@@ -15,8 +15,6 @@ metadata:
   name: {{ $root.Values.global.parentChartName }}-configmap
   namespace: {{ $ns }}
 data:
-  POSTGRES_DB: {{ $root.Values.postgresql.auth.database | quote }}
-
   POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
 
   POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
@@ -27,11 +25,6 @@ data:
   REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.master.service.ports.redis | quote }}
 
-  MONGO_INITDB_DATABASE: {{ index $root.Values.mongodb.auth.databases 0 | quote }}
-  MONGO_INITDB_ROOT_USERNAME: {{ $root.Values.mongodb.auth.rootUser | quote }}
-
-  MONGO_USERNAME: {{ index $root.Values.mongodb.auth.usernames 0 | quote }}
-  MONGO_DB: {{ index $root.Values.mongodb.auth.databases 0 | quote }}
   MONGO_HOST: "{{ $root.Values.mongodb.fullnameOverride }}.{{ $root.Values.mongodb.namespaceOverride | default $ns_default }}.svc.cluster.local"
   MONGO_PORT: {{ $root.Values.mongodb.service.ports.mongodb | quote}}
 ---

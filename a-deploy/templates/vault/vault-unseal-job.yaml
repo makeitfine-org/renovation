@@ -47,6 +47,7 @@ spec:
   template:
     spec:
       serviceAccountName: {{ .Values.vault.name }}-unseal-sa
+      restartPolicy: Never
       containers:
         - name: kubectl
           image: bitnami/kubectl:1.33.4
@@ -73,4 +74,3 @@ spec:
                       echo \$VAULT_ADDR >> /tmp/envvars.txt; \
                       echo $VAULT_TOKEN >> /tmp/envvars.txt; \
                   "
-      restartPolicy: Never
