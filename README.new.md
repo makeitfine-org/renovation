@@ -244,16 +244,17 @@ inside:
  /tmp/vault.backup.tar.gz_1 vault.backup.tar.gz_1`
 
 12. Restore `vault` folder on minikube use `a-deploy/resource/vault/vault.backup.tar.gz_1` (rename to `gz_1` to `gz`)  
-13. Content of `envvars_secret_for_deployment.json` should be the same as vault secrets (renovation/secrets)
+13. Content of `envvars_secret_for_deployment.json` should be the same as vault secrets (renovation/secrets)  
 13.1 On any update in above file do   
-  `source ./util/secrets/pee.sh util/secrets/envvars_secret_for_deployment.json`
-   and update secrets in vault
- 
+  `source ./util/secrets/pee.sh util/secrets/envvars_secret_for_deployment.json`  
+   and update secrets in `vault`  
+ 14. check if all namespaces deleted: `check_namespaces.sh`  
+ 15. so shortcut to remove helm chart:   
+`hun && sh util/helper/check_namespaces.sh && kpp && kpp`
 
 ===>  
 ===>  
 ===>  
-
 
 
 4. start `frontend`:
