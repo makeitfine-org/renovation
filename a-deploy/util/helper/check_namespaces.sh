@@ -22,7 +22,7 @@ while true; do
 
   if [ "$all_missing" = true ]; then
     echo "removed namespaces"
-    exit 1
+    break
   fi
 
   sleep 1
