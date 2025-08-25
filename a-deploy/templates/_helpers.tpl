@@ -38,7 +38,7 @@ spec:
             - configMapRef:
                 name: {{ .Values.global.parentChartName }}-configmap
             - secretRef:
-                name: {{ .Values.global.parentChartName }}-secret
+                name: {{ .Values.global.parentChartName }}-vault-secret
           ports:
             - containerPort: {{ .containerPort -}}
 
