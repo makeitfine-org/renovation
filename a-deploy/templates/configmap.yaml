@@ -15,17 +15,36 @@ metadata:
   name: {{ $root.Values.global.parentChartName }}-configmap
   namespace: {{ $ns }}
 data:
+  {{ if $root.Values.postgresql.enabled }}
   POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
-
   POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
-  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
+  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.readReplicas.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
+  {{- else }}
+  POSTGRES_DB_URL: ""
+  POSTGRES_RW_DB_URL: ""
+  POSTGRES_RO_DB_URL: ""
+  {{- end }}
 
+  {{ if $root.Values.info.enabled }}
   INFO_SERVICE_URL: "http://{{ $root.Values.info.name }}.{{ $root.Values.info.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.info.service.port }}/graphql"
+  {{- else }}
+  INFO_SERVICE_URL: ""
+  {{- end }}
 
+  {{ if $root.Values.redis.enabled }}
   REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
   REDIS_PORT: {{ $root.Values.redis.master.service.ports.redis | quote }}
+  {{- else }}
+  REDIS_HOST: ""
+  REDIS_PORT: ""
+  {{- end }}
 
+  {{ if $root.Values.mongodb.enabled }}
   MONGO_HOST: "{{ $root.Values.mongodb.fullnameOverride }}.{{ $root.Values.mongodb.namespaceOverride | default $ns_default }}.svc.cluster.local"
   MONGO_PORT: {{ $root.Values.mongodb.service.ports.mongodb | quote}}
+  {{- else }}
+  MONGO_HOST: ""
+  MONGO_PORT: ""
+  {{- end }}
 ---
 {{- end }}
