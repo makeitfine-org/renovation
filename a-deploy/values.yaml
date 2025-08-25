@@ -12,10 +12,10 @@ postgresql: #bitnami
   namespaceOverride: db
   fullnameOverride: postgresql
   auth:
-    username: postgres
-    password: postgres1
-    database: renovation
-  schema: backend
+    username: $POSTGRES_USER
+    password: $POSTGRES_PASSWORD
+    database: $POSTGRES_DB
+  schema: $POSTGRES_SCHEMA
   primary:
     service:
       type: NodePort
@@ -41,7 +41,7 @@ redis: #bitnami
   fullnameOverride: redis
   auth:
     enabled: true
-    password: redispass
+    password: $REDIS_PASSWORD
   master:
     service:
       type: NodePort
@@ -66,14 +66,14 @@ mongodb: #bitnami
     namespaceOverride: db # only this rewrites namespace
   fullnameOverride: mongodb
   auth:
-    rootUser: root
-    rootPassword: rootpass
+    rootUser: $MONGO_INITDB_ROOT_USERNAME
+    rootPassword: $MONGO_INITDB_ROOT_PASSWORD
     databases:
-      - "infodb"
+      - $MONGO_DB
     usernames:
-      - "infouser"
+      - $MONGO_USERNAME
     passwords:
-      - "infopassword"
+      - $MONGO_PASSWORD
   service:
     type: NodePort
     nodePorts:
@@ -128,8 +128,8 @@ info:
     tag: latest
     pullPolicy: IfNotPresent
   mongo:
-    username: infouser
-    password: infopassword
+    username: $MONGO_USERNAME
+    password: $MONGO_PASSWORD
   service:
     type: NodePort
     port: 9090

@@ -16,9 +16,9 @@ metadata:
   namespace: {{ $ns }}
 data:
   {{ if $root.Values.postgresql.enabled }}
-  POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
-  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
-  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.readReplicas.service.ports.postgresql }}/renovation?currentSchema={{ $root.Values.postgresql.schema}}"
+  POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresql.schema}}"
+  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresql.schema}}"
+  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql.readReplicas.service.ports.postgresql }}/{{ $root.Values.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresql.schema}}"
   {{- else }}
   POSTGRES_DB_URL: ""
   POSTGRES_RW_DB_URL: ""

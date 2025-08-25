@@ -214,6 +214,7 @@ Partial install/upgrade:
 4. Mongo:  
 `$>mongosh -u infouser -p infopassword --authenticationDatabase infodb`
 5. Activate in `a-deploy` dir > `a-deploy/util/helper/aliases.sh` to use some shortcuts
+5.1. Activate in `secrets ` dir > `source ./util/secrets/pee.sh util/secrets/envvars_secret_for_deployment.json`
 6. if [issue] db see `kg pv`, `kg pvc` (to clean content, clean cluster `/mnt/data/postgres/(master/replica)`)
 7. To reuse pvc:  
 `$>kubectl patch pv postgres-primary-0-pv -p '{"spec":{"claimRef": null}}'`  
@@ -243,7 +244,11 @@ inside:
  /tmp/vault.backup.tar.gz_1 vault.backup.tar.gz_1`
 
 12. Restore `vault` folder on minikube use `a-deploy/resource/vault/vault.backup.tar.gz_1` (rename to `gz_1` to `gz`)  
-
+13. Content of `envvars_secret_for_deployment.json` should be the same as vault secrets (renovation/secrets)
+13.1 On any update in above file do   
+  `source ./util/secrets/pee.sh util/secrets/envvars_secret_for_deployment.json`
+   and update secrets in vault
+ 
 
 ===>  
 ===>  
