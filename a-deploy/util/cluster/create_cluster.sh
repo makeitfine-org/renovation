@@ -30,14 +30,21 @@ minikube addons enable ingress
 minikube addons enable dashboard
 
 # Upload apps images to cluster
-sh  "$CURRENT_PATH"/creat_upload_images.sh
+sh  "$CURRENT_PATH/creat_upload_images.sh"
 
 minikube ssh -- "docker images | grep koresmosto"
 
 minikube ssh -- "sudo mkdir /mnt/data"
+
+# untar
+scp -o IdentitiesOnly=yes -i $(minikube ssh-key) "$CURRENT_PATH/arch/vault.backup.tar.gz_1" docker@$(minikube ip):/tmp/vault.backup.tar.gz
+minikube ssh -- "sudo mv /tmp/vault.backup.tar.gz /mnt/data/vault.backup.tar.gz"
+minikube ssh -- "sudo tar xzf /mnt/data/vault.backup.tar.gz -C /mnt/data/"
+minikube ssh -- "sudo rm /mnt/data/vault.backup.tar.gz"
+
 ## vault
-minikube ssh -- "sudo mkdir /mnt/data/vault"
-minikube ssh -- "sudo mkdir /mnt/data/vault/master"
+#minikube ssh -- "sudo mkdir /mnt/data/vault"
+#minikube ssh -- "sudo mkdir /mnt/data/vault/master"
 minikube ssh -- "sudo chown 777 /mnt/data/vault"
 minikube ssh -- "sudo chown 777 /mnt/data/vault/master"
 
