@@ -34,6 +34,17 @@ sh  "$CURRENT_PATH"/creat_upload_images.sh
 
 minikube ssh -- "docker images | grep koresmosto"
 
+minikube ssh -- "sudo mkdir /mnt/data"
+## vault
+minikube ssh -- "sudo mkdir /mnt/data/vault"
+minikube ssh -- "sudo mkdir /mnt/data/vault/master"
+minikube ssh -- "sudo chown 777 /mnt/data/vault"
+minikube ssh -- "sudo chown 777 /mnt/data/vault/master"
+
+## create storage
+kubectl apply -f "../../resource/vault/vault-sc.yaml"
+kubectl apply -f "../../resource/vault/vault-pv.yaml"
+
 ## postgres
 #minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres"
 #minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/postgres/master"
@@ -52,22 +63,14 @@ minikube ssh -- "docker images | grep koresmosto"
 #minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/master"
 #minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/redis/replica"
 #minikube -p ${CLUSTER_NAME} ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/replica"
-#
-## vault
-#minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault"
-#minikube -p ${CLUSTER_NAME} ssh -- "sudo mkdir /mnt/data/vault/master"
-#minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault"
-#minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault/master"
 
 
-## create storage
-#kubectl apply -f "../../resource/vault/vault-sc.yaml"
 #
 ## create pv
 #kubectl apply -f "../../resource/postgres/postgres-pv.yaml"
 #kubectl apply -f "../../resource/mongodb/mongodb-pv.yaml"
 #kubectl apply -f "../../resource/redis/redis-pv.yaml"
-#kubectl apply -f "../../resource/vault/vault-pv.yaml"
+
 
 ## install all
 #helm install renovation .

@@ -1,2 +1,11 @@
 # values.yaml
 releasePrefix: dev-
+
+vault:
+  enabled: true
+
+postgresql:
+  enabled: false
+
+redis:
+  enabled: false
