@@ -251,6 +251,9 @@ inside:
  14. check if all namespaces deleted: `check_namespaces.sh`  
  15. so shortcut to remove helm chart:   
 `hun && sh util/helper/check_namespaces.sh && kpp && kpp`
+16. Helm autcompletion: 
+`helmfile completion bash > helmfile`  
+`sudo mv helmfile /etc/bash_completion.d/`  
 
 ===>  
 ===>  

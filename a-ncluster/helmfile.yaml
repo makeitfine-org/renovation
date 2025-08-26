@@ -1,0 +1,55 @@
+#repositories:
+#  - name: bitnami
+#    url: https://charts.bitnami.com/bitnami
+
+# helmfile.yaml
+values:
+  - values.yaml
+
+helmDefaults:
+  createNamespace: true
+
+releases:
+  - name: "{{ .Values.releasePrefix }}postgresql"
+    namespace: db
+    chart: bitnami/postgresql
+    version: 16.7.24
+    values:
+      - enabled: true
+      - architecture: replication
+      - auth:
+          username: user1
+          password: password1
+          database: pgdb
+          postgresPassword: pgrootpass1
+      - schema: pgschema
+      - primary:
+          service:
+            type: NodePort
+            nodePorts:
+              postgresql: 30432
+  #        initdb:
+  #          scriptsConfigMap: postgresql-init-configmap
+          persistence:
+            enabled: false
+            #existingClaim: postgres-primary-0-pvc # !!! should be created in k8s
+      - readReplicas:
+          replicaCount: 1
+          service:
+            type: NodePort
+            nodePorts:
+              postgresql: 30433
+          persistence:
+            enabled: false
+  #          existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
+
+
+  - name: "{{ .Values.releasePrefix }}redis"
+    namespace: db
+    chart: bitnami/redis
+    version: 22.0.3
+    values:
+      - usePassword: true
+      - global:
+          redis:
+            password: abc123
