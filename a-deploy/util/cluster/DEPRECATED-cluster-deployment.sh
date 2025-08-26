@@ -19,6 +19,9 @@ echo "minikube path: $MINIKUBE_PATH ($(pwd))"
 
 minikube start -p ${CLUSTER_NAME} --memory 4096 --cpus 4  --subnet 192.168.49.2
 
+# switch profile to "${CLUSTER_NAME}" as default
+minikube profile ${CLUSTER_NAME}
+
 # install addons
 minikube -p ${CLUSTER_NAME} addons enable volumesnapshots
 minikube -p ${CLUSTER_NAME} addons enable registry
@@ -59,9 +62,6 @@ minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault"
 minikube -p ${CLUSTER_NAME} ssh -- "sudo chown 777 /mnt/data/vault/master"
 
 minikube -p ${CLUSTER_NAME} ssh -- "docker images | grep koresmosto"
-
-# switch profile to "${CLUSTER_NAME}" as default
-minikube profile ${CLUSTER_NAME}
 
 # create storage
 kubectl apply -f "../../resource/vault/vault-sc.yaml"
