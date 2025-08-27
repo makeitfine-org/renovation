@@ -41,13 +41,10 @@ dependencies:
     version: 0.1.0
     repository: "file://charts/redis-chart"
     condition: redis.enabled
-
-  - name: mongodb
-    version: 16.5.43
-    repository: https://charts.bitnami.com/bitnami
+  - name: mongodb-chart
+    version: 0.1.0
+    repository: "file://charts/mongodb-chart"
     condition: mongodb.enabled
-#    alias: mongo
-
 
   ### Apps
   - name: backend

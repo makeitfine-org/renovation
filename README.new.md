@@ -254,6 +254,8 @@ inside:
 16. Helm autcompletion: 
 `helmfile completion bash > helmfile`  
 `sudo mv helmfile /etc/bash_completion.d/`  
+17. Update dependencies/build inside subchart:  
+`h dependency build && hdu`  
 
 ===>  
 ===>  

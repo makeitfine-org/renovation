@@ -39,9 +39,9 @@ data:
   REDIS_PORT: ""
   {{- end }}
 
-  {{ if $root.Values.mongodb.enabled }}
-  MONGO_HOST: "{{ $root.Values.mongodb.fullnameOverride }}.{{ $root.Values.mongodb.namespaceOverride | default $ns_default }}.svc.cluster.local"
-  MONGO_PORT: {{ $root.Values.mongodb.service.ports.mongodb | quote}}
+  {{ if "$root.Values.mongodb-chart.mongodb.enabled" }}
+  MONGO_HOST: "{{ "$root.Values.mongodb-chart.mongodb.fullnameOverride" }}.{{ "$root.Values.mongodb-chart.mongodb.namespaceOverride" | default $ns_default }}.svc.cluster.local"
+  MONGO_PORT: {{ "$root.Values.mongodb-chart.mongodb.service.ports.mongodb" | quote}}
   {{- else }}
   MONGO_HOST: ""
   MONGO_PORT: ""

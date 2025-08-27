@@ -89,32 +89,33 @@ redis-chart:
       persistence:
         existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
-mongodb: #bitnami
-  enabled: false
-  architecture: standalone
-  namespaceOverride: db
-  global:
-    namespaceOverride: db # only this rewrites namespace
-  fullnameOverride: mongodb
-  auth:
-    rootUser: $MONGO_INITDB_ROOT_USERNAME
-    rootPassword: $MONGO_INITDB_ROOT_PASSWORD
-    databases:
-      - $MONGO_DB
-    usernames:
-      - $MONGO_USERNAME
-    passwords:
-      - $MONGO_PASSWORD
-  service:
-    type: NodePort
-    nodePorts:
-      mongodb: 30017
-  persistence:
-    existingClaim: mongodb-master-0-pvc # !!! should be created in k8s
-  initdbScriptsConfigMap: mongo-init-configmap
+mongodb-chart:
+  enabled: true
+  mongodb: #bitnami
+    architecture: standalone
+    namespaceOverride: db
+    global:
+      namespaceOverride: db # only this rewrites namespace
+    fullnameOverride: mongodb
+    auth:
+      rootUser: $MONGO_INITDB_ROOT_USERNAME
+      rootPassword: $MONGO_INITDB_ROOT_PASSWORD
+      databases:
+        - $MONGO_DB
+      usernames:
+        - $MONGO_USERNAME
+      passwords:
+        - $MONGO_PASSWORD
+    service:
+      type: NodePort
+      nodePorts:
+        mongodb: 30017
+    persistence:
+      existingClaim: mongodb-master-0-pvc # !!! should be created in k8s
+    initdbScriptsConfigMap: mongo-init-configmap
 
 backend:
-  enabled: false
+  enabled: true
   namespaceOverride: apps
   name: backend
   replicas: 2
@@ -150,7 +151,7 @@ backend:
       memory: "512Mi"
 
 info:
-  enabled: false
+  enabled: true
   namespaceOverride: apps
   name: info
   replicas: 2
