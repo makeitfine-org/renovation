@@ -6,8 +6,36 @@ global:
     apps: apps         # application workloads
     security: security # Keycloak, Vault, etc.
 
-postgresql: #bitnami
+# dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
+vault-chart:
   enabled: true
+  vault:
+    name: vault
+    secretPath: "secret/renovation/secrets"
+    global:
+      namespace: "security"
+    ui:
+      enabled: true
+      serviceType: NodePort
+      serviceNodePort: 30820
+    server:
+      dev:
+        enabled: false
+      dataStorage:
+        enabled: true
+        size: 1Gi
+        storageClass: vault-retain
+  #authDelegator:
+  #   enabled: true
+
+external-secrets:
+  enabled: false
+  name: extsecrets
+  namespaceOverride: security
+  installCRDs: true
+
+postgresql: #bitnami
+  enabled: false
   architecture: replication
   namespaceOverride: db
   fullnameOverride: postgresql
@@ -37,7 +65,7 @@ postgresql: #bitnami
       existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
 redis: #bitnami
-  enabled: true
+  enabled: false
   architecture: replication
   namespaceOverride: db
   fullnameOverride: redis
@@ -61,7 +89,7 @@ redis: #bitnami
       existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
 mongodb: #bitnami
-  enabled: true
+  enabled: false
   architecture: standalone
   namespaceOverride: db
   global:
@@ -85,7 +113,7 @@ mongodb: #bitnami
   initdbScriptsConfigMap: mongo-init-configmap
 
 backend:
-  enabled: true
+  enabled: false
   namespaceOverride: apps
   name: backend
   replicas: 2
@@ -121,7 +149,7 @@ backend:
       memory: "512Mi"
 
 info:
-  enabled: true
+  enabled: false
   namespaceOverride: apps
   name: info
   replicas: 2
@@ -158,30 +186,3 @@ info:
     requests:
       cpu: "500m"
       memory: "512Mi"
-
-# dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
-vault:
-  enabled: true
-  name: vault
-  secretPath: "secret/renovation/secrets"
-  global:
-    namespace: "security"
-  ui:
-    enabled: true
-    serviceType: NodePort
-    serviceNodePort: 30820
-  server:
-    dev:
-      enabled: false
-    dataStorage:
-      enabled: true
-      size: 1Gi
-      storageClass: vault-retain
-  #authDelegator:
-  #   enabled: true
-
-external-secrets:
-  enabled: true
-  name: extsecrets
-  namespaceOverride: security
-  installCRDs: true
