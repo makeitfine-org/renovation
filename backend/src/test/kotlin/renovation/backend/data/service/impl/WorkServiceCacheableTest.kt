@@ -42,10 +42,6 @@ import renovation.backend.data.service.WorkService
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 internal class WorkServiceCacheableTest {
 
-    companion object {
-        private const val CACHE_NAME = "works"
-    }
-
     @Autowired
     @Qualifier("workServiceCacheableImpl")
     private lateinit var workService: WorkService
@@ -55,10 +51,12 @@ internal class WorkServiceCacheableTest {
 
     @BeforeTest
     fun init() {
-        cacheManager.getCache(CACHE_NAME)?.clear()
+        cacheManager.getCache(WorkServiceCacheableImpl.CACHE_WORK_BY_ID)?.clear()
+        cacheManager.getCache(WorkServiceCacheableImpl.CACHE_WORKS_ALL)?.clear()
     }
 
-    private fun get(uuid: UUID) = cacheManager.getCache(CACHE_NAME)?.get(uuid, Work::class.java)
+    private fun get(uuid: UUID) =
+        cacheManager.getCache(WorkServiceCacheableImpl.CACHE_WORK_BY_ID)?.get(uuid, Work::class.java)
 
     @Test
     fun `findById Cacheable if price is not greater 10000`() {
@@ -167,7 +165,15 @@ internal class WorkServiceCacheableTest {
 
         assertNotEquals(workForUpdate.title, get(uuid)?.title)
         workService.update(uuid, workForUpdate)
+        assertNull(get(uuid))
+
+        // but then set less than max price
+        workService.update(uuid, workForUpdate.copy(price = 100.5))
         assertNotNull(get(uuid))
+
+        // but then set less than max price
+        workService.update(uuid, workForUpdate.copy(price = 10_001.5))
+        assertNull(get(uuid))
     }
 
     @Test

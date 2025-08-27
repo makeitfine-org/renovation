@@ -14,6 +14,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import org.junit.jupiter.api.Tag
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.never
 import org.mockito.Mockito.only
 import org.mockito.Mockito.times
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.SpyBean
 import org.springframework.cache.CacheManager
+import org.springframework.data.domain.Sort
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.Transactional
@@ -45,10 +47,6 @@ import renovation.backend.data.service.WorkService
 @Transactional
 internal class WorkServiceCacheTest {
 
-    companion object {
-        private const val CACHE_NAME = "works"
-    }
-
     @Autowired
     @Qualifier("workServiceCacheableImpl")
     private lateinit var workService: WorkService
@@ -61,7 +59,21 @@ internal class WorkServiceCacheTest {
 
     @BeforeTest
     fun init() {
-        cacheManager.getCache(CACHE_NAME)?.clear()
+        cacheManager.getCache(WorkServiceCacheableImpl.CACHE_WORK_BY_ID)?.clear()
+        cacheManager.getCache(WorkServiceCacheableImpl.CACHE_WORKS_ALL)?.clear()
+    }
+
+    @Test
+    fun `get find all works`() {
+        verify(workRepository, never()).findAll(any(Sort::class.java))
+
+        var foundAll = workService.findAll()
+        verify(workRepository, only()).findAll(any(Sort::class.java))
+        assertNotNull(foundAll)
+
+        assertEquals(workService.findAll(), foundAll) // second call
+        assertEquals(workService.findAll(), foundAll) // third call
+        verify(workRepository, only()).findAll(any(Sort::class.java))
     }
 
     @Test
@@ -116,7 +128,7 @@ internal class WorkServiceCacheTest {
         workService.findById(uuid)
         verify(workRepository, only()).findById(uuid)
 
-        var updatedWork = workService.update(uuid, work.copy(title = "updated title"))
+        var updatedWork = workService.update(uuid, work.copy(title = "updated title")) // inside findById call
         verify(workRepository, times(2)).findById(uuid) // was inside call
         assertEquals("updated title", updatedWork.title)
         workService.findById(uuid) // double call
@@ -128,6 +140,18 @@ internal class WorkServiceCacheTest {
         assertEquals("updated title 2", updatedWork.title)
         workService.findById(uuid) // double call
         workService.findById(uuid) // triple call
+        verify(workRepository, times(3)).findById(uuid)
+
+        // no such id
+        val e = assertFailsWith<WorkNotFoundException> {
+            workService.update(
+                UUID.fromString("db74a2b4-52ba-43f7-ab8d-4eb50616a8ce"),
+                work.copy(title = "updated title 2")
+            )
+        }
+        assertEquals("Work with id: db74a2b4-52ba-43f7-ab8d-4eb50616a8ce not found", e.message)
+
+        workService.findById(uuid) // fourth call
         verify(workRepository, times(3)).findById(uuid)
     }
 
