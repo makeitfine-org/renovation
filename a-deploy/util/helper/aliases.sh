@@ -14,7 +14,7 @@ CHART_NAMESPACE="default"
 alias hi="envsubst < values.yaml | helm install $CHART_NAME . --namespace $CHART_NAMESPACE -f '-'"
 alias hid="envsubst < values.yaml | helm install $CHART_NAME . --namespace $CHART_NAMESPACE --dry-run > dry.txt -f '-'"
 
-alias hug="envsubst < values.yaml | helm upgrade $CHART_NAME --namespace $CHART_NAMESPACE -f '-'"
+alias hug="envsubst < values.yaml | helm upgrade $CHART_NAME . --namespace $CHART_NAMESPACE -f '-'"
 
 alias hdu="helm dependency update --namespace $CHART_NAMESPACE"
 
