@@ -7,7 +7,7 @@ global:
     security: security # Keycloak, Vault, etc.
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
-vault-chart:
+vaultC:
   enabled: true
   vault:
     name: vault
@@ -26,14 +26,14 @@ vault-chart:
         size: 1Gi
         storageClass: vault-retain
 
-external-secrets-chart:
+externalC:
   enabled: true
   external-secrets:
     name: extsecrets
     namespaceOverride: security
     installCRDs: true
 
-postgresql-chart: #bitnami
+postgresqlC: #bitnami
   enabled: true
   postgresql: #bitnami
     architecture: replication
@@ -64,7 +64,7 @@ postgresql-chart: #bitnami
       persistence:
         existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
-redis-chart:
+redisC:
   enabled: true
   redis: #bitnami
     architecture: replication
@@ -89,7 +89,7 @@ redis-chart:
       persistence:
         existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
-mongodb-chart:
+mongodbC:
   enabled: true
   mongodb: #bitnami
     architecture: standalone

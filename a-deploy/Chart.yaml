@@ -26,22 +26,27 @@ appVersion: "0.1.0"
 
 dependencies:
   - name: vault-chart
+    alias: vaultC
     version: 0.1.0
     repository: "file://charts/vault-chart"
     condition: vault.enabled
   - name: external-secrets-chart
+    alias: externalC
     version: 0.1.0
     repository: "file://charts/external-secrets-chart"
     condition: external-secrets.enabled
   - name: postgresql-chart
+    alias: postgresqlC
     version: 0.1.0
     repository: "file://charts/postgresql-chart"
     condition: postgresql.enabled
   - name: redis-chart
+    alias: redisC
     version: 0.1.0
     repository: "file://charts/redis-chart"
     condition: redis.enabled
   - name: mongodb-chart
+    alias: mongodbC
     version: 0.1.0
     repository: "file://charts/mongodb-chart"
     condition: mongodb.enabled

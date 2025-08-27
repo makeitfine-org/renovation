@@ -15,10 +15,10 @@ metadata:
   name: {{ $root.Values.global.parentChartName }}-configmap
   namespace: {{ $ns }}
 data:
-  {{ if "$root.Values.postgresql-chart.postgresql.enabled" }}
-  POSTGRES_DB_URL: "jdbc:postgresql://{{ "$root.Values.postgresql-chart.postgresql.fullnameOverride" }}.{{ "$root.Values.postgresql-chart.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql-chart.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresql-chart.postgresql.auth.database" }}?currentSchema={{ "$root.Values.postgresql-chart.postgresql.schema"}}"
-  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ "$root.Values.postgresql-chart.postgresql.fullnameOverride" }}-primary.{{ "$root.Values.postgresql-chart.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql-chart.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresql-chart.postgresql.auth.database" }}?currentSchema={{ "$root.Values.postgresql-chart.postgresql.schema"}}"
-  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ "$root.Values.postgresql-chart.postgresql.fullnameOverride" }}-read.{{ "$root.Values.postgresql-chart.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresql-chart.postgresql.readReplicas.service.ports.postgresql }}/{{ $root.Values.postgresql-chart.postgresql.auth.database" }}?currentSchema={{ "$root.Values.postgresql-chart.postgresql.schema"}}"
+  {{ if $root.Values.postgresqlC.enabled }}
+  POSTGRES_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresqlC.postgresql.fullnameOverride }}.{{ $root.Values.postgresqlC.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresqlC.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresqlC.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresqlC.postgresql.schema}}"
+  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresqlC.postgresql.fullnameOverride }}-primary.{{ $root.Values.postgresqlC.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresqlC.postgresql.primary.service.ports.postgresql }}/{{ $root.Values.postgresqlC.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresqlC.postgresql.schema}}"
+  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $root.Values.postgresqlC.postgresql.fullnameOverride }}-read.{{ $root.Values.postgresqlC.postgresql.namespaceOverride | default $ns_default }}.svc.cluster.local:{{ $root.Values.postgresqlC.postgresql.readReplicas.service.ports.postgresql }}/{{ $root.Values.postgresqlC.postgresql.auth.database }}?currentSchema={{ $root.Values.postgresqlC.postgresql.schema}}"
   {{- else }}
   POSTGRES_DB_URL: ""
   POSTGRES_RW_DB_URL: ""
@@ -31,17 +31,17 @@ data:
   INFO_SERVICE_URL: ""
   {{- end }}
 
-  {{ if "$root.Values.redis-chart.redis.enabled" }}
-  REDIS_HOST: "{{ "$root.Values.redis-chart.redis.fullnameOverride" }}-master.{{ "$root.Values.redis-chart.redis.namespaceOverride" | default $ns_default}}.svc.cluster.local"
-  REDIS_PORT: {{ "$root.Values.redis-chart.redis.master.service.ports.redis" | quote }}
+  {{ if $root.Values.redisC.enabled }}
+  REDIS_HOST: "{{ $root.Values.redisC.redis.fullnameOverride }}-master.{{ $root.Values.redisC.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
+  REDIS_PORT: {{ $root.Values.redisC.redis.master.service.ports.redis | quote }}
   {{- else }}
   REDIS_HOST: ""
   REDIS_PORT: ""
   {{- end }}
 
-  {{ if "$root.Values.mongodb-chart.mongodb.enabled" }}
-  MONGO_HOST: "{{ "$root.Values.mongodb-chart.mongodb.fullnameOverride" }}.{{ "$root.Values.mongodb-chart.mongodb.namespaceOverride" | default $ns_default }}.svc.cluster.local"
-  MONGO_PORT: {{ "$root.Values.mongodb-chart.mongodb.service.ports.mongodb" | quote}}
+  {{ if $root.Values.mongodbC.enabled }}
+  MONGO_HOST: "{{ $root.Values.mongodbC.mongodb.fullnameOverride }}.{{ $root.Values.mongodbC.mongodb.namespaceOverride | default $ns_default }}.svc.cluster.local"
+  MONGO_PORT: {{ $root.Values.mongodbC.mongodb.service.ports.mongodb | quote}}
   {{- else }}
   MONGO_HOST: ""
   MONGO_PORT: ""
