@@ -25,14 +25,13 @@ vault-chart:
         enabled: true
         size: 1Gi
         storageClass: vault-retain
-  #authDelegator:
-  #   enabled: true
 
-external-secrets:
-  enabled: false
-  name: extsecrets
-  namespaceOverride: security
-  installCRDs: true
+external-secrets-chart:
+  enabled: true
+  external-secrets:
+    name: extsecrets
+    namespaceOverride: security
+    installCRDs: true
 
 postgresql: #bitnami
   enabled: false

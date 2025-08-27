@@ -1,0 +1,12 @@
+apiVersion: v2
+name: external-secrets-chart
+description: external-secrets subchart
+icon: https://upload.wikimedia.org/wikipedia/commons/f/f6/Icon_Arrow_Right_256x256.png
+appVersion: 0.1.0
+version: 0.1.0
+
+dependencies:
+  - name: external-secrets
+    version: 0.19.2
+    repository: https://charts.external-secrets.io
+    # alias: extsecrets
