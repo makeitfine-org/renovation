@@ -1,7 +1,0 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: vault-retain
-provisioner: k8s.io/minikube-hostpath
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
