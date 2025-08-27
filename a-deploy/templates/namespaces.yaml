@@ -1,7 +1,11 @@
+{{- if and .Values.global.createNamespaces (or .Values.backend.enabled .Values.info.enabled) -}}
+
 {{- range $key, $ns := .Values.global.namespace }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $ns }}
 ---
+{{- end }}
+
 {{- end }}

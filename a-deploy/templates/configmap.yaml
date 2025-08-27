@@ -1,14 +1,9 @@
+{{- if .Values.global.createConfigmap -}}
+
 {{- $root := . }}
-
-{{- $nsList := list }}
 {{- $ns_default := $root.Release.Namespace }}
+{{- range $ns := list .Values.global.namespace.apps }}
 
-{{- range $key, $ns := $root.Values.global.namespace }}
-  {{- $nsList = append $nsList $ns }}
-{{- end }}
-{{- $nsList = append $nsList $root.Release.Namespace }}
-
-{{- range $ns := $nsList }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -47,4 +42,6 @@ data:
   MONGO_PORT: ""
   {{- end }}
 ---
+{{- end }}
+
 {{- end }}

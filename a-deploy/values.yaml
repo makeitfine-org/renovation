@@ -1,5 +1,7 @@
 global:
   parentChartName: renovation
+  createNamespaces: false
+  createConfigmap: false
   namespace:
     infra: infra       # ingress, service-mesh control plane, monitoring, cert-manager, logging
     db: db             # databases, message brokers, caches
@@ -8,7 +10,7 @@ global:
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
 vaultC:
-  enabled: true
+  enabled: false
   vault:
     name: vault
     secretPath: "secret/renovation/secrets"
@@ -27,14 +29,14 @@ vaultC:
         storageClass: vault-retain
 
 externalC:
-  enabled: true
+  enabled: false
   external-secrets:
     name: extsecrets
     namespaceOverride: security
     installCRDs: true
 
 postgresqlC: #bitnami
-  enabled: true
+  enabled: false
   postgresql: #bitnami
     architecture: replication
     namespaceOverride: db
@@ -65,7 +67,7 @@ postgresqlC: #bitnami
         existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
 redisC:
-  enabled: true
+  enabled: false
   redis: #bitnami
     architecture: replication
     namespaceOverride: db
@@ -90,7 +92,7 @@ redisC:
         existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
 mongodbC:
-  enabled: true
+  enabled: false
   mongodb: #bitnami
     architecture: standalone
     namespaceOverride: db
@@ -115,7 +117,7 @@ mongodbC:
     initdbScriptsConfigMap: mongo-init-configmap
 
 backend:
-  enabled: true
+  enabled: false
   namespaceOverride: apps
   name: backend
   replicas: 2
@@ -151,7 +153,7 @@ backend:
       memory: "512Mi"
 
 info:
-  enabled: true
+  enabled: false
   namespaceOverride: apps
   name: info
   replicas: 2
