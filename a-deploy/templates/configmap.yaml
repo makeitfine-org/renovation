@@ -31,9 +31,9 @@ data:
   INFO_SERVICE_URL: ""
   {{- end }}
 
-  {{ if $root.Values.redis.enabled }}
-  REDIS_HOST: "{{ $root.Values.redis.fullnameOverride }}-master.{{ $root.Values.redis.namespaceOverride | default $ns_default}}.svc.cluster.local"
-  REDIS_PORT: {{ $root.Values.redis.master.service.ports.redis | quote }}
+  {{ if "$root.Values.redis-chart.redis.enabled" }}
+  REDIS_HOST: "{{ "$root.Values.redis-chart.redis.fullnameOverride" }}-master.{{ "$root.Values.redis-chart.redis.namespaceOverride" | default $ns_default}}.svc.cluster.local"
+  REDIS_PORT: {{ "$root.Values.redis-chart.redis.master.service.ports.redis" | quote }}
   {{- else }}
   REDIS_HOST: ""
   REDIS_PORT: ""

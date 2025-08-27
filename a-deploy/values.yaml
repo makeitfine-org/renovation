@@ -64,29 +64,30 @@ postgresql-chart: #bitnami
       persistence:
         existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
-redis: #bitnami
-  enabled: false
-  architecture: replication
-  namespaceOverride: db
-  fullnameOverride: redis
-  auth:
-    enabled: true
-    password: $REDIS_PASSWORD
-  master:
-    service:
-      type: NodePort
-      nodePorts:
-        redis: "30379"
-    persistence:
-      existingClaim: redis-master-0-pvc # !!! should be created in k8s
-  replica:
-    replicaCount: 1
-    service:
-      type: NodePort
-      nodePorts:
-        redis: "30380"
-    persistence:
-      existingClaim: redis-replica-0-pvc # !!! should be created in k8s
+redis-chart:
+  enabled: true
+  redis: #bitnami
+    architecture: replication
+    namespaceOverride: db
+    fullnameOverride: redis
+    auth:
+      enabled: true
+      password: $REDIS_PASSWORD
+    master:
+      service:
+        type: NodePort
+        nodePorts:
+          redis: "30379"
+      persistence:
+        existingClaim: redis-master-0-pvc # !!! should be created in k8s
+    replica:
+      replicaCount: 1
+      service:
+        type: NodePort
+        nodePorts:
+          redis: "30380"
+      persistence:
+        existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
 mongodb: #bitnami
   enabled: false

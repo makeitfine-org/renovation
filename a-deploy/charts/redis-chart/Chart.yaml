@@ -1,0 +1,12 @@
+apiVersion: v2
+name: redis-chart
+description: redis subchart
+icon: https://upload.wikimedia.org/wikipedia/commons/f/f6/Icon_Arrow_Right_256x256.png
+appVersion: 0.1.0
+version: 0.1.0
+
+dependencies:
+  - name: redis
+    version: 22.0.3
+    repository: https://charts.bitnami.com/bitnami
+    alias: redis
