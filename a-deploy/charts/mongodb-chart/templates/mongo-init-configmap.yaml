@@ -4,7 +4,7 @@ metadata:
   name: mongo-init-configmap
   namespace: {{ .Values.mongodb.namespaceOverride }}
 data:
-{{- range $path, $file := .Files.Glob "resource/mongodb/init/*" }}
+{{- range $path, $file := .Files.Glob "resources/init/*" }}
   {{ base $path }}: |
     use {{ index $.Values.mongodb.auth.databases 0 }};
 {{ toString $file | indent 4 }}

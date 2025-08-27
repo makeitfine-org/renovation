@@ -8,18 +8,22 @@
 #set -x // verbose commands
 #
 CURRENT_PATH="$(realpath "$(dirname "$0")")"
+CHART_PATH="$CURRENT_PATH/../../charts"
 CLUSTER_NAME="newc";
 
+# shellcheck disable=SC2317
 echo "minikube path: $MINIKUBE_PATH ($(pwd))"
 
 #(if necessary delete previously network)
 #`docker network ls` and with `docker network inspect ...` to wind (network with 192.168.49.*)
 #docker network rm <network_name> (network with 192.168.49.*)
 
-minikube start -p ${CLUSTER_NAME} --memory 4096 --cpus 4  --subnet 192.168.49.2
+# shellcheck disable=SC2317
+minikube start -p "$CLUSTER_NAME" --memory 4096 --cpus 4  --subnet 192.168.49.2
 
 # switch profile to "${CLUSTER_NAME}" as default
-minikube profile ${CLUSTER_NAME}
+# shellcheck disable=SC2317
+minikube profile "$CLUSTER_NAME"
 
 # install addons
 minikube addons enable volumesnapshots
@@ -30,7 +34,7 @@ minikube addons enable ingress
 minikube addons enable dashboard
 
 # Upload apps images to cluster
-sh  "$CURRENT_PATH/creat_upload_images.sh"
+sh  "$CURRENT_PATH/create_upload_images.sh"
 
 minikube ssh -- "docker images | grep koresmosto"
 
@@ -49,9 +53,9 @@ minikube ssh -- "sudo chown 777 /mnt/data/vault"
 minikube ssh -- "sudo chown 777 /mnt/data/vault/master"
 
 ## create storage
-kubectl apply -f "$CURRENT_PATH/../../resource/vault/vault-sc.yaml"
+kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-sc.yaml"
 
-kubectl apply -f "$CURRENT_PATH/../../resource/vault/vault-pv.yaml"
+kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-pv.yaml"
 
 # postgres
 minikube ssh -- "sudo mkdir /mnt/data/postgres"
@@ -60,14 +64,14 @@ minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/master"
 minikube ssh -- "sudo mkdir /mnt/data/postgres/replica"
 minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/postgres/replica"
 
-kubectl apply -f "$CURRENT_PATH/../../resource/postgres/postgres-pv.yaml"
+kubectl apply -f "$CHART_PATH/postgresql-chart/resources/postgres-pv.yaml"
 
 # mongodb
 minikube ssh -- "sudo mkdir /mnt/data/mongodb"
 minikube ssh -- "sudo mkdir /mnt/data/mongodb/master"
 minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/mongodb/master"
 
-kubectl apply -f "$CURRENT_PATH/../../resource/mongodb/mongodb-pv.yaml"
+kubectl apply -f "$CHART_PATH/mongodb-chart/resources/mongodb-pv.yaml"
 
 # redis
 minikube ssh -- "sudo mkdir /mnt/data/redis"
@@ -76,7 +80,7 @@ minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/master"
 minikube ssh -- "sudo mkdir /mnt/data/redis/replica"
 minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/replica"
 
-kubectl apply -f "$CURRENT_PATH/../../resource/redis/redis-pv.yaml"
+kubectl apply -f "$CHART_PATH/redis-chart/resources/redis-pv.yaml"
 
 ## install all
 #helm install renovation .
