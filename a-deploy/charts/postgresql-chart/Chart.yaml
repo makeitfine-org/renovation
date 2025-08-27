@@ -1,0 +1,12 @@
+apiVersion: v2
+name: postgresql-chart
+description: postgresql subchart
+icon: https://upload.wikimedia.org/wikipedia/commons/f/f6/Icon_Arrow_Right_256x256.png
+appVersion: 0.1.0
+version: 0.1.0
+
+dependencies:
+  - name: postgresql
+    version: 16.7.24
+    repository: https://charts.bitnami.com/bitnami
+    alias: postgresql

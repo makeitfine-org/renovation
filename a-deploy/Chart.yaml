@@ -29,19 +29,17 @@ dependencies:
     version: 0.1.0
     repository: "file://charts/vault-chart"
     condition: vault.enabled
-#    alias: vault
 
   - name: external-secrets-chart
     version: 0.1.0
     repository: "file://charts/external-secrets-chart"
     condition: external-secrets.enabled
-  #    alias: extsecrets
 
-  - name: postgresql
-    version: 16.7.24
-    repository: https://charts.bitnami.com/bitnami
+  - name: postgresql-chart
+    version: 0.1.0
+    repository: "file://charts/postgresql-chart"
     condition: postgresql.enabled
-#    alias: pg
+
   - name: redis
     version: 22.0.3
     repository: https://charts.bitnami.com/bitnami

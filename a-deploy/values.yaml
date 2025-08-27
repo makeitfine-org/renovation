@@ -33,35 +33,36 @@ external-secrets-chart:
     namespaceOverride: security
     installCRDs: true
 
-postgresql: #bitnami
-  enabled: false
-  architecture: replication
-  namespaceOverride: db
-  fullnameOverride: postgresql
-  auth:
-    username: $POSTGRES_USER
-    password: $POSTGRES_PASSWORD
-    database: $POSTGRES_DB
-    replicationUsername: $POSTGRES_USER # !!! todo: create separate rep_user
-    replicationPassword: $POSTGRES_PASSWORD # !!! todo: create separate rep_pass
-  schema: $POSTGRES_SCHEMA
-  primary:
-    service:
-      type: NodePort
-      nodePorts:
-        postgresql: 30432
-    initdb:
-      scriptsConfigMap: postgresql-init-configmap
-    persistence:
-      existingClaim: postgres-primary-0-pvc # !!! should be created in k8s
-  readReplicas:
-    replicaCount: 1
-    service:
-      type: NodePort
-      nodePorts:
-        postgresql: 30433
-    persistence:
-      existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
+postgresql-chart: #bitnami
+  enabled: true
+  postgresql: #bitnami
+    architecture: replication
+    namespaceOverride: db
+    fullnameOverride: postgresql
+    auth:
+      username: $POSTGRES_USER
+      password: $POSTGRES_PASSWORD
+      database: $POSTGRES_DB
+      replicationUsername: $POSTGRES_USER # !!! todo: create separate rep_user
+      replicationPassword: $POSTGRES_PASSWORD # !!! todo: create separate rep_pass
+    schema: $POSTGRES_SCHEMA
+    primary:
+      service:
+        type: NodePort
+        nodePorts:
+          postgresql: 30432
+      initdb:
+        scriptsConfigMap: postgresql-init-configmap
+      persistence:
+        existingClaim: postgres-primary-0-pvc # !!! should be created in k8s
+    readReplicas:
+      replicaCount: 1
+      service:
+        type: NodePort
+        nodePorts:
+          postgresql: 30433
+      persistence:
+        existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
 redis: #bitnami
   enabled: false
