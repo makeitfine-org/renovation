@@ -248,14 +248,22 @@ inside:
 13.1 On any update in above file do   
   `source ./util/secrets/pee.sh util/secrets/envvars_secret_for_deployment.json`  
    and update secrets in `vault`  
- 14. check if all namespaces deleted: `check_namespaces.sh`  
- 15. so shortcut to remove helm chart:   
+14. check if all namespaces deleted: `check_namespaces.sh`  
+15. so shortcut to remove helm chart:   
 `hun && sh util/helper/check_namespaces.sh && kpp && kpp`
 16. Helm autcompletion: 
 `helmfile completion bash > helmfile`  
 `sudo mv helmfile /etc/bash_completion.d/`  
 17. Update dependencies/build inside subchart:  
 `h dependency build && hdu`  
+18. 
+- hi with ns: `hid --set vaultC.enabled=true --namespace security`    
+- `hi --set vaultC.enabled=true --namespace security`  
+- `hun --namespace security`  # and delete in -n security pvc
+- un: `h uninstall renovation -n security && k delete -n security pvc data-renovation-vault-0 && kpp`
+
+- un: `h uninstall renovation -n low && k delete -n low pvc data-renovation-vault-0 && kpp`
+- in: `h install renovation . --set vaultC.enabled=true -n low --create-namespace`
 
 ===>  
 ===>  

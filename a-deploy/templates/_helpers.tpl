@@ -1,3 +1,9 @@
+{{/*{{ template "ca.fullname" . }}*/}}
+{{/*{{- define "ca.fullname" -}}*/}}
+{{/*{{- if .Values.fullnameOverride -}}*/}}
+{{/*{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}*/}}
+{{/*{{- else -}}*/}}
+
 {{- define "ca.name" -}}
 {{ .Values.name }}
 {{- end }}

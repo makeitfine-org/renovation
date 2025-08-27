@@ -14,8 +14,6 @@ vaultC:
   vault:
     name: vault
     secretPath: "secret/renovation/secrets"
-    global:
-      namespace: "security"
     ui:
       enabled: true
       serviceType: NodePort
