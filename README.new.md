@@ -270,6 +270,12 @@ inside:
 - ins\un:  
 `h uninstall wolf && kpp && k delete -n low pvc ...`
 
+add into ~/.bashrc:  
+`export RENOVATION_TOKEN`  
+`export RENOVATION_UNSEAL_KEY`
+
+
+
 ===>  
 ===>  
 ===>  
