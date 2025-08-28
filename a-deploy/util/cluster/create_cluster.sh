@@ -34,7 +34,7 @@ minikube addons enable ingress
 minikube addons enable dashboard
 
 # Upload apps images to cluster
-sh  "$CURRENT_PATH/create_upload_images.sh"
+sh  "$CURRENT_PATH/build_upload_images.sh"
 
 minikube ssh -- "docker images | grep koresmosto"
 

@@ -264,6 +264,8 @@ inside:
 
 - un: `h uninstall renovation -n low && k delete -n low pvc data-renovation-vault-0 && kpp`
 - in: `h install renovation . --set vaultC.enabled=true -n low --create-namespace`
+- upd. deps: `sh /util/helper/update_dependencies.sh`  
+- add repos: `https://charts.bitnami.com/bitnami` `https://helm.releases.hashicorp.com`
 
 ===>  
 ===>  
