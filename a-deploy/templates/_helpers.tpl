@@ -38,16 +38,20 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
     Special name helpers for components
 */}}
+{{- define "ca.vaultSecretName" -}}
+{{ printf "%s-vault-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.secretName" -}}
+{{ printf "%s-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
 {{- define "ca.jobName" -}}
 {{ printf "%s-job" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{- define "ca.configmapName" -}}
 {{ printf "%s-config" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.secretName" -}}
-{{ printf "%s-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{- define "ca.pvcName" -}}

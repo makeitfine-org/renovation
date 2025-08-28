@@ -49,12 +49,12 @@ spec:
             - name: VAULT_UNSEAL_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.vault.name }}-secret
+                  name: {{ include "ca.vaultSecretName" . }}
                   key: unsealKey
             - name: VAULT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.vault.name }}-secret
+                  name: {{ include "ca.vaultSecretName" . }}
                   key: token
           command: [ "/bin/sh", "-c" ]
           args:
