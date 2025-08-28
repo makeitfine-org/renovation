@@ -267,6 +267,9 @@ inside:
 - upd. deps: `sh /util/helper/update_dependencies.sh`  
 - add repos: `https://charts.bitnami.com/bitnami` `https://helm.releases.hashicorp.com`
 
+- ins\un:  
+`h uninstall wolf && kpp && k delete -n low pvc ...`
+
 ===>  
 ===>  
 ===>  
