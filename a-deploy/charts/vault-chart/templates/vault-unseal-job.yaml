@@ -59,7 +59,15 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - |
-              alias COM="kubectl exec -n {{ .Release.Namespace }} {{ .Release.Name }}-{{ .Values.vault.name }}-0 -- sh -c"
+              if kubectl get -n {{ .Release.Namespace }} pod {{ .Release.Name }}-{{ .Values.vault.name }}-0  >/dev/null 2>&1; then
+                export POD_NAME={{ .Release.Name }}-{{ .Values.vault.name }}-0
+              else
+                export POD_NAME={{ .Release.Name }}-0
+              fi
+
+              echo $POD_NAME
+
+              alias COM="kubectl exec -n {{ .Release.Namespace }} $POD_NAME -- sh -c"
               COM "vault operator unseal $VAULT_UNSEAL_KEY"
 
               {{/* # Play with env. vars !!! todo: delete envvars. (insecure) */}}
