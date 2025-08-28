@@ -9,7 +9,7 @@ global:
     security: security # Keycloak, Vault, etc.
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
-vaultC:
+vaultc:
   enabled: false
   vault:
     name: vault

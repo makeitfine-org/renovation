@@ -26,10 +26,10 @@ appVersion: "0.1.0"
 
 dependencies:
   - name: vault-chart
-    alias: vaultC
+    alias: vaultc
     version: 0.1.0
     repository: "file://charts/vault-chart"
-    condition: vaultC.enabled
+    condition: vaultc.enabled
   - name: external-secrets-chart
     alias: externalC
     version: 0.1.0
