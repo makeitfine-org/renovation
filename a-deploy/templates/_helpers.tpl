@@ -78,6 +78,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 
+{{/*
+Fully Qualified Domain Name (FQDN) for Vault Service
+*/}}
+{{- define "vault.serviceFQDN" -}}
+http://{{ include "vault.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8200
+{{- end }}
+{{/*{{ include "vault.serviceFQDN" . | quote }}*/}}
+
 
 {{/* --- */}}
 

@@ -273,14 +273,16 @@ inside:
 add into ~/.bashrc:  
 `export RENOVATION_TOKEN`  
 `export RENOVATION_UNSEAL_KEY`
-`h install vault .  --set vaultC.enabled=true --set vaultC.vault.token=$RENOVATION_VAULT_TOKEN --set vaultC.vault.unsealKey=$RENOVATION_VAULT_KEY  -n security --create-namespace --dry-run > dry.txt `
-`h install vault .  --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY  -n security --create-namespace --dry-run > dry.txt`
+
+`h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
+`h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
 
 
 
 ===>  
 ===>  
 ===>  
+
 
 
 4. start `frontend`:
