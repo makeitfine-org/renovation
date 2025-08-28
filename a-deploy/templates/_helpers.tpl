@@ -1,15 +1,85 @@
-{{/*{{ template "ca.fullname" . }}*/}}
-{{/*{{- define "ca.fullname" -}}*/}}
-{{/*{{- if .Values.fullnameOverride -}}*/}}
-{{/*{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}*/}}
-{{/*{{- else -}}*/}}
-
+{{/*
+    Expand the name of the chart [Base name (chart name, overridable)]
+*/}}
 {{- define "ca.name" -}}
-{{ .Values.name }}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end }}
+
+{{/*
+    Create a default fully qualified app name [Fullname (release + chart name, overridable)]
+*/}}
+{{- define "ca.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name (include "ca.name" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{/*
+    Labels common to all resources
+*/}}
+{{- define "ca.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+app.kubernetes.io/name: {{ include "ca.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ .Chart.Name }}
+{{- end }}
+
+{{/*
+    Selector labels (to match pods)
+*/}}
+{{- define "ca.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "ca.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+    Special name helpers for components
+*/}}
+{{- define "ca.jobName" -}}
+{{ printf "%s-job" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.configmapName" -}}
+{{ printf "%s-config" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.secretName" -}}
+{{ printf "%s-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.pvcName" -}}
+{{ printf "%s-pvc" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.serviceName" -}}
+{{ printf "%s-svc" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+    Component-specific names
+*/}}
+{{- define "ca.serviceAccountName" -}}
+{{ printf "%s-sa" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.roleName" -}}
+{{ printf "%s-role" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "ca.roleBindingName" -}}
+{{ printf "%s-rb" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 
-{{- define "ca.metadata" -}}
+
+{{/* --- */}}
+
+
+
+{{- define "caOld.metadata" -}}
 metadata:
   name: {{ include "ca.name" . }}{{- if .nameSuffix }}-{{ .nameSuffix }}{{- end }}
   namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
@@ -25,7 +95,7 @@ metadata:
 {{- define "ca.deployment" -}}
 apiVersion: apps/v1
 kind: {{ default "Deployment" .Values.deployment }}
-{{ include "ca.metadata" . | nindent 0 }}
+{{ include "caOld.metadata" . | nindent 0 }}
 spec:
   replicas: {{ default 1 .Values.replicas }}
   selector:
@@ -104,7 +174,7 @@ spec:
 {{- define "ca.service" -}}
 apiVersion: v1
 kind: Service
-{{ include "ca.metadata" . | nindent 0 }}
+{{ include "caOld.metadata" . | nindent 0 }}
 spec:
   selector:
     app: {{ .Values.name }}
