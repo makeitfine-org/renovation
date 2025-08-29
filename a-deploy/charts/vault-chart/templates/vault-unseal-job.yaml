@@ -52,7 +52,7 @@ spec:
             - name: VAULT_UNSEAL_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ca.vaultSecretName" . }}
+                  name: {{ include "ca.fullname" . }}-internal-secret
                   key: unsealKey
           command: [ "/bin/sh", "-c" ]
           args:

@@ -25,7 +25,7 @@ app.kubernetes.io/name: {{ include "ca.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/component: {{ .Chart.Name }}
-app.kubernetes.io/namespace: {{ .Release.Namespace }}
+{{/*app.kubernetes.io/namespace: {{ .Release.Namespace }}*/}}
 {{- end }}
 
 {{/*
@@ -39,9 +39,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
     Special name helpers for components
 */}}
-{{- define "ca.vaultSecretName" -}}
-{{ printf "%s-vault-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
 
 {{- define "ca.secretName" -}}
 {{ printf "%s-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
