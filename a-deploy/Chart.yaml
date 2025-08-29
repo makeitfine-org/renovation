@@ -31,10 +31,10 @@ dependencies:
     repository: "file://charts/vault-chart"
     condition: vaultc.enabled
   - name: external-secrets-chart
-    alias: externalC
+    alias: externalc
     version: 0.1.0
     repository: "file://charts/external-secrets-chart"
-    condition: externalC.enabled
+    condition: externalc.enabled
   - name: postgresql-chart
     alias: postgresqlC
     version: 0.1.0

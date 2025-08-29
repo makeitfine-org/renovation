@@ -25,7 +25,7 @@ vaultc:
         size: 1Gi
         storageClass: vault-retain
 
-externalC:
+externalc:
   enabled: false
   external-secrets:
     name: extsecrets

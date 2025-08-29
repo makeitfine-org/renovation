@@ -284,7 +284,12 @@ check name:
 `nslookup vaultrs.security.svc.cluster.local`
 `wget -qO- http://vaultrs-vaultc.security.svc.cluster.local:8200/v1/sys/health`
 
+Install external-secrets rls:  
+`h install extrs . --set externalc.enabled=true -n security --create-namespace`  
+`h -n security uninstall extrs`  
 
+Show key:value of secrets:  
+`kubectl get secret extsecrets-secret -n security -o jsonpath='{.data}' | jq 'to_entries | .[] | "\(.key): \(.value | @base64d)"'`
 
 ===>  
 ===>  
