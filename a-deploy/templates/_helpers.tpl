@@ -3,18 +3,23 @@
 */}}
 {{- define "ca.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- end }}
+{{- end -}}
 
 {{/*
     Create a default fully qualified app name [Fullname (release + chart name, overridable)]
+*/}}
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
 */}}
 {{- define "ca.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- printf "%s-%s" .Release.Name (include "ca.name" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
 
 {{/*
     Labels common to all resources
@@ -26,7 +31,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/component: {{ .Chart.Name }}
 {{/*app.kubernetes.io/namespace: {{ .Release.Namespace }}*/}}
-{{- end }}
+{{- end -}}
 
 {{/*
     Selector labels (to match pods)
@@ -34,7 +39,7 @@ app.kubernetes.io/component: {{ .Chart.Name }}
 {{- define "ca.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "ca.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
+{{- end -}}
 
 {{/*
     Special name helpers for components
@@ -42,46 +47,23 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- define "ca.secretName" -}}
 {{ printf "%s-secret" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.jobName" -}}
-{{ printf "%s-job" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- end -}}
 
 {{- define "ca.configmapName" -}}
 {{ printf "%s-config" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.pvcName" -}}
-{{ printf "%s-pvc" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.serviceName" -}}
-{{ printf "%s-svc" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- end -}}
 
 {{/*
     Component-specific names
 */}}
-{{- define "ca.serviceAccountName" -}}
-{{ printf "%s-sa" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.roleName" -}}
-{{ printf "%s-role" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{- define "ca.roleBindingName" -}}
-{{ printf "%s-rb" (include "ca.fullname" .) | trunc 63 | trimSuffix "-" }}
-{{- end }}
 
 
 {{/*
 Fully Qualified Domain Name (FQDN) for Vault Service
-*/}}
+!todo: not readY*/}}
 {{- define "vault.serviceFQDN" -}}
-http://{{ include "vault.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8200
-{{- end }}
+http://{{ include "vault.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.vault.server.service.port }}
+{{- end -}}
 {{/*{{ include "vault.serviceFQDN" . | quote }}*/}}
 
 
@@ -252,8 +234,3 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 annotations:
   checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
 {{- end -}}
-
-
-
-
-
