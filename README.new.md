@@ -295,7 +295,11 @@ Show key:value of secrets:
 ===>  
 ===>  
 
-
+Order of releasing:
+1) externalc
+2) vaultc
+2.2) ? secrets (vault+external secrets):  
+3) ` h install secrets . --set global.secret.enabled=true  -n security --create-namespace`
 
 4. start `frontend`:
    `$>npm install && npm start`

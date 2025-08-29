@@ -1,9 +1,11 @@
+{{/* Should be moved to services (postgres, redis, ... while setup) */}}
+
 {{- if .Values.global.createConfigmap -}}
 
 {{- $root := . }}
 {{- $ns_default := $root.Release.Namespace }}
-{{- range $ns := list .Values.global.namespace.apps }}
 
+{{- range $ns := list .Values.global.namespace.apps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:

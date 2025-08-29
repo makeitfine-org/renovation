@@ -1,4 +1,9 @@
 global:
+  secret: # define whether to create secrets and which namespaces to use
+    enabled: false
+    namespaces:
+      - security
+
   parentChartName: renovation
   createNamespaces: false
   createConfigmap: false
@@ -9,6 +14,13 @@ global:
     security: security # Keycloak, Vault, etc.
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
+externalc:
+  enabled: false
+  external-secrets:
+    name: extsecrets
+    namespaceOverride: security
+    installCRDs: true
+
 vaultc:
   enabled: false
   vault:
@@ -24,16 +36,6 @@ vaultc:
         enabled: true
         size: 1Gi
         storageClass: vault-retain
-
-externalc:
-  enabled: false
-  secret:
-    namespaces:
-      - security
-  external-secrets:
-    name: extsecrets
-    namespaceOverride: security
-    installCRDs: true
 
 postgresqlC: #bitnami
   enabled: false

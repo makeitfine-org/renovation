@@ -25,16 +25,16 @@ icon: https://files.softicons.com/download/android-icons/flat-icons-by-martz90/p
 appVersion: "0.1.0"
 
 dependencies:
-  - name: vault-chart
-    alias: vaultc
-    version: 0.1.0
-    repository: "file://charts/vault-chart"
-    condition: vaultc.enabled
   - name: external-secrets-chart
     alias: externalc
     version: 0.1.0
     repository: "file://charts/external-secrets-chart"
     condition: externalc.enabled
+  - name: vault-chart
+    alias: vaultc
+    version: 0.1.0
+    repository: "file://charts/vault-chart"
+    condition: vaultc.enabled
   - name: postgresql-chart
     alias: postgresqlC
     version: 0.1.0
