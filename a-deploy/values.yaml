@@ -27,6 +27,9 @@ vaultc:
 
 externalc:
   enabled: false
+  secret:
+    namespaces:
+      - security
   external-secrets:
     name: extsecrets
     namespaceOverride: security
