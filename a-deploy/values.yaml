@@ -12,7 +12,6 @@ global:
 vaultc:
   enabled: false
   vault:
-    name: vault
     secretPath: "secret/renovation/secrets"
     ui:
       enabled: true

@@ -37,7 +37,7 @@ roleRef:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "ca.fullname" . }}-unseal
+  name: {{ include "ca.fullname" . }}-unseal-job
   labels:
     {{- include "ca.labels" . | nindent 4 }}
 spec:
@@ -57,13 +57,5 @@ spec:
           command: [ "/bin/sh", "-c" ]
           args:
             - |
-              if kubectl get -n {{ .Release.Namespace }} pod {{ .Release.Name }}-{{ .Values.vault.name }}-0  >/dev/null 2>&1; then
-                export POD_NAME={{ .Release.Name }}-{{ .Values.vault.name }}-0
-              else
-                export POD_NAME={{ .Release.Name }}-0
-              fi
-
-              echo $POD_NAME
-
-              alias COM="kubectl exec -n {{ .Release.Namespace }} $POD_NAME -- sh -c"
+              alias COM="kubectl exec -n {{ .Release.Namespace }} {{ .Release.Name }}-0 -- sh -c"
               COM "vault operator unseal $VAULT_UNSEAL_KEY"

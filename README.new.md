@@ -277,6 +277,13 @@ add into ~/.bashrc:
 `h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
 `h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
 
+DNS tool (https://chatgpt.com/s/t_68b17d8cf884819189c2acfe8d37a05b):  
+start server:  
+`kubectl run -i --tty dns-test --image=busybox:1.36 --restart=Never -- sh`
+check name:  
+`nslookup vaultrs.security.svc.cluster.local`
+`wget -qO- http://vaultrs-vaultc.security.svc.cluster.local:8200/v1/sys/health`
+
 
 
 ===>  
