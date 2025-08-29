@@ -25,6 +25,7 @@ app.kubernetes.io/name: {{ include "ca.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/component: {{ .Chart.Name }}
+app.kubernetes.io/namespace: {{ .Release.Namespace }}
 {{- end }}
 
 {{/*
