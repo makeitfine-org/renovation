@@ -8,6 +8,8 @@
 export CLUSTER_NAME='newc';
 export CLUSTER_IP='192.168.49.2';
 
+export VAULT_CLUSTER_PORT=30820;
+
 export POSTGRES_CLUSTER_PORT=30432;
 
 export REDIS_CLUSTER_PORT=30379;
@@ -38,6 +40,14 @@ if ping -c 1 "$CLUSTER_IP" >/dev/null 2>&1; then
 else
     echo "❌ Cluster Host ($CLUSTER_NAME -> $CLUSTER_IP) is not reachable"
     exit 1;
+fi
+
+# test vault service reachable
+if nc -zv "$CLUSTER_IP" "$VAULT_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
+  echo "✅ Connection to Vault ($CLUSTER_IP:$VAULT_CLUSTER_PORT) succeeded"
+else
+  echo "❌ Connection to Vault ($CLUSTER_IP:$VAULT_CLUSTER_PORT) failed"
+  exit 1;
 fi
 
 # test postgres
