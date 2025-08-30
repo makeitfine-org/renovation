@@ -292,6 +292,7 @@ To add/remove external-secrets in values.yaml add/remove to `global.secrets.name
 
 
 Order of releasing (inst/uninst):
+
 1) externalc:
 `h install extrs . --set externalc.enabled=true -n security --create-namespace`  
 `h -n security uninstall extrs`
@@ -301,13 +302,14 @@ Order of releasing (inst/uninst):
 `export RENOVATION_VAULT_UNSEAL_KEY`
 `h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
 `h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
-2.2) ? secrets (vault+external secrets):  
-3) 
+
+3)  secrets (vault+external secrets):
 `h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
+
 4) Postgres:
     Install:  
-   Install helm plugin:  9
+   Install helm plugin:
    `helm plugin install https://github.com/jkroepke/helm-secrets`  
    `export VAULT_ADDR="http://192.168.49.2:30820"`  
    `export VAULT_TOKEN=$RENOVATION_VAULT_TOKEN`  
@@ -334,6 +336,7 @@ helm install redisrs . \
   -n db --create-namespace
 ` 
 `h uninstall -n db redisrs && k -n db delete pvc redis-master-0-pvc && k -n db delete pvc redis-replica-0-pvc && kpvre && kg pv`
+ 
 6) Mongodb:
 `
 helm install mongodbrs . \
@@ -346,6 +349,14 @@ helm install mongodbrs . \
  -n db --create-namespace
 `
 `h uninstall -n db mongodbrs && k -n db delete pvc mongodb-master-0-pvc && kpvmo && kg pv`
+
+7) Info-app:
+`
+helm install infors . \
+--set info.enabled=true \
+ -n apps --create-namespace
+`
+`h uninstall -n apps infors`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`

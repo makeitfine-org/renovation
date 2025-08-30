@@ -7,8 +7,6 @@ global:
       - db
       - apps
 
-  createConfigmap: false
-
   # !todo: old (review wether to leave)
   parentChartName: renovation
   namespace:
@@ -100,6 +98,8 @@ redisc:
 mongodbc:
   enabled: false
   namespace: db
+  configMapNamespaces: # create configMap based on the service and propagate it to namespaces
+    - apps
   mongodb: #bitnami
     architecture: standalone
     global:
@@ -122,19 +122,21 @@ mongodbc:
       existingClaim: mongodb-master-0-pvc # !!! should be created in k8s
     initdbScriptsConfigMap: mongo-init-configmap
 
-backend:
+info:
   enabled: false
-  namespaceOverride: apps
-  name: backend
+  name: info
   replicas: 2
   image:
-    repository: koresmosto/renovation-backend
+    repository: koresmosto/renovation-info
     tag: latest
     pullPolicy: IfNotPresent
+  mongo:
+    username: $MONGO_USERNAME
+    password: $MONGO_PASSWORD
   service:
     type: NodePort
-    port: 8080
-    nodePort: 30080
+    port: 9090
+    nodePort: 30090
   healthCheck:
     livenessProbe:
       http:
@@ -158,22 +160,19 @@ backend:
       cpu: "500m"
       memory: "512Mi"
 
-info:
+backend:
   enabled: false
   namespaceOverride: apps
-  name: info
+  name: backend
   replicas: 2
   image:
-    repository: koresmosto/renovation-info
+    repository: koresmosto/renovation-backend
     tag: latest
     pullPolicy: IfNotPresent
-  mongo:
-    username: $MONGO_USERNAME
-    password: $MONGO_PASSWORD
   service:
     type: NodePort
-    port: 9090
-    nodePort: 30090
+    port: 8080
+    nodePort: 30080
   healthCheck:
     livenessProbe:
       http:

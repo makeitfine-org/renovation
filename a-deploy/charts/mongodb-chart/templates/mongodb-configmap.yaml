@@ -1,9 +1,13 @@
+{{- range $ns := .Values.configMapNamespaces }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mongodb-configmap
+  name: {{ $ns }}-mongodb-configmap
+  namespace: {{ $ns }}
   labels:
-    {{- include "ca.labels" . | nindent 4 }}
+    {{- include "ca.labels" $ | nindent 4 }}
 data:
-  MONGO_HOST: "{{ .Values.mongodb.fullnameOverride }}.{{ .Release.Namespace }}.svc.cluster.local"
-  MONGO_PORT: {{ .Values.mongodb.service.ports.mongodb | quote}}
+  MONGO_HOST: "{{ $.Values.mongodb.fullnameOverride }}.{{ $.Release.Namespace }}.svc.cluster.local"
+  MONGO_PORT: {{ $.Values.mongodb.service.ports.mongodb | quote}}
+---
+{{- end }}
