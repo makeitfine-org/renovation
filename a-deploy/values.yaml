@@ -49,12 +49,12 @@ postgresqlc: #bitnami
     namespaceOverride: db
     fullnameOverride: postgresql
     auth:
-      database: renovation
-      username: postgres
-      password: postgres1
-      replicationUsername: postgres # !!! todo: create separate rep_user
-      replicationPassword: postgres1 # !!! todo: create separate rep_pass
-    schema: backend
+      username:
+      password:
+      database:
+      replicationUsername: # !!! todo: create separate rep_user
+      replicationPassword: # !!! todo: create separate rep_pass
+    schema:
     primary:
       service:
         type: NodePort

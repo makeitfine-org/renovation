@@ -311,9 +311,23 @@ Order of releasing (inst/uninst):
 3) 
 `h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
-4) Postgres:  
+4) Postgres:
+    Install:  
+`
+helm install postgresrs . \
+  --set postgresqlc.enabled=true \
+  --set postgresqlc.postgresql.auth.username="$(vault kv get -field=POSTGRES_USER secret/renovation/secrets)" \
+  --set postgresqlc.postgresql.auth.password="$(vault kv get -field=POSTGRES_PASSWORD secret/renovation/secrets)" \
+  --set postgresqlc.postgresql.auth.database="$(vault kv get -field=POSTGRES_DB secret/renovation/secrets)" \
+  --set postgresqlc.postgresql.auth.replicationUsername="$(vault kv get -field=POSTGRES_USER secret/renovation/secrets)" \
+  --set postgresqlc.postgresql.auth.replicationPassword="$(vault kv get -field=POSTGRES_PASSWORD secret/renovation/secrets)" \
+  --set postgresqlc.postgresql.schema="$(vault kv get -field=POSTGRES_SCHEMA secret/renovation/secrets)" \
+  -n db --create-namespace
+`  
 `h uninstall -n db postgresrs && k -n db delete pvc postgres-primary-0-pvc && k -n db delete pvc postgres-replica-0-pvc && kpvpg && kg pv`  
 
+check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
+`vault kv get -field=POSTGRES_USER secret/renovation/secrets`
 
 4. start `frontend`:
    `$>npm install && npm start`
