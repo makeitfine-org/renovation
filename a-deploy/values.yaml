@@ -101,6 +101,7 @@ redisC:
 
 mongodbC:
   enabled: false
+  namespace: db
   mongodb: #bitnami
     architecture: standalone
     namespaceOverride: db
