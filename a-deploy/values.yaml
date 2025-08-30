@@ -73,7 +73,7 @@ postgresqlc: #bitnami
       persistence:
         existingClaim: postgres-replica-0-pvc # !!! should be created in k8s
 
-redisC:
+redisc:
   enabled: false
   namespace: db
   redis: #bitnami
@@ -82,7 +82,7 @@ redisC:
     fullnameOverride: redis
     auth:
       enabled: true
-      password: $REDIS_PASSWORD
+      password:
     master:
       service:
         type: NodePort

@@ -36,7 +36,7 @@ alias kpvault="kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": n
 alias kpvpg="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
-alias kpvrem="kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \"
+alias kpvre="kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
 alias kpvmom="kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"

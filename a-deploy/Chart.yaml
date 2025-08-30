@@ -41,10 +41,10 @@ dependencies:
     repository: "file://charts/postgresql-chart"
     condition: postgresqlc.enabled
   - name: redis-chart
-    alias: redisC
+    alias: redisc
     version: 0.1.0
     repository: "file://charts/redis-chart"
-    condition: redisC.enabled
+    condition: redisc.enabled
   - name: mongodb-chart
     alias: mongodbC
     version: 0.1.0

@@ -285,8 +285,6 @@ To add/remove external-secrets in values.yaml add/remove to `global.secrets.name
 
 
 
-
-
 ===>  
 ===>  
 ===>  
@@ -327,6 +325,16 @@ helm install postgresrs . \
   -n db --create-namespace
 `  
 `h uninstall -n db postgresrs && k -n db delete pvc postgres-primary-0-pvc && k -n db delete pvc postgres-replica-0-pvc && kpvpg && kg pv`  
+
+5) Redis:
+`
+helm install redisrs . \
+  --set redisc.enabled=true \
+  --set redisc.redis.auth.password="$(vault kv get -field=REDIS_PASSWORD secret/renovation/secrets)" \
+  -n db --create-namespace
+` 
+
+`h uninstall -n db redisrs && k -n db delete pvc redis-master-0-pvc && k -n db delete pvc redis-replica-0-pvc && kpvre && kg pv`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`
