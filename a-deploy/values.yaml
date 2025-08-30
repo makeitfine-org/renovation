@@ -5,6 +5,7 @@ global:
       servicePath: "http://vaultrs.security.svc.cluster.local:8200"
     namespaces:
       - db
+      - security
 
   createConfigmap: false
 
@@ -74,6 +75,7 @@ postgresqlC: #bitnami
 
 redisC:
   enabled: false
+  namespace: db
   redis: #bitnami
     architecture: replication
     namespaceOverride: db
