@@ -333,7 +333,6 @@ helm install redisrs . \
   --set redisc.redis.auth.password="$(vault kv get -field=REDIS_PASSWORD secret/renovation/secrets)" \
   -n db --create-namespace
 ` 
-
 `h uninstall -n db redisrs && k -n db delete pvc redis-master-0-pvc && k -n db delete pvc redis-replica-0-pvc && kpvre && kg pv`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
