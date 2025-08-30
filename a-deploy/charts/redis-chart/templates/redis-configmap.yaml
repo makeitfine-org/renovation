@@ -1,9 +1,13 @@
+{{- range $ns := .Values.configMapNamespaces }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: redis-configmap
+  name: {{ $ns }}-redis-configmap
+  namespace: {{ $ns }}
   labels:
-    {{- include "ca.labels" . | nindent 4 }}
+    {{- include "ca.labels" $ | nindent 4 }}
 data:
-  REDIS_HOST: "{{ .Values.redis.fullnameOverride }}-master.{{ .Release.Namespace }}.svc.cluster.local"
-  REDIS_PORT: {{ .Values.redis.master.service.ports.redis | quote }}
+  REDIS_HOST: "{{ $.Values.redis.fullnameOverride }}-master.{{ $.Release.Namespace }}.svc.cluster.local"
+  REDIS_PORT: {{ $.Values.redis.master.service.ports.redis | quote }}
+---
+{{- end }}

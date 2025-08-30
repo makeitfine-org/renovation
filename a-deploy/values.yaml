@@ -42,6 +42,8 @@ vaultc:
 postgresqlc: #bitnami
   enabled: false
   namespace: db
+  configMapNamespaces: # create configMap based on the service and propagate it to namespaces
+    - apps
   postgresql: #bitnami
     architecture: replication
     fullnameOverride: postgresql
@@ -73,6 +75,8 @@ postgresqlc: #bitnami
 redisc:
   enabled: false
   namespace: db
+  configMapNamespaces:
+    - apps
   redis: #bitnami
     architecture: replication
     fullnameOverride: redis
@@ -98,7 +102,7 @@ redisc:
 mongodbc:
   enabled: false
   namespace: db
-  configMapNamespaces: # create configMap based on the service and propagate it to namespaces
+  configMapNamespaces:
     - apps
   mongodb: #bitnami
     architecture: standalone

@@ -1,10 +1,14 @@
+{{- range $ns := .Values.configMapNamespaces }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgresql-configmap
+  name: {{ $ns }}-postgresql-configmap
+  namespace: {{ $ns }}
   labels:
-    {{- include "ca.labels" . | nindent 4 }}
+    {{- include "ca.labels" $ | nindent 4 }}
 data:
-  POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgresql.fullnameOverride }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}?currentSchema={{ .Values.postgresql.schema}}"
-  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ .Values.postgresql.fullnameOverride }}-primary.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}?currentSchema={{ .Values.postgresql.schema}}"
-  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ .Values.postgresql.fullnameOverride }}-read.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgresql.readReplicas.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}?currentSchema={{ .Values.postgresql.schema}}"
+  POSTGRES_DB_URL: "jdbc:postgresql://{{ $.Values.postgresql.fullnameOverride }}.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.postgresql.primary.service.ports.postgresql }}/{{ $.Values.postgresql.auth.database }}?currentSchema={{ $.Values.postgresql.schema}}"
+  POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ $.Values.postgresql.fullnameOverride }}-primary.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.postgresql.primary.service.ports.postgresql }}/{{ $.Values.postgresql.auth.database }}?currentSchema={{ $.Values.postgresql.schema}}"
+  POSTGRES_RO_DB_URL: "jdbc:postgresql://{{ $.Values.postgresql.fullnameOverride }}-read.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.postgresql.readReplicas.service.ports.postgresql }}/{{ $.Values.postgresql.auth.database }}?currentSchema={{ $.Values.postgresql.schema}}"
+---
+{{- end }}
