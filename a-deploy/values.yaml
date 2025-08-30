@@ -42,6 +42,7 @@ vaultc:
 
 postgresqlC: #bitnami
   enabled: false
+  namespace: db
   postgresql: #bitnami
     architecture: replication
     namespaceOverride: db
