@@ -8,19 +8,19 @@ global:
       - apps
 
   # !todo: old (review wether to leave)
-  parentChartName: renovation
-  namespace:
-    infra: infra       # ingress, service-mesh control plane, monitoring, cert-manager, logging
-    db: db             # databases, message brokers, caches
-    apps: apps         # application workloads
-    security: security # Keycloak, Vault, etc.
+  # parentChartName: renovation
+  # namespace:
+  #  infra: infra       # ingress, service-mesh control plane, monitoring, cert-manager, logging
+  #  db: db             # databases, message brokers, caches
+  #  apps: apps         # application workloads
+  #  security: security # Keycloak, Vault, etc.
 
 # dep. guid: https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide
 externalc:
   enabled: false
   external-secrets:
     name: extsecrets
-    namespaceOverride: security
+    namespaceOverride: security # !todo: remove and check
     installCRDs: true
 
 vaultc:
@@ -106,8 +106,6 @@ mongodbc:
     - apps
   mongodb: #bitnami
     architecture: standalone
-    global:
-      namespaceOverride: db # only this rewrites namespace
     fullnameOverride: mongodb
     auth:
       rootUser:
@@ -166,7 +164,6 @@ info:
 
 backend:
   enabled: false
-  namespaceOverride: apps
   name: backend
   replicas: 2
   image:
