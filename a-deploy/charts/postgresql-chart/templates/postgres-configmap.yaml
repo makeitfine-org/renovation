@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "ca.fullname" . }}-configmap
+  name: postgresql-configmap
+  labels:
+    {{- include "ca.labels" . | nindent 4 }}
 data:
   POSTGRES_DB_URL: "jdbc:postgresql://{{ .Values.postgresql.fullnameOverride }}.{{ .Values.postgresql.namespaceOverride }}.svc.cluster.local:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}?currentSchema={{ .Values.postgresql.schema}}"
   POSTGRES_RW_DB_URL: "jdbc:postgresql://{{ .Values.postgresql.fullnameOverride }}-primary.{{ .Values.postgresql.namespaceOverride }}.svc.cluster.local:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}?currentSchema={{ .Values.postgresql.schema}}"

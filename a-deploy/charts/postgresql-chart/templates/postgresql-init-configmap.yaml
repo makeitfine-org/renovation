@@ -2,7 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgresql-init-configmap
-  namespace: {{ .Values.postgresql.namespaceOverride }}
+  labels:
+    {{- include "ca.labels" . | nindent 4 }}
 data:
   01-create-schema.sql: |
     CREATE SCHEMA IF NOT EXISTS {{ .Values.postgresql.schema }} AUTHORIZATION {{ .Values.postgresql.auth.username }};

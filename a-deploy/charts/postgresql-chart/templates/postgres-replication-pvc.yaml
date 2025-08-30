@@ -2,6 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.postgresql.primary.persistence.existingClaim }}
+  labels:
+    {{- include "ca.labels" . | nindent 4 }}
   annotations: # unnecessary here !!!
     helm.sh/resource-policy: keep
 spec:
@@ -17,6 +19,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.postgresql.readReplicas.persistence.existingClaim }}
+  labels:
+    {{- include "ca.labels" . | nindent 4 }}
   annotations:
     helm.sh/resource-policy: keep
 spec:
