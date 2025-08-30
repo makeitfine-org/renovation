@@ -104,9 +104,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           envFrom:
             - configMapRef:
-                name: {{ .Values.global.parentChartName }}-configmap
+                name: apps-mongodb-configmap
             - secretRef:
-                name: {{ .Values.global.parentChartName }}-vault-secret
+                name: extsecrets-mongodb-secret
           ports:
             - containerPort: {{ .containerPort -}}
 
