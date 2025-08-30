@@ -46,10 +46,10 @@ dependencies:
     repository: "file://charts/redis-chart"
     condition: redisc.enabled
   - name: mongodb-chart
-    alias: mongodbC
+    alias: mongodbc
     version: 0.1.0
     repository: "file://charts/mongodb-chart"
-    condition: mongodbC.enabled
+    condition: mongodbc.enabled
 
   ### Apps
   - name: backend

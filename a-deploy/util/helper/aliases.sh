@@ -39,4 +39,4 @@ alias kpvpg="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\":
 alias kpvre="kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
             && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
-alias kpvmom="kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+alias kpvmo="kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"

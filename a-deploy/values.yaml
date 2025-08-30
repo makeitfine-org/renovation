@@ -99,7 +99,7 @@ redisc:
       persistence:
         existingClaim: redis-replica-0-pvc # !!! should be created in k8s
 
-mongodbC:
+mongodbc:
   enabled: false
   namespace: db
   mongodb: #bitnami
@@ -109,14 +109,14 @@ mongodbC:
       namespaceOverride: db # only this rewrites namespace
     fullnameOverride: mongodb
     auth:
-      rootUser: $MONGO_INITDB_ROOT_USERNAME
-      rootPassword: $MONGO_INITDB_ROOT_PASSWORD
+      rootUser:
+      rootPassword:
       databases:
-        - $MONGO_DB
+        -
       usernames:
-        - $MONGO_USERNAME
+        -
       passwords:
-        - $MONGO_PASSWORD
+        -
     service:
       type: NodePort
       nodePorts:

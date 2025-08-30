@@ -334,6 +334,18 @@ helm install redisrs . \
   -n db --create-namespace
 ` 
 `h uninstall -n db redisrs && k -n db delete pvc redis-master-0-pvc && k -n db delete pvc redis-replica-0-pvc && kpvre && kg pv`
+6) Mongodb:
+`
+helm install mongodbrs . \
+ --set mongodbc.enabled=true \
+ --set mongodbc.mongodb.auth.rootUser="$(vault kv get -field=MONGO_INITDB_ROOT_USERNAME secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.rootPassword="$(vault kv get -field=MONGO_INITDB_ROOT_PASSWORD secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.databases[0]="$(vault kv get -field=MONGO_INITDB_DATABASE secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.usernames[0]="$(vault kv get -field=MONGO_USERNAME secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.passwords[0]="$(vault kv get -field=MONGO_PASSWORD secret/renovation/secrets)" \
+ -n db --create-namespace
+`
+`h uninstall -n db mongodbrs && k -n db delete pvc mongodb-master-0-pvc && kpvmo && kg pv`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`
