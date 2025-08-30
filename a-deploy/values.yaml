@@ -1,6 +1,8 @@
 global:
-  secret: # define whether to create secrets and which namespaces to use
+  secrets: # define whether to create secrets and which namespaces to use
     enabled: false
+    vault:
+      servicePath: "http://vaultrs.security.svc.cluster.local:8200"
     namespaces:
       - security
 
