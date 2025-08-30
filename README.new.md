@@ -295,6 +295,8 @@ Install helm plugin:
 ===>  
 ===>  
 
+
+
 Order of releasing (inst/uninst):
 1) externalc:
 `h install extrs . --set externalc.enabled=true -n security --create-namespace`  
@@ -309,6 +311,9 @@ Order of releasing (inst/uninst):
 3) 
 `h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
+4) Postgres:  
+`h uninstall -n db postgresrs && k -n db delete pvc postgres-primary-0-pvc && k -n db delete pvc postgres-replica-0-pvc && kpvpg && kg pv`  
+
 
 4. start `frontend`:
    `$>npm install && npm start`

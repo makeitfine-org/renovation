@@ -41,7 +41,7 @@ vaultc:
         size: 1Gi
         storageClass: vault-retain
 
-postgresqlC: #bitnami
+postgresqlc: #bitnami
   enabled: false
   namespace: db
   postgresql: #bitnami
@@ -49,12 +49,12 @@ postgresqlC: #bitnami
     namespaceOverride: db
     fullnameOverride: postgresql
     auth:
-      username: $POSTGRES_USER
-      password: $POSTGRES_PASSWORD
-      database: $POSTGRES_DB
-      replicationUsername: $POSTGRES_USER # !!! todo: create separate rep_user
-      replicationPassword: $POSTGRES_PASSWORD # !!! todo: create separate rep_pass
-    schema: $POSTGRES_SCHEMA
+      database: renovation
+      username: postgres
+      password: postgres1
+      replicationUsername: postgres # !!! todo: create separate rep_user
+      replicationPassword: postgres1 # !!! todo: create separate rep_pass
+    schema: backend
     primary:
       service:
         type: NodePort

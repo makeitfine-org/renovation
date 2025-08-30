@@ -33,10 +33,10 @@ alias kapps="kubectl get -n apps all"
 # clean pvc
 alias kpvault="kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
-alias kpvpgm="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
-alias kpvpgr="kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+alias kpvpg="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+            && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
-alias kpvrem="kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
-alias kpvrer="kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+alias kpvrem="kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \"
+            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
 
 alias kpvmom="kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
