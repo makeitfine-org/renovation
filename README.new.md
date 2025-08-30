@@ -283,6 +283,14 @@ Show key:value of secrets:
 
 To add/remove external-secrets in values.yaml add/remove to `global.secrets.namespaces:`
 
+Install helm plugin:  
+`helm plugin install https://github.com/jkroepke/helm-secrets`  
+`export VAULT_ADDR="http://192.168.49.2:30820"`  
+`export VAULT_TOKEN=$RENOVATION_VAULT_TOKEN`  
+`vault kv get secret/renovation/secrets`  
+
+
+
 ===>  
 ===>  
 ===>  
