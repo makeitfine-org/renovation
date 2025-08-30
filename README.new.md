@@ -350,13 +350,21 @@ helm install mongodbrs . \
 `
 `h uninstall -n db mongodbrs && k -n db delete pvc mongodb-master-0-pvc && kpvmo && kg pv`
 
-7) Info-app:
+7) Info app:
 `
 helm install infors . \
 --set info.enabled=true \
  -n apps --create-namespace
 `
 `h uninstall -n apps infors`
+
+8) Backend app:
+`
+helm install backendrs . \
+--set backend.enabled=true \
+-n apps --create-namespace
+`
+`h uninstall -n apps backendrs`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`

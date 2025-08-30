@@ -105,6 +105,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: apps-mongodb-configmap
+            - configMapRef:
+                name: apps-postgresql-configmap
+            - configMapRef:
+                name: apps-redis-configmap
             - secretRef:
                 name: extsecrets-mongodb-secret
           ports:
