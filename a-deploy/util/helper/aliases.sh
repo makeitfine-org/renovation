@@ -7,31 +7,33 @@
 
 #activate in `a-deploy` dir: `source util/helper/aliases.sh`
 
-CHART_NAME="renovation"
-CHART_NAMESPACE="default"
+#CHART_NAME="renovation"
+#CHART_NAMESPACE="default"
 
 # helm
-alias hi="envsubst < values.yaml | helm install $CHART_NAME . --namespace $CHART_NAMESPACE -f '-'"
-alias hid="envsubst < values.yaml | helm install $CHART_NAME . --namespace $CHART_NAMESPACE --dry-run > dry.txt -f '-'"
+alias hi="helm install . "
+alias hid="helm install --dry-run > util/x-example/dry.txt"
 
-alias hug="envsubst < values.yaml | helm upgrade $CHART_NAME . --namespace $CHART_NAMESPACE -f '-'"
+alias hug="helm upgrade . "
 
-alias hdu="helm dependency update --namespace $CHART_NAMESPACE"
+alias hdu="helm dependency update"
 
-alias rmc="rm -rf charts/*.tgz Chart.lock"
+#alias rmc="rm -rf charts/*.tgz Chart.lock"
 
-alias hun="helm uninstall $CHART_NAME --namespace $CHART_NAMESPACE"
+alias hun="helm uninstall"
 
-alias hla="helm list -A --namespace $CHART_NAMESPACE"
+alias hla="helm list -A"
 
-alias hs="helm status $CHART_NAME --namespace $CHART_NAMESPACE"
+alias hs="helm status"
 
 # kubectl
 alias kdb="kubectl get -n db all"
 alias kapps="kubectl get -n apps all"
-alias kpp="kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
-            && kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+alias kpvault="kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"
+
+#"kubectl patch pv postgres-primary-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+#            && kubectl patch pv postgres-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+#            && kubectl patch pv mongodb-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+#            && kubectl patch pv redis-master-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+#            && kubectl patch pv redis-replica-0-pv -p '{\"spec\":{\"claimRef\": null}}' \
+#            && kubectl patch pv vault-master-0-pv -p '{\"spec\":{\"claimRef\": null}}'"

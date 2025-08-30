@@ -292,12 +292,12 @@ Order of releasing (inst/uninst):
   
 2) add into ~/.bashrc:  
 `export RENOVATION_TOKEN`  
-`export RENOVATION_UNSEAL_KEY`
+`export RENOVATION_VAULT_UNSEAL_KEY`
 `h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
 `h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
 2.2) ? secrets (vault+external secrets):  
 3) 
-`h install secrets . --set global.secret.enabled=true  -n security --create-namespace`
+`h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
 
 4. start `frontend`:

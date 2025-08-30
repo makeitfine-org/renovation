@@ -5,6 +5,7 @@ global:
       servicePath: "http://vaultrs.security.svc.cluster.local:8200"
     namespaces:
       - security
+      - apps
 
   parentChartName: renovation
   createNamespaces: false
