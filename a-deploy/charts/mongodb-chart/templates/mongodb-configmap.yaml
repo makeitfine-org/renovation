@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "ca.labels" . | nindent 4 }}
 data:
-  MONGO_HOST: "{{ .Values.mongodb.fullnameOverride }}.{{ .Values.mongodb.namespaceOverride }}.svc.cluster.local"
+  MONGO_HOST: "{{ .Values.mongodb.fullnameOverride }}.{{ .Release.Namespace }}.svc.cluster.local"
   MONGO_PORT: {{ .Values.mongodb.service.ports.mongodb | quote}}

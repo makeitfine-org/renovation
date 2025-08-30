@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "ca.labels" . | nindent 4 }}
 data:
-  REDIS_HOST: "{{ .Values.redis.fullnameOverride }}-master.{{ .Values.redis.namespaceOverride }}.svc.cluster.local"
+  REDIS_HOST: "{{ .Values.redis.fullnameOverride }}-master.{{ .Release.Namespace }}.svc.cluster.local"
   REDIS_PORT: {{ .Values.redis.master.service.ports.redis | quote }}

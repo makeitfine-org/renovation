@@ -46,7 +46,6 @@ postgresqlc: #bitnami
   namespace: db
   postgresql: #bitnami
     architecture: replication
-    namespaceOverride: db
     fullnameOverride: postgresql
     auth:
       username:
@@ -78,7 +77,6 @@ redisc:
   namespace: db
   redis: #bitnami
     architecture: replication
-    namespaceOverride: db
     fullnameOverride: redis
     auth:
       enabled: true
@@ -104,7 +102,6 @@ mongodbc:
   namespace: db
   mongodb: #bitnami
     architecture: standalone
-    namespaceOverride: db
     global:
       namespaceOverride: db # only this rewrites namespace
     fullnameOverride: mongodb
