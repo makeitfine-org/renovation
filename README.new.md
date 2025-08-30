@@ -281,6 +281,8 @@ check name:
 Show key:value of secrets:  
 `kubectl get secret extsecrets-secret -n security -o jsonpath='{.data}' | jq 'to_entries | .[] | "\(.key): \(.value | @base64d)"'`
 
+To add/remove external-secrets in values.yaml add/remove to `global.secrets.namespaces:`
+
 ===>  
 ===>  
 ===>  

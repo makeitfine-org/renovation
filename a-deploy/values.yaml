@@ -4,7 +4,7 @@ global:
     vault:
       servicePath: "http://vaultrs.security.svc.cluster.local:8200"
     namespaces:
-      - apps
+      - db
 
   createConfigmap: false
 
