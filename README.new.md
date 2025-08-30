@@ -309,7 +309,7 @@ Order of releasing (inst/uninst):
 
 4) Postgres:
     Install:  
-   Install helm plugin:
+   Install helm plugin: # (not used just import vault env. vars and install vault client)
    `helm plugin install https://github.com/jkroepke/helm-secrets`  
    `export VAULT_ADDR="http://192.168.49.2:30820"`  
    `export VAULT_TOKEN=$RENOVATION_VAULT_TOKEN`  

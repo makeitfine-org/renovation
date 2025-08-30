@@ -1,0 +1,12 @@
+{{- range $ns := .Values.configMapNamespaces }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $ns }}-info-configmap
+  namespace: {{ $ns }}
+  labels:
+    {{- include "ca.labels" $ | nindent 4 }}
+data:
+  INFO_SERVICE_URL: "http://{{ $.Values.name }}.{{ $.Release.Namespace }}.svc.cluster.local:{{ $.Values.service.port }}/graphql"
+---
+{{- end }}

@@ -126,6 +126,8 @@ mongodbc:
 
 info:
   enabled: false
+  configMapNamespaces:
+    - apps
   name: info
   replicas: 2
   image:

@@ -109,6 +109,8 @@ spec:
                 name: apps-postgresql-configmap
             - configMapRef:
                 name: apps-redis-configmap
+            - configMapRef:
+                name: apps-info-configmap
             - secretRef:
                 name: extsecrets-mongodb-secret
           ports:
