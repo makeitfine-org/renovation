@@ -1,2 +1,8 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 9090 }}
+{{- $ctx := dict
+  "Values" .Values
+  "Release" .Release
+  "Chart" .Chart
+  "containerPort" 9090
+  "configMapRefs" (list "apps-mongodb-configmap")
+  }}
 {{ include "ca.deployment" $ctx }}

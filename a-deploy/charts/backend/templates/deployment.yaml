@@ -1,2 +1,11 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "containerPort" 8080 }}
+{{- $ctx := dict
+  "Values" .Values
+  "Release" .Release
+  "Chart" .Chart
+  "containerPort" 8080
+  "configMapRefs" (list "apps-mongodb-configmap"
+                        "apps-postgresql-configmap"
+                        "apps-redis-configmap"
+                        "apps-info-configmap")
+  }}
 {{ include "ca.deployment" $ctx }}

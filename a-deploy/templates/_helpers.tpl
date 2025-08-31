@@ -103,16 +103,10 @@ spec:
           image: {{ include "ca.fullImage" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           envFrom:
+            {{- range .configMapRefs }}
             - configMapRef:
-                name: apps-mongodb-configmap
-            - configMapRef:
-                name: apps-postgresql-configmap
-            - configMapRef:
-                name: apps-redis-configmap
-            - configMapRef:
-                name: apps-info-configmap
-            - secretRef:
-                name: extsecrets-mongodb-secret
+                name: {{ . }}
+            {{- end }}
           ports:
             - containerPort: {{ .containerPort -}}
 
