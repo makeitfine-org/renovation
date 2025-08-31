@@ -297,17 +297,18 @@ Order of releasing (inst/uninst):
 `h install extrs . --set externalc.enabled=true -n security --create-namespace`  
 `h -n security uninstall extrs`
   
-2) add into ~/.bashrc:  
+2) vaultc 
+add into ~/.bashrc:  
 `export RENOVATION_TOKEN`  
 `export RENOVATION_VAULT_UNSEAL_KEY`
 `h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
 `h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
 
-3)  secrets (vault+external secrets):
+3) secrets (vault+external secrets):
 `h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
 
-4) Postgres:
+4) Postgresqlc:
     Install:  
    Install helm plugin: # (not used just import vault env. vars and install vault client)
    `helm plugin install https://github.com/jkroepke/helm-secrets`  
@@ -328,7 +329,7 @@ helm install postgresrs . \
 `  
 `h uninstall -n db postgresrs && k -n db delete pvc postgres-primary-0-pvc && k -n db delete pvc postgres-replica-0-pvc && kpvpg && kg pv`  
 
-5) Redis:
+5) Redisc:
 `
 helm install redisrs . \
   --set redisc.enabled=true \
@@ -337,7 +338,7 @@ helm install redisrs . \
 ` 
 `h uninstall -n db redisrs && k -n db delete pvc redis-master-0-pvc && k -n db delete pvc redis-replica-0-pvc && kpvre && kg pv`
  
-6) Mongodb:
+6) Mongodbc:
 `
 helm install mongodbrs . \
  --set mongodbc.enabled=true \
@@ -350,7 +351,7 @@ helm install mongodbrs . \
 `
 `h uninstall -n db mongodbrs && k -n db delete pvc mongodb-master-0-pvc && kpvmo && kg pv`
 
-7) Info app:
+7) Info:
 `
 helm install infors . \
 --set info.enabled=true \
@@ -358,7 +359,7 @@ helm install infors . \
 `
 `h uninstall -n apps infors`
 
-8) Backend app:
+8) Backend:
 `
 helm install backendrs . \
 --set backend.enabled=true \
