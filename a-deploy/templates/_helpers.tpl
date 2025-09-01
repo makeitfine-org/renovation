@@ -102,11 +102,13 @@ spec:
         - name: {{ include "ca.name" . | quote }}
           image: {{ include "ca.fullImage" . | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- if .Values.configMapRefs  }}
           envFrom:
-            {{- range .configMapRefs }}
+            {{- range .Values.configMapRefs }}
             - configMapRef:
                 name: {{ . }}
             {{- end }}
+          {{- end }}
           ports:
             - containerPort: {{ .containerPort -}}
 

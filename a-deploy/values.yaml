@@ -130,6 +130,8 @@ info:
     - apps
   name: info
   replicas: 2
+  configMapRefs:
+    - "apps-mongodb-configmap"
   image:
     repository: koresmosto/renovation-info
     tag: latest
@@ -168,6 +170,11 @@ backend:
   enabled: false
   name: backend
   replicas: 2
+  configMapRefs:
+    - "apps-mongodb-configmap"
+    - "apps-postgresql-configmap"
+    - "apps-redis-configmap"
+    - "apps-info-configmap"
   image:
     repository: koresmosto/renovation-backend
     tag: latest

@@ -3,6 +3,5 @@
   "Release" .Release
   "Chart" .Chart
   "containerPort" 9090
-  "configMapRefs" (list "apps-mongodb-configmap")
   }}
 {{ include "ca.deployment" $ctx }}
