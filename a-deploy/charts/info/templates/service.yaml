@@ -1,2 +1,2 @@
-{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "targetPort" 9090 }}
+{{- $ctx := dict "Values" .Values "Release" .Release "Chart" .Chart "targetPort" .Values.service.port }}
 {{ include "ca.service" $ctx }}

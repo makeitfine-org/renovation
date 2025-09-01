@@ -281,7 +281,7 @@ check name:
 Show key:value of secrets:  
 `kubectl get secret extsecrets-secret -n security -o jsonpath='{.data}' | jq 'to_entries | .[] | "\(.key): \(.value | @base64d)"'`
 
-To add/remove external-secrets in values.yaml add/remove to `global.secrets.namespaces:`
+To add/remove external-secrets in values.yaml, add/remove to `global.secrets.namespaces:`
 
 
 
@@ -299,17 +299,20 @@ Order of releasing (inst/uninst):
   
 2) vaultc 
 add into ~/.bashrc:  
-`export RENOVATION_TOKEN`  
+`export RENOVATION_VAULT_TOKEN`  
 `export RENOVATION_VAULT_UNSEAL_KEY`
 `h install vaultrs . --set vaultc.enabled=true --set vaultc.vault.token=$RENOVATION_VAULT_TOKEN --set vaultc.vault.unsealKey=$RENOVATION_VAULT_UNSEAL_KEY -n security --create-namespace`
 `h uninstall -n security vaultrs && sleep 40 && k -n security delete pvc data-vaultrs-0 && kpp && kg pv`
 
 3) secrets (vault+external secrets):
+if necessary: `kubectl create namespace db && kubectl create namespace apps`
+
 `h install secrets . --set global.secrets.enabled=true  -n security --create-namespace`
 `h uninstall secrets`
 
 4) Postgresqlc:
-    Install:  
+    Install:
+    Unused:  
    Install helm plugin: # (not used just import vault env. vars and install vault client)
    `helm plugin install https://github.com/jkroepke/helm-secrets`  
    `export VAULT_ADDR="http://192.168.49.2:30820"`  
