@@ -19,7 +19,7 @@ echo "minikube path: $MINIKUBE_PATH ($(pwd))"
 #docker network rm <network_name> (network with 192.168.49.*)
 
 # shellcheck disable=SC2317
-minikube start -p "$CLUSTER_NAME" --memory 4096 --cpus 4  --subnet 192.168.49.2
+minikube start -p "$CLUSTER_NAME" --memory 8192 --cpus 4  --subnet 192.168.49.2
 
 # switch profile to "${CLUSTER_NAME}" as default
 # shellcheck disable=SC2317
@@ -32,6 +32,10 @@ minikube addons enable metrics-server
 minikube addons enable ingress-dns
 minikube addons enable ingress
 minikube addons enable dashboard
+
+# https://minikube.sigs.k8s.io/docs/handbook/addons/istio/
+minikube addons enable istio-provisioner
+minikube addons enable istio
 
 # Upload apps images to cluster
 sh  "$CURRENT_PATH/build_upload_images.sh"
