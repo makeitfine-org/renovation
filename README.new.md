@@ -370,6 +370,33 @@ helm install backendrs . \
 `
 `h uninstall -n apps backendrs`
 
+9) Install istio:
+checks: `kubectl -n apps exec -it backend-95c5668bb-dmlj6 -- curl http://backend:8080/api/work`
+
+`apply -n apps -f ..istio.yaml`
+
+so if to use:
+`minikube tunnel`
+`k get all`
+service/istio-ingressgateway   LoadBalancer   10.106.99.189   10.106.99.189   15021:32109/TCP,80:30184/TCP,443:31144/TCP   30m
+service/istiod                 ClusterIP      10.101.169.48   <none>          15010/TCP,15012/TCP,443/TCP,15014/TCP        30m
+
+you can access: `10.106.99.189` to ingress
+
+or
+`sudo lsof -i :80`
+forward minikube cluster to host machine on port `80`:
+`export KUBECONFIG=~/.kube/config && sudo KUBECONFIG=$KUBECONFIG kubectl port-forward -n istio-system svc/istio-ingressgateway 80:80`
+
+helm chart:  
+`helm repo add istio https://istio-release.storage.googleapis.com/charts`
+`helm repo update`
+`helm install istio-base istio/base -n istio-system --create-namespace`
+`helm install istiod istio/istiod -n istio-system`
+`helm install istio-ingressgateway istio/gateway -n istio-system --set service.type=LoadBalancer`
+
+===
+
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`
 

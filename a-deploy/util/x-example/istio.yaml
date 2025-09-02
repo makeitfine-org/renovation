@@ -1,0 +1,86 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: backend-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+--- # Canary deployment
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: about
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - backend-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/about"
+      route:
+        - destination:
+            host: info.apps.svc.cluster.local
+            port:
+              number: 9090
+          weight: 75
+        - destination:
+            host: backend.apps.svc.cluster.local
+            port:
+              number: 8080
+          weight: 25
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: info-api-v1
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - backend-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/api/v1"
+      route:
+        - destination:
+            host: info.apps.svc.cluster.local
+            port:
+              number: 9090
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: backend-else
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - backend-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: backend.apps.svc.cluster.local
+            port:
+              number: 8080
+--- # mTLS
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: apps
+  namespace: apps
+spec:
+  mtls:
+    mode: STRICT
