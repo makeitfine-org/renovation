@@ -1,0 +1,82 @@
+{{- if .Values.gateway.enabled -}} #0
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: apps-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        {{- range $h := .Values.gateway.hosts }}
+        - {{ $h | quote}}
+        {{- end }}
+--- # Canary deployment
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: about
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - apps-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/about"
+      route:
+        - destination:
+            host: {{ index .Values.gateway.vs.about 0 "host" }}
+            port:
+              number: {{ index .Values.gateway.vs.about 0 "port" }}
+          weight: 75
+        - destination:
+            host: {{ index .Values.gateway.vs.about 1 "host" }}
+            port:
+              number: {{ index .Values.gateway.vs.about 1 "port" }}
+          weight: 25
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: info-api-v1
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - apps-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/api/v1"
+      route:
+        - destination:
+            host: {{ .Values.gateway.vs.infoApiV1.host }}
+            port:
+              number: {{ .Values.gateway.vs.infoApiV1.port }}
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: backend-else
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - apps-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: {{ .Values.gateway.vs.backendElse.host }}
+            port:
+              number: {{ .Values.gateway.vs.backendElse.port }}
+---
+{{- end }} #0

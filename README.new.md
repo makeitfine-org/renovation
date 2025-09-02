@@ -395,6 +395,13 @@ helm chart:
 `helm install istiod istio/istiod -n istio-system`
 `helm install istio-ingressgateway istio/gateway -n istio-system --set service.type=LoadBalancer`
 
+
+Use istio as new release:
+`create namespaces: istio-operator, istio-system`
+
+`h install gateway . --set gateway.enabled=true  -n apps --create-namespace`
+`h uninstall gateway`
+
 ===
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  

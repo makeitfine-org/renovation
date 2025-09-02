@@ -205,3 +205,20 @@ backend:
     requests:
       cpu: "500m"
       memory: "512Mi"
+
+gateway:  #!todo: write tests
+  enabled: false
+  hosts:
+    - "*"
+  vs:
+    about:
+      - host: info.apps.svc.cluster.local
+        port: 9090
+      - host: backend.apps.svc.cluster.local
+        port: 8080
+    infoApiV1:
+      host: info.apps.svc.cluster.local
+      port: 9090
+    backendElse:
+      host: backend.apps.svc.cluster.local
+      port: 8080
