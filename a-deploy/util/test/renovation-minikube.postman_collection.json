@@ -523,6 +523,279 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "3.1. BE api/work",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expected = ",
+									"[",
+									"{",
+									"\"id\": \"11111111-a845-45d7-aea9-ab624172d1c1\",",
+									"\"title\": \"air condition installation\",",
+									"\"description\": \"\",",
+									"\"endDate\": \"2021-10-15\",",
+									"\"price\": 2500,",
+									"\"payDate\": \"2021-10-15\"",
+									"},",
+									"{",
+									"\"id\": \"22222222-a845-45d7-aea9-ab624172d1c1\",",
+									"\"title\": \"pipe installation\",",
+									"\"description\": \"Andery from Bila Cerkva did it\",",
+									"\"endDate\": \"2021-10-25\",",
+									"\"price\": 8000,",
+									"\"payDate\": \"2021-10-30\"",
+									"},",
+									"{",
+									"\"id\": \"33333333-a845-45d7-aea9-ab624172d1c1\",",
+									"\"title\": \"plaster\",",
+									"\"description\": \"Vasyl did it\",",
+									"\"endDate\": \"2021-11-10\",",
+									"\"price\": null,",
+									"\"payDate\": null",
+									"},",
+									"{",
+									"\"id\": \"44444444-a845-45d7-aea9-ab624172d1c1\",",
+									"\"title\": \"title sticker\",",
+									"\"description\": \"\",",
+									"\"endDate\": \"2021-12-01\",",
+									"\"price\": 33000,",
+									"\"payDate\": \"2021-12-05\"",
+									"},",
+									"{",
+									"\"id\": \"55555555-a845-45d7-aea9-ab624172d1c1\",",
+									"\"title\": \"electrical wiring\",",
+									"\"description\": \"\",",
+									"\"endDate\": \"2021-12-10\",",
+									"\"price\": 8000,",
+									"\"payDate\": null",
+									"}",
+									"];",
+									"",
+									"pm.test(\"Response body is exactly as expected\", function () {",
+									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{gatewayHost}}:{{gatewayPort}}/api/work",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{gatewayHost}}"
+							],
+							"port": "{{gatewayPort}}",
+							"path": [
+								"api",
+								"work"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 INFO /api/v1/info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expected = ",
+									"[",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c101\",",
+									"\"name\": \"Tom\",",
+									"\"surname\": \"Travolta\",",
+									"\"age\": 27,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": [",
+									"{",
+									"\"email\": \"tt27@email.one\",",
+									"\"emailStatus\": \"Active\"",
+									"}",
+									"],",
+									"\"additionInfos\": [",
+									"{",
+									"\"nickName\": \"Doro One\",",
+									"\"phoneNumber\": \"+389229222123\"",
+									"},",
+									"{",
+									"\"nickName\": \"Doro Two\",",
+									"\"phoneNumber\": \"+389229222323\"",
+									"}",
+									"]",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c102\",",
+									"\"name\": \"Sam\",",
+									"\"surname\": \"Berbik\",",
+									"\"age\": 45,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c103\",",
+									"\"name\": \"Alfred\",",
+									"\"surname\": \"Berbik\",",
+									"\"age\": 33,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c104\",",
+									"\"name\": \"Alfred\",",
+									"\"surname\": \"Hatton\",",
+									"\"age\": 33,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c105\",",
+									"\"name\": \"Kate\",",
+									"\"surname\": \"Hatton\",",
+									"\"age\": 33,",
+									"\"gender\": \"Female\",",
+									"\"detailsEmails\": [",
+									"{",
+									"\"email\": \"kh33@email.com\",",
+									"\"emailStatus\": \"Active\"",
+									"},",
+									"{",
+									"\"email\": \"kh33_other@email.two\",",
+									"\"emailStatus\": \"Inactive\"",
+									"}",
+									"],",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c106\",",
+									"\"name\": \"Maestro\",",
+									"\"surname\": \"Rave\",",
+									"\"age\": 27,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c107\",",
+									"\"name\": \"Kventin\",",
+									"\"surname\": \"Toddo\",",
+									"\"age\": 54,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": [",
+									"{",
+									"\"email\": \"kt54_other@email.two\",",
+									"\"emailStatus\": \"Closed\"",
+									"}",
+									"],",
+									"\"additionInfos\": null",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c108\",",
+									"\"name\": \"El\",",
+									"\"surname\": \"Jey\",",
+									"\"age\": 18,",
+									"\"gender\": \"Male\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": [",
+									"{",
+									"\"nickName\": \"quacky\",",
+									"\"phoneNumber\": \"+389229229123\"",
+									"}",
+									"]",
+									"},",
+									"{",
+									"\"id\": \"62571572b85c114c70d2c109\",",
+									"\"name\": \"Anny\",",
+									"\"surname\": \"Bally\",",
+									"\"age\": 18,",
+									"\"gender\": \"Female\",",
+									"\"detailsEmails\": null,",
+									"\"additionInfos\": null",
+									"}",
+									"];",
+									"",
+									"pm.test(\"Response body is exactly as expected\", function () {",
+									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{gatewayHost}}:{{gatewayPort}}/api/v1/info",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{gatewayHost}}"
+							],
+							"port": "{{gatewayPort}}",
+							"path": [
+								"api",
+								"v1",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 about (BE/INFO)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response body is valid\", function () {",
+									"    const body = pm.response.json();",
+									"",
+									"    // name check with regex",
+									"    pm.expect(body.name).to.match(/^renovation (info|backend) module$/);",
+									"",
+									"    // description check with regex",
+									"    pm.expect(body.description).to.match(/^Module work as additional (info|backend) directory$/);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}://{{gatewayHost}}:{{gatewayPort}}/about",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{gatewayHost}}"
+							],
+							"port": "{{gatewayPort}}",
+							"path": [
+								"about"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
