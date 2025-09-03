@@ -50,6 +50,32 @@ else
   exit 1;
 fi
 
+# test vault secrets:
+export VAULT_ADDR="$RENOVATION_VAULT_ADDR"
+export VAULT_TOKEN="$RENOVATION_VAULT_TOKEN"
+
+check_value() {
+  local field=$1
+  local expected=$2
+  local value
+
+  value=$(vault kv get -field="$field" secret/renovation/secrets 2>/dev/null)
+
+  if [ "$value" = "$expected" ]; then
+    echo "✅ $field is $expected"
+  else
+    echo "❌ $field expected '$expected' but got '${value:-<not found>}'"
+    exit 1;
+  fi
+}
+
+check_value MONGO_DB infodb
+check_value MONGO_USERNAME infouser
+
+check_value POSTGRES_DB renovation
+check_value POSTGRES_SCHEMA backend
+check_value POSTGRES_USER postgres
+
 # test postgres
 if nc -zv "$CLUSTER_IP" "$POSTGRES_CLUSTER_PORT" 2>&1 | grep -q 'succeeded'; then
   echo "✅ Connection to PostgreSQL ($CLUSTER_IP:$POSTGRES_CLUSTER_PORT) succeeded"
