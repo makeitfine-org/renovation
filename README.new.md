@@ -402,7 +402,7 @@ Use istio as new release:
 `h install gateway . --set gateway.enabled=true  -n apps --create-namespace`
 `h uninstall gateway`
 
-===
+===>
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`
