@@ -51,10 +51,15 @@ minikube ssh -- "sudo tar xzf /mnt/data/vault.backup.tar.gz -C /mnt/data/"
 minikube ssh -- "sudo rm /mnt/data/vault.backup.tar.gz"
 
 ## vault
-#minikube ssh -- "sudo mkdir /mnt/data/vault"
-#minikube ssh -- "sudo mkdir /mnt/data/vault/master"
+minikube ssh -- "sudo mkdir /mnt/data/vault"
+minikube ssh -- "sudo mkdir /mnt/data/vault/master"
 minikube ssh -- "sudo chown 777 /mnt/data/vault"
 minikube ssh -- "sudo chown 777 /mnt/data/vault/master"
+
+## create storage
+kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-sc.yaml"
+
+kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-pv.yaml"
 
 # postgres
 minikube ssh -- "sudo mkdir /mnt/data/postgres"
@@ -80,6 +85,9 @@ minikube ssh -- "sudo mkdir /mnt/data/redis/replica"
 minikube ssh -- "sudo chown -R 1001:1001 /mnt/data/redis/replica"
 
 kubectl apply -f "$CHART_PATH/redis-chart/resources/redis-pv.yaml"
+
+echo "### see pv: kubectl get pv"
+kubectl get pv
 
 ## install all
 #helm install renovation .
