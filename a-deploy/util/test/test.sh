@@ -51,7 +51,7 @@ else
 fi
 
 # test vault secrets:
-export VAULT_ADDR="$RENOVATION_VAULT_ADDR"
+export VAULT_ADDR="http://192.168.49.2:30820"
 export VAULT_TOKEN="$RENOVATION_VAULT_TOKEN"
 
 check_value() {
