@@ -395,6 +395,8 @@ helm chart:
 `helm install istiod istio/istiod -n istio-system`
 `helm install istio-ingressgateway istio/gateway -n istio-system --set service.type=LoadBalancer`
 
+9.1) unistall 'gateway' and minikube istio:
+install istion: `https://istio.io/latest/docs/setup/getting-started/`
 
 Use istio as new release:
 `create namespaces: istio-operator, istio-system`

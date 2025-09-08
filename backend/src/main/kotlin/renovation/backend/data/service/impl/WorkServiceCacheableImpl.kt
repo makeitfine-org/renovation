@@ -28,7 +28,8 @@ class WorkServiceCacheableImpl(@Autowired @Qualifier("workServiceImpl") val work
 
         const val CACHE_WORK_BY_ID = "workById"
         const val CACHE_WORKS_ALL = "worksAll"
-        const val UNLESS_CACHE_WORK = "#result == null || #result.price > $MAX_PRICE_TO_CACHE"
+        const val UNLESS_CACHE_WORK = "#result == null " +
+            "|| (#result.price != null && #result.price > $MAX_PRICE_TO_CACHE)"
     }
 
     @Cacheable(value = [CACHE_WORKS_ALL])
@@ -48,7 +49,11 @@ class WorkServiceCacheableImpl(@Autowired @Qualifier("workServiceImpl") val work
 
     @Throws(WorkNotFoundException::class)
     @PutWorkCache
-    @CacheEvict(value = [CACHE_WORK_BY_ID], key = "#id", condition = "#result.price >= $MAX_PRICE_TO_CACHE")
+    @CacheEvict(
+        value = [CACHE_WORK_BY_ID],
+        key = "#id",
+        condition = "#result.price != null && #result.price >= $MAX_PRICE_TO_CACHE"
+    )
     @EvictAllWorksCache
     override fun update(id: UUID, work: Work) = workService.update(id, work)
 

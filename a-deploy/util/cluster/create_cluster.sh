@@ -34,8 +34,8 @@ minikube addons enable ingress
 minikube addons enable dashboard
 
 # https://minikube.sigs.k8s.io/docs/handbook/addons/istio/
-minikube addons enable istio-provisioner
-minikube addons enable istio
+# minikube addons enable istio-provisioner
+# minikube addons enable istio
 
 # Upload apps images to cluster
 sh  "$CURRENT_PATH/build_upload_images.sh"
