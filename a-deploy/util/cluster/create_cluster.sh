@@ -56,11 +56,6 @@ minikube ssh -- "sudo rm /mnt/data/vault.backup.tar.gz"
 minikube ssh -- "sudo chown 777 /mnt/data/vault"
 minikube ssh -- "sudo chown 777 /mnt/data/vault/master"
 
-## create storage
-kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-sc.yaml"
-
-kubectl apply -f "$CHART_PATH/vault-chart/resources/vault-pv.yaml"
-
 # postgres
 minikube ssh -- "sudo mkdir /mnt/data/postgres"
 minikube ssh -- "sudo mkdir /mnt/data/postgres/master"
