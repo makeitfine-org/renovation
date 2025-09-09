@@ -89,6 +89,11 @@ kubectl apply -f "$CHART_PATH/redis-chart/resources/redis-pv.yaml"
 echo "### see pv: kubectl get pv"
 kubectl get pv
 
+echo "### folders: "
+ls /mnt/data/postgres
+ls /mnt/data/redis
+ls /mnt/data/mongodb
+
 ## install all
 #helm install renovation .
 
