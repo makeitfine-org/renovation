@@ -39,3 +39,5 @@ sleep $timeToInit # some time for init
 
 sh "$CURRENT_PATH"/../test/test.sh
 sh "$CURRENT_PATH"/../test/stress_test.sh
+
+kubectl delete -f "$CURRENT_PATH/../../resources/addons"
