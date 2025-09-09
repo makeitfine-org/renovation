@@ -412,10 +412,14 @@ Use istio as new release:
 2) Cluster releasing:  
 `sh util/cluster/releasing_in_cluster.sh`
 
-3) Cluster releasing uninstall:  
+2.1) Cluster releasing uninstall:  
 `sh util/cluster/uninstall_in_cluster.sh`
 
+3) istio installs:  
+`bash util/cluster/releasing_in_cluster_2.sh`
 
+3.1) Cluster releasing uninstall:  
+`sh util/cluster/uninstall_in_cluster_2.sh`
 
 check vault key: `echo "db: ref+vault://secret/renovation/secrets?proto=http#/POSTGRES_USER" | vals eval -f -`  
 `vault kv get -field=POSTGRES_USER secret/renovation/secrets`
