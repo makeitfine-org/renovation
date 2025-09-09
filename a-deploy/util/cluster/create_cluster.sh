@@ -90,9 +90,9 @@ echo "### see pv: kubectl get pv"
 kubectl get pv
 
 echo "### folders: "
-ls /mnt/data/postgres
-ls /mnt/data/redis
-ls /mnt/data/mongodb
+minikube ssh -- "ls /mnt/data/postgres"
+minikube ssh -- "ls /mnt/data/redis"
+minikube ssh -- "ls /mnt/data/mongodb"
 
 ## install all
 #helm install renovation .

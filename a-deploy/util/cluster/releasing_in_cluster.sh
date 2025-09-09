@@ -158,7 +158,41 @@ wait_for_pod db redis-master Running
 wait_for_pod db redis-replica Running
 kubectl -n db get pv
 
+## 6 (mongodb)
+#
+helm install mongodbrs . \
+ --set mongodbc.enabled=true \
+ --set mongodbc.mongodb.auth.rootUser="$(vault kv get -field=MONGO_INITDB_ROOT_USERNAME secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.rootPassword="$(vault kv get -field=MONGO_INITDB_ROOT_PASSWORD secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.databases[0]="$(vault kv get -field=MONGO_INITDB_DATABASE secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.usernames[0]="$(vault kv get -field=MONGO_USERNAME secret/renovation/secrets)" \
+ --set mongodbc.mongodb.auth.passwords[0]="$(vault kv get -field=MONGO_PASSWORD secret/renovation/secrets)" \
+ -n db --create-namespace
 
+wait_for_pod db mongodb Running
+kubectl -n db get pv
+
+timeToInit=15
+echo "sleep for dbs init: $timeToInit sec"
+sleep $timeToInit # some time for init
+
+## 7 (info app)
+#
+helm install infors . --set info.enabled=true \
+ -n apps --create-namespace
+
+wait_for_pod apps info Running
+
+ ## 8 (backend app)
+ #
+helm install backendrs . --set backend.enabled=true \
+  -n apps --create-namespace
+
+wait_for_pod apps backend Running
+
+timeToInit=15
+echo "sleep for apps init: $timeToInit sec"
+sleep $timeToInit # some time for init
 
 echo "helm list -A"
 helm list -A

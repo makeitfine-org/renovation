@@ -40,8 +40,25 @@ wait_for_secret_to_disappear() {
 # kubectl apply -f "$CHART_PATH/mongodb-chart/resources/mongodb-pv.yaml"
 # kubectl apply -f "$CHART_PATH/redis-chart/resources/redis-pv.yaml"
 
+## info (uninstall)
+helm uninstall -n apps infors
+wait_for_pods_to_disappear apps info
+
+## backend (uninstall)
+helm uninstall -n apps backendrs
+wait_for_pods_to_disappear apps backend
+
+## mongodb (uninstall)
+helm -n db uninstall mongodbrs
+wait_for_pods_to_disappear db mongodb-master
+
+kubectl -n db delete pvc mongodb-master-0-pvc
+
+kubectl patch pv mongodb-master-0-pv -p "{\"spec\":{\"claimRef\": null}}"
+kubectl get pv
+
 ## redis (uninstall)
-helm -n db uninstall redis
+helm -n db uninstall redisrs
 wait_for_pods_to_disappear db redis-master
 wait_for_pods_to_disappear db redis-replica
 
