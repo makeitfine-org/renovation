@@ -19,17 +19,38 @@ minikube profile "$CLUSTER_NAME"
 
 ## 0 Such env. vars should be added:
 #
-# `export RENOVATION_VAULT_TOKEN`
-# `export RENOVATION_VAULT_UNSEAL_KEY`
+if [[ -z "$RENOVATION_VAULT_TOKEN" || -z "$RENOVATION_VAULT_UNSEAL_KEY" ]]; then
+  echo "❌ RENOVATION_VAULT_TOKEN or RENOVATION_VAULT_UNSEAL_KEY is not set!"
+  exit 1
+fi
+
+echo "✅ Required environment variables are set."
+
+if ! command -v vault > /dev/null; then
+  echo "❌ Vault is not installed or not in PATH."
+
+  ## Install vault (if necessary)
+  ##curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  ##echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  ##sudo apt update
+  ##sudo apt install vault
+  ##vault --version
+
+  exit 1
+else
+  echo "✅ Vault is installed: $(vault --version)"
+fi
+
+
 # todo: un-commend 3 lines
-#helm repo add bitnami   https://charts.bitnami.com/bitnami
-#helm repo add hashicorp https://helm.releases.hashicorp.com
-#helm repo add external  https://charts.external-secrets.io
-#helm repo update
+helm repo add bitnami   https://charts.bitnami.com/bitnami
+helm repo add hashicorp https://helm.releases.hashicorp.com
+helm repo add external  https://charts.external-secrets.io
+helm repo update
 
 # Install chart dependencies
 # todo: un-commend
-#sh "$CURRENT_PATH"/../helper/update_dependencies.sh
+sh "$CURRENT_PATH"/../helper/update_dependencies.sh
 
 # create namespaces:
 kubectl create namespace security
@@ -124,13 +145,6 @@ echo $VAULT_ADDR
 # vault kv get secret/renovation/secrets
 vault kv get -field=POSTGRES_USER secret/renovation/secrets
 
-## Install vault (if necessary)
-##curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-##echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-##sudo apt update
-##sudo apt install vault
-##vault --version
-
 ## 4 (postgres)
 #
 helm install postgresrs . \
@@ -190,13 +204,16 @@ helm install backendrs . --set backend.enabled=true \
 
 wait_for_pod apps backend Running
 
-timeToInit=15
+timeToInit=30
 echo "sleep for apps init: $timeToInit sec"
 sleep $timeToInit # some time for init
 
 echo "helm list -A"
 helm list -A
 kubectl get pv
+
+sh "$CURRENT_PATH"/../test/test.sh
+sh "$CURRENT_PATH"/../test/stress_test.sh
 
 ##some check in a while in browser:
 ## http://192.168.49.2:30080/fe/work
