@@ -16,6 +16,8 @@ export REDIS_CLUSTER_PORT=30379;
 
 export MONGO_CLUSTER_PORT=30017;
 
+CURRENT_PATH="$(realpath "$(dirname "$0")")"
+
 # postgres:
 export pg_username='postgres';
 export pg_password='postgres1';
@@ -141,4 +143,4 @@ else
 fi
 
 # test apps: (npm install -g newman)
-newman run renovation-minikube.postman_collection.json -e renovation-minikube-env.postman_environment.json
+newman run "$CURRENT_PATH"/renovation-minikube.postman_collection.json -e "$CURRENT_PATH"/renovation-minikube-env.postman_environment.json
