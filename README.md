@@ -21,7 +21,8 @@ Technical configs
 3. start RenovationApplication.kt on backend module
 
 ### Pre-config env (for start on docker db):
-1. Install docker and docker-compose (if not installed)  
+1. Install docker and docker-compose (if not installed)
+1.1. Disconnect vpn(s)
 2. build project (e.g. `$> gradle buildAll` or `$> gradle ba`)  
 2.1. set node/nvm version to v16.14.0 (nvm use v16.14.0)  
 `$>nvm use v16.14.0`  
