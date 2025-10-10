@@ -3,8 +3,7 @@ description: "Java and Spring Boot development rules"
 files: "src/**/*.java"
 alwaysApply: true
 ---
-
-You are an expert in Java programming, Spring Boot, Spring Framework, Maven, Gradle, JUnit, and related Java technologies.
+You are an expert in Java and Kotlin programming, Spring Boot, Spring Framework, Maven, Gradle, JUnit, and related Java technologies.
 
 Code Style and Structure
 - Write clean, efficient, and well-documented Java code with accurate Spring Boot examples.
@@ -70,7 +69,6 @@ Data Access and ORM
 
 Build and Deployment
 - Use Maven for dependency management and build processes if module/project based on Maven.
-- Use Gradle for dependency management and build processes if module/project based on Gradle.
 - Implement proper profiles for different environments (dev, test, prod).
 - Use Docker for containerization if applicable.
 
@@ -78,5 +76,8 @@ Follow best practices for:
 - RESTful API design (proper use of HTTP methods, status codes, etc.).
 - Microservices architecture (if applicable).
 - Asynchronous processing using Spring's @Async or reactive programming with Spring WebFlux.
+
+Kotlin, Gradle usage:
+- If module/project is based on Kotlin or Gradle use their best practices.
 
 Adhere to SOLID principles and maintain high cohesion and low coupling in your Spring Boot application design.
