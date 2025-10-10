@@ -8,6 +8,7 @@ package renovation.batch.service.data.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,12 @@ import renovation.common.util.MapperUtil;
 public class PersonServiceTest extends DatabaseFillTestBase {
 
     private final PersonService personService;
+
+    @AfterEach
+    protected void clearDatabase() {
+        jdbcTemplate.update("delete from \"person\"");
+        jdbcTemplate.update("ALTER SEQUENCE person_id_seq RESTART WITH 1");
+    }
 
     @Test
     void fillPersonTable_Success() throws JsonProcessingException {
