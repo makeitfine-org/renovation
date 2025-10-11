@@ -1,4 +1,4 @@
-### Batch service for working with neo4j database ###
+### Batch service for working with PostgreSQL database (Spring Batch) ###
 
 #### Build and run test  
 
