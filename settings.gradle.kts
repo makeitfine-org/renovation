@@ -121,7 +121,6 @@ val gatewayModuleName: String by settings
 val tempModuleName: String by settings
 val ngPartModuleName: String by settings
 val nodeServerModuleName: String by settings
-val webfluxServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
 val eventServiceModuleName: String by settings
 val neo4jServiceModuleName: String by settings
@@ -140,7 +139,6 @@ include(gatewayModuleName)
 include(tempModuleName)
 include(ngPartModuleName)
 include(nodeServerModuleName)
-include(webfluxServerModuleName)
 include(kafkaServiceModuleName)
 include(eventServiceModuleName)
 include(neo4jServiceModuleName)

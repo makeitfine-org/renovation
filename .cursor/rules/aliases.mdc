@@ -5,8 +5,21 @@ alwaysApply: true
 - When I write 'a>' or 'alias>' or similar or even without alias words and then some command or command alias then execute it.
   This is aliases:
 
-  1) 'gra' or 'grall' you need to do such command secuentally and do  next if previous was successful:
-    1.1) `./gradlew buildAll; echo "Run pkill -9 mpg123 to kill music process; mpg123 auxillary/music/sonic.mp3"`
+  1) 'gram' you need to do such command secuentally and do  next if previous was successful:
+    1.1) `./gradlew buildAll; echo "Run 'pkill -9 mpg123' to kill music process"; mpg123 auxillary/music/sonic.mp3`
 
   2) 'exec' or 'run' you just execute terminal (bash or sh) command
 
+  3) tg "<message>", where <message> is message to telegram:
+    curl -X POST "https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage" \
+  -H "Content-Type: application/json" \
+  -d "{\"chat_id\": \"$NOTIFICATION_TELEGRAM_CHAT_ID\", \"text\": \"Your message here\"}"
+
+  (
+    Take $NOTIFICATION_TELEGRAM... environment variables from ~/.bashrc:
+    export NOTIFICATION_TELEGRAM_BOT_TOKEN="`grep "NOTIFICATION_TELEGRAM_BOT_TOKEN" ~/.bashrc`"
+    export NOTIFICATION_TELEGRAM_CHAT_ID="`grep "NOTIFICATION_TELEGRAM_CHAT_ID" ~/.bashrc`"
+  )
+
+  4) 'grat' execute commands: `./gradlew buildAll` and if build successful then use alias `tg "✅BUILD SUCCESSFULL✅"`
+    otherwise send tg notification "❌BUILD FAILED❌" and description of fail reason

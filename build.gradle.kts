@@ -34,7 +34,6 @@ subprojects {
         properties["commonModuleName"],
         properties["gatewayModuleName"],
         properties["tempModuleName"],
-        properties["webfluxServerModuleName"],
         properties["kafkaServiceModuleName"]
     )
 

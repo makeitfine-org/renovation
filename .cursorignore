@@ -1,0 +1,21 @@
+# Build outputs
+target/
+build/
+out/
+
+# Dependencies
+node_modules/
+.mvn/
+.gradle/
+
+# IDE configs
+.idea/
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Secrets / configs
+.env
+secrets.yml
