@@ -114,7 +114,6 @@ val backendModuleName: String by settings
 val frontendModuleName: String by settings
 val frontendInfoModuleName: String by settings
 val apitestModuleName: String by settings
-val mockapiModuleName: String by settings
 val infoModuleName: String by settings
 val commonModuleName: String by settings
 val gatewayModuleName: String by settings
@@ -132,7 +131,6 @@ include(backendModuleName)
 include(frontendModuleName)
 include(frontendInfoModuleName)
 include(apitestModuleName)
-include(mockapiModuleName)
 include(infoModuleName)
 include(commonModuleName)
 include(gatewayModuleName)

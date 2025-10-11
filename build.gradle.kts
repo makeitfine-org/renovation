@@ -362,7 +362,6 @@ tasks.register<GradleBuild>(buildAll) {
                       check_url "http://localhost:8281/about"
                       check_url "http://localhost:8285/about"
                       check_url "http://localhost:9190/about"
-                      check_url "http://localhost:1280/about"
                       check_url "http://localhost:8290/about"
                   done
                 """.trimIndent()

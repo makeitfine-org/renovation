@@ -107,12 +107,6 @@ or just
 3. backup db (mysql):
    `$> docker exec renovation-mysql /usr/bin/mysqldump -u root --password=... r2 > backup.sql`
 
-### Use mockserver
-From module mockapi run `docker-compose renovation-mockapi up`  
-To add/update/delete requests modify config/initializer.json file  
-See: https://github.com/makeitfine-org/renovation/issues/36  
-Example: `curl http://localhost:1080/api/v1/name?surname=Mosto`
-
 ### Checkstyle (code check and auto-fix):
 For to check:  
 `$> gradle ktlintCheck`  
@@ -242,8 +236,6 @@ https://keycloak.discourse.group/t/spring-boot-keycloak-permission-based-on-auth
 https://www.keycloak.org/docs/latest/authorization_services/#_resource_overview
 
 ### Run modules:
-#### mockapi:  
-1) $>`docker-compose up renovation-mockup`
 #### gateway:
 1) $>`docker-compose up`  
 2) Run GatewayApplication locally (See `SecurityConfig, ExposeApiConfig` for)  
