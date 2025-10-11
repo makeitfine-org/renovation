@@ -35,7 +35,6 @@ subprojects {
         properties["gatewayModuleName"],
         properties["tempModuleName"],
         properties["webfluxServerModuleName"],
-        properties["ktorServerModuleName"],
         properties["kafkaServiceModuleName"]
     )
 
@@ -426,7 +425,6 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-gateway:latest")
         removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
-        removeImageLocallyIfExists("koresmosto/renovation-ktor-server:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-neo4j-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-influx-service:latest")

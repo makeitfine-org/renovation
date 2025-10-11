@@ -1,7 +1,7 @@
 ---
 description: "Java and Spring Boot development rules"
 files: "src/**/*.java"
-alwaysApply: true
+alwaysApply: false
 ---
 You are an expert in Java and Kotlin programming, Spring Boot, Spring Framework, Maven, Gradle, JUnit, and related Java technologies.
 

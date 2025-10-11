@@ -89,7 +89,6 @@ pluginManagement {
     val koverPluginVersion: String by settings
     val dgsCodegenVersion: String by settings
     val detektVersion: String by settings
-    val ktorPluginVersion: String by settings
     val champeauJmhVersion: String by settings
 
 
@@ -105,7 +104,6 @@ pluginManagement {
         id("org.jetbrains.kotlinx.kover") version "$koverPluginVersion"
         id("com.netflix.dgs.codegen") version "$dgsCodegenVersion"
         id("io.gitlab.arturbosch.detekt") version "$detektVersion"
-        id("io.ktor.plugin") version "$ktorPluginVersion"
         id("me.champeau.jmh") version "$champeauJmhVersion"
     }
 }
@@ -124,7 +122,6 @@ val tempModuleName: String by settings
 val ngPartModuleName: String by settings
 val nodeServerModuleName: String by settings
 val webfluxServerModuleName: String by settings
-val ktorServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
 val eventServiceModuleName: String by settings
 val neo4jServiceModuleName: String by settings
@@ -144,7 +141,6 @@ include(tempModuleName)
 include(ngPartModuleName)
 include(nodeServerModuleName)
 include(webfluxServerModuleName)
-include(ktorServerModuleName)
 include(kafkaServiceModuleName)
 include(eventServiceModuleName)
 include(neo4jServiceModuleName)

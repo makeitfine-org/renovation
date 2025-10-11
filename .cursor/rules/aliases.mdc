@@ -1,0 +1,12 @@
+---
+description: "Aliases for commands"
+alwaysApply: true
+---
+- When I write 'a>' or 'alias>' or similar or even without alias words and then some command or command alias then execute it.
+  This is aliases:
+
+  1) 'gra' or 'grall' you need to do such command secuentally and do  next if previous was successful:
+    1.1) `./gradlew buildAll; echo "Run pkill -9 mpg123 to kill music process; mpg123 auxillary/music/sonic.mp3"`
+
+  2) 'exec' or 'run' you just execute terminal (bash or sh) command
+
