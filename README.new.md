@@ -89,12 +89,12 @@ server {
 
 #### First after cloning repo config the githook for the project
 Run a Gradle task from base module `renovation`:  
-1. `$> gradle installGitHooks`  
+1. `$> ./gradlew installGitHooks`  
 2. Apply "Idea codestyle.xml" style in IDEA  
 
 #### Build
-* Build the project: `$> gradle buildAll` or `$> gradle ba`  
-* Build with all checks: `$> gradle all`
+* Build the project: `$> ./gradlew buildAll` or `$> ./gradlew ba`  
+* Build with all checks: `$> ./gradlew all`
 
 #### Run the project in docker locally
 1. Run locally: `$> docker-compose up`  
