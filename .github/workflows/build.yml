@@ -9,7 +9,7 @@ name: CI build, test
 
 on:
   push:
-    branches: [ "develop", "issue_69" ] #todo: remove issue_69 after merging to develop
+    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
   schedule:
