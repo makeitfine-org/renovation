@@ -232,25 +232,6 @@ services:
     networks:
       - renovation-network
 
-  renovation-influx-service:
-    image: koresmosto/renovation-influx-service
-    build:
-      context: ./influx-service
-    restart: always
-    container_name: renovation-influx-service
-    depends_on:
-      - renovation-influxdb
-    ports:
-      - ${INFLUX_SERVICE_REDIRECT_PORT}:8080
-    environment:
-      INFLUX_HOST: ${INFLUX_HOST}
-      INFLUX_PORT: ${INFLUX_PORT}
-      INFLUXDB_DB: ${INFLUXDB_DB}
-      INFLUXDB_USER: ${INFLUXDB_USER}
-      INFLUXDB_PASSWORD: ${INFLUXDB_PASSWORD}
-    networks:
-      - renovation-network
-
   renovation-event-service:
     image: koresmosto/renovation-event-service
     build:
@@ -456,21 +437,6 @@ services:
     environment:
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
       TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
-    networks:
-      - renovation-network
-
-  renovation-influxdb:
-    image: influxdb:1.11
-    container_name: renovation-influxdb
-    ports:
-      - ${INFLUX_REDIRECT_PORT}:8086
-    environment:
-      INFLUXDB_HTTP_AUTH_ENABLED: "true"
-      INFLUXDB_DB: ${INFLUXDB_DB}
-      INFLUXDB_USER: ${INFLUXDB_USER}
-      INFLUXDB_USER_PASSWORD: ${INFLUXDB_PASSWORD}
-      INFLUXDB_ADMIN_USER: admin
-      INFLUXDB_ADMIN_PASSWORD: secret
     networks:
       - renovation-network
 

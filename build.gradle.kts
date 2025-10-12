@@ -304,10 +304,6 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":influx-service:mci")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":batch-service:mci")
         }
 
@@ -416,7 +412,6 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
-        removeImageLocallyIfExists("koresmosto/renovation-influx-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-batch-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
     }

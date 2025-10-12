@@ -6,12 +6,29 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 
 ## Modules to Remove (in order)
 
-1. **reacty-service** - Not deployed, no docker entry
-2. **influx-service** - Isolated metrics service
+1. ~~**reacty-service**~~ - ✅ COMPLETED
+2. ~~**influx-service**~~ - ✅ COMPLETED
 3. **batch-service** - Isolated batch jobs
 4. **node-server** - Standalone TypeScript server
 5. **ng-part** - Experimental Angular app
 6. **temp** - Vault testing module
+
+## Progress
+
+### ✅ reacty-service (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (build task + docker image)
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
+
+### ✅ influx-service (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (build task + docker image)
+- Removed from all docker-compose files (service + influxdb dependency)
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
 
 ## Per-Module Removal Steps
 

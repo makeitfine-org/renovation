@@ -122,7 +122,6 @@ val ngPartModuleName: String by settings
 val nodeServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
 val eventServiceModuleName: String by settings
-val influxServiceModuleName: String by settings
 val batchServiceModuleName: String by settings
 
 include(backendModuleName)
@@ -137,5 +136,4 @@ include(ngPartModuleName)
 include(nodeServerModuleName)
 include(kafkaServiceModuleName)
 include(eventServiceModuleName)
-include(influxServiceModuleName)
 include(batchServiceModuleName)
