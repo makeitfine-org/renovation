@@ -1,6 +1,6 @@
 ---
 description: "Aliases for commands"
-alwaysApply: true
+alwaysApply: false
 ---
 Always check this mdc-file for updates before each new prompt sending!
 
