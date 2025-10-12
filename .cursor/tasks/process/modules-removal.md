@@ -10,7 +10,7 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 2. ~~**influx-service**~~ - ✅ COMPLETED
 3. **batch-service** - Isolated batch jobs
 4. ~~**node-server**~~ - ✅ COMPLETED
-5. **ng-part** - Experimental Angular app
+5. ~~**ng-part**~~ - ✅ COMPLETED
 6. **temp** - Vault testing module
 
 ## Progress
@@ -34,6 +34,14 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 - Removed from `settings.gradle.kts` (variable + include)
 - Removed from `gradle.properties`
 - Removed from `build.gradle.kts` (npm tasks)
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
+
+### ✅ ng-part (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (npm tasks)
+- Removed CORS config for Angular ports (4200, 98*)
 - Deleted module directory
 - Verified with `./gradlew projects` and grep
 

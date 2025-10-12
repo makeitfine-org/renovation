@@ -276,18 +276,6 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":ng-part:npmInstall")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":ng-part:npmLint")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":ng-part:npmUnitTest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":event-service:mci")
         }
         exec {
@@ -342,10 +330,6 @@ tasks.register<GradleBuild>(buildAll) {
                   done
                 """.trimIndent()
             )
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":ng-part:npmE2eTest")
         }
         exec {
             workingDir("${rootProject.rootDir}")

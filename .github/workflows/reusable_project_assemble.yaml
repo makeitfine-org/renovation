@@ -40,8 +40,6 @@ jobs:
       - run: gradle :frontend-info:npmInstall
       - run: gradle :frontend-info:npmBuild
 
-      - run: gradle :ng-part:npmInstall
-
       - run: docker compose up -d --build
       - run: sleep 30
       - run: docker ps

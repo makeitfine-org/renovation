@@ -29,11 +29,6 @@ class CorsConfig {
             addAllowedOriginPattern("http://192.168.0.113:3000")
 
             addAllowedOriginPattern("http://localhost:80*")
-            // ng-part angular server default port
-            addAllowedOriginPattern("http://localhost:4200")
-
-            // needed for ng-part test (karma)
-            addAllowedOriginPattern("http://localhost:98*")
         }
 
         val source = UrlBasedCorsConfigurationSource()
