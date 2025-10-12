@@ -41,6 +41,7 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 - Removed from `settings.gradle.kts` (variable + include)
 - Removed from `gradle.properties`
 - Removed from `build.gradle.kts` (npm tasks)
+- Removed from `.github/workflows/reusable_project_assemble.yaml` (npm task)
 - Removed CORS config for Angular ports (4200, 98*)
 - Deleted module directory
 - Verified with `./gradlew projects` and grep
