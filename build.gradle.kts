@@ -288,18 +288,6 @@ tasks.register<GradleBuild>(buildAll) {
         }
         exec {
             workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":node-server:npmInstall")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":node-server:npmLint")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":node-server:npmTest")
-        }
-        exec {
-            workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":event-service:mci")
         }
         exec {

@@ -119,7 +119,6 @@ val commonModuleName: String by settings
 val gatewayModuleName: String by settings
 val tempModuleName: String by settings
 val ngPartModuleName: String by settings
-val nodeServerModuleName: String by settings
 val kafkaServiceModuleName: String by settings
 val eventServiceModuleName: String by settings
 val batchServiceModuleName: String by settings
@@ -133,7 +132,6 @@ include(commonModuleName)
 include(gatewayModuleName)
 include(tempModuleName)
 include(ngPartModuleName)
-include(nodeServerModuleName)
 include(kafkaServiceModuleName)
 include(eventServiceModuleName)
 include(batchServiceModuleName)
