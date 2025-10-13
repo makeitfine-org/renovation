@@ -32,8 +32,7 @@ subprojects {
         properties["apitestModuleName"],
         properties["infoModuleName"],
         properties["commonModuleName"],
-        properties["gatewayModuleName"],
-        properties["tempModuleName"]
+        properties["gatewayModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
@@ -321,7 +320,6 @@ tasks.register<GradleBuild>(buildAll) {
                       check_url "http://localhost:8281/about"
                       check_url "http://localhost:8285/about"
                       check_url "http://localhost:9190/about"
-                      check_url "http://localhost:8290/about"
                   done
                 """.trimIndent()
             )
@@ -372,11 +370,9 @@ tasks.register<GradleBuild>(removeImages) {
     println(description)
 
     doLast {
-        removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
         removeImageLocallyIfExists("koresmosto/renovation-frontend-info:latest")
         removeImageLocallyIfExists("koresmosto/renovation-info:latest")
         removeImageLocallyIfExists("koresmosto/renovation-gateway:latest")
-        removeImageLocallyIfExists("koresmosto/renovation-temp:latest")
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
         removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
         removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
