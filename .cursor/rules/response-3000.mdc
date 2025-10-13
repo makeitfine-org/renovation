@@ -2,4 +2,4 @@
 description: "Response 3000 symbols"
 alwaysApply: false
 ---
-Give me the response in no more then 3000 symbols
+Give me the response to my prompt/request in no more then 3000 symbols

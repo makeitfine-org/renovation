@@ -2,7 +2,7 @@
 
 ## Overview
 
-Remove 6 isolated modules not in core stack, cleaning all references.
+Remove 7 isolated modules not in core stack, cleaning all references.
 
 ## Modules to Remove (in order)
 
@@ -12,6 +12,7 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 4. ~~**node-server**~~ - ✅ COMPLETED
 5. ~~**ng-part**~~ - ✅ COMPLETED
 6. **temp** - Vault testing module
+7. ~~**kafka-service**~~ - ✅ COMPLETED
 
 ## Progress
 
@@ -53,6 +54,13 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 - Removed from all docker-compose files (service definition)
 - Removed from `.env` (BATCH_SERVICE_REDIRECT_PORT)
 - Removed database schema from `backend/src/main/resources/docker/postgres/db-init-scripts/init.sql`
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
+
+### ✅ kafka-service (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (kotlinBasedSubprojects array)
 - Deleted module directory
 - Verified with `./gradlew projects` and grep
 

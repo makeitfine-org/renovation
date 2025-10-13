@@ -33,8 +33,7 @@ subprojects {
         properties["infoModuleName"],
         properties["commonModuleName"],
         properties["gatewayModuleName"],
-        properties["tempModuleName"],
-        properties["kafkaServiceModuleName"]
+        properties["tempModuleName"]
     )
 
     if (kotlinBasedSubprojects.contains(project.name)) {
