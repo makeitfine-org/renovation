@@ -215,6 +215,8 @@ val buildAll = "buildAll" // not used camelCase for fast typing buildall
 
 tasks.named("clean") {
     dependsOn(":event-service:mavenClean")
+    dependsOn(":frontend:npmClean")
+    dependsOn(":frontend-info:npmClean")
 }
 
 tasks.register<GradleBuild>(buildAll) {
