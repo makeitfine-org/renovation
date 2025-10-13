@@ -213,6 +213,10 @@ subprojects {
 
 val buildAll = "buildAll" // not used camelCase for fast typing buildall
 
+tasks.named("clean") {
+    dependsOn(":event-service:mavenClean")
+}
+
 tasks.register<GradleBuild>(buildAll) {
     description = "Execute all tests and build projects (docker compose used)"
     println(description)

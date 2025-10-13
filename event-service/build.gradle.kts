@@ -10,3 +10,10 @@ tasks.register<Exec>("mci") {
 
     commandLine("mvn", "clean", "install")
 }
+
+tasks.register<Exec>("mavenClean") {
+    description = "maven clean"
+    println(description)
+
+    commandLine("mvn", "clean")
+}
