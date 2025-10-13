@@ -8,7 +8,7 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 
 1. ~~**reacty-service**~~ - ✅ COMPLETED
 2. ~~**influx-service**~~ - ✅ COMPLETED
-3. **batch-service** - Isolated batch jobs
+3. ~~**batch-service**~~ - ✅ COMPLETED
 4. ~~**node-server**~~ - ✅ COMPLETED
 5. ~~**ng-part**~~ - ✅ COMPLETED
 6. **temp** - Vault testing module
@@ -43,6 +43,16 @@ Remove 6 isolated modules not in core stack, cleaning all references.
 - Removed from `build.gradle.kts` (npm tasks)
 - Removed from `.github/workflows/reusable_project_assemble.yaml` (npm task)
 - Removed CORS config for Angular ports (4200, 98*)
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
+
+### ✅ batch-service (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (build task + docker image)
+- Removed from all docker-compose files (service definition)
+- Removed from `.env` (BATCH_SERVICE_REDIRECT_PORT)
+- Removed database schema from `backend/src/main/resources/docker/postgres/db-init-scripts/init.sql`
 - Deleted module directory
 - Verified with `./gradlew projects` and grep
 
