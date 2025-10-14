@@ -1,31 +1,18 @@
 ---
 description: "Aliases for commands"
-alwaysApply: false
+alwaysApply: true
 ---
 Always check this mdc-file for updates before each new prompt sending!
 
 When I write 'a>' or 'alias>' or similar or even without alias words and then some command or command alias then execute it.
  This is aliases:
 
- - 'gram' you need to do such command secuentally and do  next if previous was successful:
-  -- `./gradlew buildAll; echo "Run 'pkill -9 mpg123' to kill music process"; mpg123 auxillary/music/sonic.mp3`
-
  - 'exec' or 'run' you just execute terminal (bash or sh) command
 
- - tg "<message>", where <message> is message to telegram:
-    `
-    curl -X POST "https://api.telegram.org/bot$NOTIFICATION_TELEGRAM_BOT_TOKEN/sendMessage" \
-    -H "Content-Type: application/json" \
-    -d "{\"chat_id\": \"$NOTIFICATION_TELEGRAM_CHAT_ID\", \"text\": \"Your message here\"}"
-    `
-      (
-        Take $NOTIFICATION_TELEGRAM... environment variables from ~/.bashrc:
-        export NOTIFICATION_TELEGRAM_BOT_TOKEN="`grep "NOTIFICATION_TELEGRAM_BOT_TOKEN" ~/.bashrc`"
-        export NOTIFICATION_TELEGRAM_CHAT_ID="`grep "NOTIFICATION_TELEGRAM_CHAT_ID" ~/.bashrc`"
-      )
+ - tg "<message>" you should execute in terminal command `tn` with "<message>"
 
   - 'grat' execute commands:
-    `./gradlew buildAll` with timeout 15 minutes
+    `./gradlew buildAll` with timeout 7 minutes
     and
     if timeout then send `tg "⌛TIMEOUT⌛"`
     if build successful then then `tg "✅BUILD SUCCESSFUL✅"`
