@@ -214,7 +214,6 @@ subprojects {
 val buildAll = "buildAll" // not used camelCase for fast typing buildall
 
 tasks.named("clean") {
-    dependsOn(":event-service:mavenClean")
     dependsOn(":frontend:npmClean")
     dependsOn(":frontend-info:npmClean")
 }
@@ -224,10 +223,6 @@ tasks.register<GradleBuild>(buildAll) {
     println(description)
 
     doLast {
-        exec {
-            workingDir("${rootProject.rootDir}")
-            commandLine("sh", "-c", "rm -rf /tmp/kafka-streams/*")
-        }
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", "clean")
@@ -277,10 +272,6 @@ tasks.register<GradleBuild>(buildAll) {
         exec {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":frontend-info:npmBuild")
-        }
-        exec { // todo: can be extracted "integrationTest" and code style checking be moved to "checkall"
-            workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":event-service:mi")
         }
 
         exec {
@@ -379,8 +370,6 @@ tasks.register<GradleBuild>(removeImages) {
         removeImageLocallyIfExists("koresmosto/renovation-info:latest")
         removeImageLocallyIfExists("koresmosto/renovation-gateway:latest")
         removeImageLocallyIfExists("koresmosto/renovation-backend:latest")
-        removeImageLocallyIfExists("koresmosto/renovation-event-service:latest")
-        removeImageLocallyIfExists("koresmosto/renovation-alertmanager:latest")
     }
 }
 

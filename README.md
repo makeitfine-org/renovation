@@ -385,9 +385,6 @@ Run gateway with social-login & certificate (export oauth2 registration env. var
 
 ## Usage
 
-### Usage kafka (dc - docker compose):
-`$> dcu renovation-kafka-ui`  
-
 ### Usage in Intellij idea
 to run in intellij idea with `gradle buildAll` do so:  
 1. set env. var JAVA_HOME in console to java 21: `export JAVA_HOME=<path>/jdk21`  

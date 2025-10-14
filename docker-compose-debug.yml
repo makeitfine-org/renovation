@@ -19,8 +19,3 @@ services:
     ports:
       - "5007:5007"
     command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -jar /app.jar
-
-  renovation-event-service:
-    ports:
-      - "5009:5009"
-    command: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -jar /app.jar

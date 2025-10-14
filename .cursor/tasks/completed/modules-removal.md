@@ -2,7 +2,7 @@
 
 ## Overview
 
-Remove 7 isolated modules not in core stack, cleaning all references.
+Remove 8 isolated modules not in core stack, cleaning all references.
 
 ## Modules to Remove (in order)
 
@@ -13,6 +13,7 @@ Remove 7 isolated modules not in core stack, cleaning all references.
 5. ~~**ng-part**~~ - ✅ COMPLETED
 6. ~~**temp**~~ - ✅ COMPLETED
 7. ~~**kafka-service**~~ - ✅ COMPLETED
+8. ~~**event-service**~~ - ✅ COMPLETED
 
 ## Progress
 
@@ -70,6 +71,16 @@ Remove 7 isolated modules not in core stack, cleaning all references.
 - Removed from `build.gradle.kts` (kotlinBasedSubprojects array + docker image cleanup + health check)
 - Removed from all docker-compose files (service + vault-prepopulate dependency + vault service)
 - Removed from `.env` (TEMP_SERVER_REDIRECT_PORT + VAULT_SERVER_REDIRECT_PORT + VAULT_DEV_ROOT_TOKEN_ID)
+- Deleted module directory
+- Verified with `./gradlew projects` and grep
+
+### ✅ event-service (Completed)
+- Removed from `settings.gradle.kts` (variable + include)
+- Removed from `gradle.properties`
+- Removed from `build.gradle.kts` (clean task dependency + maven task + docker image)
+- Removed from all docker-compose files (service + prometheus + grafana + alertmanager + Kafka infrastructure)
+- Removed Kafka infrastructure: zookeeper, kafka-0, kafka-1, schema-registry, kafka-ui, control-center
+- Removed from `.env` (EVENT_SERVICE_REDIRECT_PORT + monitoring vars + Kafka/Zookeeper vars)
 - Deleted module directory
 - Verified with `./gradlew projects` and grep
 

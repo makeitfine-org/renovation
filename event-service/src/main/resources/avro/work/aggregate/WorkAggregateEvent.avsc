@@ -1,9 +1,0 @@
-{
-    "type": "record",
-    "name": "WorkAggregateEvent",
-    "namespace": "renovation.event.service.kafka.avro.record.work.aggregate",
-    "fields": [
-        { "name": "count", "type": "int" },
-        { "name": "priceSum", "type": "double" }
-    ]
-}
