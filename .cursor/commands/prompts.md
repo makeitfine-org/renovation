@@ -12,9 +12,11 @@ gr ba;tn <message>
 ```
 
 ```shell
-Change "componentTest" to "integrationTest" in @event-service/ tests to "componentTest"
+run `timeout 3 ./gradlew clean compileJava` if build successful execution in terminal execute `tn "Succces"` otherwise `tn "Failed"`
+```
 
-and then run `./gradlew :event-service:integrationTest` and if build successful exec in terminal exec `tn "Succces"` otherwise `tn "Failed"`
+```shell
+run `timeout 3 ./gradlew clean compileJava` if build successful execution in terminal execute `tn '<a> Succces'` otherwise `tn '<a> Failed'`, where a=
 ```
 
 ```shell

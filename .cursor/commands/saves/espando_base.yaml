@@ -1,0 +1,85 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":pds"
+    replace: "32onego"
+
+  - trigger: ":pdr"
+    replace: "_Intelliaspass7"
+
+  - trigger: ":pdi"
+    replace: "WA7294kd"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":datetime"
+    replace: "{{current_date}} {{current_time}}"
+    vars:
+      - name: current_date
+        type: date
+        params:
+          format: "%d/%m/%Y"
+      - name: current_time
+        type: date
+        params:
+          format: "%H/%M/%S"
+
+  - trigger: ":pdlist"
+    form: |
+      [[choices]]
+    form_fields:
+      choices:
+        type: choice
+        values: |
+          32onego
+          _Intelliaspass7
+          WA7294kd
+
+  - trigger: ":pr"
+    form: |- #prevent new line insertion
+      [[choices]]
+    form_fields:
+      choices:
+        type: list
+        values:
+          - "During execution if any question to me or if I need to approve any command, for example 'rm' , etc., just exec alias a>tg with message of short description of the command you whant me to approve or question you what me to answer and then proceed with execution you planned about to solve the task"
+          - "During task resolving ask me questions about the requirements or clarification. I want to make sure we’re building or achieving exactly what’s needed"
+          - "if build successful execution in terminal execute `tn 'Succces'` otherwise `tn 'Failed'`"
+          - "if build successful execution in terminal execute `tn '<a> Succces'` otherwise `tn '<a> Failed'`, where a="
+          - "Write me about that in details, with examples"
+          - "After execution alias a>tg 'AI job FINISHED'"
+    word: false
+
+  - trigger: ":email"
+    form: |- #prevent new line insertion
+      [[choices]]
+    form_fields:
+      choices:
+        type: list
+        values:
+          - "stingion@gmail.com"
+          - "megamirio@gmail.com"
+          - "x7warrior@gmail.com"
+          - "keyerid@gmail.com"
+    word: false
+
+  #  - trigger: ":pr"
+  #    form: |- #prevent new line insertion
+  #      [[text]]
+  #      Write me about that in details, with examples
+  #    form_fields:
+  #      text:
+  #        multiline: true
+
+  # And much more! For more information, visit the docs: https://espanso.org/docs/
