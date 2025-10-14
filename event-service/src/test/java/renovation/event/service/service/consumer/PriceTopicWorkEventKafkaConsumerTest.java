@@ -23,7 +23,7 @@ import renovation.event.service.web.dto.WorkEventRequest;
 import static renovation.common.util.MapperUtil.OBJECT_MAPPER;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)

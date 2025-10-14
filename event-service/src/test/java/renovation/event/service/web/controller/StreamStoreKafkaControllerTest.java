@@ -22,7 +22,7 @@ import static renovation.common.util.JsonUtil.simplify;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 import static renovation.event.service.KafkaUtil.STREAMS_INIT_TIME_WAIT;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 //https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-dirtiescontext.html
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)

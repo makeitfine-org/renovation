@@ -20,7 +20,7 @@ import renovation.event.service.service.mapper.WorkEventMapper;
 import renovation.event.service.service.producer.WorkEventKafkaProducer;
 import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)

@@ -15,7 +15,7 @@ import renovation.event.service.web.controller.base.KafkaTestcontainersConfigs;
 
 import static io.restassured.RestAssured.given;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)

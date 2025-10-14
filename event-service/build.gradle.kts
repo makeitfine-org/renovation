@@ -4,11 +4,11 @@
  * Copyright 2021-2024
  */
 
-tasks.register<Exec>("mci") {
-    description = "maven clean install"
+tasks.register<Exec>("mi") {
+    description = "maven install"
     println(description)
 
-    commandLine("mvn", "clean", "install")
+    commandLine("mvn", "install")
 }
 
 tasks.register<Exec>("mavenClean") {

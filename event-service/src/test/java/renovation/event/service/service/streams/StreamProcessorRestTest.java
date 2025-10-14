@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import static renovation.common.util.MapperUtil.OBJECT_MAPPER;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class StreamProcessorRestTest extends RestTestInit {

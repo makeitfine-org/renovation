@@ -17,7 +17,7 @@ import renovation.event.service.web.controller.base.RestTestInit;
 
 import static renovation.common.util.JsonUtil.simplify;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @ContextConfiguration(classes = KafkaTestcontainersConfigs.class)
 class StartupControllerTest extends RestTestInit {
 

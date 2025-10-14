@@ -29,7 +29,7 @@ import static renovation.common.util.JsonUtil.simplify;
 import static renovation.common.util.MapperUtil.jsonFileContentFromSrcTestResources;
 import static renovation.event.service.KafkaUtil.STREAMS_INIT_TIME_WAIT;
 
-@Tag("componentTest")
+@Tag("integrationTest")
 @Testcontainers
 class TestcontainersStreamStoreKafkaControllerTest extends RestTestInit {
 

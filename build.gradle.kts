@@ -278,11 +278,10 @@ tasks.register<GradleBuild>(buildAll) {
             workingDir("${rootProject.rootDir}")
             commandLine("./gradlew", ":frontend-info:npmBuild")
         }
-        exec {
+        exec { // todo: can be extracted "integrationTest" and code style checking be moved to "checkall"
             workingDir("${rootProject.rootDir}")
-            commandLine("./gradlew", ":event-service:mci")
+            commandLine("./gradlew", ":event-service:mi")
         }
-
 
         exec {
             workingDir("${rootProject.rootDir}")
