@@ -1,0 +1,1 @@
+/home/eug/dev/projects/my/renovation/.cursor/storage/renovation/Makefile
