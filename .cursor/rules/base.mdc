@@ -1,8 +1,0 @@
----
-description: "Apply to all"
-alwaysApply: true
----
-If Auto is chosen as Cursor AI Model in chat then always start your answer by telling me which AI model is currently in use (e.g., GPT-4.1, Claude 4 Sonnet, or Gemini 2.5 Pro).
-
-Before task resolving if needed ask me questions about the requirements or clarification.
-I want to make sure we’re building or achieving exactly what’s needed
