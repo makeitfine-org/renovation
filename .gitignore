@@ -228,3 +228,4 @@ Chart.lock
 dry.txt
 
 .cursor/
+Makefile
