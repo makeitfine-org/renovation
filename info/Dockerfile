@@ -4,7 +4,7 @@
 #  Copyright 2017-2023
 ###
 
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 MAINTAINER Kores Mosto <koresmosto@gmail.com>
 
 VOLUME /tmp
