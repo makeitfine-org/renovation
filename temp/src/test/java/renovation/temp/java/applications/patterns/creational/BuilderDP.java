@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -61,19 +62,26 @@ public class BuilderDP {
 
         // When
         var pizzaMachine = spy(new PizzaMachine());
-
+        // And
         PizzaBuilder pizzaBuilder = spy(new PizzaABuilder());
         pizzaMachine.setPizzaBuilder(pizzaBuilder);
         var pizza = pizzaMachine.getPizza();
+        // Then
         assertEquals(pizza.getCheese(), "cheeseA");
         assertEquals(pizza.getMeat(), "meatA");
         verify(pizzaBuilder, times(1)).buildPizza();
 
+        assertNotEquals(pizza.getMeat(), "meatB");
+
+        // When
         pizzaBuilder = spy(new PizzaBBuilder());
         pizzaMachine.setPizzaBuilder(pizzaBuilder);
         pizza = pizzaMachine.getPizza();
+        // Then
         assertEquals(pizza.getCheese(), "cheeseB");
         assertEquals(pizza.getMeat(), "meatB");
         verify(pizzaBuilder, times(1)).buildPizza();
+
+        assertNotEquals(pizza.getCheese(), "cheeseA");
     }
 }
