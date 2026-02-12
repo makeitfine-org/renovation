@@ -15,6 +15,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -28,6 +30,8 @@ public class PrototypeDP {
 
         double getAmountOfSugar();
 
+        Integer getChocolateId();
+
         String getColor();
 
         List<Object> getObjects();
@@ -37,6 +41,7 @@ public class PrototypeDP {
     @AllArgsConstructor
     static class ChocolateCookie implements Cookie, Cloneable {
         private final double amountOfSugar;
+        private final Integer chocolateId;
         private final String color;
         private final List<Object> objects;
 
@@ -65,18 +70,26 @@ public class PrototypeDP {
         // When
         var cookie = spy(
                 new ChocolateCookie(
-                        1,
-                        "yellow",
+                        285.5,
+                        Integer.valueOf(1850),
+                        new String("yellow"),
                         Lists.newArrayList(new Object(), new Object()))
         );
-
+        // And
         var cookieMachine = spy(new CookieMachine(cookie));
         var clonedCookie = spy(cookieMachine.makeCookie());
-
+        // Then
         assertNotEquals(clonedCookie, cookie);
         assertEquals(clonedCookie.getAmountOfSugar(), cookie.getAmountOfSugar());
+        assertEquals(clonedCookie.getChocolateId(), cookie.getChocolateId());
         assertEquals(clonedCookie.getColor(), cookie.getColor());
         assertEquals(clonedCookie.getObjects(), cookie.getObjects());
+
+        assertNotSame(clonedCookie, cookie);
+        assertNotSame(clonedCookie.getAmountOfSugar(), cookie.getAmountOfSugar());
+        assertSame(clonedCookie.getChocolateId(), cookie.getChocolateId());
+        assertSame(clonedCookie.getColor(), cookie.getColor());
+        assertSame(clonedCookie.getObjects(), cookie.getObjects());
 
         verify(cookie, times(1)).clone();
         verify(cookieMachine, times(1)).makeCookie();

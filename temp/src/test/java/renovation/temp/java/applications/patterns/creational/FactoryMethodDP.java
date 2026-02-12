@@ -66,18 +66,22 @@ public class FactoryMethodDP {
     public void test() {
 
         // When
-        var factory = spy(new ShapeFactoryImpl());
-
+        ShapeFactory factory = spy(new ShapeFactoryImpl());
+        // And
         var shape = spy(factory.createShape(3));
+        // Then
         assertEquals(3.0, shape.square());
         assertEquals(Triangle.class, shape.getClass());
         verify(shape, times(1)).square();
 
+        // When
         shape = spy(factory.createShape(4));
+        // Then
         assertEquals(15.0, shape.square());
         assertEquals(Rectangle.class, shape.getClass());
         verify(shape, times(1)).square();
 
+        // When
         var e = assertThrows(
                 NotImplementedException.class,
                 () -> {
@@ -85,7 +89,6 @@ public class FactoryMethodDP {
                 }
         );
         assertEquals("No shape available", e.getMessage());
-
         verify(factory, times(3)).createShape(any(Integer.class));
     }
 }
