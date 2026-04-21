@@ -14,7 +14,9 @@
       "Bash(./gradlew :backend:ktlintCheck 2>&1 | grep \"\\\\.kt:\")",
       "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\" | head -30)",
       "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\")",
-      "Bash(ls /home/eug/dev/projects/my/renovation/.env* 2>/dev/null)"
+      "Bash(ls /home/eug/dev/projects/my/renovation/.env* 2>/dev/null)",
+      "Bash(awk '{print $NF}')",
+      "Bash(xargs ls *)"
     ]
   },
   "statusLine": {

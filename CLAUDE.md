@@ -14,14 +14,14 @@ Defined in `settings.gradle.kts`:
 - `:gateway` — API Gateway (Spring Cloud Function, OAuth2 client)
 - `:frontend` — Vue.js 3 SPA, built and served as static files by `:backend`
 - `:frontend-info` — Standalone Vue.js 3 SPA for the Info service
-- `:common` — Shared Kotlin library, dependency of all other services
+- `:common` — Shared Kotlin library, dependency of all other services. Provides `Rest.kt` (Rest Assured `given(port, token)` helpers), `JwtUtils.kt` (Keycloak JWT role extraction), and `GrantTypeAccessToken` implementations (`PasswordGrantTypeAccessToken`, `ClientCredentialsGrantTypeAccessToken`)
 - `:api-test` — JUnit 5 API/integration test suite
 
 ## Common Commands
 
 ### Build & Test
 ```bash
-./gradlew buildAll          # clean + compile + test + docker compose up (alias: ba)
+./gradlew buildAll          # clean → detekt → ktlintCheck → test → integrationTest → assemble → frontend npm build → docker compose up → e2eTest → docker compose down (alias: ba)
 ./gradlew all               # buildAll + ktlint + kover + dependency check
 ./gradlew test              # unit tests only
 ./gradlew integrationTest   # @integrationTest tagged tests (uses Testcontainers)
@@ -36,7 +36,26 @@ Defined in `settings.gradle.kts`:
 ```bash
 docker compose up           # start all services (requires Keycloak/security)
 docker compose -f docker-compose-no-security.yml up  # start without Keycloak
+docker compose -f docker-compose.yml -f docker-compose-debug.yml up  # with JDWP debug ports (backend:5005, info:5006, gateway:5007)
 docker compose down
+```
+
+### Frontend (npm)
+Both `frontend/` and `frontend-info/` support:
+```bash
+npm run serve   # local dev server
+npm run build   # production build
+npm run clean   # remove dist + node_modules
+```
+The Gradle `copyDistToPublic` task copies `frontend/dist/` into `backend/src/main/resources/public/`.
+
+### Kubernetes
+```bash
+./gradlew k8sApiTest                # run minikubeTest suite against cluster
+./gradlew k8sIngressApiTest         # run minikubeTest suite against cluster via Ingress
+./gradlew k8sUploadBackendImage     # build + load backend image into minikube
+./gradlew k8sUploadInfoImage        # build + load info image into minikube
+./gradlew k8sUploadFrontendInfoImage
 ```
 
 ### Makefile shortcuts (wraps Gradle + Docker)
@@ -89,17 +108,26 @@ Tests use JUnit 5 tags to separate test types:
 
 Run a single test class: `./gradlew :backend:test --tests "renovation.backend.SomeTest"`
 
+Testcontainers images used in integration tests:
+- Keycloak: `quay.io/keycloak/keycloak:18.0.2`
+- PostgreSQL: `postgres:16.1-alpine`
+- Redis: `redis:7.2.3-alpine`
+
 ## Code Quality
 - **ktlint 1.0.1** enforces Kotlin style (CI-required)
 - **detekt 1.23.4** for static analysis
 - **Kover** for code coverage (100% target with configured exclusions)
 - **OWASP DependencyCheck** for vulnerability scanning
-- Git hooks enforce conventional commits and run checks pre-push
+- Git hooks enforce a custom commit format (`#<task-number> <description>` or `WIP <description>`, max 80 chars for the description) and run checks pre-push
 
 ## CI/CD
 GitHub Actions (`.github/workflows/build.yml`) runs `./gradlew buildAll` on pushes to `develop`/`ai` and PRs to `develop`. Slack notification on failure via `ACTION_MONITORING_SLACK` secret.
 
+Additional workflows: `helm-release.yaml` (releases Helm charts on push to `develop`), `reusable_project_assemble.yaml` (reusable build workflow).
+
 ## Environment
+**Prerequisites:** JDK 21 (project targets Java 21; tests use `--enable-preview`)
+
 Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 - Backend: 8280 (host) → 8080 (container)
 - Info: 9190 → 9090
@@ -108,3 +136,8 @@ Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 - PostgreSQL: 5532 → 5432
 - MongoDB: 27117 → 27017
 - Redis: 6479 → 6379
+
+### Useful Endpoints (local)
+- Swagger UI: `http://localhost:8280/swagger`
+- OpenAPI spec: `http://localhost:8280/openapi` (YAML: `/openapi.yaml`)
+- Actuator: `http://localhost:8280/actuator/health`, `/actuator/info`, `/actuator/metrics`
