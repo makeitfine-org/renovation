@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "postgres-renovation": {
+      "type": "stdio",
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://${RENOVATION_BACKEND_URL}"
+      ]
+    }
+  }
+}
