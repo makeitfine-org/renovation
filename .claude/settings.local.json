@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /home/eug/dev/projects/my/renovation/frontend/src -type f \\\\\\( -name \"*.vue\" -o -name \"*.ts\" -o -name \"*.js\" \\\\\\) 2>/dev/null | head -30)",
+      "Bash(find /home/eug/dev/projects/my/renovation/auxiliary -type f -name \"*prometheus*\" -o -name \"*grafana*\" -o -name \"*jaeger*\" -o -name \"*loki*\" 2>/dev/null | head -20)",
+      "Bash(find backend/src/main/kotlin -name \"*.kt\" -exec wc -l {} + | tail -1)",
+      "Bash(find /home/eug/dev/projects/my/renovation/frontend-info/src -type f \\\\\\( -name \"*.vue\" -o -name \"*.ts\" -o -name \"*.js\" \\\\\\) 2>/dev/null | head -30)",
+      "Bash(find /home/eug/dev/projects/my/renovation -name \"*.dockerfile\" -o -name \"no-security.Dockerfile\" 2>/dev/null | head -10)",
+      "Bash(grep -r \"todo:\" /home/eug/dev/projects/my/renovation/frontend -type f \\\\\\( -name \"*.js\" -o -name \"*.vue\" \\\\\\) 2>/dev/null)",
+      "Bash(grep -r \"TODO\\\\|FIXME\\\\|HACK\\\\|XXX\" /home/eug/dev/projects/my/renovation/frontend/src --include=\"*.js\" --include=\"*.vue\" 2>/dev/null | head -20)",
+      "Bash(wc -l /home/eug/dev/projects/my/renovation/frontend/src/component/*.vue)",
+      "Bash(grep -r \"N\\\\+1\\\\|select \\\\*\\\\|lazy\\\\|eager\" /home/eug/dev/projects/my/renovation -type f --include=\"*.kt\" --include=\"*.yml\" | grep -i \"problem\\\\|issue\\\\|todo\" | head -5)",
+      "Bash(./gradlew ktlintCheck --continue 2>&1 | tail -60)",
+      "Bash(./gradlew :backend:ktlintCheck 2>&1 | grep \"\\\\.kt:\")",
+      "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\" | head -30)",
+      "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\")",
+      "Bash(ls /home/eug/dev/projects/my/renovation/.env* 2>/dev/null)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r '\"\\u001b[36m\\(.model.display_name)\\u001b[0m | context: \\u001b[33m\\(.context_window.used_percentage // 0)%\\u001b[0m | limit: \\u001b[32m\\(.rate_limits.five_hour.used_percentage)% [\\(.rate_limits.five_hour.resets_at | strflocaltime(\"%H:%M\"))]\\u001b[0m\"'"
+  }
+}
