@@ -36,6 +36,18 @@ dependencies {
     testImplementation(libs.quarkus.junit4.mock)
 }
 
+dependencyManagement {
+    dependencies {
+        dependencySet("org.testcontainers:${properties["testcontainersVersion"]}") {
+            entry("testcontainers")
+            entry("junit-jupiter")
+            entry("postgresql")
+            entry("jdbc")
+            entry("database-commons")
+        }
+    }
+}
+
 tasks.generateJava {
     generateClient = true
     packageName = "renovation.info.generated.dgs"

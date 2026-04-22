@@ -28,3 +28,15 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation(libs.testcontainers.keycloak)
 }
+
+dependencyManagement {
+    dependencies {
+        dependencySet("org.testcontainers:${properties["testcontainersVersion"]}") {
+            entry("testcontainers")
+            entry("junit-jupiter")
+            entry("postgresql")
+            entry("jdbc")
+            entry("database-commons")
+        }
+    }
+}
