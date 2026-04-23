@@ -137,7 +137,26 @@ Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 - MongoDB: 27117 → 27017
 - Redis: 6479 → 6379
 
+**MCP tools available:** `mcp__postgres-renovation__query`
+
 ### Useful Endpoints (local)
 - Swagger UI: `http://localhost:8280/swagger`
 - OpenAPI spec: `http://localhost:8280/openapi` (YAML: `/openapi.yaml`)
 - Actuator: `http://localhost:8280/actuator/health`, `/actuator/info`, `/actuator/metrics`
+
+
+## Important Rules
+- **Always write tests** for new features
+
+## Claude Code Workflow
+
+- Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
+- Commits: semantic message (max 80 chars in header and max 240 chars in context), no `Co-Authored-By` trailer
+
+## Compact instructions
+
+When you are using compact, please focus on test output and code changes
+
+## Meta
+
+The human monitors you in an IDE. Minimize mistakes they need to catch. You have unlimited stamina — the human does not. Loop on hard problems, not wrong problems.
