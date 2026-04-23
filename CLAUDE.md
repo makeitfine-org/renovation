@@ -139,6 +139,21 @@ Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 
 **MCP tools available:** `mcp__postgres-renovation__query`
 
+## Documentation First
+
+Consult official docs via MCP before writing ANY code. Zero tolerance for deprecated code.
+
+- Each skill lists its MCP servers and documentation sources — **load the skill first**
+- When in doubt, **query the MCP server first**
+- Fallback: `Context7` MCP for any library not covered by a dedicated MCP server
+
+**No Deprecated or Outdated Code:**
+- **ALWAYS** use latest stable syntax and features from official documentation
+- **NEVER** generate deprecated methods, classes, or patterns
+- **ALWAYS** verify API signatures against current documentation before generating code
+- **ALWAYS** check for breaking changes in recent versions
+
+
 ### Useful Endpoints (local)
 - Swagger UI: `http://localhost:8280/swagger`
 - OpenAPI spec: `http://localhost:8280/openapi` (YAML: `/openapi.yaml`)
@@ -152,6 +167,7 @@ Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 
 - Use **Context7 MCP** proactively for library/API docs — don't wait to be asked
 - Commits: semantic message (max 80 chars in header and max 240 chars in context), no `Co-Authored-By` trailer
+- Also search for environment variables definition in .claude/setting.json in "env" field
 
 ## Compact instructions
 

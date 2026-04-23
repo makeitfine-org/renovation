@@ -4,6 +4,7 @@
   "env": {
     "CLAUDE_CODE_EFFORT_LEVEL": "auto",
     "RENOVATION_BACKEND_URL": "postgres:postgres1@localhost:5532/postgres?currentSchema=renovation",
+    "MONGO_DB_URI": "mongodb://infouser:infopassword@localhost:27117/infodb",
     "MAX_THINKING_TOKENS": 10000,
     "MAX_MCP_OUTPUT_TOKENS": 10000,
     "CLAUDE_CODE_MAX_RETRIES": 5
@@ -31,7 +32,8 @@
   },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "postgres-renovation"
+    "postgres-renovation",
+    "mongodb-renovation"
   ],
   "statusLine": {
     "type": "command",

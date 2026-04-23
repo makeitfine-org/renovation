@@ -8,7 +8,16 @@
         "-y",
         "@modelcontextprotocol/server-postgres",
         "postgresql://${RENOVATION_BACKEND_URL}"
-      ]
+      ],
+      "comment": "https://github.com/modelcontextprotocol/servers"
+    },
+    "mongodb-renovation": {
+      "command": "npx",
+      "args": ["-y", "mongodb-mcp-server@latest", "--readOnly"],
+      "env": {
+        "MDB_MCP_CONNECTION_STRING": "${MONGO_DB_URI}"
+      },
+      "comment": "Install: m -rvf ~/.npm/_npx && npm install -g mongodb-mcp-server"
     }
   }
 }
