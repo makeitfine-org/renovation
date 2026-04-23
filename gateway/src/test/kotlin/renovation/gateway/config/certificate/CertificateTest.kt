@@ -6,10 +6,8 @@
 
 package renovation.gateway.config.certificate
 
-import io.restassured.RestAssured
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
@@ -27,15 +25,13 @@ internal class CertificateTest(
     @LocalServerPort private val port: Int,
 ) {
 
-    @BeforeTest
-    fun init() {
-        RestAssured.baseURI = "https://localhost:$port"
-        RestAssured.requestSpecification = given().relaxedHTTPSValidation("TLS")
-    }
+    private fun httpsGiven() = given()
+        .baseUri("https://localhost:$port")
+        .relaxedHTTPSValidation("TLS")
 
     @Test
     fun `Assert user page`() { // todo: e2e (ui test) with oauth2 login by github/google
-        When {
+        httpsGiven().When {
             get("/certificate/user")
         }.Then {
             statusCode(HttpStatus.SC_OK)
@@ -54,7 +50,7 @@ internal class CertificateTest(
 
     @Test
     fun `Assert logout page`() {
-        When {
+        httpsGiven().When {
             get("/logout")
         }.Then {
             statusCode(HttpStatus.SC_OK)

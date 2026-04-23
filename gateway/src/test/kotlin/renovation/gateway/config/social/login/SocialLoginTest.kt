@@ -6,10 +6,8 @@
 
 package renovation.gateway.config.social.login
 
-import io.restassured.RestAssured
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import org.apache.http.HttpStatus
 import org.hamcrest.CoreMatchers
@@ -27,11 +25,6 @@ import renovation.common.util.Rest.given
 internal class SocialLoginTest(
     @LocalServerPort private val port: Int,
 ) {
-
-    @BeforeTest
-    fun init() {
-        RestAssured.port = port
-    }
 
     @Test
     fun `Assert about page`() {

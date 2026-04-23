@@ -139,7 +139,8 @@ subprojects {
         tasks.withType<Test> {
             jvmArgs = mutableListOf("--enable-preview")
 
-            maxParallelForks = Runtime.getRuntime().availableProcessors()
+            // todo: disable for all processes not to be used.
+            // maxParallelForks = Runtime.getRuntime().availableProcessors()
 
             testLogging {
                 showStandardStreams = false
