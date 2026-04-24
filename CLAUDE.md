@@ -114,8 +114,9 @@ Testcontainers images used in integration tests:
 - Redis: `redis:7.2.3-alpine`
 
 ## Code Quality
+- **Pinned versions:** Kotlin 1.9.21, JDK 21, Spring Boot 3.2.0, Netflix DGS 8.2.0, Vue 3.2.26
 - **ktlint 1.0.1** enforces Kotlin style (CI-required)
-- **detekt 1.23.4** for static analysis
+- **detekt 1.23.4** for static analysis (config: `auxiliary/code/detekt/config.yml`)
 - **Kover** for code coverage (100% target with configured exclusions)
 - **OWASP DependencyCheck** for vulnerability scanning
 - Git hooks enforce a custom commit format (`#<task-number> <description>` or `WIP <description>`, max 80 chars for the description) and run checks pre-push
@@ -137,7 +138,25 @@ Local dev uses `.env` file for Docker Compose variable substitution. Key ports:
 - MongoDB: 27117 → 27017
 - Redis: 6479 → 6379
 
-**MCP tools available:** `mcp__postgres-renovation__query`
+**MCP tools available:** `mcp__postgres-renovation__query`, `mcp__mongodb-renovation__*` (read-only), `mcp__context7__*` (library docs).
+
+DB credentials are resolved from `.claude/settings.local.json` (gitignored per-developer overrides). Keep them out of the committed `.claude/settings.json`.
+
+## Per-module guidance
+Each submodule has its own concise `CLAUDE.md` that Claude Code auto-loads when you edit inside it:
+- `backend/CLAUDE.md` — REST API, Liquibase, PostgreSQL + Redis
+- `info/CLAUDE.md` — DGS GraphQL on MongoDB
+- `gateway/CLAUDE.md` — Spring Cloud Function, OAuth2 client
+- `frontend/CLAUDE.md` — Vue 3 SPA bundled into backend
+- `frontend-info/CLAUDE.md` — standalone Vue 3 SPA + keycloak-js
+- `common/CLAUDE.md` — shared Kotlin library
+- `api-test/CLAUDE.md` — JUnit 5 + Rest Assured suite
+
+## Claude resources
+- `.claude/rules/` — focused rule files (commit-format, kotlin-style, vue-components, testing, no-deprecated, mcp-usage)
+- `.claude/skills/` — slash-command workflows: `/stack-up`, `/stack-down`, `/ktlint-fix`, `/full-build`, `/new-liquibase-changeset`, `/dgs-resolver`, `/run-api-test`
+- `.claude/hooks/` — advisory hooks (commit-msg validator, build-output edit guard, ktlint reminder, test-failure summary)
+- `.claude/output-styles/renovation-concise.md` — opt-in concise style (`/output-style renovation-concise`)
 
 ## Documentation First
 

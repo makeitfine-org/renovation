@@ -3,31 +3,51 @@
   "cleanupPeriodDays": 30,
   "env": {
     "CLAUDE_CODE_EFFORT_LEVEL": "auto",
-    "RENOVATION_BACKEND_URL": "postgres:postgres1@localhost:5532/postgres?currentSchema=renovation",
-    "MONGO_DB_URI": "mongodb://infouser:infopassword@localhost:27117/infodb",
     "MAX_THINKING_TOKENS": 10000,
     "MAX_MCP_OUTPUT_TOKENS": 10000,
     "CLAUDE_CODE_MAX_RETRIES": 5
   },
   "permissions": {
     "allow": [
-      "Bash(find /home/eug/dev/projects/my/renovation/frontend/src -type f \\\\\\( -name \"*.vue\" -o -name \"*.ts\" -o -name \"*.js\" \\\\\\) 2>/dev/null | head -30)",
-      "Bash(find /home/eug/dev/projects/my/renovation/auxiliary -type f -name \"*prometheus*\" -o -name \"*grafana*\" -o -name \"*jaeger*\" -o -name \"*loki*\" 2>/dev/null | head -20)",
-      "Bash(find backend/src/main/kotlin -name \"*.kt\" -exec wc -l {} + | tail -1)",
-      "Bash(find /home/eug/dev/projects/my/renovation/frontend-info/src -type f \\\\\\( -name \"*.vue\" -o -name \"*.ts\" -o -name \"*.js\" \\\\\\) 2>/dev/null | head -30)",
-      "Bash(find /home/eug/dev/projects/my/renovation -name \"*.dockerfile\" -o -name \"no-security.Dockerfile\" 2>/dev/null | head -10)",
-      "Bash(grep -r \"todo:\" /home/eug/dev/projects/my/renovation/frontend -type f \\\\\\( -name \"*.js\" -o -name \"*.vue\" \\\\\\) 2>/dev/null)",
-      "Bash(grep -r \"TODO\\\\|FIXME\\\\|HACK\\\\|XXX\" /home/eug/dev/projects/my/renovation/frontend/src --include=\"*.js\" --include=\"*.vue\" 2>/dev/null | head -20)",
-      "Bash(wc -l /home/eug/dev/projects/my/renovation/frontend/src/component/*.vue)",
-      "Bash(grep -r \"N\\\\+1\\\\|select \\\\*\\\\|lazy\\\\|eager\" /home/eug/dev/projects/my/renovation -type f --include=\"*.kt\" --include=\"*.yml\" | grep -i \"problem\\\\|issue\\\\|todo\" | head -5)",
-      "Bash(./gradlew ktlintCheck --continue 2>&1 | tail -60)",
-      "Bash(./gradlew :backend:ktlintCheck 2>&1 | grep \"\\\\.kt:\")",
-      "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\" | head -30)",
-      "Bash(./gradlew ktlintCheck --continue 2>&1 | grep -E \"\\(FAILED|PASSED|\\\\.kt:|BUILD\\)\")",
-      "Bash(ls /home/eug/dev/projects/my/renovation/.env* 2>/dev/null)",
-      "Bash(awk '{print $NF}')",
-      "Bash(xargs ls *)",
-      "mcp__postgres-renovation__query"
+      "Bash(./gradlew :*)",
+      "Bash(./gradlew ktlintCheck*)",
+      "Bash(./gradlew ktlintFormat*)",
+      "Bash(./gradlew detekt*)",
+      "Bash(./gradlew test*)",
+      "Bash(./gradlew integrationTest*)",
+      "Bash(./gradlew e2eTest*)",
+      "Bash(./gradlew buildAll*)",
+      "Bash(./gradlew assemble*)",
+      "Bash(./gradlew build*)",
+      "Bash(./gradlew clean*)",
+      "Bash(./gradlew koverVerify*)",
+      "Bash(./gradlew installGitHooks*)",
+      "Bash(docker compose*)",
+      "Bash(docker ps*)",
+      "Bash(docker logs*)",
+      "Bash(npm run*)",
+      "Bash(npm ci*)",
+      "Bash(npm install*)",
+      "Bash(wc -l *)",
+      "Bash(awk *)",
+      "Bash(xargs *)",
+      "Bash(ls *)",
+      "Bash(jq *)",
+      "Bash(curl -s http://localhost:*)",
+      "mcp__postgres-renovation__query",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs"
+    ],
+    "deny": [
+      "Bash(git push --force*:main)",
+      "Bash(git push --force*:develop)",
+      "Bash(git push -f*:main)",
+      "Bash(git push -f*:develop)",
+      "Bash(git reset --hard origin/*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf /home/*)",
+      "Bash(rm -rf $HOME*)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -35,8 +55,53 @@
     "postgres-renovation",
     "mongodb-renovation"
   ],
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/warn-build-output-edit.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/validate-commit-msg.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/ktlint-reminder.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/notify-test-fail.sh"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "jq -r '\"\\u001b[36m\\(.model.display_name)\\u001b[0m | context: \\u001b[33m\\(.context_window.used_percentage // 0)%\\u001b[0m | limit: \\u001b[32m\\(.rate_limits.five_hour.used_percentage)% [\\(.rate_limits.five_hour.resets_at | strflocaltime(\"%H:%M\"))]\\u001b[0m\"'"
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": false
   }
 }
