@@ -9,7 +9,7 @@ name: CI build, test
 
 on:
   push:
-    branches: [ "develop", "ai" ]
+    branches: [ "develop", "ai", "to_java" ]
   pull_request:
     branches: [ "develop" ]
   schedule:
@@ -36,7 +36,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '25.x'
 
       - run: ./gradlew buildAll
 
