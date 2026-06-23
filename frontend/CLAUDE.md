@@ -9,7 +9,7 @@ Vue 3 SPA for the main renovation backend — **bundled into the backend JAR** a
 - Vue Router 4, Vuex 4
 - Bootstrap 5.3
 - Axios 1.7
-- Node requires `--openssl-legacy-provider` (already wired in npm scripts)
+- No special Node flags required
 
 ## Scripts
 

@@ -36,7 +36,8 @@
       "Bash(curl -s http://localhost:*)",
       "mcp__postgres-renovation__query",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(npm *)"
     ],
     "deny": [
       "Bash(git push --force*:main)",

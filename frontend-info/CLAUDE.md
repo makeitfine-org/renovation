@@ -6,8 +6,8 @@ Standalone Vue 3 SPA that talks directly to the `:info` GraphQL endpoint. **Not 
 
 | Dependency | :frontend | :frontend-info |
 |---|---|---|
-| Vue CLI | 5.0.8 | **4.5.15** (older) |
-| Axios | 1.7.x | **0.24.0** (older) |
+| Vue CLI | 5.0.8 | 5.0.8 |
+| Axios | 1.7.x | 1.x |
 | OAuth | none — session cookie via gateway | **keycloak-js 18.0.1** direct |
 
 Other libs match: Vue 3.2.26, Vue Router 4, Vuex 4, Bootstrap 5.3.
@@ -34,6 +34,6 @@ Same as `:frontend` (see `rules/vue-components.md`). Prefer Composition API + `<
 
 ## Do not
 
-- Bump `vue-cli` to 5.x independently — it would silently diverge from `:frontend` tooling. Coordinate a joint upgrade.
+- Bump `vue-cli` independently — both SPAs are now aligned on Vue CLI 5.x; keep them in sync.
 - Hardcode the GraphQL endpoint URL in components — use the runtime config wiring.
 - Add the Keycloak dependency into `:frontend`; the two SPAs authenticate differently by design.
