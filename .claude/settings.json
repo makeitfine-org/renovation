@@ -103,5 +103,9 @@
   },
   "enabledPlugins": {
     "claude-mem@thedotmack": false
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r --arg e \"\u001b\" '\"\\($e)[1;35m\\(.model.display_name)\\($e)[0m | effort:\\($e)[0;36m \\(.effort.level)\\($e)[0m | context: \\($e)[33m\\(.context_window.used_percentage // 0)%\\($e)[0m\"'"
   }
 }
