@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - issue_69 #todo: remove issue_69 after merging to develop
 
 jobs:
   release:
@@ -22,13 +21,8 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Debug Git branches
-        run: |
-          git branch -a
-          git log --oneline --graph --all
-
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: auxiliary/deployment/charts # change it after deployment config completion
         env:
