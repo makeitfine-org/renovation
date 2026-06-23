@@ -1,4 +1,4 @@
-import {backendApi, infoGraphql, localhost} from "@/http-common"
+import {localhost} from "@/http-common"
 
 class WorkerDataService {
     getAllData() {

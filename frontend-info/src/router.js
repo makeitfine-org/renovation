@@ -4,7 +4,7 @@
  * Copyright 2021-2024
  */
 import {createRouter, createWebHistory} from 'vue-router'
-import Home from '@/component/Home'
+import Home from '@/component/Home.vue'
 
 const routing = {
     history: createWebHistory(),

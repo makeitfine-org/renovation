@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import WorkerItem from "@/component/worker/WorkerItem"
+import WorkerItem from "@/component/worker/WorkerItem.vue"
 
 export default {
   props: ['workers'],
