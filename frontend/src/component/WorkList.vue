@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import WorkItem from "@/component/WorkItem"
+import WorkItem from "@/component/WorkItem.vue"
 
 export default {
   props: ['works'],

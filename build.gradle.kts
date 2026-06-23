@@ -475,7 +475,7 @@ tasks.register<Delete>("removeOldPublic") {
     delete(
         fileTree("${rootProject.rootDir}/backend/src/main/resources/public")
             .matching {
-                include("index.html", "favicon.ico", "css/*.*", "js/*.*")
+                include("index.html", "favicon.ico", "css/*.*", "js/*.*", "assets/*.*")
             }
     )
 }

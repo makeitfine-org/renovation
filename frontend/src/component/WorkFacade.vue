@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import Loading from "@/component/Loading"
-import WorkList from "@/component/WorkList"
+import Loading from "@/component/Loading.vue"
+import WorkList from "@/component/WorkList.vue"
 import {mapActions, mapGetters} from 'vuex'
 
 export default {

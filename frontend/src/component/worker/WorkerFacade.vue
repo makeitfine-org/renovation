@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Loading from "@/component/Loading"
-import WorkerList from "@/component/worker/WorkerList"
+import Loading from "@/component/Loading.vue"
+import WorkerList from "@/component/worker/WorkerList.vue"
 import {mapActions, mapGetters} from 'vuex'
 
 export default {

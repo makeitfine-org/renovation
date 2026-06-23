@@ -5,19 +5,19 @@ Vue 3 SPA for the main renovation backend — **bundled into the backend JAR** a
 ## Stack
 
 - Vue **3.2.26**
-- Vue CLI **5.0.8** (not Vite)
+- **Vite 8** (migrated from Vue CLI 5)
 - Vue Router 4, Vuex 4
 - Bootstrap 5.3
 - Axios 1.7
-- No special Node flags required
 
 ## Scripts
 
 ```bash
 cd frontend
 npm ci
-npm run serve    # local dev server (proxy config in vue.config.js)
+npm run serve    # Vite dev server (proxy config in vite.config.js)
 npm run build    # outputs to frontend/dist/
+npm run preview  # preview production build locally
 npm run clean    # remove dist + node_modules
 ```
 
@@ -27,6 +27,14 @@ npm run clean    # remove dist + node_modules
 - `./gradlew :backend:copyDistToPublic` — copies `frontend/dist/` → `backend/src/main/resources/public/` (automatic on `:backend:build`)
 - Do **not** edit files under `backend/src/main/resources/public/` or `frontend/dist/` — they are regenerated.
 
+## Vite specifics
+
+- Entry point: `index.html` at project root (not in `public/`)
+- `@` alias resolves to `src/` (configured in `vite.config.js`)
+- Environment variables: use `VITE_` prefix, accessed via `import.meta.env.VITE_*` (not `process.env.VUE_APP_*`)
+- Dev server proxy for `/api` and `/logout-without-redirect` in `vite.config.js`
+- Build output: `dist/{index.html, favicon.ico, assets/*}` (not `css/` + `js/` like Vue CLI)
+
 ## Conventions (`rules/vue-components.md`)
 
 - Composition API with `<script setup>` for new components.
@@ -34,6 +42,7 @@ npm run clean    # remove dist + node_modules
 - Vuex 4 modules under `src/store/modules/`; mutations sync, side effects in actions.
 - Use the shared axios instance; don't `import axios` fresh in components.
 - Calls target same-origin `/api/*` — no CORS gymnastics needed.
+- Always use explicit file extensions in imports (`.vue`, `.js`).
 
 ## Tests
 
